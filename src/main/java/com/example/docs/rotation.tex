@@ -1,0 +1,215 @@
+\documentclass{report}
+
+
+
+
+
+\usepackage{amsmath,amssymb,geometry}
+
+
+\newcommand{\eqn}[2]{
+\begin{equation}\begin{split}
+#1
+\label{#2}
+\end{split}\end{equation}
+}
+
+
+\Large
+\begin{document}
+
+
+
+
+
+
+
+
+Two JavaFX rectangles with constructor arguments $(X_1,Y_1,W_1,H_1)$ and $(X_2,Y_2,W_2,H_2)$ are given. Two points $(A_1,B_1)$ and $(A_2,B_2)$ are chosen, one for each rectangle. If both the rectangles rotate as much as $\theta$, the new coordinates are
+\eqn{
+&
+X_1^\text{rot}=
+X_1+\frac{W_1}{2}
++\left(A_1-X_1-\frac{W_1}{2}\right)\cos\theta
+-\left(B_1-Y_1-\frac{H_1}{2}\right)\sin\theta,
+\\&
+Y_1^\text{rot}=
+Y_1+\frac{H_1}{2}
++\left(A_1-X_1-\frac{W_1}{2}\right)\sin\theta
++\left(B_1-Y_1-\frac{H_1}{2}\right)\cos\theta,
+}{}
+and
+\eqn{
+&
+X_2^\text{rot}=
+X_2+\frac{W_2}{2}
++\left(A_2-X_2-\frac{W_2}{2}\right)\cos\theta
+-\left(B_2-Y_2-\frac{H_2}{2}\right)\sin\theta,
+\\&
+Y_2^\text{rot}=
+Y_2+\frac{H_2}{2}
++\left(A_2-X_2-\frac{W_2}{2}\right)\sin\theta
++\left(B_2-Y_2-\frac{H_2}{2}\right)\cos\theta.
+}{}
+We enforce $X_1^\text{rot}=X_2^\text{rot}$ and $Y_1^\text{rot}=Y_2^\text{rot}$. We know that $A_i-X_i-\frac{W_i}{2}=a_i\frac{W_i}{2}$ and $B_i-Y_i-\frac{H_i}{2}=b_i\frac{H_i}{2}$. These values are given in the following table for the eight corner points. Hence,
+\eqn{
+&
+X_2+\frac{W_2}{2}
++\frac{a_2W_2}{2}\cos\theta
+-\frac{b_2H_2}{2}\sin\theta
+=
+X_1+\frac{W_1}{2}
++\frac{a_1W_1}{2}\cos\theta
+-\frac{b_1H_1}{2}\sin\theta
+\\&
+Y_2+\frac{H_2}{2}
++\frac{a_2W_2}{2}\sin\theta
++\frac{b_2H_2}{2}\cos\theta
+=
+Y_1+\frac{H_1}{2}
++\frac{a_1W_1}{2}\sin\theta
++\frac{b_1H_1}{2}\cos\theta
+}{}
+or
+\eqn{
+&
+X_2
+=
+X_1+\frac{W_1-W_2}{2}
++\frac{a_1W_1-a_2W_2}{2}\cos\theta
+-\frac{b_1H_1-b_2H_2}{2}\sin\theta
+\\&
+Y_2
+=
+Y_1+\frac{H_1-H_2}{2}
++\frac{a_1W_1-a_2W_2}{2}\sin\theta
++\frac{b_1H_1-b_2H_2}{2}\cos\theta.
+}{}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+index&$a_1$&$b_1$\\\hline
+0&-1&-1\\\hline
+1&-1&0\\\hline
+2&-1&1\\\hline
+3&0&1\\\hline
+4&1&1\\\hline
+5&1&0\\\hline
+6&1&-1\\\hline
+7&0&-1\\\hline
+\end{tabular}
+\end{table}
+
+We can assume that $a_1=a_2=a$ and $b_1=b_2=b$. Hence, by defining $H_1-H_2=\delta_\text{H}$ and $W_1-W_2=\delta_\text{W}$ we have
+\eqn{
+&
+X_2=X_1+\frac{\delta_\text{W}}{2}(1+a\cos\theta)-\frac{b\delta_\text{H}}{2}\sin\theta,
+\\&
+Y_2=Y_1+\frac{a\delta_\text{W}}{2}\sin\theta+\frac{\delta_\text{H}}{2}(1+b\cos\theta).
+}{}
+
+\newpage
+
+On dynamicDragRectangle:
+
+\begin{enumerate}
+\item
+onMousePressed
+\begin{enumerate}
+\item
+On Ctrl button up:
+\begin{enumerate}
+\item
+If pressed mouse on no shape (mouse press location contained by no shape), unselect all shapes and set to drawing dynamicDragRectangle.
+\item
+If pressed mouse on an unselected shape, unselect all and select the highest-layer shape containing the mouse press location.
+\item
+If pressed mouse on a selected shape, do nothing.
+\end{enumerate}
+\end{enumerate}
+\item
+onMouseDragged
+\begin{enumerate}
+\item
+On Ctrl button up or down:
+\begin{enumerate}
+\item
+I suspect we only need to move the selected objects.
+\end{enumerate}
+\end{enumerate}
+\end{enumerate}
+
+
+
+
+
+\section{Resizing}
+
+
+The resizing transformation can be generally described as two independent resizing along two perpendicular vectors. WLOG, we can assume these vectors to be $v_1=[\cos \theta,\sin \theta]$ and $v_2=[-\sin \theta,\cos \theta]$. They resize, so that the new vectors are $v_1^\text{new}=[s_x\cos \theta,s_x\sin \theta]$ and $v_2^\text{new}=[-s_y\sin \theta,s_y\cos \theta]$. We wish to find out what happens to the whole space.
+
+Fortunately, such a transformation linear and invertible. This means that we can model whole the transformation process by a matrix. We assume then, that the transformation is a result of three consecutive transformations:
+
+1- The plane is rotated as much as $-\theta$.
+
+2- The plane is scaled as much as $s_x$ and $s_y$ along the x- and y- axes, resp.
+
+3- The plane is rotated as much as $\theta$.
+
+The resizing transformation matrix is then
+\eqn{
+R&=\begin{bmatrix}
+\cos \theta&-\sin\theta\\
+\sin \theta&\cos\theta
+\end{bmatrix}
+\begin{bmatrix}
+s_x&0\\0&s_y
+\end{bmatrix}
+\begin{bmatrix}
+\cos \theta&\sin\theta\\
+-\sin \theta&\cos\theta
+\end{bmatrix}
+\\&=
+\begin{bmatrix}
+\cos \theta&-\sin\theta\\
+\sin \theta&\cos\theta
+\end{bmatrix}
+\begin{bmatrix}
+s_x\cos \theta&s_x\sin\theta\\
+-s_y\sin \theta&s_y\cos\theta
+\end{bmatrix}
+\\&=
+\begin{bmatrix}
+s_x\cos^2 \theta+s_y\sin^2\theta&(s_x-s_y)\sin\theta\cos\theta\\
+(s_x-s_y)\sin\theta\cos\theta&s_x\sin^2 \theta+s_y\cos^2\theta
+\end{bmatrix}
+}{}
+
+If a point $\begin{bmatrix}p_x&p_y\end{bmatrix}^T$ is regarded as a fixed point, a translation is needed as much as
+\eqn{
+(I-R)\begin{bmatrix}p_x\\p_y\end{bmatrix}=
+\begin{bmatrix}
+1-s_x\cos^2 \theta-s_y\sin^2\theta&(s_y-s_x)\sin\theta\cos\theta\\
+(s_y-s_x)\sin\theta\cos\theta&1-s_x\sin^2 \theta-s_y\cos^2\theta
+\end{bmatrix}
+\begin{bmatrix}p_x\\p_y\end{bmatrix}
+}{}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
