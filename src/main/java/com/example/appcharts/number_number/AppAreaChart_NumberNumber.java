@@ -3,7 +3,7 @@ package com.example.appcharts.number_number;
 import com.example.configuration.Configs;
 import com.example.structures.AppXYChart;
 import com.example.styles.BackgroundsProperty;
-import com.example.styles.AppColor;
+import com.example.apppaints.AppColor;
 import com.example.styles.SeriesLineStyleProperty;
 import com.example.styles.SeriesMarkersStyleProperty;
 import com.example.tools.TeXConversion;

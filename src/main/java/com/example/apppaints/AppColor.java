@@ -1,4 +1,4 @@
-package com.example.styles;
+package com.example.apppaints;
 
 import javafx.scene.paint.Color;
 

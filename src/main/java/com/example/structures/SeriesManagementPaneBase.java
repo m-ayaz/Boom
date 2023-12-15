@@ -70,6 +70,7 @@ public abstract class SeriesManagementPaneBase extends VBox {
 
         dataSetPaneChildren.addListener((ListChangeListener< Node>) change->autosize());
 
+
     }
 
     void setGraphics() {
@@ -79,6 +80,8 @@ public abstract class SeriesManagementPaneBase extends VBox {
     public abstract void setLoadDataFromFile();
 
     public abstract void setPaneBySeries();
+
+    protected abstract void setPrimaryAddButton();
 
     void setSizes(boolean isLineNull, boolean isAreaNull) {
         setSize(primaryAddButton, 40, 40);

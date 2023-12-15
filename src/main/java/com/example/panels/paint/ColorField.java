@@ -1,14 +1,11 @@
 package com.example.panels.paint;
 
-import com.example.styles.AppColor;
-import com.example.styles.AppPaint;
-import javafx.beans.property.SimpleObjectProperty;
+import com.example.apppaints.AppColor;
+import com.example.apppaints.AppPaint;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 public class ColorField extends PaintField {
 

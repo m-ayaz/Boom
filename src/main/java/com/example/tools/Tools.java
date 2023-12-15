@@ -242,16 +242,21 @@ public class Tools {
         propertyTo.width.set(propertyFrom.width.get());
     }
 
-    static void deepCopy(BackgroundsProperty propertyFrom, BackgroundsProperty propertyTo) {
-        propertyTo.fillArray.clear();
-        propertyTo.strokeArray.clear();
-        propertyTo.fillArray.addAll(propertyFrom.fillArray);
-        propertyTo.strokeArray.addAll(propertyFrom.strokeArray);
-        propertyTo.setStrokeWidth(propertyFrom.strokeWidth.get());
-    }
+//    static void deepCopy(BackgroundsProperty propertyFrom, BackgroundsProperty propertyTo) {
+//        propertyTo.getFillArray().clear();
+//        propertyTo.getStrokeArray().clear();
+//        propertyTo.getFillArray().addAll(propertyFrom.getFillArray());
+//        propertyTo.getStrokeArray().addAll(propertyFrom.getStrokeArray());
+//        propertyTo.setStrokeWidth(propertyFrom.getStrokeArray().get());
+//    }
 
     public static <T1, T2> void deepCopy(AppXYChart<T1, T2> chartFrom, AppXYChart<T1, T2> chartTo) {
-        deepCopy(chartFrom.getBackgroundStyle(), chartTo.getBackgroundStyle());
+        try {
+            throw new RuntimeException("sdasd");
+        }catch (Exception e){
+            print(e);
+        }
+//        deepCopy(chartFrom.getBackgroundStyle(), chartTo.getBackgroundStyle());
         deepCopy(chartFrom.affineTransform, chartTo.affineTransform);
         for (int i = 0; i < ((XYChart<T1, T2>) chartFrom.node).getData().size(); i++) {
             XYChart.Series<T1, T2> series = ((XYChart<T1, T2>) chartFrom.node).getData().get(i);
@@ -260,7 +265,8 @@ public class Tools {
                 XYChart.Data<T1, T2> data = series.getData().get(j);
                 chartTo.addData(data.getXValue(), data.getYValue(), i, j);
                 try {
-                    deepCopy(chartFrom.getSeriesAreaStyles().get(i), chartTo.getSeriesAreaStyles().get(i));
+                    throw new Exception("Fix here");
+//                    deepCopy(chartFrom.getSeriesAreaStyles().get(i), chartTo.getSeriesAreaStyles().get(i));
                 } catch (Exception e) {
                     print(e);
                     print("%s does not have AREA".formatted(chartFrom.node.getClass().getSimpleName()));

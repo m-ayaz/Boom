@@ -30,6 +30,8 @@ module com.example.Boom {
     exports com.example.appcharts.number_string;
     opens com.example.styles to javafx.fxml;
     exports com.example.styles;
+    exports com.example.apppaints;
+    opens com.example.apppaints to javafx.fxml;
 
 }
  

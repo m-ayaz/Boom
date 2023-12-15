@@ -2,8 +2,8 @@ package com.example.test;
 
 import com.example.configuration.Configs;
 import com.example.panels.paint.PaintManagementPane;
-import com.example.styles.AppColor;
-import com.example.styles.AppLinearGradient;
+import com.example.apppaints.AppColor;
+import com.example.apppaints.AppLinearGradient;
 import com.example.styles.BackgroundsProperty;
 import javafx.application.Application;
 import javafx.scene.Scene;

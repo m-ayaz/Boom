@@ -72,8 +72,8 @@ public class SeriesManagementPane_NumberString extends SeriesManagementPaneBase 
         }
     }
 
-
-    void setPrimaryAddButton() {
+@Override
+    protected void setPrimaryAddButton() {
         dataSetPaneChildren.add(new HBox(primaryEmptySpace, primaryAddButton));
         primaryEmptySpace.setVisible(false);
         primaryAddButton.setOnMouseEntered(mouseEvent -> primaryEmptySpace.setVisible(true));

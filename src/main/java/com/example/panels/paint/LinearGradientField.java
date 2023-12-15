@@ -1,16 +1,13 @@
 package com.example.panels.paint;
 
-import com.example.styles.AppLinearGradient;
-import com.example.styles.AppPaint;
+import com.example.apppaints.AppLinearGradient;
+import com.example.apppaints.AppPaint;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
-
-import static com.example.tools.Tools.print;
 
 public class LinearGradientField extends PaintField {
 
@@ -47,30 +44,30 @@ public class LinearGradientField extends PaintField {
 
 //        this.appLinearGradient = appLinearGradient;
 
-        updateStopsSelectorItems(appLinearGradient);
+//        updateStopsSelectorItems(appLinearGradient);
 
         startX.setText(appLinearGradient.startX.getValue().toString());
         startY.setText(appLinearGradient.startY.getValue().toString());
         endX.setText(appLinearGradient.endX.getValue().toString());
         endY.setText(appLinearGradient.endY.getValue().toString());
 
-        ObservableList<Stop> stops = appLinearGradient.stops;
+//        ObservableList<AppStop> stops = appLinearGradient.stops;
 
-        stopsSelector.setOnAction(event -> {
-
-            int index = stopsSelector.getItems().indexOf(stopsSelector.getValue());
-            if(index!=-1) {
-                stopProportion.setText(String.valueOf(stops.get(index).getOffset()));
-                stopColor.setValue(stops.get(index).getColor());
-            }
-        });
-
-        stopColor.setOnAction(event -> {
-            int index=stopsSelector.getItems().indexOf(stopsSelector.getValue());
-            if(index!=-1){
-                stops.set(index,new Stop(stops.get(index).getOffset(),stopColor.getValue()));
-            }
-        });
+//        stopsSelector.setOnAction(event -> {
+//
+//            int index = stopsSelector.getItems().indexOf(stopsSelector.getValue());
+//            if(index!=-1) {
+//                stopProportion.setText(String.valueOf(stops.get(index).getOffset()));
+//                stopColor.setValue(stops.get(index).getColor());
+//            }
+//        });
+//
+//        stopColor.setOnAction(event -> {
+//            int index=stopsSelector.getItems().indexOf(stopsSelector.getValue());
+//            if(index!=-1){
+//                stops.set(index,new Stop(stops.get(index).getOffset(),stopColor.getValue()));
+//            }
+//        });
 
         setGriding();
 
@@ -78,13 +75,13 @@ public class LinearGradientField extends PaintField {
 
         });
 
-        removeStopButton.setOnAction(event -> {
-            int index = stopsSelector.getItems().indexOf(stopsSelector.getValue());
-            if (index != -1) {
-                appLinearGradient.stops.remove(index);
-                updateStopsSelectorItems(appLinearGradient);
-            }
-        });
+//        removeStopButton.setOnAction(event -> {
+//            int index = stopsSelector.getItems().indexOf(stopsSelector.getValue());
+//            if (index != -1) {
+//                appLinearGradient.appStops.remove(index);
+//                updateStopsSelectorItems(appLinearGradient);
+//            }
+//        });
 
         removeButton.setOnAction(event -> {
             fillArray.remove(appLinearGradient);
@@ -112,11 +109,11 @@ public class LinearGradientField extends PaintField {
 
     }
 
-    void updateStopsSelectorItems(AppLinearGradient appLinearGradient) {
-        stopsSelector.getItems().clear();
-        for (int j = 0; j < appLinearGradient.stops.size(); j++) {
-            stopsSelector.getItems().add("Stop#" + (j + 1));
-        }
-    }
+//    void updateStopsSelectorItems(AppLinearGradient appLinearGradient) {
+//        stopsSelector.getItems().clear();
+//        for (int j = 0; j < appLinearGradient.appStops.size(); j++) {
+//            stopsSelector.getItems().add("Stop#" + (j + 1));
+//        }
+//    }
 
 }

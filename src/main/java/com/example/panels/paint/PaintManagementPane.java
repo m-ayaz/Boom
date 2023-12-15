@@ -1,7 +1,7 @@
 package com.example.panels.paint;
 
-import com.example.styles.AppColor;
-import com.example.styles.AppLinearGradient;
+import com.example.apppaints.AppColor;
+import com.example.apppaints.AppLinearGradient;
 import com.example.styles.BackgroundsProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -26,11 +26,11 @@ public class PaintManagementPane extends Pane {
 
     public void registerBackgrounds(BackgroundsProperty backgrounds) {
         this.backgrounds = backgrounds;
-        backgrounds.fillArray.forEach(paint -> {
+        backgrounds.getFillArray().forEach(paint -> {
             if (paint.getClass().getName().equals(AppColor.class.getName())) {
-                children.add(new ColorField(backgrounds.fillArray, children, (AppColor) paint));
+                children.add(new ColorField(backgrounds.getFillArray(), children, (AppColor) paint));
             } else if (paint.getClass().getName().equals(AppLinearGradient.class.getName())) {
-                children.add(new LinearGradientField(backgrounds.fillArray, children, (AppLinearGradient) paint));
+                children.add(new LinearGradientField(backgrounds.getFillArray(), children, (AppLinearGradient) paint));
             }
         });
     }
