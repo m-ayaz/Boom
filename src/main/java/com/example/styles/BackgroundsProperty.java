@@ -11,9 +11,9 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static com.example.tools.Tools.print;
-
 public class BackgroundsProperty extends SimpleStringProperty {
+
+
 
     ObservableList<AppPaint> fillArray = FXCollections.observableList(new ArrayList<>());
     ObservableList<AppPaint> strokeArray = FXCollections.observableList(new ArrayList<>());

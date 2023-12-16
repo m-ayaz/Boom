@@ -44,22 +44,14 @@ public class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
         XYChart.Series<Number, Number> newSeries = new XYChart.Series<>();
         ((XYChart<Number, Number>) node).getData().add(index, newSeries);
         SeriesLineStyleProperty seriesLineStyle = new SeriesLineStyleProperty();
-        BackgroundsProperty seriesAreaStyle = new BackgroundsProperty("-fx-fill","-fx-stroke","-fx-stroke-width");
-//        seriesAreaStyle.fill.set((Color) ((Path)newSeries.getNode().lookup(".chart-series-area-fill")).getFill());
-//        seriesAreaStyle.stroke.set((Color) ((Path)newSeries.getNode().lookup(".chart-series-area-fill")).getStroke());
-//        seriesLineStyle.color.set((Color) ((Path)newSeries.getNode().lookup(".chart-series-area-line")).getStroke());
-//        seriesLineStyle.width.set((Color) ((Path)newSeries.getNode().lookup(".chart-series-area-line")).get());
-//        print("size = "+Configs.colorConfigs);
-//        print("size = "+Configs.configs);
+        BackgroundsProperty seriesAreaStyle = new BackgroundsProperty("-fx-fill", "-fx-stroke", "-fx-stroke-width");
         newSeries.getNode().lookup(".chart-series-area-fill").styleProperty().bind(seriesAreaStyle);
         newSeries.getNode().lookup(".chart-series-area-line").styleProperty().bind(seriesLineStyle);
-//        seriesAreaStyle.fill.set(Color.valueOf(Configs.colorConfigs.get("SERIES_AREA_COLOR").get(index%Configs.colorConfigs.get("SERIES_AREA_COLOR").size())));
-        seriesAreaStyle.addFill(0,new AppColor(Color.valueOf(Configs.colorConfigs.get("SERIES_AREA_COLOR").get(index%Configs.colorConfigs.get("SERIES_AREA_COLOR").size()))));
-        seriesLineStyle.color.set(Color.valueOf(Configs.colorConfigs.get("SERIES_LINE_COLOR").get(index%Configs.colorConfigs.get("SERIES_LINE_COLOR").size())));
+        seriesAreaStyle.addFill(0, new AppColor(Color.valueOf(Configs.colorConfigs.get("SERIES_AREA_COLOR").get(index % Configs.colorConfigs.get("SERIES_AREA_COLOR").size()))));
+        seriesLineStyle.color.set(Color.valueOf(Configs.colorConfigs.get("SERIES_LINE_COLOR").get(index % Configs.colorConfigs.get("SERIES_LINE_COLOR").size())));
         seriesAreaStyles.add(index, seriesAreaStyle);
         seriesLineStyles.add(index, seriesLineStyle);
         seriesMarkersStyles.add(index, new SeriesMarkersStyleProperty());
-//        seriesAreaStyle.fill.set(new Color(1,0,0,0.5));
         return newSeries;
     }
 
@@ -97,7 +89,7 @@ public class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
             int seriesIndex = ((XYChart<?, ?>) node).getData().indexOf(series);
             dataString.append("\n\t\\addplot[");
 //            dataString.append(TeXConversion.colorAsFill(seriesAreaStyles.get(seriesIndex).fill.get(),2)).append(",");
-            dataString.append(TeXConversion.colorAsStroke(seriesLineStyles.get(seriesIndex).color.get(),2)).append(",");
+            dataString.append(TeXConversion.colorAsStroke(seriesLineStyles.get(seriesIndex).color.get(), 2)).append(",");
             dataString.append("\n\t]");
             dataString.append("\n\tcoordinates{").append(series.getData().stream().map(obj -> "(" + obj.getXValue() + "," + obj.getYValue() + ")").collect(Collectors.joining())).append("}\\closedcycle;");
         }
@@ -107,8 +99,8 @@ public class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
 //                TeXConversion.colorAsFill(backgroundStyle.fill.get(),3)+","+
 //                TeXConversion.colorAsStroke(backgroundStyle.stroke.get(),3)+","+
                 "\n\t\t}," +
-                TeXConversion.tickMarks(xAxisArea.getTickMarks(),2)+","+
-                TeXConversion.tickMarks(yAxisArea.getTickMarks(),2)+","+
+                TeXConversion.tickMarks(xAxisArea.getTickMarks(), 2) + "," +
+                TeXConversion.tickMarks(yAxisArea.getTickMarks(), 2) + "," +
                 "\n\t\twidth = %fpt,".formatted(plotAreaBounds.get().getWidth()) +
                 "\n\t\theight = %fpt,".formatted(plotAreaBounds.get().getHeight()) +
                 "\n\t\tscale only axis" +

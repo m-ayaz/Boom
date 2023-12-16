@@ -47,14 +47,14 @@ public class ChartManagementPane_NumberString extends VBox {
 
         addSeriesButton.setOnAction(event -> {
             XYChart.Series<Number, String> newSeries = appXYChart.addSeries();
-            int seriesIndex = ((XYChart) appXYChart.node).getData().indexOf(newSeries);
+            int seriesIndex = ((XYChart) appXYChart.getNode()).getData().indexOf(newSeries);
             Tab newTab = new Tab();
             SeriesManagementPane_NumberString newDataPane;
-            if (appXYChart.type.equals(NodeTypeEnum.AreaChart_NS.getNodeType())) {
+            if (appXYChart.getType().equals(NodeTypeEnum.AreaChart_NS.getNodeType())) {
                 newDataPane = new SeriesManagementPane_NumberString(appXYChart, newSeries, appXYChart.getSeriesLineStyles().get(seriesIndex), appXYChart.getSeriesAreaStyles().get(seriesIndex));
-            } else if (appXYChart.type.equals(NodeTypeEnum.LineChart_NS.getNodeType())) {
+            } else if (appXYChart.getType().equals(NodeTypeEnum.LineChart_NS.getNodeType())) {
                 newDataPane = new SeriesManagementPane_NumberString(appXYChart, newSeries, appXYChart.getSeriesLineStyles().get(seriesIndex), null);
-            } else if (appXYChart.type.equals(NodeTypeEnum.ScatterChart_NS.getNodeType())) {
+            } else if (appXYChart.getType().equals(NodeTypeEnum.ScatterChart_NS.getNodeType())) {
                 newDataPane = new SeriesManagementPane_NumberString(appXYChart, newSeries, null, null);
             } else {
                 throw new AppException(AppExceptionEnum.ChartTypeNotRegistered);
@@ -71,7 +71,7 @@ public class ChartManagementPane_NumberString extends VBox {
         removeSeriesButton.setOnAction(event -> {
             Tab tab = seriesList.getSelectionModel().getSelectedItem();
             if (tab != null) {
-                appXYChart.removeSeries(((XYChart) appXYChart.node).getData().indexOf(((SeriesManagementPane_NumberString) ((ScrollPane) tab.getContent()).getContent()).series));
+                appXYChart.removeSeries(((XYChart) appXYChart.getNode()).getData().indexOf(((SeriesManagementPane_NumberString) ((ScrollPane) tab.getContent()).getContent()).series));
                 seriesList.getTabs().remove(tab);
                 renameTabs();
             }
@@ -82,15 +82,15 @@ public class ChartManagementPane_NumberString extends VBox {
     public void registerChart(AppXYChart<Number, String> appXYChart) {
         this.appXYChart = appXYChart;
         seriesList.getTabs().clear();
-        for (int i = 0; i < ((XYChart) appXYChart.node).getData().size(); i++) {
-            XYChart.Series<Number, String> series = ((XYChart<Number, String>) appXYChart.node).getData().get(i);
+        for (int i = 0; i < ((XYChart) appXYChart.getNode()).getData().size(); i++) {
+            XYChart.Series<Number, String> series = ((XYChart<Number, String>) appXYChart.getNode()).getData().get(i);
             Tab tab = new Tab();
             SeriesManagementPane_NumberString dataPane;
-            if (appXYChart.node.getClass().getName().equals(AreaChart.class.getName())) {
+            if (appXYChart.getNode().getClass().getName().equals(AreaChart.class.getName())) {
                 dataPane = new SeriesManagementPane_NumberString(appXYChart, series, appXYChart.getSeriesLineStyles().get(i), appXYChart.getSeriesAreaStyles().get(i));
-            } else if (appXYChart.node.getClass().getName().equals(LineChart.class.getName())) {
+            } else if (appXYChart.getNode().getClass().getName().equals(LineChart.class.getName())) {
                 dataPane = new SeriesManagementPane_NumberString(appXYChart, series, appXYChart.getSeriesLineStyles().get(i), null);
-            } else if (appXYChart.node.getClass().getName().equals(ScatterChart.class.getName())) {
+            } else if (appXYChart.getNode().getClass().getName().equals(ScatterChart.class.getName())) {
                 dataPane = new SeriesManagementPane_NumberString(appXYChart, series, null, null);
             } else {
                 throw new AppException(AppExceptionEnum.ChartTypeNotRegistered);

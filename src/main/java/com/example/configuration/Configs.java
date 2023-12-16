@@ -1,11 +1,8 @@
 package com.example.configuration;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
-import static com.example.tools.Tools.print;
 
 public final class Configs {
 

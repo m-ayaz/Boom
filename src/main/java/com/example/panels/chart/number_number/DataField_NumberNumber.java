@@ -34,7 +34,7 @@ public class DataField_NumberNumber extends DataFieldBase<Number,Number> {
 
 
         addButton.setOnAction(event -> {
-            int seriesIndex = ((XYChart) appXYChart.node).getData().indexOf(series);
+            int seriesIndex = ((XYChart) appXYChart.getNode()).getData().indexOf(series);
             XYChart.Data<Number, Number> newData = appXYChart.addData(data.getXValue(), data.getYValue(), seriesIndex, children.indexOf(this));
             DataField_NumberNumber newDataField = new DataField_NumberNumber(children, appXYChart, series, newData);
             children.add(children.indexOf(this) + 1, newDataField);

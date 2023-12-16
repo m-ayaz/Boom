@@ -653,11 +653,11 @@ public class BoomComponentsSuperController {
     @FXML
     void objectProp1InputOnKeyTyped(KeyEvent event) {
         AppNode selectedShape = mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().get(0);
-        if (selectedShape.type.equals(NodeTypeEnum.Ellipse.getNodeType())) {
+        if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
             ((AppEllipse) selectedShape).setRadiusX(Double.parseDouble(objectProp1Input.getText()));
-        } else if (selectedShape.type.equals(NodeTypeEnum.Rectangle.getNodeType())) {
+        } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
             ((AppRectangle) selectedShape).setWidth(Double.parseDouble(objectProp1Input.getText()));
-        } else if (selectedShape.type.equals(NodeTypeEnum.Line.getNodeType())) {
+        } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
             ((AppLine) selectedShape).setStartX(Double.parseDouble(objectProp1Input.getText()));
         }
     }
@@ -665,11 +665,11 @@ public class BoomComponentsSuperController {
     @FXML
     void objectProp2InputOnKeyTyped(KeyEvent event) {
         AppNode selectedShape = mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().get(0);
-        if (selectedShape.type.equals(NodeTypeEnum.Ellipse.getNodeType())) {
+        if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
             ((AppEllipse) selectedShape).setRadiusY(Double.parseDouble(objectProp2Input.getText()));
-        } else if (selectedShape.type.equals(NodeTypeEnum.Rectangle.getNodeType())) {
+        } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
             ((AppRectangle) selectedShape).setHeight(Double.parseDouble(objectProp2Input.getText()));
-        } else if (selectedShape.type.equals(NodeTypeEnum.Line.getNodeType())) {
+        } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
             ((AppLine) selectedShape).setStartY(Double.parseDouble(objectProp2Input.getText()));
         }
     }
@@ -826,24 +826,24 @@ public class BoomComponentsSuperController {
                 AppNode selectedShape = change.getList().get(0);
 //                print(selectedShape.type);
 //                print(NodeTypeEnum.LineChart_NN.getNodeType());
-                if (selectedShape.type.equals(NodeTypeEnum.Ellipse.getNodeType())) {
+                if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
                     objectProp1Label.setText("Radius (X)");
                     objectProp2Label.setText("Radius (Y)");
                     objectProp1Input.setText("" + ((AppEllipse) selectedShape).getRadiusX());
                     objectProp2Input.setText("" + ((AppEllipse) selectedShape).getRadiusY());
-                } else if (selectedShape.type.equals(NodeTypeEnum.Rectangle.getNodeType())) {
+                } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
                     objectProp1Label.setText("Width");
                     objectProp2Label.setText("Height");
                     objectProp1Input.setText("" + ((AppRectangle) selectedShape).getWidth());
                     objectProp2Input.setText("" + ((AppRectangle) selectedShape).getHeight());
-                } else if (selectedShape.type.equals(NodeTypeEnum.Line.getNodeType())) {
+                } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
                     objectProp1Label.setText("Start (X)");
                     objectProp2Label.setText("Start (Y)");
                     objectProp1Input.setText("" + ((AppLine) selectedShape).getStartX());
                     objectProp2Input.setText("" + ((AppLine) selectedShape).getStartY());
-                } else if (selectedShape.type.equals(NodeTypeEnum.LineChart_NN.getNodeType()) ||
-                        selectedShape.type.equals(NodeTypeEnum.AreaChart_NN.getNodeType()) ||
-                        selectedShape.type.equals(NodeTypeEnum.ScatterChart_NN.getNodeType())) {
+                } else if (selectedShape.getType().equals(NodeTypeEnum.LineChart_NN.getNodeType()) ||
+                        selectedShape.getType().equals(NodeTypeEnum.AreaChart_NN.getNodeType()) ||
+                        selectedShape.getType().equals(NodeTypeEnum.ScatterChart_NN.getNodeType())) {
                     objectProp1Label.setText("Start (X)");
                     objectProp2Label.setText("Start (Y)");
                     try {
@@ -856,10 +856,10 @@ public class BoomComponentsSuperController {
                     chartTabContainer.setContent(chartManagementPane_NN);
 //                    objectProp1Input.setText("" + ((AppLineChart_NumberNumber) selectedShape).getStartX());
 //                    objectProp2Input.setText("" + ((AppLine) selectedShape).getStartY());
-                } else if (selectedShape.type.equals(NodeTypeEnum.LineChart_NS.getNodeType()) ||
-                        selectedShape.type.equals(NodeTypeEnum.AreaChart_NS.getNodeType()) ||
-                        selectedShape.type.equals(NodeTypeEnum.ScatterChart_NS.getNodeType()) ||
-                        selectedShape.type.equals(NodeTypeEnum.BarChart_NS.getNodeType())) {
+                } else if (selectedShape.getType().equals(NodeTypeEnum.LineChart_NS.getNodeType()) ||
+                        selectedShape.getType().equals(NodeTypeEnum.AreaChart_NS.getNodeType()) ||
+                        selectedShape.getType().equals(NodeTypeEnum.ScatterChart_NS.getNodeType()) ||
+                        selectedShape.getType().equals(NodeTypeEnum.BarChart_NS.getNodeType())) {
                     objectProp1Label.setText("Start (X)");
                     objectProp2Label.setText("Start (Y)");
 //                    ChartManagementPane_NumberString chartManagementPane = new ChartManagementPane_NumberString();
@@ -874,10 +874,10 @@ public class BoomComponentsSuperController {
                     chartTabContainer.setContent(chartManagementPane_NS);
 //                    objectProp1Input.setText("" + ((AppLineChart_NumberNumber) selectedShape).getStartX());
 //                    objectProp2Input.setText("" + ((AppLine) selectedShape).getStartY());
-                } else if (selectedShape.type.equals(NodeTypeEnum.LineChart_SN.getNodeType()) ||
-                        selectedShape.type.equals(NodeTypeEnum.AreaChart_SN.getNodeType()) ||
-                        selectedShape.type.equals(NodeTypeEnum.ScatterChart_SN.getNodeType()) ||
-                        selectedShape.type.equals(NodeTypeEnum.BarChart_SN.getNodeType())) {
+                } else if (selectedShape.getType().equals(NodeTypeEnum.LineChart_SN.getNodeType()) ||
+                        selectedShape.getType().equals(NodeTypeEnum.AreaChart_SN.getNodeType()) ||
+                        selectedShape.getType().equals(NodeTypeEnum.ScatterChart_SN.getNodeType()) ||
+                        selectedShape.getType().equals(NodeTypeEnum.BarChart_SN.getNodeType())) {
                     objectProp1Label.setText("Start (X)");
                     objectProp2Label.setText("Start (Y)");
 //                    ChartManagementPane_StringNumber chartManagementPane = new ChartManagementPane_StringNumber();

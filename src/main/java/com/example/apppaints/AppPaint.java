@@ -10,9 +10,15 @@ public abstract class AppPaint {
 
     SimpleObjectProperty<Paint> paintProperty=new SimpleObjectProperty<>();
 
+    public String getType() {
+        return type;
+    }
+
+    String type;
+
     AppPaint(Paint paint){
-        super();
         paintProperty.set(paint);
+        type=paint.getClass().getName();
     }
 
     public String get(){

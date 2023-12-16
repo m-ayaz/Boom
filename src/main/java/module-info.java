@@ -32,6 +32,8 @@ module com.example.Boom {
     exports com.example.styles;
     exports com.example.apppaints;
     opens com.example.apppaints to javafx.fxml;
+    exports com.example.panels.paint;
+    opens com.example.panels.paint to javafx.fxml;
 
 }
  

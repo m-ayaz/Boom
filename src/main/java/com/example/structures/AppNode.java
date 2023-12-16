@@ -1,5 +1,6 @@
 package com.example.structures;
 
+import com.example.styles.BackgroundsProperty;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -11,40 +12,35 @@ import java.util.List;
 
 public abstract class AppNode {
 
-    protected AppNode(Node node){
+    public Affine affineTransform = new Affine();
+    public Rectangle border = new Rectangle();
+    public BackgroundsProperty backgroundStyle;
+    protected Node node;
+    protected String type;
+
+    protected AppNode(Node node) {
         this.node = node;
-        this.type= node.getClass().getName();
+        type = node.getClass().getName();
         bindProperties();
     }
 
-    public Affine affineTransform = new Affine();
-    public Rectangle border = new Rectangle();
-    public Node node;
-    public String type;
-
-    public abstract AppNode copy() ;
+    public abstract AppNode copy();
 
     public abstract void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY);
 
-    public abstract JSONObject toJSON();
+    public Node getNode() {
+        return node;
+    }
 
-    public abstract String toTeX();
+    public String getType() {
+        return type;
+    }
 
     public void hide() {
         node.setVisible(false);
     }
 
-    public abstract void setBackgroundColor(Paint paint);
-
-
-    public abstract void setBorderColor(Paint paint);
-
-
-    public abstract void setBorderDashArray(List<Double> borderDashArray);
-
-    public abstract void setBorderWidth(double borderWidth);
-
-    public void setAffineTransform(List<Double> list){
+    public void setAffineTransform(List<Double> list) {
         affineTransform.setMxx(Double.parseDouble(String.valueOf(list.get(0))));
         affineTransform.setMxy(Double.parseDouble(String.valueOf(list.get(1))));
         affineTransform.setTx(Double.parseDouble(String.valueOf(list.get(2))));
@@ -52,6 +48,18 @@ public abstract class AppNode {
         affineTransform.setMyy(Double.parseDouble(String.valueOf(list.get(4))));
         affineTransform.setTy(Double.parseDouble(String.valueOf(list.get(5))));
     }
+
+    public abstract void setBackgroundColor(Paint paint);
+
+    public abstract void setBorderColor(Paint paint);
+
+    public abstract void setBorderDashArray(List<Double> borderDashArray);
+
+    public abstract void setBorderWidth(double borderWidth);
+
+    public abstract JSONObject toJSON();
+
+    public abstract String toTeX();
 
     protected void bindProperties() {
         border.setFill(new Color(0, 0, 0, 0));
@@ -68,7 +76,6 @@ public abstract class AppNode {
         });
         node.getTransforms().add(affineTransform);
     }
-
 
 
 }

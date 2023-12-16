@@ -1,7 +1,7 @@
 package com.example.test;
 
 import com.example.configuration.Configs;
-import com.example.panels.paint.PaintManagementPane;
+import com.example.panels.paint.PaintManagementPanel;
 import com.example.apppaints.AppColor;
 import com.example.apppaints.AppLinearGradient;
 import com.example.styles.BackgroundsProperty;
@@ -23,7 +23,7 @@ public class NodeColorTest extends Application {
 
         Configs.setDefaultConfig();
 
-        PaintManagementPane pane=new PaintManagementPane();
+        PaintManagementPanel pane=new PaintManagementPanel();
 
         setSize(pane,800,600);
 
@@ -54,7 +54,7 @@ public class NodeColorTest extends Application {
 
 
 
-        pane.registerBackgrounds(backgroundsProperty);
+//        pane.registerBackgrounds(backgroundsProperty);
 
 
         Rectangle r=new Rectangle(200,200);

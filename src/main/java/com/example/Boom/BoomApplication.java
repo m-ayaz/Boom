@@ -12,7 +12,7 @@ public class BoomApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BoomApplication.class.getResource("BoomGUI.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
-        stage.setTitle("LaTeX Plot - Free Edition");
+        stage.setTitle("Boom - Free Edition");
         stage.setScene(scene);
         stage.show();
     }

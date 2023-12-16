@@ -285,7 +285,7 @@ public class MainCanvasMouseHandler {
 //                firstOnMousePressedShape = null;
                 for (int i = canvasPermanentObjects.size() - 1; i >= 0; i--) {
                     AppNode obj = canvasPermanentObjects.get(i);
-                    if (obj.node.contains(obj.node.parentToLocal(currentPosX.get(), currentPosY.get()))) {
+                    if (obj.getNode().contains(obj.getNode().parentToLocal(currentPosX.get(), currentPosY.get()))) {
 //                    if (obj.isPressed()) {
                         firstOnMousePressedShape = obj;
                         break;

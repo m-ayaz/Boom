@@ -79,7 +79,7 @@ public abstract class SeriesManagementPaneBase extends VBox {
 
     public abstract void setLoadDataFromFile();
 
-    public abstract void setPaneBySeries();
+    public abstract void registerSeries();
 
     protected abstract void setPrimaryAddButton();
 

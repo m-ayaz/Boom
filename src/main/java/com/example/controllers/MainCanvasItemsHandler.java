@@ -133,20 +133,20 @@ public class MainCanvasItemsHandler {
 //        print(mainCanvasChildren);
 
         mainCanvasChildren.addAll(
-                tempRectangle.node,
-                tempEllipse.node,
-                tempLine.node,
-                tempLineChart_NN.node,
-                tempLineChart_SN.node,
-                tempLineChart_NS.node,
-                tempScatterChart_NN.node,
-                tempScatterChart_SN.node,
-                tempScatterChart_NS.node,
+                tempRectangle.getNode(),
+                tempEllipse.getNode(),
+                tempLine.getNode(),
+                tempLineChart_NN.getNode(),
+                tempLineChart_SN.getNode(),
+                tempLineChart_NS.getNode(),
+                tempScatterChart_NN.getNode(),
+                tempScatterChart_SN.getNode(),
+                tempScatterChart_NS.getNode(),
 //                tempBarChart_SN.node,
 //                tempBarChart_NS.node,
-                tempAreaChart_NN.node,
-                tempAreaChart_SN.node,
-                tempAreaChart_NS.node,
+                tempAreaChart_NN.getNode(),
+                tempAreaChart_SN.getNode(),
+                tempAreaChart_NS.getNode(),
                 littleEllipseOnCursor,
                 littleRectangleOnCursor,
                 littleLineOnCursor,
@@ -432,21 +432,21 @@ public class MainCanvasItemsHandler {
 
         selectedObjectsController.getBuffer().forEach(obj -> {
             AppNode objCopy;
-                if (obj.type.equals(NodeTypeEnum.Ellipse.getNodeType())) {
+                if (obj.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
                     objCopy = ((AppEllipse) obj).copy();
-                } else if (obj.type.equals(NodeTypeEnum.Rectangle.getNodeType())) {
+                } else if (obj.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
                     objCopy = ((AppRectangle) obj).copy();
-                } else if (obj.type.equals(NodeTypeEnum.Line.getNodeType())) {
+                } else if (obj.getType().equals(NodeTypeEnum.Line.getNodeType())) {
                     objCopy = ((AppLine) obj).copy();
-                } else if (obj.type.equals(NodeTypeEnum.LineChart_NN.getNodeType())||
-                        obj.type.equals(NodeTypeEnum.LineChart_NS.getNodeType())||
-                        obj.type.equals(NodeTypeEnum.LineChart_SN.getNodeType())||
-                        obj.type.equals(NodeTypeEnum.ScatterChart_NN.getNodeType())||
-                        obj.type.equals(NodeTypeEnum.ScatterChart_NS.getNodeType())||
-                        obj.type.equals(NodeTypeEnum.ScatterChart_SN.getNodeType())||
-                        obj.type.equals(NodeTypeEnum.AreaChart_NN.getNodeType())||
-                        obj.type.equals(NodeTypeEnum.AreaChart_NS.getNodeType())||
-                        obj.type.equals(NodeTypeEnum.AreaChart_SN.getNodeType())) {
+                } else if (obj.getType().equals(NodeTypeEnum.LineChart_NN.getNodeType())||
+                        obj.getType().equals(NodeTypeEnum.LineChart_NS.getNodeType())||
+                        obj.getType().equals(NodeTypeEnum.LineChart_SN.getNodeType())||
+                        obj.getType().equals(NodeTypeEnum.ScatterChart_NN.getNodeType())||
+                        obj.getType().equals(NodeTypeEnum.ScatterChart_NS.getNodeType())||
+                        obj.getType().equals(NodeTypeEnum.ScatterChart_SN.getNodeType())||
+                        obj.getType().equals(NodeTypeEnum.AreaChart_NN.getNodeType())||
+                        obj.getType().equals(NodeTypeEnum.AreaChart_NS.getNodeType())||
+                        obj.getType().equals(NodeTypeEnum.AreaChart_SN.getNodeType())) {
                     objCopy = obj.copy();
                 }
             else{
@@ -469,7 +469,7 @@ public class MainCanvasItemsHandler {
     }
 
     public void removeSelectedObjectsFromMainCanvas() {
-        selectedObjectsController.getBuffer().forEach(obj -> mainCanvasChildren.remove(obj.node));
+        selectedObjectsController.getBuffer().forEach(obj -> mainCanvasChildren.remove(obj.getNode()));
         selectedObjectsController.getBuffer().forEach(obj -> mainCanvasChildren.remove(obj.border));
         selectedObjectsController.getBuffer().forEach(obj -> canvasPermanentObjects.remove(obj));
         numOfValidObjects -= selectedObjectsController.getBuffer().size();
@@ -482,7 +482,7 @@ public class MainCanvasItemsHandler {
 
     public void addToMainCanvas(AppNode appNode) {
         canvasPermanentObjects.add(appNode);
-        mainCanvasChildren.add(numOfValidObjects, appNode.node);
+        mainCanvasChildren.add(numOfValidObjects, appNode.getNode());
         mainCanvasChildren.add(numOfValidObjects * 2 + 1, appNode.border);
         numOfValidObjects++;
     }

@@ -34,7 +34,7 @@ public class SeriesManagementPane_NumberString extends SeriesManagementPaneBase 
 
         setPrimaryAddButton();
 
-        setPaneBySeries();
+        registerSeries();
 
         setLoadDataFromFile();
 
@@ -65,7 +65,7 @@ public class SeriesManagementPane_NumberString extends SeriesManagementPaneBase 
     }
 
     @Override
-    public void setPaneBySeries() {
+    public void registerSeries() {
         for (int i = 0; i < series.getData().size(); i++) {
             DataField_NumberString dataField = new DataField_NumberString(dataSetPaneChildren, appXYChart, series, series.getData().get(i));
             dataSetPaneChildren.add(dataField);
@@ -80,7 +80,7 @@ public class SeriesManagementPane_NumberString extends SeriesManagementPaneBase 
         primaryAddButton.setOnMouseExited(mouseEvent -> primaryEmptySpace.setVisible(false));
         primaryAddButton.setOnAction(event -> {
             XYChart.Data<Number, String> newData;
-            int seriesIndex = ((XYChart) appXYChart.node).getData().indexOf(series);
+            int seriesIndex = ((XYChart) appXYChart.getNode()).getData().indexOf(series);
             if (dataSetPaneChildren.size() == 1) {
                 newData = appXYChart.addData(0, "", seriesIndex, 0);
             } else {

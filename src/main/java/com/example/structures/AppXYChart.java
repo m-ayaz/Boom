@@ -30,13 +30,14 @@ public  abstract class AppXYChart<T1, T2> extends AppNode {
     protected List<SeriesMarkersStyleProperty> seriesMarkersStyles;
     protected List<SeriesLineStyleProperty> seriesLineStyles;
     protected List<BackgroundsProperty> seriesAreaStyles;
-    protected BackgroundsProperty backgroundStyle = new BackgroundsProperty("-fx-background-color","-fx-border-color","-fx-border-width");
+
     protected StringProperty xAxisStyle = new SimpleStringProperty();
     protected StringProperty yAxisStyle = new SimpleStringProperty();
     protected StringProperty legendStyle = new SimpleStringProperty();
     public AppXYChart(XYChart<T1, T2> xyChart, double width, double height) {
 
         super(xyChart);
+        backgroundStyle = new BackgroundsProperty("-fx-background-color","-fx-border-color","-fx-border-width");
         xyChart.setPadding(new Insets(0));
         setSize(xyChart, width, height);
 
