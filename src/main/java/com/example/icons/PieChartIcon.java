@@ -2,7 +2,7 @@ package com.example.icons;
 
 import javafx.scene.chart.PieChart;
 
-import static com.example.tools.Tools.setSize;
+import static com.example.tools.Tools.setCustomSize;
 
 public class PieChartIcon extends PieChart {
     public PieChartIcon() {
@@ -17,6 +17,6 @@ public class PieChartIcon extends PieChart {
 
         int size=60;
 
-        setSize(this,size,size);
+        setCustomSize(this,size,size);
     }
 }

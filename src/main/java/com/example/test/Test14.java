@@ -3,7 +3,6 @@ package com.example.test;
 import com.example.apppaints.AppColor;
 import com.example.apppaints.AppLinearGradient;
 import com.example.apppaints.AppPaint;
-import com.example.panels.paint.ColorManagementPanel;
 import com.example.styles.BackgroundsProperty;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
@@ -31,7 +30,7 @@ public class Test14 extends Application {
 
         VBox pane = new VBox();
 
-        setSize(pane,600,600);
+        setCustomSize(pane,600,600);
 
 
         Scene scene = new Scene(pane);
@@ -80,6 +79,8 @@ public class Test14 extends Application {
                 backgroundsProperty.addFill(0, createNew());
             }
         });
+
+        print(backgroundsProperty);
 
 //        Random rnd=new Random();
 //

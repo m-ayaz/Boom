@@ -84,16 +84,16 @@ public abstract class SeriesManagementPaneBase extends VBox {
     protected abstract void setPrimaryAddButton();
 
     void setSizes(boolean isLineNull, boolean isAreaNull) {
-        setSize(primaryAddButton, 40, 40);
-        setSize(primaryEmptySpace, 200, 40);
-        setSize(loadDataFromFileButton, 100, 40);
-        setSize(seriesName, 100, 40);
+        setCustomSize(primaryAddButton, 40, 40);
+        setCustomSize(primaryEmptySpace, 200, 40);
+        setCustomSize(loadDataFromFileButton, 100, 40);
+        setCustomSize(seriesName, 100, 40);
         if (!isLineNull) {
-            setSize(lineColor, 100, 40);
+            setCustomSize(lineColor, 100, 40);
         }
         if (!isAreaNull) {
-            setSize(areaFillColor, 100, 40);
-            setSize(areaStrokeColor, 100, 40);
+            setCustomSize(areaFillColor, 100, 40);
+            setCustomSize(areaStrokeColor, 100, 40);
         }
     }
 

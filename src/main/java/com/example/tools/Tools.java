@@ -14,7 +14,6 @@ import com.example.appshapes.AppEllipse;
 import com.example.appshapes.AppLine;
 import com.example.appshapes.AppRectangle;
 import com.example.structures.AppXYChart;
-import com.example.styles.BackgroundsProperty;
 import com.example.styles.SeriesLineStyleProperty;
 import javafx.scene.chart.*;
 import javafx.scene.layout.Region;
@@ -226,10 +225,22 @@ public class Tools {
         return random.ints(idSize, 0, alphabet.length()).mapToObj(i -> alphabet.split("")[i]).collect(Collectors.joining());
     }
 
-    public static void setSize(Region region, double width, double height) {
+    public static void setCustomSize(Region region, double width, double height) {
         region.setMaxSize(width, height);
         region.setPrefSize(width, height);
         region.setMinSize(width, height);
+    }
+
+    public static void setCustomWidth(Region region, double width) {
+        region.setMaxWidth(width);
+        region.setPrefWidth(width);
+        region.setMinWidth(width);
+    }
+
+    public static void setCustomHeight(Region region, double height) {
+        region.setMaxHeight(height);
+        region.setPrefHeight(height);
+        region.setMinHeight(height);
     }
 
 //    static void deepCopy(SeriesAreaStyleProperty propertyFrom, SeriesAreaStyleProperty propertyTo) {

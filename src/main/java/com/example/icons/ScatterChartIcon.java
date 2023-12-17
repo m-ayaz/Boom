@@ -3,7 +3,7 @@ package com.example.icons;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 
-import static com.example.tools.Tools.setSize;
+import static com.example.tools.Tools.setCustomSize;
 
 public class ScatterChartIcon extends ScatterChart<Number,Number> {
     public ScatterChartIcon() {
@@ -27,7 +27,7 @@ public class ScatterChartIcon extends ScatterChart<Number,Number> {
 
         int size=70;
 
-        setSize(this,size,size);
+        setCustomSize(this,size,size);
 
     }
 }

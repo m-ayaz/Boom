@@ -1,30 +1,20 @@
 package com.example.test;
 
 import javafx.application.Application;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.effect.ImageInput;
-import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static com.example.tools.Tools.setSize;
-import static com.example.tools.Tools.uuid;
+import static com.example.tools.Tools.setCustomSize;
 import static java.lang.Math.floor;
 
 //import javax.imageio.ImageIO;
@@ -89,7 +79,7 @@ public class Test12 extends Application {
 
         Pane pane = new Pane();
 
-        setSize(pane,600,400);
+        setCustomSize(pane,600,400);
 
         pane.getChildren().addAll(rectangleList);
 

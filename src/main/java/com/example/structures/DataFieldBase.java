@@ -12,7 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
-import static com.example.tools.Tools.setSize;
+import static com.example.tools.Tools.setCustomSize;
 
 public abstract class DataFieldBase<T1,T2> extends GridPane {
 
@@ -67,9 +67,9 @@ public abstract class DataFieldBase<T1,T2> extends GridPane {
     }
 
     void setGraphics() {
-        setSize(xValueArea, 100, 40);
-        setSize(yValueArea, 100, 40);
-        setSize(removeButton, 40, 40);
+        setCustomSize(xValueArea, 100, 40);
+        setCustomSize(yValueArea, 100, 40);
+        setCustomSize(removeButton, 40, 40);
 
         addButton.setGraphic(new PlusSignIcon(10, 3, new Color(0, 0.7, 0, 1), new Color(0, 0, 0, 1), 0.3));
         removeButton.setGraphic(new MinusSignIcon(3, 20, new Color(1, 0, 0, 1), new Color(0, 0, 0, 1), 0.3));

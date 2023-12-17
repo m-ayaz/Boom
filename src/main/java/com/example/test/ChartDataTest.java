@@ -72,9 +72,9 @@ public class ChartDataTest extends Application {
         ChartManagementPane_StringNumber chartSeriesPane_SN=new ChartManagementPane_StringNumber();
 
 
-        setSize(chartSeriesPane_NN,b,b);
-        setSize(chartSeriesPane_NS,b,b);
-        setSize(chartSeriesPane_SN,b,b);
+        setCustomSize(chartSeriesPane_NN,b,b);
+        setCustomSize(chartSeriesPane_NS,b,b);
+        setCustomSize(chartSeriesPane_SN,b,b);
 
         chartSeriesPane_NN.registerChart(lineChart1);
         chartSeriesPane_NS.registerChart(lineChart2);

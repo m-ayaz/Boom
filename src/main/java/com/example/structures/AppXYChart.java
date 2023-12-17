@@ -17,7 +17,7 @@ import javafx.scene.transform.Translate;
 
 import java.util.List;
 
-import static com.example.tools.Tools.setSize;
+import static com.example.tools.Tools.setCustomSize;
 
 public  abstract class AppXYChart<T1, T2> extends AppNode {
 
@@ -39,7 +39,7 @@ public  abstract class AppXYChart<T1, T2> extends AppNode {
         super(xyChart);
         backgroundStyle = new BackgroundsProperty("-fx-background-color","-fx-border-color","-fx-border-width");
         xyChart.setPadding(new Insets(0));
-        setSize(xyChart, width, height);
+        setCustomSize(xyChart, width, height);
 
         xyChart.lookup(".chart-plot-background").styleProperty().bind(backgroundStyle);
 
@@ -69,7 +69,7 @@ public  abstract class AppXYChart<T1, T2> extends AppNode {
     public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
         node.setVisible(true);
         affineTransform.setToTransform(new Translate(Math.min(dragStartX, currentDragPosX), Math.min(dragStartY, currentDragPosY)));
-        setSize((Region) node, Math.abs(currentDragPosX - dragStartX), Math.abs(currentDragPosY - dragStartY));
+        setCustomSize((Region) node, Math.abs(currentDragPosX - dragStartX), Math.abs(currentDragPosY - dragStartY));
     }
 
     @Override

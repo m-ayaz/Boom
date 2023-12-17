@@ -4,7 +4,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-import static com.example.tools.Tools.setSize;
+import static com.example.tools.Tools.setCustomSize;
 
 public class LineChartIcon extends LineChart<Number,Number> {
     public LineChartIcon() {
@@ -28,6 +28,6 @@ public class LineChartIcon extends LineChart<Number,Number> {
 
         int size=70;
 
-        setSize(this,size,size);
+        setCustomSize(this,size,size);
     }
 }

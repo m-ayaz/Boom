@@ -7,15 +7,16 @@ import com.example.apppaints.AppLinearGradient;
 import com.example.styles.BackgroundsProperty;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import static com.example.tools.Tools.print;
-import static com.example.tools.Tools.setSize;
+import static com.example.tools.Tools.setCustomSize;
 
 public class NodeColorTest extends Application {
     @Override
@@ -23,11 +24,12 @@ public class NodeColorTest extends Application {
 
         Configs.setDefaultConfig();
 
-        PaintManagementPanel pane=new PaintManagementPanel();
 
-        setSize(pane,800,600);
+        VBox vBox = new VBox();
 
-        Scene scene=new Scene(pane);
+//        setSize(vBox, 800, 600);
+
+        Scene scene = new Scene(vBox);
 
         stage.setScene(scene);
 
@@ -35,42 +37,53 @@ public class NodeColorTest extends Application {
 
 //        Stop[] stops=new Stop[]{};
 //        Stop[] stops1=new Stop[]{new Stop(0,Color.RED),new Stop(1,Color.BLUE)};
-        Stop[] stops=new Stop[]{new Stop(0,Color.RED),new Stop(0.5,Color.GREEN),new Stop(1,Color.BLUE)};
-        LinearGradient x=new LinearGradient(0,0,1,0,true, CycleMethod.NO_CYCLE,stops);
+        LinearGradient x = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
+                new Stop(0, Color.RED), new Stop(0.5, Color.GREEN), new Stop(1, Color.BLUE));
 //        print(x.toString());
-
 
 
 //        print(x.getStops().remove(0));
 
 
-        BackgroundsProperty backgroundsProperty=new BackgroundsProperty("-fx-fill","-fx-stroke","-fx-stroke-width");
-        backgroundsProperty.addFill(0,new AppColor(Color.RED));
-        backgroundsProperty.addFill(1,new AppColor(Color.GREEN));
-        backgroundsProperty.addFill(2,new AppLinearGradient(x));
-        backgroundsProperty.addFill(3,new AppColor(Color.BLUE));
+        BackgroundsProperty backgroundsProperty = new BackgroundsProperty("-fx-background-color", "-fx-border-color", "-fx-border-width");
+        backgroundsProperty.addFill(0, new AppColor(new Color(1,0,0,0.3)));
+        backgroundsProperty.addFill(1, new AppColor(new Color(0,1,0,0.3)));
+        backgroundsProperty.addFill(2, new AppLinearGradient(x));
+        backgroundsProperty.addFill(3, new AppColor(new Color(0,0,1,0.3)));
 
 //        print((new AppLinearGradient(x)).get());
+        Pane pane1=new Pane();
+
+        pane1.styleProperty().bind(backgroundsProperty);
+
+//        rectangle.setStyle("-fx-fill:#ff00ff33,linear-gradient(from 0.0% 0.0% to 100.0% 0.0%, #ff0000ff 0.0%, #008000ff 50.0%, #0000ffff 100.0%) ;");
+
+//        print(rectangle.getStyle());
+
+        setCustomSize(pane1,400,400);
 
 
+        PaintManagementPanel pane = new PaintManagementPanel();
+
+        pane.registerBackground(backgroundsProperty);
 
 //        pane.registerBackgrounds(backgroundsProperty);
 
 
-        Rectangle r=new Rectangle(200,200);
+//        Rectangle r=new Rectangle(200,200);
 //        pane.getChildren().add(r);
 
-        Color c=Color.color(0.5,0.3,0.7,1);
+        Color c = Color.color(0.5, 0.3, 0.7, 1);
 
 //        print(c.toString());
 //
-        r.setStyle("-fx-fill: #804db2ff".formatted());
+//        r.setStyle("-fx-fill: #804db2ff".formatted());
 
 //        print("linear-gradient(from 0.0%% 0.0%% to 100.0%% 0.0%%, #ff0000ff 0.0%%, #008000ff 50.0%%, #0000ffff 100.0%%)".formatted());
 
 //        print(x.toString().replaceAll("0x","#"));
 
-
+        vBox.getChildren().addAll(pane, pane1);
 
 //        TableView<Number> tableView=new TableView<>();
 //
@@ -90,11 +103,9 @@ public class NodeColorTest extends Application {
 //        print(c.getName());
 
 
-
-
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         launch(args);
     }
 

@@ -3,7 +3,7 @@ package com.example.icons;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.NumberAxis;
 
-import static com.example.tools.Tools.setSize;
+import static com.example.tools.Tools.setCustomSize;
 
 public class AreaChartIcon extends AreaChart<Number,Number> {
     public AreaChartIcon() {
@@ -27,6 +27,6 @@ public class AreaChartIcon extends AreaChart<Number,Number> {
 
         int size=70;
 
-        setSize(this,size,size);
+        setCustomSize(this,size,size);
     }
 }

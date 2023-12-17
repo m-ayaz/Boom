@@ -8,9 +8,9 @@ import javafx.scene.shape.Rectangle;
 
 public class LinearGradientIcon extends Rectangle {
 
-    public LinearGradientIcon(double startX, double startY, double endX, double endY, Color startColor, Color endColor, double width, double height) {
+    public LinearGradientIcon(double width, double height,LinearGradient linearGradient) {
         super(width, height);
-        setFill(new LinearGradient(startX, startY, endX, endY, true, CycleMethod.NO_CYCLE, new Stop(0, startColor), new Stop(1, endColor)));
+        setFill(linearGradient);
     }
 
 }

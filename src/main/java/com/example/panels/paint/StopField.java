@@ -15,7 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 import static com.example.tools.Tools.print;
-import static com.example.tools.Tools.setSize;
+import static com.example.tools.Tools.setCustomSize;
 
 public class StopField extends GridPane {
 
@@ -92,8 +92,8 @@ public class StopField extends GridPane {
     }
 
     void setGraphics(double width, double height) {
-        setSize(addButton, width, height);
-        setSize(removeButton, width, height);
+        setCustomSize(addButton, width, height);
+        setCustomSize(removeButton, width, height);
         addButton.setGraphic(new PlusSignIcon(10, 3, new Color(0, 0.7, 0, 1), new Color(0, 0, 0, 1), 0.3));
         removeButton.setGraphic(new MinusSignIcon(3, 20, new Color(1, 0, 0, 1), new Color(0, 0, 0, 1), 0.3));
     }

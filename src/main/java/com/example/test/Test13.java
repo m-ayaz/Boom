@@ -1,15 +1,12 @@
 package com.example.test;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.Transition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -118,7 +115,7 @@ public class Test13 extends Application {
 
 
 
-        setSize(pane,600,400);
+        setCustomSize(pane,600,400);
 
 
         Scene scene = new Scene(pane);

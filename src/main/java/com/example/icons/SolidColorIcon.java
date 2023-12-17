@@ -8,7 +8,7 @@ import javafx.scene.shape.Rectangle;
 
 public class SolidColorIcon extends Rectangle {
 
-    public SolidColorIcon(Color color, double width, double height) {
+    public SolidColorIcon(double width, double height,Color color) {
         super(width, height);
         setFill(color);
     }

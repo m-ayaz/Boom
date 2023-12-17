@@ -1,6 +1,6 @@
 package com.example.panels.paint;
 
-import javafx.beans.property.ObjectProperty;
+import com.example.apppaints.AppColor;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -11,7 +11,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 
 import static com.example.tools.Tools.print;
-import static com.example.tools.Tools.setSize;
+import static com.example.tools.Tools.setCustomSize;
 
 public class ColorManagementPanel extends Popup {
 
@@ -42,8 +42,10 @@ public class ColorManagementPanel extends Popup {
 //    double previousDragPosX,previousDragPosY;
 //    double currentDragPosX,currentDragPosY;
 
+//    public void registerColor()
 
-    public ColorManagementPanel(ObjectProperty<Color> colorProperty){
+
+    public ColorManagementPanel(AppColor appColor){
 
         super();
 
@@ -77,7 +79,7 @@ public class ColorManagementPanel extends Popup {
         container.setBackground(Background.fill(Color.rgb(a,a,a,1)));
 
 
-        setSize(redValueBar,200,40);
+        setCustomSize(redValueBar,200,40);
 //        setSize(this,600,600);
 //        setRow
 
@@ -88,82 +90,81 @@ public class ColorManagementPanel extends Popup {
         container.addRow(4,colorPicker,rgbaField);
         container.addRow(5,colorPreview);
 
-        colorProperty.bindBidirectional(colorPicker.valueProperty());
+//        appColor.bindBidirectional(colorPicker.valueProperty());
 
 
 
 
-        setRedValueBarBehavior(colorProperty);
-        setRedValueFieldBehavior(colorProperty);
-        setGreenValueBarBehavior(colorProperty);
-        setGreenValueFieldBehavior(colorProperty);
-        setBlueValueBarBehavior(colorProperty);
-        setBlueValueFieldBehavior(colorProperty);
-        setAlphaValueBarBehavior(colorProperty);
-        setAlphaValueFieldBehavior(colorProperty);
-        setColorPickerBehavior(colorProperty);
-        setRGBAFieldBehavior(colorProperty);
+        setRedValueBarBehavior(appColor);
+        setRedValueFieldBehavior(appColor);
+        setGreenValueBarBehavior(appColor);
+        setGreenValueFieldBehavior(appColor);
+        setBlueValueBarBehavior(appColor);
+        setBlueValueFieldBehavior(appColor);
+        setAlphaValueBarBehavior(appColor);
+        setAlphaValueFieldBehavior(appColor);
+        setColorPickerBehavior(appColor);
+        setRGBAFieldBehavior(appColor);
 
-        if(colorProperty.get()!=null) {
-            redValueBar.setValue(colorProperty.get().getRed() * 255);
-            greenValueBar.setValue(colorProperty.get().getGreen() * 255);
-            blueValueBar.setValue(colorProperty.get().getBlue() * 255);
-            alphaValueBar.setValue(colorProperty.get().getOpacity() * 255);
-            redValueField.setText(String.valueOf(colorProperty.get().getRed() * 255));
-            greenValueField.setText(String.valueOf(colorProperty.get().getGreen() * 255));
-            blueValueField.setText(String.valueOf(colorProperty.get().getBlue() * 255));
-            alphaValueField.setText(String.valueOf(colorProperty.get().getOpacity() * 255));
-            colorProperty.set(colorProperty.get());
-            colorPreview.setFill(colorProperty.get());
-            colorPicker.setValue(colorProperty.get());
+        if(appColor.getPaintProperty().get() !=null) {
+            redValueBar.setValue(((Color)appColor.getPaintProperty().get()).getRed() * 255);
+            greenValueBar.setValue(((Color)appColor.getPaintProperty().get()).getGreen() * 255);
+            blueValueBar.setValue(((Color)appColor.getPaintProperty().get()).getBlue() * 255);
+            alphaValueBar.setValue(((Color)appColor.getPaintProperty().get()).getOpacity() * 255);
+            redValueField.setText(String.valueOf(((Color)appColor.getPaintProperty().get()).getRed() * 255));
+            greenValueField.setText(String.valueOf(((Color)appColor.getPaintProperty().get()).getGreen() * 255));
+            blueValueField.setText(String.valueOf(((Color)appColor.getPaintProperty().get()).getBlue() * 255));
+            alphaValueField.setText(String.valueOf(((Color)appColor.getPaintProperty().get()).getOpacity() * 255));
+            colorPreview.setFill(appColor.getPaintProperty().get());
+            colorPicker.setValue(((Color)appColor.getPaintProperty().get()));
         }
     }
 
-    void setRedValueBarBehavior(ObjectProperty<Color> colorProperty) {
+    void setRedValueBarBehavior(AppColor appColor) {
         redValueBar.setMin(0);
         redValueBar.setMax(255);
         redValueBar.setOnMouseDragged(mouseEvent -> {
             redValueField.setText(String.valueOf(redValueBar.getValue()));
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            colorProperty.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
         });
     }
 
-    void setGreenValueBarBehavior(ObjectProperty<Color> colorProperty) {
+    void setGreenValueBarBehavior(AppColor appColor) {
         greenValueBar.setMin(0);
         greenValueBar.setMax(255);
         greenValueBar.setOnMouseDragged(mouseEvent -> {
             greenValueField.setText(String.valueOf(greenValueBar.getValue()));
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            colorProperty.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
         });
     }
 
-    void setBlueValueBarBehavior(ObjectProperty<Color> colorProperty) {
+    void setBlueValueBarBehavior(AppColor appColor) {
         blueValueBar.setMin(0);
         blueValueBar.setMax(255);
         blueValueBar.setOnMouseDragged(mouseEvent -> {
             blueValueField.setText(String.valueOf(blueValueBar.getValue()));
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            colorProperty.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
         });
     }
 
-    void setAlphaValueBarBehavior(ObjectProperty<Color> colorProperty) {
+    void setAlphaValueBarBehavior(AppColor appColor) {
         alphaValueBar.setMin(0);
         alphaValueBar.setMax(255);
         alphaValueBar.setOnMouseDragged(mouseEvent -> {
             alphaValueField.setText(String.valueOf(alphaValueBar.getValue()));
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            colorProperty.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
         });
     }
 
-    void setRedValueFieldBehavior(ObjectProperty<Color> colorProperty) {
+    void setRedValueFieldBehavior(AppColor appColor) {
         redValueField.setOnKeyTyped(keyEvent -> {
             double val;
             try {
@@ -175,12 +176,12 @@ public class ColorManagementPanel extends Popup {
                 print(e);
             }
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            colorProperty.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
         });
     }
 
-    void setGreenValueFieldBehavior(ObjectProperty<Color> colorProperty) {
+    void setGreenValueFieldBehavior(AppColor appColor) {
         greenValueField.setOnKeyTyped(keyEvent -> {
             double val;
             try {
@@ -192,12 +193,12 @@ public class ColorManagementPanel extends Popup {
                 print(e);
             }
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            colorProperty.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
         });
     }
 
-    void setBlueValueFieldBehavior(ObjectProperty<Color> colorProperty) {
+    void setBlueValueFieldBehavior(AppColor appColor) {
         blueValueField.setOnKeyTyped(keyEvent -> {
             double val;
             try {
@@ -209,12 +210,12 @@ public class ColorManagementPanel extends Popup {
                 print(e);
             }
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            colorProperty.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
         });
     }
 
-    void setAlphaValueFieldBehavior(ObjectProperty<Color> colorProperty) {
+    void setAlphaValueFieldBehavior(AppColor appColor) {
         alphaValueField.setOnKeyTyped(keyEvent -> {
             double val;
             try {
@@ -226,12 +227,12 @@ public class ColorManagementPanel extends Popup {
                 print(e);
             }
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            colorProperty.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
         });
     }
 
-    void setColorPickerBehavior(ObjectProperty<Color> colorProperty){
+    void setColorPickerBehavior(AppColor appColor){
         colorPicker.setOnAction(event -> {
             Color c=colorPicker.getValue();
             redValueBar.setValue(c.getRed()*255);
@@ -242,12 +243,12 @@ public class ColorManagementPanel extends Popup {
             greenValueField.setText(String.valueOf(c.getGreen()*255));
             blueValueField.setText(String.valueOf(c.getBlue()*255));
             alphaValueField.setText(String.valueOf(c.getOpacity()*255));
-            colorProperty.set(c);
+            appColor.getPaintProperty().set(c);
             colorPreview.setFill(c);
         });
     }
     
-    void setRGBAFieldBehavior(ObjectProperty<Color> colorProperty){
+    void setRGBAFieldBehavior(AppColor appColor){
         rgbaField.setOnKeyTyped(keyEvent -> {
             try{
                 Color c=Color.valueOf(rgbaField.getText());
@@ -259,7 +260,7 @@ public class ColorManagementPanel extends Popup {
                 greenValueField.setText(String.valueOf(c.getGreen()*255));
                 blueValueField.setText(String.valueOf(c.getBlue()*255));
                 alphaValueField.setText(String.valueOf(c.getOpacity()*255));
-                colorProperty.set(c);
+                appColor.getPaintProperty().set(c);
                 colorPreview.setFill(c);
             }catch (Exception e){
                 print(e);

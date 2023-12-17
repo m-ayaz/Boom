@@ -14,7 +14,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 
 import static com.example.tools.Tools.print;
-import static com.example.tools.Tools.setSize;
+import static com.example.tools.Tools.setCustomSize;
 
 public class LinearGradientManagementPanel extends Popup {
 
@@ -50,10 +50,11 @@ public class LinearGradientManagementPanel extends Popup {
 
 //        scrollMain
 
-        setSize(scrollMain,400,600);
+        setCustomSize(scrollMain,400,600);
 
         setHideOnEscape(true);
-//        setAutoHide(true);
+        setAutoHide(true);
+        setAutoFix(true);
 
         lgProperties.addRow(0, new VBox(startXLabel, startX), new Rectangle(), new VBox(endXLabel, endX));
         lgProperties.addRow(1, new VBox(startYLabel, startY), new Rectangle(), new VBox(endYLabel, endY));
@@ -78,13 +79,13 @@ public class LinearGradientManagementPanel extends Popup {
         setEndYBehavior(appLinearGradient);
 
         setPrimaryAddButton(appLinearGradient);
-        setPanelByLinearGradient(appLinearGradient);
+        registerLinearGradient(appLinearGradient);
 
         setIsProportionalBehavior(appLinearGradient);
 
     }
 
-    public void setPanelByLinearGradient(AppLinearGradient appLinearGradient) {
+    public void registerLinearGradient(AppLinearGradient appLinearGradient) {
         for (int i = 0; i < appLinearGradient.getStopsSize(); i++) {
             StopField stopField = new StopField(stopsPaneChildren, appLinearGradient, appLinearGradient.getAppStop(i));
             stopsPaneChildren.add(stopField);
@@ -124,7 +125,7 @@ public class LinearGradientManagementPanel extends Popup {
     }
 
     void setGraphics() {
-        setSize(primaryAddButton, 30, 30);
+        setCustomSize(primaryAddButton, 30, 30);
         primaryAddButton.setGraphic(new PlusSignIcon(10, 3, new Color(0, 0.7, 0, 1), new Color(0, 0, 0, 1), 0.3));
     }
 

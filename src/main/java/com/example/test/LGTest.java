@@ -6,7 +6,6 @@ import com.example.panels.paint.LinearGradientManagementPanel;
 import com.example.styles.BackgroundsProperty;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -15,7 +14,7 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import static com.example.tools.Tools.setSize;
+import static com.example.tools.Tools.setCustomSize;
 
 public class LGTest extends Application {
     @Override
@@ -142,7 +141,7 @@ public class LGTest extends Application {
 
         Pane pane1=new Pane();
 
-        setSize(pane1,500,500);
+        setCustomSize(pane1,500,500);
 
         Scene scene=new Scene(pane1);
 

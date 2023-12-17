@@ -62,6 +62,14 @@ public class BackgroundsProperty extends SimpleStringProperty {
         fillArray.remove(index);
     }
 
+    public void removeFill(AppPaint appPaint) {
+        fillArray.remove(appPaint);
+    }
+
+    public void removeStroke(AppPaint appPaint) {
+        strokeArray.remove(appPaint);
+    }
+
     public void removeStroke(int index) {
         strokeArray.remove(index);
     }

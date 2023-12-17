@@ -4,7 +4,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 
-import static com.example.tools.Tools.setSize;
+import static com.example.tools.Tools.setCustomSize;
 
 public class BarChartIcon extends BarChart<String,Number> {
     public BarChartIcon() {
@@ -28,7 +28,7 @@ public class BarChartIcon extends BarChart<String,Number> {
 
         int size=70;
 
-        setSize(this,size,size);
+        setCustomSize(this,size,size);
 
         setBarGap(-2);
     }

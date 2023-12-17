@@ -5,7 +5,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-import static com.example.tools.Tools.setSize;
+import static com.example.tools.Tools.setCustomSize;
 
 public class LittleLineChartOnCursor extends LineChart<Number,Number> implements LittleChartStructure {
 
@@ -21,7 +21,7 @@ public class LittleLineChartOnCursor extends LineChart<Number,Number> implements
         getYAxis().setTickLabelsVisible(false);
         setLegendVisible(false);
         setVisible(false);
-        setSize(this,100,100);
+        setCustomSize(this,100,100);
     }
 
     @Override

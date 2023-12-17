@@ -458,7 +458,7 @@ public class BoomComponentsSuperController {
 
         areaChart1.setStyle("-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, rgba(255,0,255,1),rgba(255,255,0,1));");
 
-        setSize(areaChart1,400,400);
+        setCustomSize(areaChart1,400,400);
 //        areaChart1.setWidth(400);
 //        areaChart1.setHeight(400);
 
