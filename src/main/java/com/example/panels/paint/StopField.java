@@ -64,7 +64,7 @@ public class StopField extends GridPane {
         });
         chooseColorButton.setOnAction(event -> {
             ColorManagementPanel colorManagementPanel=new ColorManagementPanel(appStop.appColor);
-            colorManagementPanel.show(Stage.getWindows().get(1));
+            colorManagementPanel.show(Stage.getWindows().get(Stage.getWindows().size()-1));
         });
     }
 

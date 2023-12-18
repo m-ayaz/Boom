@@ -2,6 +2,7 @@ package com.example.panels.paint;
 
 import com.example.apppaints.AppColor;
 import com.example.apppaints.AppLinearGradient;
+import com.example.apppaints.AppRadialGradient;
 import com.example.structures.abstracts.AppPaint;
 import com.example.exceptions.AppException;
 import com.example.icons.*;
@@ -14,10 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
+import javafx.scene.paint.*;
 import javafx.stage.Stage;
 
 import static com.example.tools.Tools.*;
@@ -26,11 +24,11 @@ public class PaintField extends GridPane {
 
     Button addColorButton = new Button();
     Button addLinearGradientButton = new Button();
-    Button addRadialGradientButton = new Button("Radial");
+    Button addRadialGradientButton = new Button();
     
     Button removeButton = new Button();
 
-    Button settingsButton = new Button(); //todo this one needs an icon of cog  :D
+    Button settingsButton = new Button();
 
     Label infoLabel = new Label();
 
@@ -53,20 +51,14 @@ public class PaintField extends GridPane {
 
         setGraphics(infoWidth, buttonWidth, buttonHeight);
 
-//        cssProperty.addListener((a, b, c) -> {
-//            print("====================" + uuid(20));
-//            print("changed");
-//        });
-
-
     }
     
     void setAddRadialGradientButtonBehavior(ObservableList<Node> paintsPaneChildren, CSSProperty cssProperty, double infoWidth, double buttonWidth, double buttonHeight){
         addRadialGradientButton.setOnAction(event -> {
-//            AppLinearGradient newAppLinearGradient = new AppLinearGradient(new LinearGradient(0,0,0,0,true, CycleMethod.NO_CYCLE));
-//            PaintField newPaintField = new PaintField(paintsPaneChildren, cssProperty, newAppLinearGradient,infoWidth,buttonWidth,buttonHeight);
-//            cssProperty.addFill(paintsPaneChildren.indexOf(this), newAppLinearGradient);
-//            paintsPaneChildren.add(paintsPaneChildren.indexOf(this) + 1, newPaintField);
+            AppRadialGradient newAppRadialGradient = new AppRadialGradient(new RadialGradient(0,0,0,0,0,true, CycleMethod.NO_CYCLE));
+            PaintField newPaintField = new PaintField(paintsPaneChildren, cssProperty, newAppRadialGradient,infoWidth,buttonWidth,buttonHeight);
+            cssProperty.addFill(paintsPaneChildren.indexOf(this), newAppRadialGradient);
+            paintsPaneChildren.add(paintsPaneChildren.indexOf(this) + 1, newPaintField);
         });
         addRadialGradientButton.setOnMouseEntered(mouseEvent -> emptySpace.setText("Add new radial gradient."));
         addRadialGradientButton.setOnMouseExited(mouseEvent -> emptySpace.setText(""));
@@ -97,10 +89,13 @@ public class PaintField extends GridPane {
         settingsButton.setOnAction(event -> {
             if (appPaint.getType().equals(PaintTypeEnum.Color.getPaintType())) {
                 ColorManagementPanel colorManagementPanel = new ColorManagementPanel((AppColor) appPaint);
-                colorManagementPanel.show(Stage.getWindows().get(0));
+                colorManagementPanel.show(Stage.getWindows().get(Stage.getWindows().size()-1));
             } else if (appPaint.getType().equals(PaintTypeEnum.LinearGradient.getPaintType())) {
                 LinearGradientManagementPanel linearGradientManagementPanel = new LinearGradientManagementPanel((AppLinearGradient) appPaint);
-                linearGradientManagementPanel.show(Stage.getWindows().get(0));
+                linearGradientManagementPanel.show(Stage.getWindows().get(Stage.getWindows().size()-1));
+            } else if (appPaint.getType().equals(PaintTypeEnum.RadialGradient.getPaintType())) {
+                RadialGradientManagementPanel radialGradientManagementPanel = new RadialGradientManagementPanel((AppRadialGradient) appPaint);
+                radialGradientManagementPanel.show(Stage.getWindows().get(Stage.getWindows().size()-1));
             } else {
                 throw new AppException(AppExceptionEnum.UnexpectedError);
             }
@@ -127,6 +122,7 @@ public class PaintField extends GridPane {
     void setGraphics(double infoWidth,double buttonWidth,double buttonHeight) {
         setCustomSize(addColorButton,buttonWidth,buttonHeight);
         setCustomSize(addLinearGradientButton,buttonWidth,buttonHeight);
+        setCustomSize(addRadialGradientButton,buttonWidth,buttonHeight);
         setCustomSize(removeButton,buttonWidth,buttonHeight);
         setCustomSize(settingsButton,buttonWidth,buttonHeight);
         setCustomSize(emptySpace,infoWidth,buttonHeight);
@@ -134,7 +130,8 @@ public class PaintField extends GridPane {
         infoLabel.setWrapText(true);
         removeButton.setGraphic(new MinusSignIcon(3, 20, new Color(1, 0, 0, 1), new Color(0, 0, 0, 1), 0.3));
         addColorButton.setGraphic(new SolidColorIcon(buttonWidth*0.6,buttonHeight*0.6,new Color(0.7,0.2,0.5,1)));
-        addLinearGradientButton.setGraphic(new LinearGradientIcon(buttonWidth*0.6,buttonHeight*0.6,new LinearGradient(0,0,1,1,true,CycleMethod.NO_CYCLE,new Stop(0,Color.BLUE),new Stop(1,Color.RED))));
+        addLinearGradientButton.setGraphic(new LinearGradientIcon(buttonWidth*0.6,buttonHeight*0.6,new LinearGradient(0,0,1,0,true,CycleMethod.NO_CYCLE,new Stop(0,Color.RED),new Stop(1,Color.BLUE))));
+        addRadialGradientButton.setGraphic(new RadialGradientIcon(buttonWidth*0.6,buttonHeight*0.6,new RadialGradient(0,0,0.5,0.5,0.6,true,CycleMethod.NO_CYCLE,new Stop(0,Color.BLUE),new Stop(1,Color.RED))));
         settingsButton.setGraphic(new SettingsIcon(8,100,80,50,40,15,Color.BLACK));
 //        setSize(addButton, width, height);
 //        setSize(removeButton, width, height);
@@ -147,6 +144,8 @@ public class PaintField extends GridPane {
             infoLabel.setText("Solid");
         } else if (appPaint.getType().equals(PaintTypeEnum.LinearGradient.getPaintType())) {
             infoLabel.setText("LinearGradient");
+        } else if (appPaint.getType().equals(PaintTypeEnum.RadialGradient.getPaintType())) {
+            infoLabel.setText("RadialGradient");
         } else {
             throw new AppException(AppExceptionEnum.UnexpectedError);
         }

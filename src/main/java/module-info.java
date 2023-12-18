@@ -16,8 +16,6 @@ module com.example.Boom {
     opens com.example.appshapes to javafx.fxml;
     opens com.example.icons to javafx.fxml;
     exports com.example.icons;
-    opens com.example.structures to javafx.fxml;
-    exports com.example.structures;
     opens com.example.test to javafx.fxml;
     exports com.example.test;
     exports com.example.exceptions;

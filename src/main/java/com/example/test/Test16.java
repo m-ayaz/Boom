@@ -47,7 +47,7 @@ public class Test16 extends Application {
         ColorManagementPanel colorManagementPanel=new ColorManagementPanel(appColor);
 
 
-        colorManagementPanel.show(Stage.getWindows().get(0));
+        colorManagementPanel.show(Stage.getWindows().get(Stage.getWindows().size()-1));
 
 
 
