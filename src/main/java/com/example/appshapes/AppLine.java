@@ -1,17 +1,12 @@
 package com.example.appshapes;
 
-import com.example.structures.AppRegion;
-import com.example.structures.NodeTypeEnum;
+import com.example.structures.abstracts.AppRegion;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import org.json.JSONObject;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import static com.example.tools.Tools.deepCopy;
 public class AppLine extends AppRegion {
     public AppLine(double startX, double startY, double endX, double endY) {

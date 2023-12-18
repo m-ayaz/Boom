@@ -1,6 +1,6 @@
 package com.example.exceptions;
 
-import com.example.structures.AppExceptionEnum;
+import com.example.structures.enums.AppExceptionEnum;
 
 public class AppException extends RuntimeException{
 

@@ -1,22 +1,13 @@
 package com.example.appshapes;
 
-import com.example.structures.AppRegion;
-import com.example.structures.NodeTypeEnum;
+import com.example.structures.abstracts.AppRegion;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Ellipse;
-import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static com.example.tools.Tools.deepCopy;
-import static com.example.tools.Tools.setCustomSize;
 
 public class AppEllipse extends AppRegion {
 

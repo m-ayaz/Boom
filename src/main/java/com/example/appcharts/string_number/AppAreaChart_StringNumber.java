@@ -1,7 +1,7 @@
 package com.example.appcharts.string_number;
 
 import com.example.configuration.Configs;
-import com.example.structures.AppXYChart;
+import com.example.structures.abstracts.AppXYChart;
 import com.example.styles.CSSProperty;
 import com.example.apppaints.AppColor;
 import com.example.styles.SeriesLineStyleProperty;

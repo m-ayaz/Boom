@@ -1,14 +1,13 @@
 package com.example.appcharts.number_string;
 
 
-import com.example.structures.AppXYChart;
+import com.example.structures.abstracts.AppXYChart;
 import com.example.styles.SeriesMarkersStyleProperty;
 import com.example.tools.TeXConversion;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;

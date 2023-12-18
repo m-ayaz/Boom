@@ -1,7 +1,7 @@
 package com.example.appcharts.number_number;
 
 import com.example.configuration.Configs;
-import com.example.structures.AppXYChart;
+import com.example.structures.abstracts.AppXYChart;
 import com.example.styles.SeriesLineStyleProperty;
 import com.example.styles.SeriesMarkersStyleProperty;
 import com.example.tools.TeXConversion;
@@ -9,7 +9,6 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Path;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
