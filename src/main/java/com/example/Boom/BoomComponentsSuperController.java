@@ -16,20 +16,15 @@ import com.example.configuration.Configs;
 import com.example.controllers.DynamicDragRectangle;
 import com.example.controllers.MainCanvasItemsHandler;
 import com.example.controllers.eventhandlers.MainCanvasMouseHandler;
+import com.example.exceptions.AppException;
+import com.example.icons.*;
+import com.example.indicators.*;
 import com.example.panels.chart.number_number.ChartManagementPane_NumberNumber;
 import com.example.panels.chart.number_string.ChartManagementPane_NumberString;
 import com.example.panels.chart.string_number.ChartManagementPane_StringNumber;
-import com.example.exceptions.AppException;
-import com.example.icons.*;
-import com.example.indicators.LittleAreaChartOnCursor;
-import com.example.indicators.LittleBarChartOnCursor;
-import com.example.indicators.LittleLineChartOnCursor;
-import com.example.indicators.LittleScatterChartOnCursor;
-import com.example.indicators.LittleEllipseOnCursor;
-import com.example.indicators.LittleLineOnCursor;
-import com.example.indicators.LittleRectangleOnCursor;
+import com.example.panels.paint.PaintManagementPanel;
 import com.example.structures.AppExceptionEnum;
-import com.example.structures.AppNode;
+import com.example.structures.AppRegion;
 import com.example.structures.AppXYChart;
 import com.example.structures.NodeTypeEnum;
 import javafx.beans.property.*;
@@ -41,18 +36,16 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.transform.Affine;
 import javafx.stage.FileChooser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -61,10 +54,7 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 import static com.example.projectmanager.ProjectManager.*;
 import static com.example.tools.Tools.*;
@@ -122,148 +112,54 @@ public class BoomComponentsSuperController {
     List<ScalingIcon> scalingIcons = new ArrayList<>();
     Circle rotationFixedPoint = new Circle(10);
     Circle scalingFixedPoint = new Circle(10);
-    List<AppNode> canvasPermanentObjects = new ArrayList<>();
+    List<AppRegion> canvasPermanentObjects = new ArrayList<>();
     ObjectProperty<Cursor> mainCanvasCursor;
     double selectedObjectsCurrentCenterOfMassPosX;
     double selectedObjectsNewCenterOfMassPosX;
     double selectedObjectsCurrentCenterOfMassPosY;
     double selectedObjectsNewCenterOfMassPosY;
-
-    @FXML
-    private BorderPane appWindow;
-
+    PaintManagementPanel paintManagementPanel = new PaintManagementPanel();
     @FXML
     private Button areaChartButton;
-
     @FXML
     private Button barChartButton;
-
     @FXML
     private ScrollPane chartTabContainer;
-
-    @FXML
-    private Tab chartsTab;
-
     @FXML
     private Label cursorPositionLabel;
-
     @FXML
     private Button ellipseButton;
-
-    @FXML
-    private Tab fileTab;
-
-    @FXML
-    private Tab fileTab1;
-
-    @FXML
-    private Tab fileTab11;
-
-    @FXML
-    private ColorPicker fillSolidColorPicker;
-
-    @FXML
-    private Button lineButton;
-
     @FXML
     private Button lineChartButton;
-
-    @FXML
-    private Button loadButton;
-
-    @FXML
-    private Button loadButton1;
-
-    @FXML
-    private Button loadButton11;
-
     @FXML
     private SplitPane mainAppPlayGround;
-
     @FXML
     private AnchorPane mainCanvas;
-
-    @FXML
-    private ScrollPane mainCanvasHolder;
-
     @FXML
     private TextField objectProp1Input;
-
     @FXML
     private Label objectProp1Label;
-
     @FXML
     private TextField objectProp2Input;
-
     @FXML
     private Label objectProp2Label;
-
-    @FXML
-    private AnchorPane objectPropertiesPane;
-
     @FXML
     private Button pieChartButton;
-
     @FXML
     private Button rectangleButton;
-
-    @FXML
-    private Button saveButton;
-
-    @FXML
-    private Button saveButton1;
-
-    @FXML
-    private Button saveButton11;
-
     @FXML
     private Button scatterChartButton;
-
     @FXML
     private TextField selectedObjectsCenterXInput;
-
     @FXML
     private TextField selectedObjectsCenterYInput;
 
     @FXML
-    private Button selectorButton;
-
-    @FXML
-    private Button shapesRectangleButton111;
-
-    @FXML
-    private Button shapesRectangleButton12;
-
-    @FXML
-    private Tab shapesTab;
-
-    @FXML
-    private TextField strokeDashArrayInput;
-
-    @FXML
-    private ColorPicker strokeSolidColorPicker;
-
-    @FXML
-    private TextField strokeWidthInput;
-
-    @FXML
-    private Button textButton;
-
-    @FXML
-    private Button triangleButton;
-
-    @FXML
-    private Button visualArtsGradientColorButton;
-
-    @FXML
-    private Tab visualArtsTab;
-
+    private ScrollPane visualEffectsTab;
     @FXML
     private ComboBox<String> xAxisType;
-
     @FXML
     private ComboBox<String> yAxisType;
-
 
     @FXML
     void appWindowOnKeyTyped(KeyEvent event) {
@@ -304,6 +200,7 @@ public class BoomComponentsSuperController {
         objectProp2Input.visibleProperty().bind(mainCanvasItemsHandler.getSelectedObjectsController().bufferSizeProperty().isEqualTo(1));
         objectProp1Label.visibleProperty().bind(mainCanvasItemsHandler.getSelectedObjectsController().bufferSizeProperty().isEqualTo(1));
         objectProp2Label.visibleProperty().bind(mainCanvasItemsHandler.getSelectedObjectsController().bufferSizeProperty().isEqualTo(1));
+//        paintManagementPanel.visibleProperty().bind(mainCanvasItemsHandler.getSelectedObjectsController().bufferSizeProperty().isEqualTo(1));
 //        mainCanvasItemsHandler.getSelectedObjectsController().bufferSizeProperty().addListener((a, b, c) -> {
 //            if (c.equals(1) && mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().get(0).getClass().getSuperclass().getSimpleName().equals(ElementTypes.AppXYChartStructure.getNodeType())) {
 //                chartDataPane.setVisible(true);
@@ -332,19 +229,6 @@ public class BoomComponentsSuperController {
 
         Configs.setDefaultConfig();
 
-//        print("\n"+"\t".repeat(0)+"text");
-//        print("\n"+"\t".repeat(1)+"text");
-//        print("\n"+"\t".repeat(2)+"text");
-//        print("\n"+"\t".repeat(3)+"text");
-//        print("\n"+"\t".repeat(4)+"text");
-
-
-//        Configs.test();
-
-
-//        Axis<Number> x;
-//        NumberAxis y;
-
         mainCanvas.setPrefWidth(3000);
         mainCanvas.setPrefHeight(3000);
 
@@ -355,13 +239,6 @@ public class BoomComponentsSuperController {
         instantiateObjects();
 
         settleIcons();
-
-        strokeDashArrayInput.focusedProperty().addListener((_1, _2, newValue) -> {
-            if (!newValue) {
-                strokeDashArrayInput.setText(Arrays.stream(strokeDashArrayInput.getText().split(",")).filter(obj -> obj.matches("[\\d.]+")).collect(Collectors.joining()));
-                parsedStrokeDashArray = Arrays.stream(strokeDashArrayInput.getText().split(",")).filter(obj -> obj.matches("[\\d.]+")).map(Double::parseDouble).toList();
-            }
-        });
 
         mainCanvasItemsHandler = new MainCanvasItemsHandler(mainCanvasChildren, canvasPermanentObjects,
                 rotationHandle, rotationIcon, scalingIcons, rotationFixedPoint, scalingFixedPoint,
@@ -383,16 +260,11 @@ public class BoomComponentsSuperController {
 
         setUpObjectsCenterOfMassInput();
 
-        fillSolidColorPicker.setOnAction(event -> mainCanvasItemsHandler.applyFillColorChangesToSelectedObjects(fillSolidColorPicker.getValue()));
-
-        strokeSolidColorPicker.setOnAction(event -> mainCanvasItemsHandler.applyStrokeColorChangesToSelectedObjects(strokeSolidColorPicker.getValue()));
-
         new MainCanvasMouseHandler(mainCanvas, cursorPositionLabel,
                 tempObjectName, dynamicDragRectangle, littleLineChartOnCursor,
                 littleScatterChartOnCursor, littleAreaChartOnCursor, littleEllipseOnCursor,
                 littleRectangleOnCursor, littleLineOnCursor, mainCanvasItemsHandler, currentPosX,
-                currentPosY, previousPosX, previousPosY, dragStartPosX, dragStartPosY, fillSolidColorPicker,
-                strokeSolidColorPicker, strokeWidthInput, parsedStrokeDashArray, scalingIcons,
+                currentPosY, previousPosX, previousPosY, dragStartPosX, dragStartPosY, parsedStrokeDashArray, scalingIcons,
                 rotationIcon, canvasPermanentObjects);
 
         xAxisType.getItems().addAll("Number", "String");
@@ -401,97 +273,9 @@ public class BoomComponentsSuperController {
         xAxisType.setValue("Number");
         yAxisType.setValue("Number");
 
-//        xAxisType.setOnAction(event -> {
-//            tempObjectName.set(tempObjectName.get().split("_")[0]+xAxisType.getValue().equals());
-//        });
-//        xAxisType.setOnAction(event -> {
-////            print(uuid(20));
-////            if(xAxisType.getValue().eq)
-//
-////                tempObjectName.set(tempObjectName.get().substring(0,tempObjectName.get().s));
-//        });
-//
-//        print("12345678".substring(0,8));
 
-//        tempObjectName.s
-
-
-
-
-
-
-
-
-
-
-
-        Random rnd=new Random();
-        AppAreaChart_NumberNumber areaChart=new AppAreaChart_NumberNumber(400,400);
-
-//        mainCanvasItemsHandler.addToMainCanvas(areaChart);
-
-        for(int j=0;j<2;j++) {
-            areaChart.addSeries(j);
-            for (int i = 0; i < 5; i++) {
-                areaChart.addData(i, rnd.nextDouble(), j);
-            }
-        }
-
-        AreaChart<Number,Number> areaChart1=new AreaChart<>(new NumberAxis(),new NumberAxis());
-
-//        Rectangle areaChart1=new Rectangle();
-
-        for(int i=0;i<10;i++){
-            areaChart1.getData().add(new XYChart.Series<>());
-            for(int j=0;j<10;j++){
-                areaChart1.getData().get(i).getData().add(new XYChart.Data<>(rnd.nextDouble(),rnd.nextDouble()));
-            }
-        }
-
-        Circle circle=new Circle(20);
-        circle.setFill(Color.RED);
-
-        circle.setTranslateX(300);
-        circle.setTranslateY(300);
-
-//        mainCanvasChildren.addAll(areaChart1,circle);
-
-        areaChart1.setStyle("-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, rgba(255,0,255,1),rgba(255,255,0,1));");
-
-        setCustomSize(areaChart1,400,400);
-//        areaChart1.setWidth(400);
-//        areaChart1.setHeight(400);
-
-//        areaChart1.setTranslateX(100);
-//        areaChart1.setTranslateY(100);
-
-        Affine affine=new Affine();
-
-        affine.appendTranslation(100,100);
-
-        areaChart1.getTransforms().add(affine);
-
-        areaChart1.setOnMouseMoved(mouseEvent -> {
-            affine.appendRotation(1,200,200);
-//            areaChart1.setRo;
-        });
-
-//        areaChart1.setStyle("-fx-background-color: rgba(0,0,255,0.5),linear-gradient(from 0% 0% to 100% 0%, rgba(255,0,255,0.2),rgba(255,255,0,0.2))," +
-//                "linear-gradient(from 0% 0% to  0% 100%, rgba(0,255,0,0.2),rgba(255,0,0,0.2));");
-
-
-//        linear-gradient(from 0px 0px to 0px 4px, derive(-fx-background, -4%), derive(-fx-background, 10%));
-//
-//        for(int j=0;j<20;j++) {
-//            print("===============");
-//            print(areaChart.getSeriesAreaStyles().get(j).fill.get());
-//            print(areaChart.getSeriesAreaStyles().get(j).stroke.get());
-//        }
-
-
-//        mainCanvasChildren.forEach(obj -> {
-//            if (obj.visibleProperty().get()) print(obj);
-//        });
+        visualEffectsTab.setContent(paintManagementPanel);
+        paintManagementPanel.setVisible(false);
 
 
     }
@@ -542,11 +326,11 @@ public class BoomComponentsSuperController {
         for (Object obj : jsonArray) {
             jsonString = (JSONObject) obj;
             if (jsonString.get("object").equals(NodeTypeEnum.Ellipse.getNodeType())) {
-                mainCanvasItemsHandler.addToMainCanvas(parseEllipseFromJSON(jsonString));
+//                mainCanvasItemsHandler.addToMainCanvas(parseEllipseFromJSON(jsonString));
             } else if (jsonString.get("object").equals(NodeTypeEnum.Rectangle.getNodeType())) {
-                mainCanvasItemsHandler.addToMainCanvas(parseRectangleFromJSON(jsonString));
+//                mainCanvasItemsHandler.addToMainCanvas(parseRectangleFromJSON(jsonString));
             } else if (jsonString.get("object").equals(NodeTypeEnum.Line.getNodeType())) {
-                mainCanvasItemsHandler.addToMainCanvas(parseLineFromJSON(jsonString));
+//                mainCanvasItemsHandler.addToMainCanvas(parseLineFromJSON(jsonString));
             } else if (jsonString.get("object").equals(NodeTypeEnum.LineChart_NN.getNodeType())) {
                 mainCanvasItemsHandler.addToMainCanvas(parseLineChart_NNFromJSON(jsonString));
             } else if (jsonString.get("object").equals(NodeTypeEnum.LineChart_NS.getNodeType())) {
@@ -652,25 +436,25 @@ public class BoomComponentsSuperController {
 
     @FXML
     void objectProp1InputOnKeyTyped(KeyEvent event) {
-        AppNode selectedShape = mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().get(0);
+        AppRegion selectedShape = mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().get(0);
         if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
-            ((AppEllipse) selectedShape).setRadiusX(Double.parseDouble(objectProp1Input.getText()));
+            selectedShape.setWidth(Double.parseDouble(objectProp1Input.getText()));
         } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
-            ((AppRectangle) selectedShape).setWidth(Double.parseDouble(objectProp1Input.getText()));
+            selectedShape.setWidth(Double.parseDouble(objectProp1Input.getText()));
         } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
-            ((AppLine) selectedShape).setStartX(Double.parseDouble(objectProp1Input.getText()));
+            selectedShape.setWidth(Double.parseDouble(objectProp1Input.getText()));
         }
     }
 
     @FXML
     void objectProp2InputOnKeyTyped(KeyEvent event) {
-        AppNode selectedShape = mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().get(0);
+        AppRegion selectedShape = mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().get(0);
         if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
-            ((AppEllipse) selectedShape).setRadiusY(Double.parseDouble(objectProp2Input.getText()));
+            selectedShape.setHeight(Double.parseDouble(objectProp2Input.getText()));
         } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
-            ((AppRectangle) selectedShape).setHeight(Double.parseDouble(objectProp2Input.getText()));
+            selectedShape.setHeight(Double.parseDouble(objectProp2Input.getText()));
         } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
-            ((AppLine) selectedShape).setStartY(Double.parseDouble(objectProp2Input.getText()));
+            selectedShape.setHeight(Double.parseDouble(objectProp2Input.getText()));
         }
     }
 
@@ -819,28 +603,31 @@ public class BoomComponentsSuperController {
     }
 
     void setUpObjectsSizeInput() {
-        mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().addListener((ListChangeListener<AppNode>) change -> {
+        mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().addListener((ListChangeListener<AppRegion>) change -> {
 
 //            print(change);
             if (change.getList().size() == 1) {
-                AppNode selectedShape = change.getList().get(0);
+                AppRegion selectedShape = change.getList().get(0);
+
+                paintManagementPanel.registerBackground(selectedShape.backgroundStyle);
+                paintManagementPanel.setVisible(true);
 //                print(selectedShape.type);
 //                print(NodeTypeEnum.LineChart_NN.getNodeType());
                 if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
                     objectProp1Label.setText("Radius (X)");
                     objectProp2Label.setText("Radius (Y)");
-                    objectProp1Input.setText("" + ((AppEllipse) selectedShape).getRadiusX());
-                    objectProp2Input.setText("" + ((AppEllipse) selectedShape).getRadiusY());
+                    objectProp1Input.setText("" + selectedShape.getWidth());
+                    objectProp2Input.setText("" + selectedShape.getHeight());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
                     objectProp1Label.setText("Width");
                     objectProp2Label.setText("Height");
-                    objectProp1Input.setText("" + ((AppRectangle) selectedShape).getWidth());
-                    objectProp2Input.setText("" + ((AppRectangle) selectedShape).getHeight());
+                    objectProp1Input.setText("" + selectedShape.getWidth());
+                    objectProp2Input.setText("" + selectedShape.getHeight());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
                     objectProp1Label.setText("Start (X)");
                     objectProp2Label.setText("Start (Y)");
-                    objectProp1Input.setText("" + ((AppLine) selectedShape).getStartX());
-                    objectProp2Input.setText("" + ((AppLine) selectedShape).getStartY());
+                    objectProp1Input.setText("" + selectedShape.getWidth());
+                    objectProp2Input.setText("" + selectedShape.getHeight());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.LineChart_NN.getNodeType()) ||
                         selectedShape.getType().equals(NodeTypeEnum.AreaChart_NN.getNodeType()) ||
                         selectedShape.getType().equals(NodeTypeEnum.ScatterChart_NN.getNodeType())) {
@@ -903,6 +690,12 @@ public class BoomComponentsSuperController {
 
 
             }
+            else{
+                chartManagementPane_NN.setVisible(false);
+                chartManagementPane_NS.setVisible(false);
+                chartManagementPane_SN.setVisible(false);
+                paintManagementPanel.setVisible(false);
+            }
         });
     }
 
@@ -927,47 +720,12 @@ public class BoomComponentsSuperController {
     }
 
     @FXML
-    void strokeDashArrayInputOnKeyTyped(KeyEvent event) {
-
-        int eventCharacterASCIICode = event.getCharacter().charAt(0);
-
-        if (eventCharacterASCIICode != (int) ',' && eventCharacterASCIICode != (int) '.' && (eventCharacterASCIICode < (int) '0' || eventCharacterASCIICode > (int) '9')) {
-            strokeDashArrayInput.setText(strokeDashArrayInput.getText().replace(event.getCharacter(), ""));
-        }
-    }
-
-    @FXML
-    void strokeWidthInputOnKeyTyped(KeyEvent event) {
-        // If the input RGBA code is not a number or a number not within 0 to 255, automatically correct it.
-        try {
-            if (Double.parseDouble(strokeWidthInput.getText()) < 0)
-                strokeWidthInput.setText("1");
-        } catch (NumberFormatException e) {
-            strokeWidthInput.setText("1");
-        }
-
-        // Apply changes to selected objects.
-        mainCanvasItemsHandler.applyStrokeWidthChangesToSelectedObjects(Double.parseDouble(strokeWidthInput.getText()));
-    }
-
-    @FXML
     void textButtonOnAction(ActionEvent event) {
 
     }
 
     @FXML
     void triangleButtonOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void visualArtsGradientColorButtonOnAction(ActionEvent event) {
-
-    }
-
-
-    @FXML
-    void visualArtsGradientColorButtonOnMouseDragOver(MouseDragEvent event) {
 
     }
 

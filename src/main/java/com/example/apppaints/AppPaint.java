@@ -5,7 +5,6 @@ import javafx.scene.paint.Paint;
 
 public abstract class AppPaint {
 
-
     SimpleObjectProperty<Paint> paintProperty = new SimpleObjectProperty<>();
     String type;
 

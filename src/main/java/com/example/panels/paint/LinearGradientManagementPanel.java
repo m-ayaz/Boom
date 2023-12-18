@@ -42,6 +42,10 @@ public class LinearGradientManagementPanel extends Popup {
 
         super();
 
+//        showAndWait();
+//        requestFocus();
+//        Stage g;
+//        g.initOwner();
 //        setSt
 
 //        print(this.getN);
@@ -61,6 +65,8 @@ public class LinearGradientManagementPanel extends Popup {
         lgProperties.addRow(2, isProportional);
 
 
+//        Scene scene=new Scene(scrollMain);
+//        setScene(scene);
         getContent().add(scrollMain);
 
         scrollMain.setContent(main);
@@ -143,7 +149,7 @@ public class LinearGradientManagementPanel extends Popup {
             if (stopsPaneChildren.size() == 1) {
                 newAppStop = new AppStop(0, Color.WHITE);
             } else {
-                newAppStop = new AppStop(appLinearGradient.getAppStop(0).offset.get(), appLinearGradient.getAppStop(0).color.get());
+                newAppStop = new AppStop(appLinearGradient.getAppStop(0).offset.get(), (Color) appLinearGradient.getAppStop(0).appColor.getPaintProperty().get());
             }
             StopField newStopField = new StopField(stopsPaneChildren, appLinearGradient, newAppStop);
             appLinearGradient.addAppStop(0,newAppStop);

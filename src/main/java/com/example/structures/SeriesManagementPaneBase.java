@@ -1,7 +1,7 @@
 package com.example.structures;
 
 import com.example.icons.PlusSignIcon;
-import com.example.styles.BackgroundsProperty;
+import com.example.styles.CSSProperty;
 import com.example.styles.SeriesLineStyleProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -28,7 +28,7 @@ public abstract class SeriesManagementPaneBase extends VBox {
     protected Label primaryEmptySpace = new Label("Add new data");
 
 
-    protected SeriesManagementPaneBase(SeriesLineStyleProperty lineStyleProperty, BackgroundsProperty areaStyleProperty) {
+    protected SeriesManagementPaneBase(SeriesLineStyleProperty lineStyleProperty, CSSProperty areaStyleProperty) {
 
         super();
 

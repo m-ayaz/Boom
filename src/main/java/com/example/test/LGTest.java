@@ -3,7 +3,7 @@ package com.example.test;
 import com.example.apppaints.AppLinearGradient;
 import com.example.configuration.Configs;
 import com.example.panels.paint.LinearGradientManagementPanel;
-import com.example.styles.BackgroundsProperty;
+import com.example.styles.CSSProperty;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -38,7 +38,7 @@ public class LGTest extends Application {
 
 //        pane.main.getChildren().add(r);
 
-        BackgroundsProperty b=new BackgroundsProperty("-fx-fill","-fx-stroke","-fx-stroke-width");
+        CSSProperty b=new CSSProperty("-fx-fill","-fx-stroke","-fx-stroke-width");
 
         b.addFill(0,appLinearGradient);
 
@@ -164,7 +164,7 @@ public class LGTest extends Application {
 //        });
 
 
-        pane.show(stage);
+        pane.show(Stage.getWindows().get(0));
 
 
 

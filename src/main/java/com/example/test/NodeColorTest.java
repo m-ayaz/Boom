@@ -1,10 +1,10 @@
 package com.example.test;
 
-import com.example.configuration.Configs;
-import com.example.panels.paint.PaintManagementPanel;
 import com.example.apppaints.AppColor;
 import com.example.apppaints.AppLinearGradient;
-import com.example.styles.BackgroundsProperty;
+import com.example.configuration.Configs;
+import com.example.panels.paint.PaintManagementPanel;
+import com.example.styles.CSSProperty;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -15,7 +15,6 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 
-import static com.example.tools.Tools.print;
 import static com.example.tools.Tools.setCustomSize;
 
 public class NodeColorTest extends Application {
@@ -45,7 +44,7 @@ public class NodeColorTest extends Application {
 //        print(x.getStops().remove(0));
 
 
-        BackgroundsProperty backgroundsProperty = new BackgroundsProperty("-fx-background-color", "-fx-border-color", "-fx-border-width");
+        CSSProperty backgroundsProperty = new CSSProperty("-fx-background-color", "-fx-border-color", "-fx-border-width");
         backgroundsProperty.addFill(0, new AppColor(new Color(1,0,0,0.3)));
         backgroundsProperty.addFill(1, new AppColor(new Color(0,1,0,0.3)));
         backgroundsProperty.addFill(2, new AppLinearGradient(x));

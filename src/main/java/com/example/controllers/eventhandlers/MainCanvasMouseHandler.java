@@ -2,24 +2,18 @@ package com.example.controllers.eventhandlers;
 
 import com.example.controllers.DynamicDragRectangle;
 import com.example.controllers.MainCanvasItemsHandler;
-import com.example.indicators.LittleAreaChartOnCursor;
-import com.example.indicators.LittleScatterChartOnCursor;
-import com.example.structures.AppExceptionEnum;
-import com.example.structures.NodeTypeEnum;
 import com.example.exceptions.AppException;
 import com.example.icons.RotationIcon;
 import com.example.icons.ScalingIcon;
-import com.example.indicators.LittleLineChartOnCursor;
-import com.example.indicators.LittleEllipseOnCursor;
-import com.example.indicators.LittleLineOnCursor;
-import com.example.indicators.LittleRectangleOnCursor;
-import com.example.structures.AppNode;
+import com.example.indicators.*;
+import com.example.structures.AppExceptionEnum;
+import com.example.structures.AppRegion;
+import com.example.structures.NodeTypeEnum;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 import java.util.List;
 
@@ -36,7 +30,7 @@ import static com.example.tools.Tools.print;
  * 1- todo If the user had chosen to draw shapes or charts (not pens), add a clone of the item to the mainCanvas.
  * 2- todo If the user had chosen the the dynamic drag rectangle and there where some selected shapes, do nothing! (The proper behavior has been made through the onMousePressed and onMouseDragged methods.)
  * 3- todo If the user had chosen the the dynamic drag rectangle and there where no selected shapes, select all the objects included by the drag.
- {@link #setOnMouseDragged(Pane, Label, StringProperty, DynamicDragRectangle, MainCanvasItemsHandler, DoubleProperty, DoubleProperty, DoubleProperty, DoubleProperty, DoubleProperty, DoubleProperty, ColorPicker, ColorPicker, TextField, List)}
+ {@link #setOnMouseDragged(Pane, Label, StringProperty, DynamicDragRectangle, MainCanvasItemsHandler, DoubleProperty, DoubleProperty, DoubleProperty, DoubleProperty, DoubleProperty, DoubleProperty, List)} )}
  * This event is invoked when the user is dragging the cursor (the onMousePressed event has already been invoked.).
  * After the user has pressed down the mouse key, the following cases emerge:
  * 1- todo If any of the items (shapes or charts not pens) has been chosen for drawing, dynamically draw the item.
@@ -70,13 +64,13 @@ public class MainCanvasMouseHandler {
                                   DoubleProperty previousPosY,
                                   DoubleProperty dragStartPosX,
                                   DoubleProperty dragStartPosY,
-                                  ColorPicker fillSolidColorPicker,
-                                  ColorPicker strokeSolidColorPicker,
-                                  TextField strokeWidthInput,
+//                                  ColorPicker fillSolidColorPicker,
+//                                  ColorPicker strokeSolidColorPicker,
+//                                  TextField strokeWidthInput,
                                   List<Double> parsedStrokeDashArray,
                                   List<ScalingIcon> scalingIcons,
                                   RotationIcon rotationIcon,
-                                  List<AppNode> canvasPermanentObjects
+                                  List<AppRegion> canvasPermanentObjects
 
     ) {
 
@@ -100,9 +94,9 @@ public class MainCanvasMouseHandler {
                 previousPosY,
                 dragStartPosX,
                 dragStartPosY,
-                fillSolidColorPicker,
-                strokeSolidColorPicker,
-                strokeWidthInput,
+//                fillSolidColorPicker,
+//                strokeSolidColorPicker,
+//                strokeWidthInput,
                 parsedStrokeDashArray);
 
         setOnMouseExited(mainCanvas, cursorPositionLabel,
@@ -155,23 +149,23 @@ public class MainCanvasMouseHandler {
                 littleRectangleOnCursor.show(currentPosX1, currentPosY1);
             } else if (tempObjectName.get().equals(NodeTypeEnum.Line.getNodeType())) {
                 littleLineOnCursor.show(currentPosX1, currentPosY1);
-            } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_NN.getNodeType())||
-                    tempObjectName.get().equals(NodeTypeEnum.LineChart_NS.getNodeType())||
+            } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_NN.getNodeType()) ||
+                    tempObjectName.get().equals(NodeTypeEnum.LineChart_NS.getNodeType()) ||
                     tempObjectName.get().equals(NodeTypeEnum.LineChart_SN.getNodeType())) {
                 littleLineChartOnCursor.show(currentPosX1, currentPosY1);
 //            } else if (tempObjectName.get().equals(NodeTypeEnum.BarChart_NS.getNodeType())||
 //                    tempObjectName.get().equals(NodeTypeEnum.BarChart_SN.getNodeType())) {
 //                littleBarChartOnCursor.show(currentPosX1, currentPosY1);
-            } else if (tempObjectName.get().equals(NodeTypeEnum.AreaChart_NN.getNodeType())||
-                    tempObjectName.get().equals(NodeTypeEnum.AreaChart_NS.getNodeType())||
+            } else if (tempObjectName.get().equals(NodeTypeEnum.AreaChart_NN.getNodeType()) ||
+                    tempObjectName.get().equals(NodeTypeEnum.AreaChart_NS.getNodeType()) ||
                     tempObjectName.get().equals(NodeTypeEnum.AreaChart_SN.getNodeType())) {
                 littleAreaChartOnCursor.show(currentPosX1, currentPosY1);
-            } else if (tempObjectName.get().equals(NodeTypeEnum.ScatterChart_NN.getNodeType())||
-                    tempObjectName.get().equals(NodeTypeEnum.ScatterChart_NS.getNodeType())||
+            } else if (tempObjectName.get().equals(NodeTypeEnum.ScatterChart_NN.getNodeType()) ||
+                    tempObjectName.get().equals(NodeTypeEnum.ScatterChart_NS.getNodeType()) ||
                     tempObjectName.get().equals(NodeTypeEnum.ScatterChart_SN.getNodeType())) {
                 littleScatterChartOnCursor.show(currentPosX1, currentPosY1);
             } else {
-                    throw new AppException(AppExceptionEnum.AppNodeNotRegistered);
+                throw new AppException(AppExceptionEnum.AppNodeNotRegistered);
             }
 
         });
@@ -233,7 +227,7 @@ public class MainCanvasMouseHandler {
 //            } else if (tempObjectName.get().equals(NodeTypeEnum.BarChart_SN.getNodeType())) {
 //                mainCanvasItemsHandler.copyTempBarChart_SNOnMainCanvas();
             } else {
-                    throw new AppException(AppExceptionEnum.AppNodeNotRegistered);
+                throw new AppException(AppExceptionEnum.AppNodeNotRegistered);
             }
 
             dynamicDragRectangle.reset();
@@ -249,7 +243,7 @@ public class MainCanvasMouseHandler {
                            DoubleProperty dragStartPosY,
                            List<ScalingIcon> scalingIcons,
                            RotationIcon rotationIcon,
-                           List<AppNode> canvasPermanentObjects) {
+                           List<AppRegion> canvasPermanentObjects) {
 
         mainCanvas.setOnMousePressed(mouseEvent -> {
             dragStartPosX.set(mouseEvent.getX());
@@ -281,11 +275,11 @@ public class MainCanvasMouseHandler {
                 2- If the user had pressed on a shape, toggle its selection (i.e. select if unselected, unselect if selected). Otherwise, do nothing.
                  */
 
-                AppNode firstOnMousePressedShape = null;
+                AppRegion firstOnMousePressedShape = null;
 //                firstOnMousePressedShape = null;
                 for (int i = canvasPermanentObjects.size() - 1; i >= 0; i--) {
-                    AppNode obj = canvasPermanentObjects.get(i);
-                    if (obj.getNode().contains(obj.getNode().parentToLocal(currentPosX.get(), currentPosY.get()))) {
+                    AppRegion obj = canvasPermanentObjects.get(i);
+                    if (obj.getRegion().contains(obj.getRegion().parentToLocal(currentPosX.get(), currentPosY.get()))) {
 //                    if (obj.isPressed()) {
                         firstOnMousePressedShape = obj;
                         break;
@@ -318,9 +312,9 @@ public class MainCanvasMouseHandler {
                            DoubleProperty previousPosY,
                            DoubleProperty dragStartPosX,
                            DoubleProperty dragStartPosY,
-                           ColorPicker fillSolidColorPicker,
-                           ColorPicker strokeSolidColorPicker,
-                           TextField strokeWidthInput,
+//                           ColorPicker fillSolidColorPicker,
+//                           ColorPicker strokeSolidColorPicker,
+//                           TextField strokeWidthInput,
                            List<Double> parsedStrokeDashArray) {
 
         mainCanvas.setOnMouseDragged(mouseEvent -> {
@@ -338,35 +332,47 @@ public class MainCanvasMouseHandler {
             if (tempObjectName.get().equals(NodeTypeEnum.DynamicDragRectangle.getNodeType())) {
                 dynamicDragRectangle.reset();
             } else if (tempObjectName.get().equals(NodeTypeEnum.Ellipse.getNodeType())) {
-                mainCanvasItemsHandler.drawTempEllipse(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), fillSolidColorPicker.getValue(), strokeSolidColorPicker.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempEllipse(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
+                        , parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.Rectangle.getNodeType())) {
-                mainCanvasItemsHandler.drawTempRectangle(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), fillSolidColorPicker.getValue(), strokeSolidColorPicker.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempRectangle(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
+                        , parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.Line.getNodeType())) {
-                mainCanvasItemsHandler.drawTempLine(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), fillSolidColorPicker.getValue(), strokeSolidColorPicker.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempLine(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
+                        , parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_NN.getNodeType())) {
-                mainCanvasItemsHandler.drawTempLineChart_NN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), fillSolidColorPicker.getValue(), strokeSolidColorPicker.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempLineChart_NN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
+                        , parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_NS.getNodeType())) {
-                mainCanvasItemsHandler.drawTempLineChart_NS(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), fillSolidColorPicker.getValue(), strokeSolidColorPicker.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempLineChart_NS(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
+                        , parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_SN.getNodeType())) {
-                mainCanvasItemsHandler.drawTempLineChart_SN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), fillSolidColorPicker.getValue(), strokeSolidColorPicker.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempLineChart_SN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
+                        , parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.AreaChart_NN.getNodeType())) {
-                mainCanvasItemsHandler.drawTempAreaChart_NN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), fillSolidColorPicker.getValue(), strokeSolidColorPicker.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempAreaChart_NN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
+                        , parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.AreaChart_NS.getNodeType())) {
-                mainCanvasItemsHandler.drawTempAreaChart_NS(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), fillSolidColorPicker.getValue(), strokeSolidColorPicker.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempAreaChart_NS(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
+                        , parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.AreaChart_SN.getNodeType())) {
-                mainCanvasItemsHandler.drawTempAreaChart_SN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), fillSolidColorPicker.getValue(), strokeSolidColorPicker.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempAreaChart_SN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
+                        , parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.ScatterChart_NN.getNodeType())) {
-                mainCanvasItemsHandler.drawTempScatterChart_NN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), fillSolidColorPicker.getValue(), strokeSolidColorPicker.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempScatterChart_NN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
+                        , parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.ScatterChart_NS.getNodeType())) {
-                mainCanvasItemsHandler.drawTempScatterChart_NS(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), fillSolidColorPicker.getValue(), strokeSolidColorPicker.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempScatterChart_NS(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
+                        , parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.ScatterChart_SN.getNodeType())) {
-                mainCanvasItemsHandler.drawTempScatterChart_SN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), fillSolidColorPicker.getValue(), strokeSolidColorPicker.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempScatterChart_SN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
+                        , parsedStrokeDashArray);
 //            } else if (tempObjectName.get().equals(NodeTypeEnum.BarChart_NS.getNodeType())) {
-//                mainCanvasItemsHandler.drawTempBarChart_NS(currentPosX, currentPosY, dragStartPosX, dragStartPosY, fillSolidColorPicker.getValue(), strokeSolidColorPicker.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);
+//                mainCanvasItemsHandler.drawTempBarChart_NS(currentPosX, currentPosY, dragStartPosX, dragStartPosY, Color.TRANSPARENT,Color.BLACK,1, parsedStrokeDashArray);
 //            } else if (tempObjectName.get().equals(NodeTypeEnum.BarChart_SN.getNodeType())) {
-//                mainCanvasItemsHandler.drawTempBarChart_SN(currentPosX, currentPosY, dragStartPosX, dragStartPosY, fillSolidColorPicker.getValue(), strokeSolidColorPicker.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);
+//                mainCanvasItemsHandler.drawTempBarChart_SN(currentPosX, currentPosY, dragStartPosX, dragStartPosY, Color.TRANSPARENT,Color.BLACK,1, parsedStrokeDashArray);
             } else {
-                    throw new AppException(AppExceptionEnum.AppNodeNotRegistered);
+                throw new AppException(AppExceptionEnum.AppNodeNotRegistered);
             }
 //        else if (tempObjectName.equals(ElementTypes.AppLineChart.getSimpleName())) {
 //            mainCanvasItemsHandler.drawTempLineChart(currentPosX, currentPosY, dragStartPosX, dragStartPosY, fillRGBARedSlider.getValue(), fillRGBAGreenSlider.getValue(), fillRGBABlueSlider.getValue(), fillRGBAAlphaSlider.getValue(), strokeRGBARedSlider.getValue(), strokeRGBAGreenSlider.getValue(), strokeRGBABlueSlider.getValue(), strokeRGBAAlphaSlider.getValue(), Double.parseDouble(strokeWidthInput.getText()), parsedStrokeDashArray);

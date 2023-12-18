@@ -24,17 +24,17 @@ import static com.example.tools.Tools.print;
 public class AppLineChart_NumberNumber extends AppXYChart<Number,Number> {
     public AppLineChart_NumberNumber(double width, double height) {
         super(new LineChart<>(new NumberAxis(), new NumberAxis()),width,height);
-        this.type += "_NN";
+        modifyType(getType() +"_NN");
         seriesMarkersStyles=new ArrayList<>();
         seriesLineStyles=new ArrayList<>();
     }
 
     @Override
     public AppXYChart<Number,Number> copy()  {
-        if (((XYChart<?, ?>) node).getMaxWidth() == 0 || ((XYChart<?, ?>) node).getMaxHeight() == 0) {
+        if (getWidth()==0||getHeight()==0) {
             return null;
         }
-        AppXYChart<Number,Number> newChart = new AppLineChart_NumberNumber(((XYChart<?, ?>) node).getMaxWidth(), ((XYChart<?, ?>) node).getMaxHeight());
+        AppXYChart<Number,Number> newChart = new AppLineChart_NumberNumber(getWidth(),getHeight());
         deepCopy(this, newChart);
         return newChart;
     }
@@ -42,7 +42,7 @@ public class AppLineChart_NumberNumber extends AppXYChart<Number,Number> {
     @Override
     public XYChart.Series addSeries(int index) {
         XYChart.Series<Number,Number> newSeries = new XYChart.Series<>();
-        ((XYChart<Number,Number>) node).getData().add(index, newSeries);
+        ((XYChart<Number,Number>) getRegion()).getData().add(index, newSeries);
         SeriesLineStyleProperty seriesLineStyle=new SeriesLineStyleProperty();
 //        seriesLineStyle.color.set((Color) ((Path)newSeries.getNode().lookup(".chart-series-line")).getStroke());
         newSeries.getNode().lookup(".chart-series-line").styleProperty().bind(seriesLineStyle);
@@ -54,14 +54,14 @@ public class AppLineChart_NumberNumber extends AppXYChart<Number,Number> {
 
     @Override
     public void removeSeries(int index) {
-        ((XYChart<Number,Number>) node).getData().remove(index);
+        ((XYChart<Number,Number>) getRegion()).getData().remove(index);
         seriesLineStyles.remove(index);
         seriesMarkersStyles.remove(index);
     }
     @Override
     public XYChart.Data<Number,Number> addData(Number x,Number y,int seriesIndex, int dataIndex) {
         XYChart.Data<Number,Number> newData=new XYChart.Data<>(x,y);
-        ((XYChart<Number,Number>) node).getData().get(seriesIndex).getData().add(dataIndex,newData);
+        ((XYChart<Number,Number>) getRegion()).getData().get(seriesIndex).getData().add(dataIndex,newData);
         newData.getNode().styleProperty().bind(seriesMarkersStyles.get(seriesIndex));
         return newData;
     }
@@ -80,8 +80,8 @@ public class AppLineChart_NumberNumber extends AppXYChart<Number,Number> {
         plotAreaTransform.prepend(new Scale(1,-1,plotAreaBounds.get().getCenterX(),plotAreaBounds.get().getCenterY()));
         plotAreaTransform.prepend(affineTransform);
         StringBuilder dataString = new StringBuilder();
-        for(XYChart.Series<?,?> series: ((XYChart<?,?>) node).getData()){
-            int seriesIndex = ((XYChart<?, ?>) node).getData().indexOf(series);
+        for(XYChart.Series<?,?> series: ((XYChart<?,?>) getRegion()).getData()){
+            int seriesIndex = ((XYChart<?, ?>) getRegion()).getData().indexOf(series);
             dataString.append("\n\t\\addplot[");
             dataString.append(TeXConversion.colorAsStroke(seriesLineStyles.get(seriesIndex).color.get(),2)).append(",");
             dataString.append("\n\t]");

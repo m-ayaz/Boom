@@ -4,8 +4,7 @@ import com.example.apppaints.AppColor;
 import com.example.apppaints.AppLinearGradient;
 import com.example.icons.LinearGradientIcon;
 import com.example.icons.SolidColorIcon;
-import com.example.styles.BackgroundsProperty;
-import com.example.tools.Tools;
+import com.example.styles.CSSProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -18,12 +17,11 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 
 import static com.example.tools.Tools.setCustomSize;
-import static com.example.tools.Tools.setCustomWidth;
 
 
 public class PaintManagementPanel extends VBox {
 
-    BackgroundsProperty backgroundsProperty;
+    CSSProperty backgroundsProperty;
 
 
      VBox paintsPane = new VBox();
@@ -40,7 +38,7 @@ public class PaintManagementPanel extends VBox {
 
         super();
 
-        paintsPaneChildren.add(new HBox(primaryEmptySpace, primaryAddColorButton,primaryAddLinearGradientButton));
+
 
         getChildren().add(paintsPane);
 
@@ -52,10 +50,13 @@ public class PaintManagementPanel extends VBox {
         setGraphics(infoWidth,buttonWidth,buttonHeight);
 
 
+
+
     }
     
-    public void registerBackground(BackgroundsProperty backgroundsProperty) {
+    public void registerBackground(CSSProperty backgroundsProperty) {
         this.backgroundsProperty=backgroundsProperty;
+        paintsPaneChildren.setAll(new HBox(primaryEmptySpace, primaryAddColorButton,primaryAddLinearGradientButton));
         for (int i = 0; i < backgroundsProperty.getFillArray().size(); i++) {
             PaintField paintField = new PaintField(paintsPaneChildren, backgroundsProperty,backgroundsProperty.getFillArray().get(i),infoWidth,buttonWidth,buttonHeight);
             paintsPaneChildren.add(paintField);

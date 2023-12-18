@@ -8,7 +8,6 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Scale;
@@ -23,16 +22,16 @@ import static com.example.tools.Tools.deepCopy;
 public class AppScatterChart_StringNumber extends AppXYChart<String,Number> {
     public AppScatterChart_StringNumber(double width, double height) {
         super(new ScatterChart<>(new CategoryAxis(), new NumberAxis()),width,height);
-        this.type += "_SN";
+        modifyType(getType() +"_NN");
         seriesMarkersStyles=new ArrayList<>();
     }
 
     @Override
     public AppXYChart<String,Number> copy()  {
-        if (((Region) node).getMaxWidth() == 0 || ((Region) node).getMaxHeight() == 0) {
+        if (getWidth()==0||getHeight()==0) {
             return null;
         }
-        AppXYChart<String,Number> newChart = new AppScatterChart_StringNumber(((Region) node).getMaxWidth(), ((Region) node).getMaxHeight());
+        AppXYChart<String,Number> newChart = new AppScatterChart_StringNumber(getWidth(),getHeight());
         deepCopy(this, newChart);
         return newChart;
     }
@@ -40,21 +39,21 @@ public class AppScatterChart_StringNumber extends AppXYChart<String,Number> {
     @Override
     public XYChart.Series<String,Number> addSeries(int index) {
         XYChart.Series<String,Number> newSeries = new XYChart.Series<>();
-        ((XYChart<String,Number>) node).getData().add(index, newSeries);
+        ((XYChart<String,Number>) getRegion()).getData().add(index, newSeries);
         seriesMarkersStyles.add(index,new SeriesMarkersStyleProperty());
         return newSeries;
     }
+
     @Override
     public void removeSeries(int index) {
-        ((XYChart<String,Number>) node).getData().remove(index);
+        ((XYChart<String,Number>) getRegion()).getData().remove(index);
         seriesMarkersStyles.remove(index);
     }
-
 
     @Override
     public XYChart.Data<String,Number> addData(String x,Number y,int seriesIndex, int dataIndex) {
         XYChart.Data<String,Number> newData=new XYChart.Data<>(x,y);
-        ((XYChart<String,Number>) node).getData().get(seriesIndex).getData().add(dataIndex,newData);
+        ((XYChart<String,Number>) getRegion()).getData().get(seriesIndex).getData().add(dataIndex,newData);
         newData.getNode().styleProperty().bind(seriesMarkersStyles.get(seriesIndex));
         return newData;
     }
@@ -71,7 +70,7 @@ public class AppScatterChart_StringNumber extends AppXYChart<String,Number> {
         plotAreaTransform.prepend(new Scale(1, -1, plotAreaBounds.get().getCenterX(), plotAreaBounds.get().getCenterY()));
         plotAreaTransform.prepend(affineTransform);
         StringBuilder dataString = new StringBuilder();
-        for (XYChart.Series<?, ?> series : ((XYChart<?, ?>) node).getData()) {
+        for (XYChart.Series<?, ?> series : ((XYChart<?, ?>) getRegion()).getData()) {
             dataString.append("\n\t\\addplot[");
             dataString.append("\n\t\tonly marks");
             dataString.append("\n\t]");

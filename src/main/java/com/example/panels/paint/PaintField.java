@@ -7,7 +7,7 @@ import com.example.exceptions.AppException;
 import com.example.icons.*;
 import com.example.structures.AppExceptionEnum;
 import com.example.structures.PaintTypeEnum;
-import com.example.styles.BackgroundsProperty;
+import com.example.styles.CSSProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -26,6 +26,8 @@ public class PaintField extends GridPane {
 
     Button addColorButton = new Button();
     Button addLinearGradientButton = new Button();
+    Button addRadialGradientButton = new Button("Radial");
+    
     Button removeButton = new Button();
 
     Button settingsButton = new Button(); //todo this one needs an icon of cog  :D
@@ -35,54 +37,56 @@ public class PaintField extends GridPane {
 
     Label emptySpace = new Label();
 
-    PaintField(ObservableList<Node> paintsPaneChildren, BackgroundsProperty backgroundsProperty, AppPaint appPaint,double infoWidth,double buttonWidth,double buttonHeight) {
+    PaintField(ObservableList<Node> paintsPaneChildren, CSSProperty cssProperty, AppPaint appPaint, double infoWidth, double buttonWidth, double buttonHeight) {
 
         super();
 
-
-
-
-//        setAddColorButtonBehavior(paintsPaneChildren, backgroundsProperty);
-
-//        setRemoveButtonBehavior(paintsPaneChildren, backgroundsProperty,appStop);
-
-//        setColorPickerBehavior(appStop);
-
-        setRemoveButtonBehavior(paintsPaneChildren, backgroundsProperty, appPaint);
-        setAddColorButtonBehavior(paintsPaneChildren, backgroundsProperty,infoWidth,buttonWidth,buttonHeight);
-        setAddLinearGradientButtonBehavior(paintsPaneChildren, backgroundsProperty,infoWidth,buttonWidth,buttonHeight);
+        setRemoveButtonBehavior(paintsPaneChildren, cssProperty, appPaint);
+        setAddColorButtonBehavior(paintsPaneChildren, cssProperty,infoWidth,buttonWidth,buttonHeight);
+        setAddLinearGradientButtonBehavior(paintsPaneChildren, cssProperty,infoWidth,buttonWidth,buttonHeight);
+        setAddRadialGradientButtonBehavior(paintsPaneChildren, cssProperty,infoWidth,buttonWidth,buttonHeight);
         setSettingsButtonBehavior(appPaint);
         setInfoLabelBehavior(appPaint);
 
-
         addRow(0, infoLabel, new HBox(settingsButton, removeButton));
-        addRow(1, emptySpace, new HBox(addColorButton, addLinearGradientButton));
+        addRow(1, emptySpace, new HBox(addColorButton, addLinearGradientButton,addRadialGradientButton));
 
         setGraphics(infoWidth, buttonWidth, buttonHeight);
 
-//        backgroundsProperty.addListener((a, b, c) -> {
+//        cssProperty.addListener((a, b, c) -> {
 //            print("====================" + uuid(20));
 //            print("changed");
 //        });
 
 
     }
+    
+    void setAddRadialGradientButtonBehavior(ObservableList<Node> paintsPaneChildren, CSSProperty cssProperty, double infoWidth, double buttonWidth, double buttonHeight){
+        addRadialGradientButton.setOnAction(event -> {
+//            AppLinearGradient newAppLinearGradient = new AppLinearGradient(new LinearGradient(0,0,0,0,true, CycleMethod.NO_CYCLE));
+//            PaintField newPaintField = new PaintField(paintsPaneChildren, cssProperty, newAppLinearGradient,infoWidth,buttonWidth,buttonHeight);
+//            cssProperty.addFill(paintsPaneChildren.indexOf(this), newAppLinearGradient);
+//            paintsPaneChildren.add(paintsPaneChildren.indexOf(this) + 1, newPaintField);
+        });
+        addRadialGradientButton.setOnMouseEntered(mouseEvent -> emptySpace.setText("Add new radial gradient."));
+        addRadialGradientButton.setOnMouseExited(mouseEvent -> emptySpace.setText(""));
+    }
 
 
-    void setAddColorButtonBehavior(ObservableList<Node> paintsPaneChildren, BackgroundsProperty backgroundsProperty,double infoWidth,double buttonWidth,double buttonHeight) {
+    void setAddColorButtonBehavior(ObservableList<Node> paintsPaneChildren, CSSProperty cssProperty, double infoWidth, double buttonWidth, double buttonHeight) {
         addColorButton.setOnAction(event -> {
             AppColor newAppColor = new AppColor(Color.TRANSPARENT);
-            PaintField newPaintField = new PaintField(paintsPaneChildren, backgroundsProperty, newAppColor,infoWidth,buttonWidth,buttonHeight);
-            backgroundsProperty.addFill(paintsPaneChildren.indexOf(this), newAppColor);
+            PaintField newPaintField = new PaintField(paintsPaneChildren, cssProperty, newAppColor,infoWidth,buttonWidth,buttonHeight);
+            cssProperty.addFill(paintsPaneChildren.indexOf(this), newAppColor);
             paintsPaneChildren.add(paintsPaneChildren.indexOf(this) + 1, newPaintField);
         });
         addColorButton.setOnMouseEntered(mouseEvent -> emptySpace.setText("Add new color."));
         addColorButton.setOnMouseExited(mouseEvent -> emptySpace.setText(""));
     }
 
-    void setRemoveButtonBehavior(ObservableList<Node> paintsPaneChildren, BackgroundsProperty backgroundsProperty, AppPaint appPaint) {
+    void setRemoveButtonBehavior(ObservableList<Node> paintsPaneChildren, CSSProperty cssProperty, AppPaint appPaint) {
         removeButton.setOnAction(event -> {
-            backgroundsProperty.removeFill(appPaint);
+            cssProperty.removeFill(appPaint);
             paintsPaneChildren.remove(this);
         });
         removeButton.setOnMouseEntered(mouseEvent -> emptySpace.setText("Remove this stop"));
@@ -104,11 +108,11 @@ public class PaintField extends GridPane {
         });
     }
 
-    void setAddLinearGradientButtonBehavior(ObservableList<Node> paintsPaneChildren, BackgroundsProperty backgroundsProperty,double infoWidth,double buttonWidth,double buttonHeight){
+    void setAddLinearGradientButtonBehavior(ObservableList<Node> paintsPaneChildren, CSSProperty cssProperty, double infoWidth, double buttonWidth, double buttonHeight){
         addLinearGradientButton.setOnAction(event -> {
             AppLinearGradient newAppLinearGradient = new AppLinearGradient(new LinearGradient(0,0,0,0,true, CycleMethod.NO_CYCLE));
-            PaintField newPaintField = new PaintField(paintsPaneChildren, backgroundsProperty, newAppLinearGradient,infoWidth,buttonWidth,buttonHeight);
-            backgroundsProperty.addFill(paintsPaneChildren.indexOf(this), newAppLinearGradient);
+            PaintField newPaintField = new PaintField(paintsPaneChildren, cssProperty, newAppLinearGradient,infoWidth,buttonWidth,buttonHeight);
+            cssProperty.addFill(paintsPaneChildren.indexOf(this), newAppLinearGradient);
             paintsPaneChildren.add(paintsPaneChildren.indexOf(this) + 1, newPaintField);
         });
         addLinearGradientButton.setOnMouseEntered(mouseEvent -> emptySpace.setText("Add new gradient."));

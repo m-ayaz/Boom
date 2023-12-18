@@ -2,7 +2,7 @@ package com.example.appcharts.number_string;
 
 import com.example.configuration.Configs;
 import com.example.structures.AppXYChart;
-import com.example.styles.BackgroundsProperty;
+import com.example.styles.CSSProperty;
 import com.example.apppaints.AppColor;
 import com.example.styles.SeriesLineStyleProperty;
 import com.example.styles.SeriesMarkersStyleProperty;
@@ -21,61 +21,58 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import static com.example.tools.Tools.deepCopy;
+import static com.example.tools.Tools.print;
 
 public class AppAreaChart_NumberString extends AppXYChart<Number,String> {
     public AppAreaChart_NumberString(double width, double height) {
-        super(new AreaChart<>(new NumberAxis(), new CategoryAxis()),width,height);
-        this.type += "_NS";
-        seriesMarkersStyles=new ArrayList<>();
-        seriesLineStyles=new ArrayList<>();
-        seriesAreaStyles=new ArrayList<>();
-
+        super(new AreaChart<>(new NumberAxis(), new CategoryAxis()), width, height);
+        modifyType(getType() +"_NN");
+        seriesMarkersStyles = new ArrayList<>();
+        seriesLineStyles = new ArrayList<>();
+        seriesAreaStyles = new ArrayList<>();
     }
 
     @Override
-    public XYChart.Series<Number,String> addSeries(int index) {
-        XYChart.Series<Number, String> newSeries = new XYChart.Series<>();
-        ((XYChart<Number, String>) node).getData().add(index, newSeries);
-        SeriesLineStyleProperty seriesLineStyle=new SeriesLineStyleProperty();
-        BackgroundsProperty seriesAreaStyle=new BackgroundsProperty("-fx-fill","-fx-stroke","-fx-stroke-width");
-//        seriesAreaStyle.fill.set((Color) ((Path)newSeries.getNode().lookup(".chart-series-area-fill")).getFill());
-//        seriesAreaStyle.stroke.set((Color) ((Path)newSeries.getNode().lookup(".chart-series-area-fill")).getStroke());
-//        seriesLineStyle.color.set((Color) ((Path)newSeries.getNode().lookup(".chart-series-area-line")).getStroke());
-        newSeries.getNode().lookup(".chart-series-area-fill").styleProperty().bind(seriesAreaStyle);
-        newSeries.getNode().lookup(".chart-series-area-line").styleProperty().bind(seriesLineStyle);
-        seriesAreaStyle.addFill(0,new AppColor(Color.valueOf(Configs.colorConfigs.get("SERIES_AREA_COLOR").get(index%Configs.colorConfigs.get("SERIES_AREA_COLOR").size()))));
-        seriesLineStyle.color.set(Color.valueOf(Configs.colorConfigs.get("SERIES_LINE_COLOR").get(index%Configs.colorConfigs.get("SERIES_LINE_COLOR").size())));
-        seriesAreaStyles.add(index,seriesAreaStyle);
-        seriesLineStyles.add(index,seriesLineStyle);
-        seriesMarkersStyles.add(index,new SeriesMarkersStyleProperty());
-        return newSeries;
-    }
-    @Override
-    public void removeSeries(int index) {
-        ((XYChart<Number,String>) node).getData().remove(index);
-        seriesAreaStyles.remove(index);
-        seriesLineStyles.remove(index);
-        seriesMarkersStyles.remove(index);
-    }
-
-    @Override
-    public XYChart.Data<Number,String> addData(Number x,String y,int seriesIndex, int dataIndex) {
-        XYChart.Data<Number,String> newData=new XYChart.Data<>(x,y);
-        ((XYChart<Number,String>) node).getData().get(seriesIndex).getData().add(dataIndex,newData);
+    public XYChart.Data<Number, String> addData(Number x, String y, int seriesIndex, int dataIndex) {
+        XYChart.Data<Number, String> newData = new XYChart.Data<>(x, y);
+        ((XYChart<Number, String>) getRegion()).getData().get(seriesIndex).getData().add(dataIndex, newData);
         newData.getNode().styleProperty().bind(seriesMarkersStyles.get(seriesIndex));
         return newData;
     }
 
     @Override
-    public AppXYChart<Number,String> copy()  {
-        if (((XYChart<?, ?>) node).getMaxWidth() == 0 || ((XYChart<?, ?>) node).getMaxHeight() == 0) {
+    public XYChart.Series<Number, String> addSeries(int index) {
+        XYChart.Series<Number, String> newSeries = new XYChart.Series<>();
+        ((XYChart<Number, String>) getRegion()).getData().add(index, newSeries);
+        SeriesLineStyleProperty seriesLineStyle = new SeriesLineStyleProperty();
+        CSSProperty seriesAreaStyle = new CSSProperty("-fx-fill", "-fx-stroke", "-fx-stroke-width");
+        newSeries.getNode().lookup(".chart-series-area-fill").styleProperty().bind(seriesAreaStyle);
+        newSeries.getNode().lookup(".chart-series-area-line").styleProperty().bind(seriesLineStyle);
+        seriesAreaStyle.addFill(0, new AppColor(Color.valueOf(Configs.colorConfigs.get("SERIES_AREA_COLOR").get(index % Configs.colorConfigs.get("SERIES_AREA_COLOR").size()))));
+        seriesLineStyle.color.set(Color.valueOf(Configs.colorConfigs.get("SERIES_LINE_COLOR").get(index % Configs.colorConfigs.get("SERIES_LINE_COLOR").size())));
+        seriesAreaStyles.add(index, seriesAreaStyle);
+        seriesLineStyles.add(index, seriesLineStyle);
+        seriesMarkersStyles.add(index, new SeriesMarkersStyleProperty());
+        return newSeries;
+    }
+
+    @Override
+    public AppXYChart<Number, String> copy() {
+        if (getWidth()==0||getHeight()==0) {
             return null;
         }
-        AppXYChart<Number,String> newChart = new AppAreaChart_NumberString(((XYChart<?, ?>) node).getMaxWidth(), ((XYChart<?, ?>) node).getMaxHeight());
+        AppXYChart<Number, String> newChart = new AppAreaChart_NumberString(getWidth(),getHeight());
         deepCopy(this, newChart);
         return newChart;
     }
 
+    @Override
+    public void removeSeries(int index) {
+        ((XYChart<Number, String>) getRegion()).getData().remove(index);
+        seriesAreaStyles.remove(index);
+        seriesLineStyles.remove(index);
+        seriesMarkersStyles.remove(index);
+    }
 
     @Override
     public JSONObject toJSON() {
@@ -89,11 +86,11 @@ public class AppAreaChart_NumberString extends AppXYChart<Number,String> {
         plotAreaTransform.prepend(new Scale(1, -1, plotAreaBounds.get().getCenterX(), plotAreaBounds.get().getCenterY()));
         plotAreaTransform.prepend(affineTransform);
         StringBuilder dataString = new StringBuilder();
-        for (XYChart.Series<?, ?> series : ((XYChart<?, ?>) node).getData()) {
-            int seriesIndex = ((XYChart<?, ?>) node).getData().indexOf(series);
+        for (XYChart.Series<?, ?> series : ((XYChart<?, ?>) getRegion()).getData()) {
+            int seriesIndex = ((XYChart<?, ?>) getRegion()).getData().indexOf(series);
             dataString.append("\n\t\\addplot[");
 //            dataString.append(TeXConversion.colorAsFill(seriesAreaStyles.get(seriesIndex).fill.get(),2)).append(",");
-            dataString.append(TeXConversion.colorAsStroke(seriesLineStyles.get(seriesIndex).color.get(),2)).append(",");
+            dataString.append(TeXConversion.colorAsStroke(seriesLineStyles.get(seriesIndex).color.get(), 2)).append(",");
             dataString.append("\n\t]");
             dataString.append("\n\tcoordinates{").append(series.getData().stream().map(obj -> "(" + obj.getXValue() + "," + obj.getYValue() + ")").collect(Collectors.joining())).append("}\\closedcycle;");
         }
@@ -103,8 +100,8 @@ public class AppAreaChart_NumberString extends AppXYChart<Number,String> {
 //                TeXConversion.colorAsFill(backgroundStyle.fill.get(),3)+","+
 //                TeXConversion.colorAsStroke(backgroundStyle.stroke.get(),3)+","+
                 "\n\t\t}," +
-                TeXConversion.tickMarks(xAxisArea.getTickMarks(),2)+","+
-                TeXConversion.tickMarks(yAxisArea.getTickMarks(),2)+","+
+                TeXConversion.tickMarks(xAxisArea.getTickMarks(), 2) + "," +
+                TeXConversion.tickMarks(yAxisArea.getTickMarks(), 2) + "," +
                 "\n\t\twidth = %fpt,".formatted(plotAreaBounds.get().getWidth()) +
                 "\n\t\theight = %fpt,".formatted(plotAreaBounds.get().getHeight()) +
                 "\n\t\tscale only axis" +

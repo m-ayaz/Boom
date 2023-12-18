@@ -1,6 +1,5 @@
 package com.example.controllers;
 
-import com.example.structures.AppNode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 

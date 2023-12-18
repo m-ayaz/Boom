@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class BackgroundsProperty extends SimpleStringProperty {
+public class CSSProperty extends SimpleStringProperty {
 
 
 
@@ -22,7 +22,7 @@ public class BackgroundsProperty extends SimpleStringProperty {
     String strokeColorFX;
     String strokeWidthFX;
 
-    public BackgroundsProperty(String fillColorFX, String strokeColorFX, String strokeWidthFX) {
+    public CSSProperty(String fillColorFX, String strokeColorFX, String strokeWidthFX) {
         super();
         this.fillColorFX = fillColorFX;
         this.strokeColorFX = strokeColorFX;
@@ -48,6 +48,14 @@ public class BackgroundsProperty extends SimpleStringProperty {
 
     public ObservableList<AppPaint> getStrokeArray() {
         return strokeArray;
+    }
+
+    public void removeAllFills(){
+        fillArray.clear();
+    }
+
+    public void removeAllStrokes(){
+        strokeArray.clear();
     }
 
     public double getStrokeWidth() {

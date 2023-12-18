@@ -2,7 +2,7 @@ package com.example.panels.chart.number_string;
 
 import com.example.structures.AppXYChart;
 import com.example.structures.SeriesManagementPaneBase;
-import com.example.styles.BackgroundsProperty;
+import com.example.styles.CSSProperty;
 import com.example.styles.SeriesLineStyleProperty;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ContextMenu;
@@ -20,7 +20,7 @@ public class SeriesManagementPane_NumberString extends SeriesManagementPaneBase 
     AppXYChart<Number, String> appXYChart;
 
 
-    public SeriesManagementPane_NumberString(AppXYChart<Number, String> appXYChart, XYChart.Series<Number, String> series, SeriesLineStyleProperty lineStyleProperty, BackgroundsProperty areaStyleProperty) {
+    public SeriesManagementPane_NumberString(AppXYChart<Number, String> appXYChart, XYChart.Series<Number, String> series, SeriesLineStyleProperty lineStyleProperty, CSSProperty areaStyleProperty) {
 
         super(lineStyleProperty, areaStyleProperty);
 
@@ -80,7 +80,7 @@ public class SeriesManagementPane_NumberString extends SeriesManagementPaneBase 
         primaryAddButton.setOnMouseExited(mouseEvent -> primaryEmptySpace.setVisible(false));
         primaryAddButton.setOnAction(event -> {
             XYChart.Data<Number, String> newData;
-            int seriesIndex = ((XYChart) appXYChart.getNode()).getData().indexOf(series);
+            int seriesIndex = ((XYChart) appXYChart.getRegion()).getData().indexOf(series);
             if (dataSetPaneChildren.size() == 1) {
                 newData = appXYChart.addData(0, "", seriesIndex, 0);
             } else {

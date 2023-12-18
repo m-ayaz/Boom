@@ -3,7 +3,7 @@ package com.example.test;
 import com.example.apppaints.AppColor;
 import com.example.apppaints.AppLinearGradient;
 import com.example.apppaints.AppPaint;
-import com.example.styles.BackgroundsProperty;
+import com.example.styles.CSSProperty;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -51,7 +51,7 @@ public class Test14 extends Application {
 
         pane.getChildren().add(r);
 
-        BackgroundsProperty backgroundsProperty=new BackgroundsProperty("-fx-fill","-fx-stroke","-fx-stroke-width");
+        CSSProperty backgroundsProperty=new CSSProperty("-fx-fill","-fx-stroke","-fx-stroke-width");
 
         r.styleProperty().bind(backgroundsProperty);
 

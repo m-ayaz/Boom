@@ -15,9 +15,7 @@ import javafx.scene.paint.Stop;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static com.example.tools.Tools.print;
-
-public class AppLinearGradient extends AppPaint {
+public class AppRadialGradient extends AppPaint {
 
 
     ObservableList<AppStop> appStops = FXCollections.observableList(new ArrayList<>());
@@ -53,7 +51,7 @@ public class AppLinearGradient extends AppPaint {
         appStops.remove(appStop);
     }
 
-    public AppLinearGradient(LinearGradient linearGradient) {
+    public AppRadialGradient(LinearGradient linearGradient) {
         super(linearGradient);
         linearGradient.getStops().forEach(stop -> addAppStop(new AppStop(stop.getOffset(), stop.getColor())));
         startX.set(linearGradient.getStartX());

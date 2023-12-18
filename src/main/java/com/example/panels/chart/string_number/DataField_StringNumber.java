@@ -32,7 +32,7 @@ public class DataField_StringNumber extends DataFieldBase<String,Number> {
         });
 
         addButton.setOnAction(event -> {
-            int seriesIndex = ((XYChart) appXYChart.getNode()).getData().indexOf(series);
+            int seriesIndex = ((XYChart) appXYChart.getRegion()).getData().indexOf(series);
             XYChart.Data<String, Number> newData = appXYChart.addData(data.getXValue(), data.getYValue(), seriesIndex, children.indexOf(this));
             DataField_StringNumber newDataField = new DataField_StringNumber(children, appXYChart, series, newData);
             children.add(children.indexOf(this) + 1, newDataField);

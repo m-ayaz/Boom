@@ -1,6 +1,6 @@
 package com.example.structures;
 
-import com.example.styles.BackgroundsProperty;
+import com.example.styles.CSSProperty;
 import com.example.styles.SeriesLineStyleProperty;
 import com.example.styles.SeriesMarkersStyleProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -11,15 +11,10 @@ import javafx.geometry.Insets;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.transform.Translate;
 
 import java.util.List;
 
-import static com.example.tools.Tools.setCustomSize;
-
-public  abstract class AppXYChart<T1, T2> extends AppNode {
+public  abstract class AppXYChart<T1, T2> extends AppRegion {
 
     // todo Only PieChart is an exception. Think of it later!
 
@@ -29,7 +24,7 @@ public  abstract class AppXYChart<T1, T2> extends AppNode {
     protected ReadOnlyObjectProperty<Bounds> plotAreaBounds;
     protected List<SeriesMarkersStyleProperty> seriesMarkersStyles;
     protected List<SeriesLineStyleProperty> seriesLineStyles;
-    protected List<BackgroundsProperty> seriesAreaStyles;
+    protected List<CSSProperty> seriesAreaStyles;
 
     protected StringProperty xAxisStyle = new SimpleStringProperty();
     protected StringProperty yAxisStyle = new SimpleStringProperty();
@@ -37,9 +32,10 @@ public  abstract class AppXYChart<T1, T2> extends AppNode {
     public AppXYChart(XYChart<T1, T2> xyChart, double width, double height) {
 
         super(xyChart);
-        backgroundStyle = new BackgroundsProperty("-fx-background-color","-fx-border-color","-fx-border-width");
+//        backgroundStyle = new BackgroundsProperty("-fx-background-color","-fx-border-color","-fx-border-width");
         xyChart.setPadding(new Insets(0));
-        setCustomSize(xyChart, width, height);
+        setWidth(width);
+        setHeight(height);
 
         xyChart.lookup(".chart-plot-background").styleProperty().bind(backgroundStyle);
 
@@ -56,37 +52,37 @@ public  abstract class AppXYChart<T1, T2> extends AppNode {
     public abstract XYChart.Data<T1, T2> addData(T1 x, T2 y, int seriesIndex, int dataIndex);
 
     public XYChart.Data<T1, T2> addData(T1 x, T2 y, int seriesIndex) {
-        return addData(x, y, seriesIndex, ((XYChart<T1, T2>) node).getData().get(seriesIndex).getData().size());
+        return addData(x, y, seriesIndex, ((XYChart<T1, T2>) region).getData().get(seriesIndex).getData().size());
     }
 
     public abstract XYChart.Series<T1, T2> addSeries(int index);
 
     public XYChart.Series<T1, T2> addSeries() {
-        return addSeries(((XYChart<T1, T2>) node).getData().size());
+        return addSeries(((XYChart<T1, T2>) region).getData().size());
     }
 
-    @Override
-    public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
-        node.setVisible(true);
-        affineTransform.setToTransform(new Translate(Math.min(dragStartX, currentDragPosX), Math.min(dragStartY, currentDragPosY)));
-        setCustomSize((Region) node, Math.abs(currentDragPosX - dragStartX), Math.abs(currentDragPosY - dragStartY));
-    }
+//    @Override
+//    public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
+//        node.setVisible(true);
+//        affineTransform.setToTransform(new Translate(Math.min(dragStartX, currentDragPosX), Math.min(dragStartY, currentDragPosY)));
+//        setCustomSize((Region) node, Math.abs(currentDragPosX - dragStartX), Math.abs(currentDragPosY - dragStartY));
+//    }
+//
+//    @Override
+//    public void setBackgroundColor(Paint paint) {
+//
+//    }
+//
+//    @Override
+//    public void setBorderColor(Paint paint) {
+//
+//    }
 
-    @Override
-    public void setBackgroundColor(Paint paint) {
-
-    }
-
-    @Override
-    public void setBorderColor(Paint paint) {
-
-    }
-
-    public BackgroundsProperty getBackgroundStyle() {
+    public CSSProperty getBackgroundStyle() {
         return backgroundStyle;
     }
 
-    public List<BackgroundsProperty> getSeriesAreaStyles() {
+    public List<CSSProperty> getSeriesAreaStyles() {
         return seriesAreaStyles;
     }
 
@@ -100,23 +96,23 @@ public  abstract class AppXYChart<T1, T2> extends AppNode {
 
     public abstract void removeSeries(int index);
 
-    public void setBackgroundColor(Color color) {
-//        backgroundStyle.fill.set(color);
-    }
-
-    public void setBorderColor(Color color) {
-//        backgroundStyle.stroke.set(color);
-    }
-
-    @Override
-    public void setBorderDashArray(List<Double> borderDashArray) {
-
-    }
-
-    @Override
-    public void setBorderWidth(double borderWidth) {
-//        ((Region) node).setBorder(Border.stroke());
-    }
+//    public void setBackgroundColor(Color color) {
+////        backgroundStyle.fill.set(color);
+//    }
+//
+//    public void setBorderColor(Color color) {
+////        backgroundStyle.stroke.set(color);
+//    }
+//
+//    @Override
+//    public void setBorderDashArray(List<Double> borderDashArray) {
+//
+//    }
+//
+//    @Override
+//    public void setBorderWidth(double borderWidth) {
+////        ((Region) node).setBorder(Border.stroke());
+//    }
 
 //    @Override
 //    protected void bindProperties() {

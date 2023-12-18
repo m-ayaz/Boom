@@ -2,20 +2,13 @@ package com.example.test;
 
 import com.example.apppaints.AppColor;
 import com.example.panels.paint.ColorManagementPanel;
-import com.example.styles.BackgroundsProperty;
+import com.example.styles.CSSProperty;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
@@ -45,7 +38,7 @@ public class Test16 extends Application {
 
         AppColor appColor=new AppColor(Color.TRANSPARENT);
 
-        BackgroundsProperty b=new BackgroundsProperty("-fx-fill","-fx-stroke","-fx-stroke-width");
+        CSSProperty b=new CSSProperty("-fx-fill","-fx-stroke","-fx-stroke-width");
         b.addFill(0,appColor);
 
         r.styleProperty().bind(b);

@@ -2,7 +2,7 @@ package com.example.controllers;
 
 import com.example.icons.RotationIcon;
 import com.example.icons.ScalingIcon;
-import com.example.structures.AppNode;
+import com.example.structures.AppRegion;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -21,7 +21,7 @@ import static java.lang.Math.atan2;
 
 public class SelectedObjectsController {
     final short rotationIconOffset = 30;
-    ObservableList<AppNode> buffer = FXCollections.observableList(new ArrayList<>());
+    ObservableList<AppRegion> buffer = FXCollections.observableList(new ArrayList<>());
 
     IntegerProperty bufferSize = new SimpleIntegerProperty(0);
 
@@ -73,19 +73,19 @@ public class SelectedObjectsController {
             minY.set(buffer.stream().mapToDouble(obj1 -> obj1.border.getY()).min().orElse(Double.POSITIVE_INFINITY));
             maxY.set(buffer.stream().mapToDouble(obj1 -> obj1.border.getY() + obj1.border.getHeight()).max().orElse(Double.NEGATIVE_INFINITY));
 
-            buffer.forEach(obj -> obj.getNode().boundsInParentProperty().addListener((_1, oldVal, newVal) -> {
+            buffer.forEach(obj -> obj.getRegion().boundsInParentProperty().addListener((_1, oldVal, newVal) -> {
                 minX.set(buffer.stream().mapToDouble(obj1 -> obj1.border.getX()).min().orElse(Double.POSITIVE_INFINITY));
                 maxX.set(buffer.stream().mapToDouble(obj1 -> obj1.border.getX() + obj1.border.getWidth()).max().orElse(Double.NEGATIVE_INFINITY));
                 minY.set(buffer.stream().mapToDouble(obj1 -> obj1.border.getY()).min().orElse(Double.POSITIVE_INFINITY));
                 maxY.set(buffer.stream().mapToDouble(obj1 -> obj1.border.getY() + obj1.border.getHeight()).max().orElse(Double.NEGATIVE_INFINITY));
             }));
 
-            buffer.forEach(obj -> obj.getNode().setOnMousePressed(mouseEvent -> {
+            buffer.forEach(obj -> obj.getRegion().setOnMousePressed(mouseEvent -> {
                 currentPosX = mouseEvent.getSceneX();
                 currentPosY = mouseEvent.getSceneY();
             }));
 
-            buffer.forEach(obj -> obj.getNode().setOnMouseDragged(mouseEvent -> {
+            buffer.forEach(obj -> obj.getRegion().setOnMouseDragged(mouseEvent -> {
                 previousPosX = currentPosX;
                 previousPosY = currentPosY;
                 currentPosX = mouseEvent.getSceneX();
@@ -95,7 +95,7 @@ public class SelectedObjectsController {
                 updateFixedPointPosition(rotationFixedPoint);
             }));
 
-            buffer.forEach(obj -> obj.getNode().setOnMouseReleased(mouseEvent -> {
+            buffer.forEach(obj -> obj.getRegion().setOnMouseReleased(mouseEvent -> {
                 rotationIcon.setVisible(true);
                 updateFixedPointPosition(rotationFixedPoint);
             }));
@@ -112,7 +112,10 @@ public class SelectedObjectsController {
             previousPosY = currentPosY;
             currentPosX = mouseEvent.getX();
             currentPosY = mouseEvent.getY();
-            buffer.forEach(obj -> obj.affineTransform.prependRotation(atan2(currentPosY - rotationFixedPoint.getCenterY(), currentPosX - rotationFixedPoint.getCenterX()) * 180 / PI - atan2(previousPosY - rotationFixedPoint.getCenterY(), previousPosX - rotationFixedPoint.getCenterX()) * 180 / PI, rotationFixedPoint.getCenterX(), rotationFixedPoint.getCenterY()));
+            buffer.forEach(obj -> obj.affineTransform.prependRotation(
+                    atan2(currentPosY - rotationFixedPoint.getCenterY(), currentPosX - rotationFixedPoint.getCenterX()) * 180 / PI -
+                            atan2(previousPosY - rotationFixedPoint.getCenterY(), previousPosX - rotationFixedPoint.getCenterX()) * 180 / PI,
+                    rotationFixedPoint.getCenterX(), rotationFixedPoint.getCenterY()));
             rotationIcon.setVisible(false);
         });
 
@@ -177,7 +180,7 @@ public class SelectedObjectsController {
         return bufferSize;
     }
 
-    public ObservableList<AppNode> getBuffer() {
+    public ObservableList<AppRegion> getBuffer() {
         return buffer;
     }
 
@@ -189,30 +192,29 @@ public class SelectedObjectsController {
         return centerY;
     }
 
-    public boolean isSelected(AppNode appStructure) {
+    public boolean isSelected(AppRegion appStructure) {
         return buffer.contains(appStructure);
     }
 
-    public void reverseSelection(AppNode appNode) {
-        if (isSelected(appNode)) {
-            unselect(appNode);
+    public void reverseSelection(AppRegion appRegion) {
+        if (isSelected(appRegion)) {
+            unselect(appRegion);
         } else {
-            select(appNode);
+            select(appRegion);
         }
     }
 
-    public void select(AppNode appNode) {
-
-        if (!buffer.contains(appNode)) {
-            buffer.add(appNode);
-            appNode.border.setVisible(true);
+    public void select(AppRegion appRegion) {
+        if (!buffer.contains(appRegion)) {
+            buffer.add(appRegion);
+            appRegion.border.setVisible(true);
         }
         bufferSize.setValue(buffer.size());
     }
 
-    public void unselect(AppNode appNode) {
-        buffer.remove(appNode);
-        appNode.border.setVisible(false);
+    public void unselect(AppRegion appRegion) {
+        buffer.remove(appRegion);
+        appRegion.border.setVisible(false);
         bufferSize.setValue(buffer.size());
     }
 

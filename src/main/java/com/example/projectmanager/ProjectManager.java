@@ -1,6 +1,6 @@
 package com.example.projectmanager;
 
-import com.example.structures.AppNode;
+import com.example.structures.AppRegion;
 import org.json.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -13,13 +13,13 @@ import static com.example.tools.Tools.print;
 
 public class ProjectManager {
 
-    public static JSONArray exportProjectAsJSON(List<AppNode> canvasPermanentObjects) {
+    public static JSONArray exportProjectAsJSON(List<AppRegion> canvasPermanentObjects) {
         JSONArray jsonScript = new JSONArray();
         canvasPermanentObjects.forEach(obj -> jsonScript.put(obj.toJSON()));
         return jsonScript;
     }
 
-    public static StringBuilder exportProjectAsTeX(List<AppNode> canvasPermanentObjects) {
+    public static StringBuilder exportProjectAsTeX(List<AppRegion> canvasPermanentObjects) {
 //        print("exportProjectAsTeX" );
         StringBuilder texScript = new StringBuilder();
         texScript.append("% Generated with LaTeX Drawer (Free Edition)");
@@ -27,7 +27,7 @@ public class ProjectManager {
         texScript.append("\n\\usepackage{tikz,pgfplots}");
         texScript.append("\n\\begin{document}");
         texScript.append("\n\\begin{tikzpicture}[transform canvas={cm={1,0,0,-1,(0,0)}}]");
-        for (AppNode canvasPermanentObject : canvasPermanentObjects) {
+        for (AppRegion canvasPermanentObject : canvasPermanentObjects) {
             texScript.append("\n").append(canvasPermanentObject.toTeX());
 //            print(canvasPermanentObject.toTeX());
         }

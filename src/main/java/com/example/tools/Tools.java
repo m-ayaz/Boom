@@ -16,6 +16,8 @@ import com.example.appshapes.AppRectangle;
 import com.example.structures.AppXYChart;
 import com.example.styles.SeriesLineStyleProperty;
 import javafx.scene.chart.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
@@ -89,6 +91,14 @@ public class Tools {
         ellipseTo.getStrokeDashArray().addAll(ellipseFrom.getStrokeDashArray());
     }
 
+    public static void deepCopy(Region regionFrom, Region regionTo) {
+        setCustomSize(regionTo,regionFrom.getPrefWidth(),regionFrom.getPrefHeight());
+        regionTo.setBackground(Background.fill(regionFrom.getBackground().getFills().get(0).getFill()));
+        regionTo.setBorder(Border.stroke(regionFrom.getBorder().getStrokes().get(0).getTopStroke()));
+//        ellipseTo.setStrokeWidth(ellipseFrom.getStrokeWidth());
+//        ellipseTo.getStrokeDashArray().addAll(ellipseFrom.getStrokeDashArray());
+    }
+
     public static void deepCopy(Line lineFrom, Line lineTo) {
         lineTo.setStartX(lineFrom.getStartX());
         lineTo.setStartY(lineFrom.getStartY());
@@ -122,43 +132,43 @@ public class Tools {
         return result;
     }
 
-    public static AppEllipse parseEllipseFromJSON(JSONObject jsonString) {
-        AppEllipse newEllipse = new AppEllipse(0, 0);
-        double radiusX = Double.parseDouble(String.valueOf(jsonString.get("radiusX")));
-        double radiusY = Double.parseDouble(String.valueOf(jsonString.get("radiusY")));
-        List<Double> fillColor = (List<Double>) jsonString.get("fillColor");
-        List<Double> strokeColor = (ArrayList<Double>) jsonString.get("strokeColor");
-        double fillOpacity = Double.parseDouble(String.valueOf(jsonString.get("fillOpacity")));
-        double strokeOpacity = Double.parseDouble(String.valueOf(jsonString.get("strokeOpacity")));
-        double strokeWidth = Double.parseDouble(String.valueOf(jsonString.get("strokeWidth")));
-        List<Double> affineTransform = (List<Double>) jsonString.get("affineTransformation");
-        newEllipse.setRadiusX(radiusX);
-        newEllipse.setRadiusY(radiusY);
-        newEllipse.setBackgroundColor(new Color(fillColor.get(0) / 255,fillColor.get(1) / 255, fillColor.get(2) / 255, fillOpacity));
-        newEllipse.setBorderColor(new Color(strokeColor.get(0) / 255,strokeColor.get(1) / 255, strokeColor.get(2) / 255, strokeOpacity));
-        newEllipse.setBorderWidth(strokeWidth);
-        newEllipse.setAffineTransform(affineTransform);
-        return newEllipse;
-    }
-
-    public static AppRectangle parseRectangleFromJSON(JSONObject jsonString) {
-        AppRectangle newRectangle = new AppRectangle(0, 0);
-        double width = Double.parseDouble(String.valueOf(jsonString.get("width")));
-        double height = Double.parseDouble(String.valueOf(jsonString.get("height")));
-        List<Double> fillColor = (ArrayList<Double>) jsonString.get("fillColor");
-        List<Double> strokeColor = (ArrayList<Double>) jsonString.get("strokeColor");
-        double fillOpacity = Double.parseDouble(String.valueOf(jsonString.get("fillOpacity")));
-        double strokeOpacity = Double.parseDouble(String.valueOf(jsonString.get("strokeOpacity")));
-        double strokeWidth = Double.parseDouble(String.valueOf(jsonString.get("strokeWidth")));
-        List<Double> affineTransform = (List<Double>) jsonString.get("affineTransformation");
-        newRectangle.setWidth(width);
-        newRectangle.setHeight(height);
-        newRectangle.setBackgroundColor(new Color(fillColor.get(0) / 255, fillColor.get(1) / 255, fillColor.get(2) / 255, fillOpacity));
-        newRectangle.setBorderColor(new Color(strokeColor.get(0) / 255, strokeColor.get(1) / 255, strokeColor.get(2) / 255, strokeOpacity));
-        newRectangle.setBorderWidth(strokeWidth);
-        newRectangle.setAffineTransform(affineTransform);
-        return newRectangle;
-    }
+//    public static AppEllipse parseEllipseFromJSON(JSONObject jsonString) {
+//        AppEllipse newEllipse = new AppEllipse(0, 0);
+//        double radiusX = Double.parseDouble(String.valueOf(jsonString.get("radiusX")));
+//        double radiusY = Double.parseDouble(String.valueOf(jsonString.get("radiusY")));
+//        List<Double> fillColor = (List<Double>) jsonString.get("fillColor");
+//        List<Double> strokeColor = (ArrayList<Double>) jsonString.get("strokeColor");
+//        double fillOpacity = Double.parseDouble(String.valueOf(jsonString.get("fillOpacity")));
+//        double strokeOpacity = Double.parseDouble(String.valueOf(jsonString.get("strokeOpacity")));
+//        double strokeWidth = Double.parseDouble(String.valueOf(jsonString.get("strokeWidth")));
+//        List<Double> affineTransform = (List<Double>) jsonString.get("affineTransformation");
+//        newEllipse.setRadiusX(radiusX);
+//        newEllipse.setRadiusY(radiusY);
+//        newEllipse.setBackgroundColor(new Color(fillColor.get(0) / 255,fillColor.get(1) / 255, fillColor.get(2) / 255, fillOpacity));
+//        newEllipse.setBorderColor(new Color(strokeColor.get(0) / 255,strokeColor.get(1) / 255, strokeColor.get(2) / 255, strokeOpacity));
+//        newEllipse.setBorderWidth(strokeWidth);
+//        newEllipse.setAffineTransformFromList(affineTransform);
+//        return newEllipse;
+//    }
+//
+//    public static AppRectangle parseRectangleFromJSON(JSONObject jsonString) {
+//        AppRectangle newRectangle = new AppRectangle(0, 0);
+//        double width = Double.parseDouble(String.valueOf(jsonString.get("width")));
+//        double height = Double.parseDouble(String.valueOf(jsonString.get("height")));
+//        List<Double> fillColor = (ArrayList<Double>) jsonString.get("fillColor");
+//        List<Double> strokeColor = (ArrayList<Double>) jsonString.get("strokeColor");
+//        double fillOpacity = Double.parseDouble(String.valueOf(jsonString.get("fillOpacity")));
+//        double strokeOpacity = Double.parseDouble(String.valueOf(jsonString.get("strokeOpacity")));
+//        double strokeWidth = Double.parseDouble(String.valueOf(jsonString.get("strokeWidth")));
+//        List<Double> affineTransform = (List<Double>) jsonString.get("affineTransformation");
+//        newRectangle.setWidth(width);
+//        newRectangle.setHeight(height);
+//        newRectangle.setBackgroundColor(new Color(fillColor.get(0) / 255, fillColor.get(1) / 255, fillColor.get(2) / 255, fillOpacity));
+//        newRectangle.setBorderColor(new Color(strokeColor.get(0) / 255, strokeColor.get(1) / 255, strokeColor.get(2) / 255, strokeOpacity));
+//        newRectangle.setBorderWidth(strokeWidth);
+//        newRectangle.setAffineTransformFromList(affineTransform);
+//        return newRectangle;
+//    }
 
     public static AppLineChart_NumberNumber parseLineChart_NNFromJSON(JSONObject jsonString) {
         return new AppLineChart_NumberNumber(0, 0);
@@ -196,28 +206,28 @@ public class Tools {
         return new AppScatterChart_StringNumber(0, 0);
     }
 
-    public static AppLine parseLineFromJSON(JSONObject jsonString) {
-        AppLine newLine = new AppLine(0, 0, 0, 0);
-        double startX = Double.parseDouble((String) jsonString.get("startX"));
-        double startY = Double.parseDouble((String) jsonString.get("startY"));
-        double endX = Double.parseDouble((String) jsonString.get("endX"));
-        double endY = Double.parseDouble((String) jsonString.get("endY"));
-        List<Double> fillColor = (ArrayList<Double>) jsonString.get("fillColor");
-        List<Double> strokeColor = (ArrayList<Double>) jsonString.get("strokeColor");
-        double fillOpacity = Double.parseDouble(String.valueOf(jsonString.get("fillOpacity")));
-        double strokeOpacity = Double.parseDouble(String.valueOf(jsonString.get("strokeOpacity")));
-        double strokeWidth = Double.parseDouble(String.valueOf(jsonString.get("strokeWidth")));
-        List<Double> affineTransform = (List<Double>) jsonString.get("affineTransformation");
-        newLine.setStartX(startX);
-        newLine.setStartY(startY);
-        newLine.setEndX(endX);
-        newLine.setEndY(endY);
-        newLine.setBackgroundColor(new Color(fillColor.get(0) / 255,fillColor.get(1) / 255, fillColor.get(2) / 255, fillOpacity));
-        newLine.setBorderColor(new Color(strokeColor.get(0) / 255,strokeColor.get(1) / 255, strokeColor.get(2) / 255, strokeOpacity));
-        newLine.setBorderWidth(strokeWidth);
-        newLine.setAffineTransform(affineTransform);
-        return newLine;
-    }
+//    public static AppLine parseLineFromJSON(JSONObject jsonString) {
+//        AppLine newLine = new AppLine(0, 0, 0, 0);
+//        double startX = Double.parseDouble((String) jsonString.get("startX"));
+//        double startY = Double.parseDouble((String) jsonString.get("startY"));
+//        double endX = Double.parseDouble((String) jsonString.get("endX"));
+//        double endY = Double.parseDouble((String) jsonString.get("endY"));
+//        List<Double> fillColor = (ArrayList<Double>) jsonString.get("fillColor");
+//        List<Double> strokeColor = (ArrayList<Double>) jsonString.get("strokeColor");
+//        double fillOpacity = Double.parseDouble(String.valueOf(jsonString.get("fillOpacity")));
+//        double strokeOpacity = Double.parseDouble(String.valueOf(jsonString.get("strokeOpacity")));
+//        double strokeWidth = Double.parseDouble(String.valueOf(jsonString.get("strokeWidth")));
+//        List<Double> affineTransform = (List<Double>) jsonString.get("affineTransformation");
+//        newLine.setStartX(startX);
+//        newLine.setStartY(startY);
+//        newLine.setEndX(endX);
+//        newLine.setEndY(endY);
+//        newLine.setBackgroundColor(new Color(fillColor.get(0) / 255,fillColor.get(1) / 255, fillColor.get(2) / 255, fillOpacity));
+//        newLine.setBorderColor(new Color(strokeColor.get(0) / 255,strokeColor.get(1) / 255, strokeColor.get(2) / 255, strokeOpacity));
+//        newLine.setBorderWidth(strokeWidth);
+//        newLine.setAffineTransformFromList(affineTransform);
+//        return newLine;
+//    }
 
     public static String uuid(int idSize) {
         Random random = new Random();
@@ -269,8 +279,8 @@ public class Tools {
         }
 //        deepCopy(chartFrom.getBackgroundStyle(), chartTo.getBackgroundStyle());
         deepCopy(chartFrom.affineTransform, chartTo.affineTransform);
-        for (int i = 0; i < ((XYChart<T1, T2>) chartFrom.getNode()).getData().size(); i++) {
-            XYChart.Series<T1, T2> series = ((XYChart<T1, T2>) chartFrom.getNode()).getData().get(i);
+        for (int i = 0; i < ((XYChart<T1, T2>) chartFrom.getRegion()).getData().size(); i++) {
+            XYChart.Series<T1, T2> series = ((XYChart<T1, T2>) chartFrom.getRegion()).getData().get(i);
             chartTo.addSeries(i);
             for (int j = 0; j < series.getData().size(); j++) {
                 XYChart.Data<T1, T2> data = series.getData().get(j);
@@ -280,13 +290,13 @@ public class Tools {
 //                    deepCopy(chartFrom.getSeriesAreaStyles().get(i), chartTo.getSeriesAreaStyles().get(i));
                 } catch (Exception e) {
                     print(e);
-                    print("%s does not have AREA".formatted(chartFrom.getNode().getClass().getSimpleName()));
+                    print("%s does not have AREA".formatted(chartFrom.getRegion().getClass().getSimpleName()));
                 }
                 try {
                     deepCopy(chartFrom.getSeriesLineStyles().get(i), chartTo.getSeriesLineStyles().get(i));
                 } catch (Exception e) {
                     print(e);
-                    print("%s does not have LINE".formatted(chartFrom.getNode().getClass().getSimpleName()));
+                    print("%s does not have LINE".formatted(chartFrom.getRegion().getClass().getSimpleName()));
                 }
             }
         }

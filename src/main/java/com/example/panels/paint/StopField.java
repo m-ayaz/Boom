@@ -1,5 +1,6 @@
 package com.example.panels.paint;
 
+import com.example.apppaints.AppColor;
 import com.example.icons.MinusSignIcon;
 import com.example.icons.PlusSignIcon;
 import com.example.apppaints.AppLinearGradient;
@@ -7,12 +8,13 @@ import com.example.apppaints.AppStop;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 import static com.example.tools.Tools.print;
 import static com.example.tools.Tools.setCustomSize;
@@ -22,11 +24,17 @@ public class StopField extends GridPane {
     Button addButton = new Button();
     Button removeButton = new Button();
 
-    ColorPicker colorPicker = new ColorPicker();
+//    ColorPicker colorPicker = new ColorPicker();
+
+    Button chooseColorButton=new Button();
+
+    Rectangle chooseColorButtonColor=new Rectangle(10,10);
 
     TextField proportion = new TextField();
 
     Label emptySpace = new Label();
+
+//    AppColor appColor;
 
     StopField(ObservableList<Node> stopsPaneChildren, AppLinearGradient appLinearGradient, AppStop appStop) {
 
@@ -35,19 +43,37 @@ public class StopField extends GridPane {
 
         setProportionBehavior(appStop);
 
-        setAddButtonBehavior(stopsPaneChildren, appLinearGradient);
+        setAddButtonBehavior(stopsPaneChildren, appLinearGradient,appStop);
 
         setRemoveButtonBehavior(stopsPaneChildren, appLinearGradient,appStop);
 
-        setColorPickerBehavior(appStop);
+//        setColorPickerBehavior(appStop);
+
+        setChooseColorButtonBehavior(appStop);
 
 
-        addRow(0, new HBox(colorPicker, proportion), removeButton);
+        addRow(0, new HBox(chooseColorButton, proportion), removeButton);
         addRow(1, emptySpace, addButton);
 
         setGraphics(30, 30);
 
 
+//        appColor=new AppColor(appStop.color.get());
+
+
+    }
+
+    Label chooseColorButtonLabel=new Label();
+
+    void setChooseColorButtonBehavior(AppStop appStop){
+        appStop.appColor.getPaintProperty().addListener((a,b,c)->{
+            chooseColorButtonColor.setFill(c);
+            chooseColorButtonLabel.setText(c.toString());
+        });
+        chooseColorButton.setOnAction(event -> {
+            ColorManagementPanel colorManagementPanel=new ColorManagementPanel(appStop.appColor);
+            colorManagementPanel.show(Stage.getWindows().get(1));
+        });
     }
 
     void setProportionBehavior(AppStop appStop) {
@@ -66,9 +92,9 @@ public class StopField extends GridPane {
         });
     }
 
-    void setAddButtonBehavior(ObservableList<Node> stopsPaneChildren, AppLinearGradient appLinearGradient) {
+    void setAddButtonBehavior(ObservableList<Node> stopsPaneChildren, AppLinearGradient appLinearGradient,AppStop appStop) {
         addButton.setOnAction(event -> {
-            AppStop newAppStop = new AppStop(Double.parseDouble(proportion.getText()), colorPicker.getValue());
+            AppStop newAppStop = new AppStop(Double.parseDouble(proportion.getText()), (Color) appStop.appColor.getPaintProperty().get());
             StopField newStopField = new StopField(stopsPaneChildren, appLinearGradient, newAppStop);
             appLinearGradient.addAppStop(stopsPaneChildren.indexOf(this), newAppStop);
             stopsPaneChildren.add(stopsPaneChildren.indexOf(this) + 1, newStopField);
@@ -86,16 +112,17 @@ public class StopField extends GridPane {
         removeButton.setOnMouseExited(mouseEvent -> emptySpace.setText(""));
     }
 
-    void setColorPickerBehavior( AppStop appStop) {
-        colorPicker.setValue(appStop.color.get());
-        colorPicker.setOnAction(event -> appStop.color.set(colorPicker.getValue()));
-    }
+//    void setColorPickerBehavior( AppStop appStop) {
+//        colorPicker.setValue(appStop.color.get());
+//        colorPicker.setOnAction(event -> appStop.color.set(colorPicker.getValue()));
+//    }
 
     void setGraphics(double width, double height) {
         setCustomSize(addButton, width, height);
         setCustomSize(removeButton, width, height);
         addButton.setGraphic(new PlusSignIcon(10, 3, new Color(0, 0.7, 0, 1), new Color(0, 0, 0, 1), 0.3));
         removeButton.setGraphic(new MinusSignIcon(3, 20, new Color(1, 0, 0, 1), new Color(0, 0, 0, 1), 0.3));
+        chooseColorButton.setGraphic(new HBox(chooseColorButtonColor,chooseColorButtonLabel));
     }
 
 }
