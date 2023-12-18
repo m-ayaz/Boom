@@ -1,6 +1,8 @@
-package com.example.structures;
+package com.example.structures.abstracts;
 
 import com.example.exceptions.AppException;
+import com.example.structures.enums.AppExceptionEnum;
+import com.example.structures.enums.NodeTypeEnum;
 import com.example.styles.CSSProperty;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;

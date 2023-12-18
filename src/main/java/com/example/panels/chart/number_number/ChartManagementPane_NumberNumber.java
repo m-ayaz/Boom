@@ -2,9 +2,9 @@ package com.example.panels.chart.number_number;
 
 import com.example.icons.MinusSignIcon;
 import com.example.icons.PlusSignIcon;
-import com.example.structures.AppXYChart;
-import com.example.structures.AppExceptionEnum;
-import com.example.structures.NodeTypeEnum;
+import com.example.structures.abstracts.AppXYChart;
+import com.example.structures.enums.AppExceptionEnum;
+import com.example.structures.enums.NodeTypeEnum;
 import com.example.exceptions.AppException;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.LineChart;

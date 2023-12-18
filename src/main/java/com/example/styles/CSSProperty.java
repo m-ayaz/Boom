@@ -1,6 +1,6 @@
 package com.example.styles;
 
-import com.example.apppaints.AppPaint;
+import com.example.structures.abstracts.AppPaint;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;

@@ -34,6 +34,12 @@ module com.example.Boom {
     opens com.example.apppaints to javafx.fxml;
     exports com.example.panels.paint;
     opens com.example.panels.paint to javafx.fxml;
+    exports com.example.structures.abstracts;
+    opens com.example.structures.abstracts to javafx.fxml;
+    exports com.example.structures.enums;
+    opens com.example.structures.enums to javafx.fxml;
+    exports com.example.structures.interfaces;
+    opens com.example.structures.interfaces to javafx.fxml;
 
 }
  

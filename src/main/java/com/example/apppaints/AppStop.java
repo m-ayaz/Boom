@@ -16,8 +16,8 @@ public class AppStop extends SimpleObjectProperty<Stop> {
 
         appColor=new AppColor(color1);
         offset.set(offset1);
-        appColor.paintProperty.addListener((a, b, c)-> set(new Stop(offset.get(), (Color) appColor.paintProperty.get())));
-        offset.addListener((a,b,c)-> set(new Stop(offset.get(), (Color) appColor.paintProperty.get())));
+        appColor.getPaintProperty().addListener((a, b, c)-> set(new Stop(offset.get(), (Color) appColor.getPaintProperty().get())));
+        offset.addListener((a,b,c)-> set(new Stop(offset.get(), (Color) appColor.getPaintProperty().get())));
 
     }
 

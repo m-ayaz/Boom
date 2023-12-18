@@ -1,4 +1,4 @@
-package com.example.structures;
+package com.example.structures.abstracts;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;

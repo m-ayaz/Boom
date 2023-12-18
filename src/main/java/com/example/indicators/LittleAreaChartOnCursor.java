@@ -1,6 +1,6 @@
 package com.example.indicators;
 
-import com.example.structures.LittleChartStructure;
+import com.example.structures.interfaces.LittleChartStructure;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.NumberAxis;
 

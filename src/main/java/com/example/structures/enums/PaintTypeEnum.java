@@ -1,4 +1,4 @@
-package com.example.structures;
+package com.example.structures.enums;
 
 
 public enum PaintTypeEnum {

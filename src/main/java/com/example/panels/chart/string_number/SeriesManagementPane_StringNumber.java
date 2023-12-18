@@ -1,7 +1,7 @@
 package com.example.panels.chart.string_number;
 
-import com.example.structures.AppXYChart;
-import com.example.structures.SeriesManagementPaneBase;
+import com.example.structures.abstracts.AppXYChart;
+import com.example.structures.abstracts.SeriesManagementPaneBase;
 import com.example.styles.CSSProperty;
 import com.example.styles.SeriesLineStyleProperty;
 import javafx.scene.chart.XYChart;

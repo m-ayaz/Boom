@@ -2,7 +2,7 @@ package com.example.controllers;
 
 import com.example.icons.RotationIcon;
 import com.example.icons.ScalingIcon;
-import com.example.structures.AppRegion;
+import com.example.structures.abstracts.AppRegion;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;

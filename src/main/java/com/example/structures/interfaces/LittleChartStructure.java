@@ -1,4 +1,4 @@
-package com.example.structures;
+package com.example.structures.interfaces;
 
 public interface LittleChartStructure {
     void show(double centerX, double centerY);

@@ -1,6 +1,6 @@
 package com.example.projectmanager;
 
-import com.example.structures.AppRegion;
+import com.example.structures.abstracts.AppRegion;
 import org.json.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

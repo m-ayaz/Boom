@@ -1,10 +1,9 @@
 package com.example.panels.paint;
 
-import com.example.apppaints.AppColor;
+import com.example.structures.abstracts.AppGradient;
+import com.example.apppaints.AppStop;
 import com.example.icons.MinusSignIcon;
 import com.example.icons.PlusSignIcon;
-import com.example.apppaints.AppLinearGradient;
-import com.example.apppaints.AppStop;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -36,30 +35,23 @@ public class StopField extends GridPane {
 
 //    AppColor appColor;
 
-    StopField(ObservableList<Node> stopsPaneChildren, AppLinearGradient appLinearGradient, AppStop appStop) {
+    StopField(ObservableList<Node> stopsPaneChildren, AppGradient appGradient, AppStop appStop) {
 
         super();
 
 
         setProportionBehavior(appStop);
 
-        setAddButtonBehavior(stopsPaneChildren, appLinearGradient,appStop);
+        setAddButtonBehavior(stopsPaneChildren, appGradient,appStop);
 
-        setRemoveButtonBehavior(stopsPaneChildren, appLinearGradient,appStop);
-
-//        setColorPickerBehavior(appStop);
+        setRemoveButtonBehavior(stopsPaneChildren, appGradient,appStop);
 
         setChooseColorButtonBehavior(appStop);
-
 
         addRow(0, new HBox(chooseColorButton, proportion), removeButton);
         addRow(1, emptySpace, addButton);
 
         setGraphics(30, 30);
-
-
-//        appColor=new AppColor(appStop.color.get());
-
 
     }
 
@@ -92,20 +84,20 @@ public class StopField extends GridPane {
         });
     }
 
-    void setAddButtonBehavior(ObservableList<Node> stopsPaneChildren, AppLinearGradient appLinearGradient,AppStop appStop) {
+    void setAddButtonBehavior(ObservableList<Node> stopsPaneChildren, AppGradient appGradient,AppStop appStop) {
         addButton.setOnAction(event -> {
             AppStop newAppStop = new AppStop(Double.parseDouble(proportion.getText()), (Color) appStop.appColor.getPaintProperty().get());
-            StopField newStopField = new StopField(stopsPaneChildren, appLinearGradient, newAppStop);
-            appLinearGradient.addAppStop(stopsPaneChildren.indexOf(this), newAppStop);
+            StopField newStopField = new StopField(stopsPaneChildren, appGradient, newAppStop);
+            appGradient.addAppStop(stopsPaneChildren.indexOf(this), newAppStop);
             stopsPaneChildren.add(stopsPaneChildren.indexOf(this) + 1, newStopField);
         });
         addButton.setOnMouseEntered(mouseEvent -> emptySpace.setText("Add new stop"));
         addButton.setOnMouseExited(mouseEvent -> emptySpace.setText(""));
     }
 
-    void setRemoveButtonBehavior(ObservableList<Node> stopsPaneChildren, AppLinearGradient appLinearGradient,AppStop appStop) {
+    void setRemoveButtonBehavior(ObservableList<Node> stopsPaneChildren, AppGradient appGradient,AppStop appStop) {
         removeButton.setOnAction(event -> {
-            appLinearGradient.removeAppStop(appStop);
+            appGradient.removeAppStop(appStop);
             stopsPaneChildren.remove(this);
         });
         removeButton.setOnMouseEntered(mouseEvent -> emptySpace.setText("Remove this stop"));

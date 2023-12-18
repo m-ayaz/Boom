@@ -1,4 +1,4 @@
-package com.example.structures;
+package com.example.structures.abstracts;
 
 import com.example.icons.MinusSignIcon;
 import com.example.icons.PlusSignIcon;

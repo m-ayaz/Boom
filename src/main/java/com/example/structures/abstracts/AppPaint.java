@@ -1,14 +1,14 @@
-package com.example.apppaints;
+package com.example.structures.abstracts;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Paint;
 
 public abstract class AppPaint {
 
-    SimpleObjectProperty<Paint> paintProperty = new SimpleObjectProperty<>();
+    protected SimpleObjectProperty<Paint> paintProperty = new SimpleObjectProperty<>();
     String type;
 
-    AppPaint(Paint paint) {
+    protected AppPaint(Paint paint) {
         paintProperty.set(paint);
         type = paint.getClass().getName();
     }

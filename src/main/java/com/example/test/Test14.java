@@ -2,7 +2,7 @@ package com.example.test;
 
 import com.example.apppaints.AppColor;
 import com.example.apppaints.AppLinearGradient;
-import com.example.apppaints.AppPaint;
+import com.example.structures.abstracts.AppPaint;
 import com.example.styles.CSSProperty;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;

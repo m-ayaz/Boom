@@ -1,4 +1,4 @@
-package com.example.structures;
+package com.example.structures.enums;
 
 
 import javafx.scene.chart.AreaChart;

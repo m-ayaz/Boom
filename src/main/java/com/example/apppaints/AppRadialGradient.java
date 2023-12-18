@@ -1,79 +1,49 @@
 package com.example.apppaints;
 
-import javafx.beans.property.BooleanProperty;
+import com.example.structures.abstracts.AppGradient;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class AppRadialGradient extends AppPaint {
+public class AppRadialGradient extends AppGradient {
 
 
-    ObservableList<AppStop> appStops = FXCollections.observableList(new ArrayList<>());
-    public DoubleProperty startX = new SimpleDoubleProperty(0);
-    public DoubleProperty startY = new SimpleDoubleProperty(0);
-    public DoubleProperty endX = new SimpleDoubleProperty(0);
-    public DoubleProperty endY = new SimpleDoubleProperty(0);
-    public BooleanProperty isProportional = new SimpleBooleanProperty(true);
 
-    public void addAppStop(int index,AppStop appStop){
-        appStops.add(index,appStop);
-        appStop.addListener((a,b,c)->update());
-    }
+    public DoubleProperty focusAngle = new SimpleDoubleProperty(0);
+    public DoubleProperty focusDistance = new SimpleDoubleProperty(0);
+    public DoubleProperty centerX = new SimpleDoubleProperty(0);
+    public DoubleProperty centerY = new SimpleDoubleProperty(0);
+    public DoubleProperty radius = new SimpleDoubleProperty(0);
 
-    public void addAppStop(AppStop appStop){
-        appStops.add(appStop);
-        appStop.addListener((a,b,c)->update());
-    }
-
-    public int getStopsSize(){
-        return appStops.size();
-    }
-
-    public AppStop getAppStop(int index){
-        return appStops.get(index);
-    }
-
-    public void removeAppStop(int index){
-        appStops.remove(index);
-    }
-
-    public void removeAppStop(AppStop appStop){
-        appStops.remove(appStop);
-    }
-
-    public AppRadialGradient(LinearGradient linearGradient) {
-        super(linearGradient);
-        linearGradient.getStops().forEach(stop -> addAppStop(new AppStop(stop.getOffset(), stop.getColor())));
-        startX.set(linearGradient.getStartX());
-        startY.set(linearGradient.getStartY());
-        endX.set(linearGradient.getEndX());
-        endY.set(linearGradient.getEndY());
-        isProportional.set(linearGradient.isProportional());
+    public AppRadialGradient(RadialGradient radialGradient) {
+        super(radialGradient);
+        radialGradient.getStops().forEach(stop -> addAppStop(new AppStop(stop.getOffset(), stop.getColor())));
+        centerX.set(radialGradient.getCenterX());
+        centerY.set(radialGradient.getCenterY());
+        focusAngle.set(radialGradient.getFocusAngle());
+        focusDistance.set(radialGradient.getFocusDistance());
+        radius.set(radialGradient.getRadius());
+        isProportional.set(radialGradient.isProportional());
         appStops.addListener((ListChangeListener<AppStop>) change -> update());
-        startX.addListener((a,b,c) -> update());
-        startY.addListener((a,b,c) -> update());
-        endX.addListener((a,b,c) -> update());
-        endY.addListener((a,b,c) -> update());
+        centerX.addListener((a,b,c) -> update());
+        centerY.addListener((a,b,c) -> update());
+        focusAngle.addListener((a,b,c) -> update());
+        focusDistance.addListener((a,b,c) -> update());
+        radius.addListener((a,b,c)->update());
         isProportional.addListener((a,b,c) -> update());
-
     }
 
-    void update() {
-//        print(appStops);
-//        print(uuid(50));
-//        appStops.forEach(appStop -> print(appStop.color.get()+" , "+appStop.offset.get()));
-        paintProperty.set(new LinearGradient(startX.get(), startY.get(), endX.get(), endY.get(), isProportional.get(), CycleMethod.NO_CYCLE, appStops.stream().map(appStop -> new Stop(appStop.offset.get(), (Color) appStop.appColor.paintProperty.get())).collect(Collectors.toList())));
-//        print(get());
+    @Override
+    protected void update() {
+        paintProperty.set(new RadialGradient(focusAngle.get(), focusDistance.get(), centerX.get(), centerY.get(),
+                radius.get(),isProportional.get(), CycleMethod.NO_CYCLE,
+                appStops.stream().map(appStop -> new Stop(appStop.offset.get(), (Color) appStop.appColor.getPaintProperty().get())).collect(Collectors.toList())));
     }
 
 }

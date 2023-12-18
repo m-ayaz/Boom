@@ -1,7 +1,7 @@
 package com.example.panels.chart.string_number;
 
-import com.example.structures.AppXYChart;
-import com.example.structures.DataFieldBase;
+import com.example.structures.abstracts.AppXYChart;
+import com.example.structures.abstracts.DataFieldBase;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.chart.XYChart;

@@ -2,11 +2,11 @@ package com.example.panels.paint;
 
 import com.example.apppaints.AppColor;
 import com.example.apppaints.AppLinearGradient;
-import com.example.apppaints.AppPaint;
+import com.example.structures.abstracts.AppPaint;
 import com.example.exceptions.AppException;
 import com.example.icons.*;
-import com.example.structures.AppExceptionEnum;
-import com.example.structures.PaintTypeEnum;
+import com.example.structures.enums.AppExceptionEnum;
+import com.example.structures.enums.PaintTypeEnum;
 import com.example.styles.CSSProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
