@@ -114,11 +114,6 @@ public class PaintField extends GridPane {
         addLinearGradientButton.setOnMouseExited(mouseEvent -> emptySpace.setText(""));
     }
 
-//    void setColorPickerBehavior( AppStop appStop) {
-////        colorPicker.setValue(appStop.color.get());
-////        colorPicker.setOnAction(event -> appStop.color.set(colorPicker.getValue()));
-//    }
-
     void setGraphics(double infoWidth,double buttonWidth,double buttonHeight) {
         setCustomSize(addColorButton,buttonWidth,buttonHeight);
         setCustomSize(addLinearGradientButton,buttonWidth,buttonHeight);
@@ -133,10 +128,6 @@ public class PaintField extends GridPane {
         addLinearGradientButton.setGraphic(new LinearGradientIcon(buttonWidth*0.6,buttonHeight*0.6,new LinearGradient(0,0,1,0,true,CycleMethod.NO_CYCLE,new Stop(0,Color.RED),new Stop(1,Color.BLUE))));
         addRadialGradientButton.setGraphic(new RadialGradientIcon(buttonWidth*0.6,buttonHeight*0.6,new RadialGradient(0,0,0.5,0.5,0.6,true,CycleMethod.NO_CYCLE,new Stop(0,Color.BLUE),new Stop(1,Color.RED))));
         settingsButton.setGraphic(new SettingsIcon(8,100,80,50,40,15,Color.BLACK));
-//        setSize(addButton, width, height);
-//        setSize(removeButton, width, height);
-//        addButton.setGraphic(new PlusSignIcon(10, 3, new Color(0, 0.7, 0, 1), new Color(0, 0, 0, 1), 0.3));
-//        removeButton.setGraphic(new MinusSignIcon(3, 20, new Color(1, 0, 0, 1), new Color(0, 0, 0, 1), 0.3));
     }
 
     void setInfoLabelBehavior(AppPaint appPaint){

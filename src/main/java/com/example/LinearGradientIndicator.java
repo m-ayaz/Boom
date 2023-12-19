@@ -1,16 +1,16 @@
-package com.example.structures.abstracts;
+package com.example;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.LinearGradient;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
-public abstract class LinearGradientIndicator {
+public class LinearGradientIndicator extends Group {
 
-    Circle start=new Circle();
-    Circle end=new Circle();
+    public Circle start=new Circle();
+    public Circle end=new Circle();
 
     Line indicator=new Line();
 
@@ -18,6 +18,13 @@ public abstract class LinearGradientIndicator {
     public BooleanProperty visibleProperty=new SimpleBooleanProperty();
 
     public LinearGradientIndicator(){
+
+        super();
+
+        getChildren().addAll(start,end,indicator);
+
+
+
 
         start.setFill(Color.RED);
         end.setFill(Color.GREEN);
@@ -34,7 +41,9 @@ public abstract class LinearGradientIndicator {
         end.visibleProperty().bind(visibleProperty);
         indicator.visibleProperty().bind(visibleProperty);
 
-//        linearGradient
+        start.setOnMousePressed(mouseEvent -> {
+
+        });
 
     }
 

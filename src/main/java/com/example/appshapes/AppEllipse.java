@@ -38,6 +38,11 @@ public class AppEllipse extends AppRegion {
         return null;
     }
 
+    @Override
+    public String toSVG() {
+        return null;
+    }
+
 
     @Override
     public JSONObject toJSON() {

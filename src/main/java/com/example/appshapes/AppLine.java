@@ -32,6 +32,12 @@ public class AppLine extends AppRegion {
 //                "\n\\end{scope}";
         return null;
     }
+
+    @Override
+    public String toSVG() {
+        return null;
+    }
+
     @Override
     public JSONObject toJSON() {
 //        Color strokeColor = Color.valueOf(((Line) node).getStroke().toString());

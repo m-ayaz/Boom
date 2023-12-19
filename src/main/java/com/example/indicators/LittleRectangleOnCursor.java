@@ -1,10 +1,10 @@
 package com.example.indicators;
 
-import com.example.structures.interfaces.LittleShapeStructure;
+import com.example.structures.interfaces.LittleIndicatorStructure;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class LittleRectangleOnCursor extends Rectangle implements LittleShapeStructure {
+public class LittleRectangleOnCursor extends Rectangle implements LittleIndicatorStructure {
 
     public LittleRectangleOnCursor() {
         setWidth(20);

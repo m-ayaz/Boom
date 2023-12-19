@@ -1,7 +1,5 @@
 package com.example.test;
 
-import com.example.icons.SettingsIcon;
-import javafx.animation.Animation;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -10,16 +8,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
-import java.time.Clock;
 
 import static com.example.tools.Tools.print;
 
 
-public class Test18 extends Application {
+public class Test21 extends Application {
 
     public static void setSize(Region region, double width, double height) {
         region.setMaxSize(width, height);
@@ -84,6 +79,8 @@ public class Test18 extends Application {
 //            print("=======================");
 //            print(r);
 //            print(th);
+
+//            rectangle
 
             rectangle.setFill(new RadialGradient(focusAngle,focusDistance,centerX,centerY,radius,false,
                     CycleMethod.NO_CYCLE,new Stop(0,Color.BLUE),new Stop(0.5,Color.GREEN),new Stop(1,Color.RED)));

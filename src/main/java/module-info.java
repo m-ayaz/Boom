@@ -38,6 +38,8 @@ module com.example.Boom {
     opens com.example.structures.enums to javafx.fxml;
     exports com.example.structures.interfaces;
     opens com.example.structures.interfaces to javafx.fxml;
+    exports com.example;
+    opens com.example to javafx.fxml;
 
 }
  

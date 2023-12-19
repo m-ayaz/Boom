@@ -1,10 +1,10 @@
 package com.example.indicators;
 
-import com.example.structures.interfaces.LittleChartStructure;
+import com.example.structures.interfaces.LittleIndicatorStructure;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.NumberAxis;
 
-public class LittleAreaChartOnCursor extends AreaChart<Number,Number> implements LittleChartStructure {
+public class LittleAreaChartOnCursor extends AreaChart<Number,Number> implements LittleIndicatorStructure {
 
     //todo set up background color to white later.
     public LittleAreaChartOnCursor() {

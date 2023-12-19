@@ -62,9 +62,9 @@ public abstract class AppRegion {
         return region;
     }
 
-    public Shape getShape() {
-        return shape;
-    }
+//    public Shape getShape() {
+//        return shape;
+//    }
 
     public String getType() {
         return type;
@@ -87,6 +87,8 @@ public abstract class AppRegion {
     public abstract JSONObject toJSON();
 
     public abstract String toTeX();
+
+    public abstract String toSVG();
 
 
     void bindBorder() {

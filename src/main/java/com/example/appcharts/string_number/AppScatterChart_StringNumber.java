@@ -92,4 +92,9 @@ public class AppScatterChart_StringNumber extends AppXYChart<String,Number> {
                 "\n\\end{scope}";
     }
 
+    @Override
+    public String toSVG() {
+        return null;
+    }
+
 }

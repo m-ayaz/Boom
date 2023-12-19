@@ -111,4 +111,9 @@ public class AppAreaChart_NumberString extends AppXYChart<Number,String> {
                 "\n\\end{scope}";
     }
 
+    @Override
+    public String toSVG() {
+        return null;
+    }
+
 }

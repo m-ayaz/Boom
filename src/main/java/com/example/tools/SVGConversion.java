@@ -6,10 +6,14 @@ import javafx.scene.chart.Axis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
+import org.json.XML;
 
 import java.util.stream.Collectors;
 
-public class TeXConversion {
+public class SVGConversion {
+
+    String preamble;
 
     public static String colorAsStroke(Color color, int tabIndent) {
         if (color != null) {
@@ -27,12 +31,8 @@ public class TeXConversion {
         }
     }
 
-    public static String linearGradientAsFill(LinearGradient linearGradient,int tabIndent){
-        return null;
-    }
-
-    public static <T> String tickMarks(ObservableList<Axis.TickMark<T>> axisTickMarks, int tabIndent){
-        return "\n"+"\t".indent(tabIndent)+"xtick = {"+axisTickMarks.stream().map(tick->tick.getValue().toString()).collect(Collectors.joining(","))+"}";
+    public static <T> String tickMarks(ObservableList<Axis.TickMark<T>> axisTickMarks, int tabIndent) {
+        return "\n" + "\t".indent(tabIndent) + "xtick = {" + axisTickMarks.stream().map(tick -> tick.getValue().toString()).collect(Collectors.joining(",")) + "}";
     }
 
     public static String areaChartSeriesData(XYChart.Series<?, ?> series, int tabIndent, boolean isDataSorted) {
@@ -59,4 +59,42 @@ public class TeXConversion {
         }
     }
 
+
+    static String stopToSVG(Stop stop, int tabIndent) {
+        return "\n" + "\t".repeat(tabIndent) + "<stop offset=\"%f\" stop-color=\"%s\" />".formatted(stop.getOffset(),stop.getColor().toString().replace("0x", "#")) ;
+    }
+
+    public static String linearGradientToSVG(LinearGradient linearGradient,int tabIndent,String id) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<linearGradient id=\"%s\" x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\">".formatted(id, linearGradient.getStartX(), linearGradient.getEndX(), linearGradient.getStartY(), linearGradient.getEndY()));
+        for (Stop stop : linearGradient.getStops()) {
+            stringBuilder.append("\n").append("\t".repeat(tabIndent + 1)).append("<stop stop-color=\"%s\" offset=\"%f\"/>".formatted(stop.getColor().toString().replace("0x", "#"), stop.getOffset()));
+        }
+        stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("</linearGradient>");
+        return stringBuilder.toString();
+
+
+//        return null;
+    }
+
+//    public sta
+
+//    public static String stopToSVG(Stop stop, int tabIndent) {
+//        return "\n" + "\t".repeat(tabIndent) + "<stop" +
+//                "\n" + "\t".repeat(tabIndent + 1) + "stop-color=\"%s\"".formatted(stop.getColor().toString().replace("0x", "#")) +
+//                "\n" + "\t".repeat(tabIndent + 1) + "offset=\"%f\"".formatted(stop.getOffset()) +
+//                "\n" + "\t".repeat(tabIndent) + "/>";
+//    }
+
 }
+
+
+
+
+
+
+
+
+
+
+

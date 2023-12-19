@@ -1,13 +1,13 @@
 package com.example.indicators;
 
-import com.example.structures.interfaces.LittleChartStructure;
+import com.example.structures.interfaces.LittleIndicatorStructure;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 import static com.example.tools.Tools.setCustomSize;
 
-public class LittleLineChartOnCursor extends LineChart<Number,Number> implements LittleChartStructure {
+public class LittleLineChartOnCursor extends LineChart<Number,Number> implements LittleIndicatorStructure {
 
     //todo set up background color to white later.
     public LittleLineChartOnCursor() {

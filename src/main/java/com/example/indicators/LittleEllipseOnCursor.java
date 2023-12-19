@@ -1,9 +1,9 @@
 package com.example.indicators;
 
-import com.example.structures.interfaces.LittleShapeStructure;
+import com.example.structures.interfaces.LittleIndicatorStructure;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
-public class LittleEllipseOnCursor extends Ellipse implements LittleShapeStructure {
+public class LittleEllipseOnCursor extends Ellipse implements LittleIndicatorStructure {
     public LittleEllipseOnCursor() {
         setRadiusX(10);
         setRadiusY(5);

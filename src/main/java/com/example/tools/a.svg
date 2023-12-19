@@ -1,0 +1,31 @@
+<svg width="1000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<!--  <defs>-->
+<!--		<linearGradient id="Gradient1" x1="0px" y1="1px" x2="1px" y2="0px">-->
+<!--			<stop stop-color="#ff000088" offset="0%"/>-->
+<!--			<stop stop-color="#00000000" offset="1"/>-->
+<!--		</linearGradient>-->
+<!--	  </defs>-->
+	  <defs>
+		<linearGradient id="Gradient2" x1="0" x2="1" y1="0" y2="1">
+			<stop stop-color="#0000ff88" offset="0"/>
+			<stop stop-color="#00ff00ff" offset="0.5"/>
+			<stop stop-color="#ff0000ff" offset="1"/>
+		 </linearGradient>
+			
+	  </defs>
+
+<!--  <rect id="rect1" x="50" y="50" rx="0" ry="0" width="400" height="400" fill="url(#Gradient1)"-->
+
+<!--transform="-->
+<!--skewX(40)-->
+<!--rotate(-10 50 100)-->
+<!--               translate(-36 45.5)-->
+<!--               scale(1 0.5)"-->
+
+<!--  />-->
+  <rect id="rect2" x="50" y="50" rx="0" ry="0" width="400" height="400" fill="url(#Gradient2)"/>
+<!--   <rect x="450" height="400" y="450" width="400" style="stroke: black; fill: #ff000088;"/>-->
+  
+ 
+ 
+</svg>

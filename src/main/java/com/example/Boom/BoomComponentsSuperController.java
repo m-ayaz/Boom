@@ -23,6 +23,7 @@ import com.example.panels.chart.number_number.ChartManagementPane_NumberNumber;
 import com.example.panels.chart.number_string.ChartManagementPane_NumberString;
 import com.example.panels.chart.string_number.ChartManagementPane_StringNumber;
 import com.example.panels.paint.PaintManagementPanel;
+import com.example.LinearGradientIndicator;
 import com.example.structures.enums.AppExceptionEnum;
 import com.example.structures.abstracts.AppRegion;
 import com.example.structures.abstracts.AppXYChart;
@@ -227,6 +228,10 @@ public class BoomComponentsSuperController {
     @FXML
     void initialize() {
 
+//        System.out.println("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"100\" height=\"100%\">");
+//        System.out.println("<circle cx=\"50\" cy=\"50\" r=\"30\" fill=\"red\">");
+//        System.out.println("</svg>");
+
         Configs.setDefaultConfig();
 
         mainCanvas.setPrefWidth(3000);
@@ -276,6 +281,18 @@ public class BoomComponentsSuperController {
 
         visualEffectsTab.setContent(paintManagementPanel);
         paintManagementPanel.setVisible(false);
+
+        LinearGradientIndicator lgi=new LinearGradientIndicator();
+
+        mainCanvas.getChildren().add(lgi);
+
+        lgi.start.setCenterX(50);
+        lgi.start.setCenterY(50);
+
+        lgi.end.setCenterX(100);
+        lgi.end.setCenterY(100);
+
+        lgi.visibleProperty.set(true);
 
 
     }

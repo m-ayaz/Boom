@@ -1,11 +1,11 @@
 package com.example.indicators;
 
-import com.example.structures.interfaces.LittleChartStructure;
+import com.example.structures.interfaces.LittleIndicatorStructure;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 
-public class LittleBarChartOnCursor extends BarChart<String,Number> implements LittleChartStructure {
+public class LittleBarChartOnCursor extends BarChart<String,Number> implements LittleIndicatorStructure {
 
     //todo set up background color to white later.
     public LittleBarChartOnCursor() {
