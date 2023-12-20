@@ -19,8 +19,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static com.example.tools.Tools.deepCopy;
-import static com.example.tools.Tools.print;
+import static com.example.tools.Tools.*;
 
 public class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
     public AppAreaChart_NumberNumber(double width, double height) {
@@ -47,7 +46,7 @@ public class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
         CSSProperty seriesAreaStyle = new CSSProperty("-fx-fill", "-fx-stroke", "-fx-stroke-width");
         newSeries.getNode().lookup(".chart-series-area-fill").styleProperty().bind(seriesAreaStyle);
         newSeries.getNode().lookup(".chart-series-area-line").styleProperty().bind(seriesLineStyle);
-        seriesAreaStyle.addFill(0, new AppColor(Color.valueOf(Configs.colorConfigs.get("SERIES_AREA_COLOR").get(index % Configs.colorConfigs.get("SERIES_AREA_COLOR").size()))));
+        seriesAreaStyle.addFill(0, new AppColor(Color.valueOf(Configs.colorConfigs.get("SERIES_AREA_COLOR").get(index % Configs.colorConfigs.get("SERIES_AREA_COLOR").size())),uuid(50)));
         seriesLineStyle.color.set(Color.valueOf(Configs.colorConfigs.get("SERIES_LINE_COLOR").get(index % Configs.colorConfigs.get("SERIES_LINE_COLOR").size())));
         seriesAreaStyles.add(index, seriesAreaStyle);
         seriesLineStyles.add(index, seriesLineStyle);
@@ -79,6 +78,11 @@ public class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
     }
 
     @Override
+    public String getSVGClones(int tabIndent) {
+        return null;
+    }
+
+
     public String toTeX() {
         Affine plotAreaTransform = new Affine();
         plotAreaTransform.prepend(new Translate(plotAreaBounds.get().getMinX(), plotAreaBounds.get().getMinY()));
@@ -110,7 +114,7 @@ public class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
                 "\n\\end{scope}";
     }
 
-    @Override
+
     public String toSVG() {
         return null;
     }

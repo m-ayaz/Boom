@@ -40,6 +40,11 @@ public class AppLineChart_StringNumber extends AppXYChart<String,Number> {
     }
 
     @Override
+    public String getSVGClones(int tabIndent) {
+        return null;
+    }
+
+    @Override
     public XYChart.Series addSeries(int index) {
         XYChart.Series<String,Number> newSeries = new XYChart.Series<>();
         ((XYChart<String,Number>) getRegion()).getData().add(index, newSeries);
@@ -73,7 +78,7 @@ public class AppLineChart_StringNumber extends AppXYChart<String,Number> {
         return null;
     }
 
-    @Override
+
     public String toTeX() {
         Affine plotAreaTransform=new Affine();
         plotAreaTransform.prepend(new Translate(plotAreaBounds.get().getMinX(),plotAreaBounds.get().getMinY()));
@@ -104,7 +109,7 @@ public class AppLineChart_StringNumber extends AppXYChart<String,Number> {
                 "\n\\end{scope}";
     }
 
-    @Override
+
     public String toSVG() {
         return null;
     }

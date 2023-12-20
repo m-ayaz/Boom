@@ -62,6 +62,11 @@ public class AppScatterChart_NumberNumber extends AppXYChart<Number,Number> {
     }
 
     @Override
+    public String getSVGClones(int tabIndent) {
+        return null;
+    }
+
+
     public String toTeX() {
         Affine plotAreaTransform = new Affine();
         plotAreaTransform.prepend(new Translate(plotAreaBounds.get().getMinX(), plotAreaBounds.get().getMinY()));
@@ -91,7 +96,7 @@ public class AppScatterChart_NumberNumber extends AppXYChart<Number,Number> {
                 "\n\\end{scope}";
     }
 
-    @Override
+
     public String toSVG() {
         return null;
     }

@@ -10,7 +10,9 @@ import com.example.appcharts.string_number.AppLineChart_StringNumber;
 import com.example.appcharts.string_number.AppScatterChart_StringNumber;
 import com.example.appshapes.AppText;
 import com.example.appcharts.number_number.AppLineChart_NumberNumber;
+import com.example.exceptions.AppException;
 import com.example.structures.abstracts.AppXYChart;
+import com.example.structures.enums.AppExceptionEnum;
 import com.example.styles.SeriesLineStyleProperty;
 import javafx.scene.chart.*;
 import javafx.scene.layout.Background;
@@ -296,6 +298,44 @@ public class Tools {
                 }
             }
         }
+    }
+
+
+    public static double[] dissectAffineTransform(Affine affine){
+
+        double a=affine.getMxx();
+        double b=affine.getMxy();
+        double c=affine.getMyx();
+        double d=affine.getMyy();
+        double sx,sy,th1,th2;
+
+        double N2=a*a+b*b+c*c+d*d;
+        double D=affine.determinant();
+        if(D==0){
+            throw new AppException(AppExceptionEnum.UnexpectedError);
+        }
+
+        sx=Math.sqrt((N2+Math.sqrt(N2*N2-4*D*D))/2);
+        if(D>0) {
+            sy = Math.sqrt((N2 - Math.sqrt(N2 * N2 - 4 * D * D)) / 2);
+        }
+        else {
+            sy =- Math.sqrt((N2 - Math.sqrt(N2 * N2 - 4 * D * D)) / 2);
+        }
+
+//        th1=Math.atan2(d*sx-a*sy,b*sx+c*sy);
+//        th2=Math.atan2(d*sx-a*sy,-c*sx-b*sy);
+
+//        if()
+        if(sx==sy){
+            th1=0;
+        }else{
+//            th1=Math.acos(Math.sqrt((a*a+b*b-sy*sy)/(sx*sx-sy*sy)));
+            th1=Math.atan2(c-b,a+d)/2+Math.atan2(c+b,a-d)/2;
+        }
+        th2=th1-Math.atan2(c+b,a-d);
+
+        return new double[]{th1*180/Math.PI,sx,sy,th2*180/Math.PI};
     }
 
 }

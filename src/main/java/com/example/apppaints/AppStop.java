@@ -6,20 +6,30 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Stop;
 
 import static com.example.tools.Tools.print;
+import static com.example.tools.Tools.uuid;
 
 public class AppStop extends SimpleObjectProperty<Stop> {
 
     public AppColor appColor;
     public SimpleDoubleProperty offset=new SimpleDoubleProperty();
 
-    public AppStop(double offset1,Color color1){
+    public AppStop(Stop stop){
 
-        appColor=new AppColor(color1);
-        offset.set(offset1);
-        appColor.getPaintProperty().addListener((a, b, c)-> set(new Stop(offset.get(), (Color) appColor.getPaintProperty().get())));
-        offset.addListener((a,b,c)-> set(new Stop(offset.get(), (Color) appColor.getPaintProperty().get())));
+        set(stop);
+        appColor=new AppColor(stop.getColor(),"");
+        offset.set(stop.getOffset());
+        appColor.addListener((a, b, c)-> update());
+        offset.addListener((a,b,c)-> update());
 
     }
 
+    void update(){
+        set(new Stop(offset.get(), (Color) appColor.get()));
+    }
+
+
+    public String toSVG(int tabIndent){
+        return "\n"+"\t".repeat(tabIndent)+"<stop offset=\"%f\" stop-color=\"%s\" />".formatted(get().getOffset(),get().getColor().toString().replace("0x", "#"));
+    }
 
 }

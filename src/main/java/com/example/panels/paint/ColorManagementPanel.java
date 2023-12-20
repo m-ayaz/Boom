@@ -106,18 +106,18 @@ public class ColorManagementPanel extends Popup {
         setColorPickerBehavior(appColor);
         setRGBAFieldBehavior(appColor);
 
-        if(appColor.getPaintProperty().get() !=null) {
-            redValueBar.setValue(((Color)appColor.getPaintProperty().get()).getRed() * 255);
-            redValueField.setText(String.valueOf(((Color)appColor.getPaintProperty().get()).getRed() * 255));
-            greenValueBar.setValue(((Color)appColor.getPaintProperty().get()).getGreen() * 255);
-            greenValueField.setText(String.valueOf(((Color)appColor.getPaintProperty().get()).getGreen() * 255));
-            blueValueBar.setValue(((Color)appColor.getPaintProperty().get()).getBlue() * 255);
-            blueValueField.setText(String.valueOf(((Color)appColor.getPaintProperty().get()).getBlue() * 255));
-            alphaValueBar.setValue(((Color)appColor.getPaintProperty().get()).getOpacity() * 255);
-            alphaValueField.setText(String.valueOf(((Color)appColor.getPaintProperty().get()).getOpacity() * 255));
-            colorPreview.setFill(appColor.getPaintProperty().get());
-            colorPicker.setValue(((Color)appColor.getPaintProperty().get()));
-            rgbaField.setText(appColor.get().replace("#",""));
+        if(appColor.get() !=null) {
+            redValueBar.setValue(((Color)appColor.get()).getRed() * 255);
+            redValueField.setText(String.valueOf(((Color)appColor.get()).getRed() * 255));
+            greenValueBar.setValue(((Color)appColor.get()).getGreen() * 255);
+            greenValueField.setText(String.valueOf(((Color)appColor.get()).getGreen() * 255));
+            blueValueBar.setValue(((Color)appColor.get()).getBlue() * 255);
+            blueValueField.setText(String.valueOf(((Color)appColor.get()).getBlue() * 255));
+            alphaValueBar.setValue(((Color)appColor.get()).getOpacity() * 255);
+            alphaValueField.setText(String.valueOf(((Color)appColor.get()).getOpacity() * 255));
+            colorPreview.setFill(appColor.get());
+            colorPicker.setValue(((Color)appColor.get()));
+            rgbaField.setText(appColor.getFormatted().replace("#",""));
         }
     }
 
@@ -127,9 +127,9 @@ public class ColorManagementPanel extends Popup {
         redValueBar.setOnMouseDragged(mouseEvent -> {
             redValueField.setText(String.valueOf(redValueBar.getValue()));
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            rgbaField.setText(appColor.get().replace("#",""));
+            rgbaField.setText(appColor.getFormatted().replace("#",""));
         });
     }
 
@@ -139,9 +139,9 @@ public class ColorManagementPanel extends Popup {
         greenValueBar.setOnMouseDragged(mouseEvent -> {
             greenValueField.setText(String.valueOf(greenValueBar.getValue()));
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            rgbaField.setText(appColor.get().replace("#",""));
+            rgbaField.setText(appColor.getFormatted().replace("#",""));
         });
     }
 
@@ -151,9 +151,9 @@ public class ColorManagementPanel extends Popup {
         blueValueBar.setOnMouseDragged(mouseEvent -> {
             blueValueField.setText(String.valueOf(blueValueBar.getValue()));
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            rgbaField.setText(appColor.get().replace("#",""));
+            rgbaField.setText(appColor.getFormatted().replace("#",""));
         });
     }
 
@@ -163,9 +163,9 @@ public class ColorManagementPanel extends Popup {
         alphaValueBar.setOnMouseDragged(mouseEvent -> {
             alphaValueField.setText(String.valueOf(alphaValueBar.getValue()));
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            rgbaField.setText(appColor.get().replace("#",""));
+            rgbaField.setText(appColor.getFormatted().replace("#",""));
         });
     }
 
@@ -181,9 +181,9 @@ public class ColorManagementPanel extends Popup {
                 print(e);
             }
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            rgbaField.setText(appColor.get().replace("#",""));
+            rgbaField.setText(appColor.getFormatted().replace("#",""));
         });
     }
 
@@ -199,9 +199,9 @@ public class ColorManagementPanel extends Popup {
                 print(e);
             }
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            rgbaField.setText(appColor.get().replace("#",""));
+            rgbaField.setText(appColor.getFormatted().replace("#",""));
         });
     }
 
@@ -217,9 +217,9 @@ public class ColorManagementPanel extends Popup {
                 print(e);
             }
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            rgbaField.setText(appColor.get().replace("#",""));
+            rgbaField.setText(appColor.getFormatted().replace("#",""));
         });
     }
 
@@ -235,9 +235,9 @@ public class ColorManagementPanel extends Popup {
                 print(e);
             }
             colorPicker.setValue(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            appColor.getPaintProperty().set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
+            appColor.set(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
             colorPreview.setFill(Color.color(redValueBar.getValue() / 255, greenValueBar.getValue() / 255, blueValueBar.getValue() / 255, alphaValueBar.getValue() / 255));
-            rgbaField.setText(appColor.get().replace("#",""));
+            rgbaField.setText(appColor.getFormatted().replace("#",""));
         });
     }
 
@@ -252,9 +252,9 @@ public class ColorManagementPanel extends Popup {
             greenValueField.setText(String.valueOf(c.getGreen()*255));
             blueValueField.setText(String.valueOf(c.getBlue()*255));
             alphaValueField.setText(String.valueOf(c.getOpacity()*255));
-            appColor.getPaintProperty().set(c);
+            appColor.set(c);
             colorPreview.setFill(c);
-            rgbaField.setText(appColor.get().replace("#",""));
+            rgbaField.setText(appColor.getFormatted().replace("#",""));
         });
     }
     
@@ -270,7 +270,7 @@ public class ColorManagementPanel extends Popup {
                 greenValueField.setText(String.valueOf(c.getGreen()*255));
                 blueValueField.setText(String.valueOf(c.getBlue()*255));
                 alphaValueField.setText(String.valueOf(c.getOpacity()*255));
-                appColor.getPaintProperty().set(c);
+                appColor.set(c);
                 colorPreview.setFill(c);
             }catch (Exception e){
                 print(e);

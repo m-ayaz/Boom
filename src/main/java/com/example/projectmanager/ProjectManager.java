@@ -28,7 +28,7 @@ public class ProjectManager {
         texScript.append("\n\\begin{document}");
         texScript.append("\n\\begin{tikzpicture}[transform canvas={cm={1,0,0,-1,(0,0)}}]");
         for (AppRegion canvasPermanentObject : canvasPermanentObjects) {
-            texScript.append("\n").append(canvasPermanentObject.toTeX());
+//            texScript.append("\n").append(canvasPermanentObject.toTeX());
 //            print(canvasPermanentObject.toTeX());
         }
         texScript.append("\n\\end{tikzpicture}");

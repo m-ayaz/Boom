@@ -18,7 +18,7 @@ public class AppLine extends AppRegion {
         setWidth(startY-startX);
         setHeight(endY-endX);
     }
-    @Override
+
     public String toTeX() {
 //        Color strokeColor = Color.valueOf(((Line) node).getStroke().toString());
 //        return "\n\\begin{scope}[transform canvas = {cm = {%f,%f,%f,%f,(%fpt,%fpt)}}]".formatted(affineTransform.getMxx(), affineTransform.getMyx(), affineTransform.getMxy(), affineTransform.getMyy(), affineTransform.getTx(), affineTransform.getTy()) +
@@ -33,7 +33,7 @@ public class AppLine extends AppRegion {
         return null;
     }
 
-    @Override
+
     public String toSVG() {
         return null;
     }
@@ -54,7 +54,13 @@ public class AppLine extends AppRegion {
 //        return jsonObject;
         return null;
     }
-//    @Override
+
+    @Override
+    public String getSVGClones(int tabIndent) {
+        return null;
+    }
+
+    //    @Override
 //    public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
 //        node.setVisible(true);
 //        ((Line) node).setStartX(dragStartX);

@@ -16,6 +16,7 @@ import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 
 import static com.example.tools.Tools.setCustomSize;
+import static com.example.tools.Tools.uuid;
 
 public class NodeColorTest extends Application {
     @Override
@@ -45,10 +46,10 @@ public class NodeColorTest extends Application {
 
 
         CSSProperty backgroundsProperty = new CSSProperty("-fx-background-color", "-fx-border-color", "-fx-border-width");
-        backgroundsProperty.addFill(0, new AppColor(new Color(1,0,0,0.3)));
-        backgroundsProperty.addFill(1, new AppColor(new Color(0,1,0,0.3)));
-        backgroundsProperty.addFill(2, new AppLinearGradient(x));
-        backgroundsProperty.addFill(3, new AppColor(new Color(0,0,1,0.3)));
+        backgroundsProperty.addFill(0, new AppColor(new Color(1,0,0,0.3),uuid(50)));
+        backgroundsProperty.addFill(1, new AppColor(new Color(0,1,0,0.3),uuid(50)));
+        backgroundsProperty.addFill(2, new AppLinearGradient(x,uuid(50)));
+        backgroundsProperty.addFill(3, new AppColor(new Color(0,0,1,0.3),uuid(50)));
 
 //        print((new AppLinearGradient(x)).get());
         Pane pane1=new Pane();

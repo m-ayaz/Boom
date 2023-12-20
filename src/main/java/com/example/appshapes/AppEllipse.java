@@ -1,5 +1,6 @@
 package com.example.appshapes;
 
+import com.example.structures.abstracts.AppPaint;
 import com.example.structures.abstracts.AppRegion;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
@@ -8,6 +9,7 @@ import javafx.scene.shape.Ellipse;
 import org.json.JSONObject;
 
 import static com.example.tools.Tools.deepCopy;
+import static com.example.tools.Tools.dissectAffineTransform;
 
 public class AppEllipse extends AppRegion {
 
@@ -19,7 +21,7 @@ public class AppEllipse extends AppRegion {
         setHeight(height);
     }
 
-    @Override
+
     public String toTeX() {
 //        Color fillColor = Color.valueOf(((Ellipse) node).getFill().toString());
 //        Color strokeColor = Color.valueOf(((Ellipse) node).getStroke().toString());
@@ -38,7 +40,7 @@ public class AppEllipse extends AppRegion {
         return null;
     }
 
-    @Override
+
     public String toSVG() {
         return null;
     }
@@ -62,6 +64,19 @@ public class AppEllipse extends AppRegion {
 ////        print(Arrays.asList(affineTransform.getMxx(), affineTransform.getMxy(), affineTransform.getTx(), affineTransform.getMyx(), affineTransform.getMyy(), affineTransform.getTy()));
 //        jsonObject.put("affineTransformation", Arrays.asList(affineTransform.getMxx(), affineTransform.getMxy(), affineTransform.getTx(), affineTransform.getMyx(), affineTransform.getMyy(), affineTransform.getTy()));
         return jsonObject;
+    }
+
+    @Override
+    public String getSVGClones(int tabIndent) {
+        double[] dissectedTransform = dissectAffineTransform(affineTransform);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (AppPaint appPaint : backgroundStyle.getFillArray()) {
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth()/2, getHeight()/2,getWidth()/2, getHeight()/2, appPaint.getId(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+        }
+        for (AppPaint appPaint : backgroundStyle.getStrokeArray()) {
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth()/2, getHeight()/2,getWidth()/2, getHeight()/2, appPaint.getId(), backgroundStyle.getStrokeWidth(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+        }
+        return stringBuilder.toString();
     }
 
 

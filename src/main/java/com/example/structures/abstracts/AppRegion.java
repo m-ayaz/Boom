@@ -32,6 +32,7 @@ public abstract class AppRegion {
         this.shape = shape;
         this.type = shape.getClass().getName();
         region.setShape(shape);
+//        shape.setStrokeType(StrokeType.CENTERED);
         bindBorder();
         shape.getTransforms().add(affineTransform);
         region.getTransforms().add(affineTransform);
@@ -58,16 +59,42 @@ public abstract class AppRegion {
         setCustomSize(region, Math.abs(currentDragPosX - dragStartX), Math.abs(currentDragPosY - dragStartY));
     }
 
+    public String fillsToSVG(int tabIndent) {
+        return String.join("", backgroundStyle.getFillArray().stream().map(appPaint -> appPaint.toSVG(tabIndent)).toList());
+    }
+
+    public String fillsToTeX(){
+        return null;
+    }
+
+    public double getHeight() {
+        return region.getPrefHeight();
+    }
+
+    public void setHeight(double height) {
+        setCustomHeight(region, height);
+    }
+
     public Region getRegion() {
         return region;
     }
 
-//    public Shape getShape() {
-//        return shape;
-//    }
+    public abstract String getSVGClones(int tabIndent);
+//
+//    public abstract String toTeX();
+//
+//    public abstract String toSVG();
 
     public String getType() {
         return type;
+    }
+
+    public double getWidth() {
+        return region.getPrefWidth();
+    }
+
+    public void setWidth(double width) {
+        setCustomWidth(region, width);
     }
 
     public void hide() {
@@ -84,12 +111,15 @@ public abstract class AppRegion {
 
     }
 
+    public void setBorderDashArray(List<Double> parsedStrokeDashArray) {
+
+    }
+
+    public String strokesToSVG(int tabIndent) {
+        return String.join("", backgroundStyle.getStrokeArray().stream().map(appPaint -> appPaint.toSVG(tabIndent)).toList());
+    }
+
     public abstract JSONObject toJSON();
-
-    public abstract String toTeX();
-
-    public abstract String toSVG();
-
 
     void bindBorder() {
         border.setFill(new Color(0, 0, 0, 0));
@@ -124,30 +154,8 @@ public abstract class AppRegion {
 
     }
 
-
-    public double getWidth() {
-        return region.getPrefWidth();
-    }
-
-    public double getHeight() {
-        return region.getPrefHeight();
-    }
-
-    public void setWidth(double width) {
-        setCustomWidth(region, width);
-    }
-
-    public void setHeight(double height) {
-        setCustomHeight(region, height);
-    }
-
     protected void modifyType(String newType) {
         this.type = newType;
-    }
-
-
-    public void setBorderDashArray(List<Double> parsedStrokeDashArray) {
-
     }
 
 

@@ -9,6 +9,7 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
 import org.json.XML;
 import org.json.XMLParserConfiguration;
@@ -45,6 +46,23 @@ public class Test22 extends Application {
         Scene scene = new Scene(container);
         stage.setScene(scene);
         stage.show();
+
+        Rectangle r1,r2;
+
+        r1=new Rectangle(200,200);
+        r2=new Rectangle(0,250,200,200);
+
+        r1.setFill(Color.TRANSPARENT);
+        r2.setFill(Color.TRANSPARENT);
+        r1.setStroke(Color.BLACK);
+        r2.setStroke(Color.BLACK);
+        r1.setStrokeWidth(20);
+        r2.setStrokeWidth(20);
+
+        r1.setStrokeType(StrokeType.INSIDE);
+        r2.setStrokeType(StrokeType.INSIDE);
+
+        container.getChildren().addAll(r1,r2);
 
 //        XMLParserConfiguration xmlParserConfiguration=new XMLParserConfiguration();
 //        xmlParserConfiguration.getcDataTagName().add

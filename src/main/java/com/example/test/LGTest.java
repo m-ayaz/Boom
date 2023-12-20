@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import static com.example.tools.Tools.setCustomSize;
+import static com.example.tools.Tools.uuid;
 
 public class LGTest extends Application {
     @Override
@@ -28,7 +29,7 @@ public class LGTest extends Application {
 
 //        print(x);
 
-        AppLinearGradient appLinearGradient=new AppLinearGradient(x);
+        AppLinearGradient appLinearGradient=new AppLinearGradient(x,uuid(50));
 
 //        print(appLinearGradient.get());
 
@@ -57,7 +58,7 @@ public class LGTest extends Application {
 //            print(c);
 //        });
 
-//        appLinearGradient.getPaintProperty().addListener((a,b1,c)->print(c));
+//        appLinearGradient.addListener((a,b1,c)->print(c));
 
 //        print(b.get());
 
@@ -75,7 +76,7 @@ public class LGTest extends Application {
 //            print(change);
 //        });
 
-//        appLinearGradient.getPaintProperty().addListener((observableValue, paint, t1) -> {
+//        appLinearGradient.addListener((observableValue, paint, t1) -> {
 //            print(uuid(50));
 //        });
 

@@ -11,6 +11,8 @@ import javafx.scene.paint.Stop;
 
 import java.util.stream.Collectors;
 
+import static com.example.tools.Tools.print;
+
 public class AppLinearGradient extends AppGradient {
 
 
@@ -25,9 +27,13 @@ public class AppLinearGradient extends AppGradient {
 
 
 
-    public AppLinearGradient(LinearGradient linearGradient) {
-        super(linearGradient);
-        linearGradient.getStops().forEach(stop -> addAppStop(new AppStop(stop.getOffset(), stop.getColor())));
+    public AppLinearGradient(LinearGradient linearGradient,String id) {
+        super(linearGradient,id);
+        linearGradient.getStops().forEach(stop -> {
+//            print(new AppStop(stop));
+//            print(appStops);
+            addAppStop(new AppStop(stop));
+        });
         startX.set(linearGradient.getStartX());
         startY.set(linearGradient.getStartY());
         endX.set(linearGradient.getEndX());
@@ -39,12 +45,32 @@ public class AppLinearGradient extends AppGradient {
         endX.addListener((a,b,c) -> update());
         endY.addListener((a,b,c) -> update());
         isProportional.addListener((a,b,c) -> update());
+//        print(linearGradient.getStops());
+//        print(appStops);
 
     }
 
     @Override
+    public String toTeX() {
+        return null;
+    }
+
+    @Override
+    public String toJSON() {
+        return null;
+    }
+
+    @Override
+    public String toSVG(int tabIndent) {
+        return "\n" + "\t".repeat(tabIndent) + "<linearGradient id=\"%s\" x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" gradientUnits=\"%s\">".formatted(id,
+                startX.get(), startY.get(), endX.get(), endY.get(),  (isProportional.get() ? "objectBoundingBox" : "userSpaceOnUse")) +
+                appStops.stream().map(appStop -> appStop.toSVG(tabIndent + 1)).collect(Collectors.joining()) +
+                "\n" + "\t".repeat(tabIndent) + "</linearGradient>";
+    }
+
+    @Override
     protected void update() {
-        paintProperty.set(new LinearGradient(startX.get(), startY.get(), endX.get(), endY.get(), isProportional.get(), CycleMethod.NO_CYCLE, appStops.stream().map(appStop -> new Stop(appStop.offset.get(), (Color) appStop.appColor.getPaintProperty().get())).collect(Collectors.toList())));
+        set(new LinearGradient(startX.get(), startY.get(), endX.get(), endY.get(), isProportional.get(), CycleMethod.NO_CYCLE, appStops.stream().map(appStop -> new Stop(appStop.offset.get(), (Color) appStop.appColor.get())).collect(Collectors.toList())));
     }
 
 }

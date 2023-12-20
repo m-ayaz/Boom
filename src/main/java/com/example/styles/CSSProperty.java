@@ -34,12 +34,12 @@ public class CSSProperty extends SimpleStringProperty {
 
     public void addFill(int index, AppPaint appPaint) {
         fillArray.add(index, appPaint);
-        appPaint.getPaintProperty().addListener((a,b,c) -> update());
+        appPaint.addListener((a,b,c) -> update());
     }
 
     public void addStroke(int index, AppPaint appPaint) {
         strokeArray.add(index, appPaint);
-        appPaint.getPaintProperty().addListener(  (a,b,c) -> update());
+        appPaint.addListener(  (a,b,c) -> update());
     }
 
     public ObservableList<AppPaint> getFillArray() {
@@ -87,8 +87,8 @@ public class CSSProperty extends SimpleStringProperty {
     }
 
     void update() {
-        String fills = fillArray.size() == 0 ? "rgba(0,0,0,0)" : fillArray.stream().map(AppPaint::get).collect(Collectors.joining(","));
-        String strokes = strokeArray.size() == 0 ? "rgba(0,0,0,0)" : strokeArray.stream().map(AppPaint::get).collect(Collectors.joining(","));
+        String fills = fillArray.size() == 0 ? "rgba(0,0,0,0)" : fillArray.stream().map(AppPaint::getFormatted).collect(Collectors.joining(","));
+        String strokes = strokeArray.size() == 0 ? "rgba(0,0,0,0)" : strokeArray.stream().map(AppPaint::getFormatted).collect(Collectors.joining(","));
         double width = strokeWidth == null || strokeWidth.get() == 0 ? 1 : strokeWidth.get();
         set("%s: %s; %s: %s; %s: %s;".formatted(fillColorFX, fills, strokeColorFX, strokes, strokeWidthFX, width));
     }

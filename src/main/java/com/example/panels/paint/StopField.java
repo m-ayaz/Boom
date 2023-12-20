@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -58,7 +59,7 @@ public class StopField extends GridPane {
     Label chooseColorButtonLabel=new Label();
 
     void setChooseColorButtonBehavior(AppStop appStop){
-        appStop.appColor.getPaintProperty().addListener((a,b,c)->{
+        appStop.appColor.addListener((a,b,c)->{
             chooseColorButtonColor.setFill(c);
             chooseColorButtonLabel.setText(c.toString());
         });
@@ -86,7 +87,7 @@ public class StopField extends GridPane {
 
     void setAddButtonBehavior(ObservableList<Node> stopsPaneChildren, AppGradient appGradient,AppStop appStop) {
         addButton.setOnAction(event -> {
-            AppStop newAppStop = new AppStop(Double.parseDouble(proportion.getText()), (Color) appStop.appColor.getPaintProperty().get());
+            AppStop newAppStop = new AppStop(new Stop(Double.parseDouble(proportion.getText()), (Color) appStop.appColor.get()));
             StopField newStopField = new StopField(stopsPaneChildren, appGradient, newAppStop);
             appGradient.addAppStop(stopsPaneChildren.indexOf(this), newAppStop);
             stopsPaneChildren.add(stopsPaneChildren.indexOf(this) + 1, newStopField);

@@ -30,6 +30,8 @@ import javafx.scene.shape.Line;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.tools.Tools.uuid;
+
 public class MainCanvasItemsHandler {
 
     ObservableList<Node> mainCanvasChildren;
@@ -128,14 +130,14 @@ public class MainCanvasItemsHandler {
     public void applyFillColorChangesToSelectedObjects(Color color) {
         selectedObjectsController.getBuffer().forEach(obj -> {
             obj.backgroundStyle.removeAllFills();
-            obj.backgroundStyle.addFill(0, new AppColor(color));
+            obj.backgroundStyle.addFill(0, new AppColor(color,uuid(50)));
         });
     }
 
     public void applyStrokeColorChangesToSelectedObjects(Color color) {
         selectedObjectsController.getBuffer().forEach(obj -> {
             obj.backgroundStyle.removeAllStrokes();
-            obj.backgroundStyle.addStroke(0, new AppColor(color));
+            obj.backgroundStyle.addStroke(0, new AppColor(color,uuid(50)));
         });
     }
 
@@ -256,9 +258,9 @@ public class MainCanvasItemsHandler {
         littleAreaChartOnCursor.show(currentDragPosX, currentDragPosY);
         tempAreaChart_NN.draw(dragStartX, dragStartY, currentDragPosX, currentDragPosY);
         tempAreaChart_NN.backgroundStyle.removeAllFills();
-        tempAreaChart_NN.backgroundStyle.addFill(0, new AppColor(fillColor));
+        tempAreaChart_NN.backgroundStyle.addFill(0, new AppColor(fillColor,uuid(50)));
         tempAreaChart_NN.backgroundStyle.removeAllStrokes();
-        tempAreaChart_NN.backgroundStyle.addStroke(0, new AppColor(strokeColor));
+        tempAreaChart_NN.backgroundStyle.addStroke(0, new AppColor(strokeColor,uuid(50)));
         tempAreaChart_NN.backgroundStyle.setStrokeWidth(strokeWidth);
         tempAreaChart_NN.setBorderDashArray(parsedStrokeDashArray);
     }
@@ -268,9 +270,9 @@ public class MainCanvasItemsHandler {
         littleAreaChartOnCursor.show(currentDragPosX, currentDragPosY);
         tempAreaChart_NS.draw(dragStartX, dragStartY, currentDragPosX, currentDragPosY);
         tempAreaChart_NS.backgroundStyle.removeAllFills();
-        tempAreaChart_NS.backgroundStyle.addFill(0, new AppColor(fillColor));
+        tempAreaChart_NS.backgroundStyle.addFill(0, new AppColor(fillColor,uuid(50)));
         tempAreaChart_NS.backgroundStyle.removeAllStrokes();
-        tempAreaChart_NS.backgroundStyle.addStroke(0, new AppColor(strokeColor));
+        tempAreaChart_NS.backgroundStyle.addStroke(0, new AppColor(strokeColor,uuid(50)));
         tempAreaChart_NS.backgroundStyle.setStrokeWidth(strokeWidth);
         tempAreaChart_NS.setBorderDashArray(parsedStrokeDashArray);
     }
@@ -280,9 +282,9 @@ public class MainCanvasItemsHandler {
         littleAreaChartOnCursor.show(currentDragPosX, currentDragPosY);
         tempAreaChart_SN.draw(dragStartX, dragStartY, currentDragPosX, currentDragPosY);
         tempAreaChart_SN.backgroundStyle.removeAllFills();
-        tempAreaChart_SN.backgroundStyle.addFill(0, new AppColor(fillColor));
+        tempAreaChart_SN.backgroundStyle.addFill(0, new AppColor(fillColor,uuid(50)));
         tempAreaChart_SN.backgroundStyle.removeAllStrokes();
-        tempAreaChart_SN.backgroundStyle.addStroke(0, new AppColor(strokeColor));
+        tempAreaChart_SN.backgroundStyle.addStroke(0, new AppColor(strokeColor,uuid(50)));
         tempAreaChart_SN.backgroundStyle.setStrokeWidth(strokeWidth);
         tempAreaChart_SN.setBorderDashArray(parsedStrokeDashArray);
     }
@@ -292,9 +294,9 @@ public class MainCanvasItemsHandler {
         littleEllipseOnCursor.show(currentDragPosX, currentDragPosY);
         tempEllipse.draw(dragStartX, dragStartY, currentDragPosX, currentDragPosY);
         tempEllipse.backgroundStyle.removeAllFills();
-        tempEllipse.backgroundStyle.addFill(0, new AppColor(fillColor));
+        tempEllipse.backgroundStyle.addFill(0, new AppColor(fillColor,uuid(50)));
         tempEllipse.backgroundStyle.removeAllStrokes();
-        tempEllipse.backgroundStyle.addStroke(0, new AppColor(strokeColor));
+        tempEllipse.backgroundStyle.addStroke(0, new AppColor(strokeColor,uuid(50)));
         tempEllipse.backgroundStyle.setStrokeWidth(strokeWidth);
         tempEllipse.setBorderDashArray(parsedStrokeDashArray);
     }
@@ -304,7 +306,7 @@ public class MainCanvasItemsHandler {
         littleLineOnCursor.show(currentDragPosX, currentDragPosY);
         tempLine.draw(dragStartX, dragStartY, currentDragPosX, currentDragPosY);
         tempLine.backgroundStyle.removeAllStrokes();
-        tempLine.backgroundStyle.addStroke(0, new AppColor(strokeColor));
+        tempLine.backgroundStyle.addStroke(0, new AppColor(strokeColor,uuid(50)));
         tempLine.backgroundStyle.setStrokeWidth(strokeWidth);
         tempLine.setBorderDashArray(parsedStrokeDashArray);
     }
@@ -314,9 +316,9 @@ public class MainCanvasItemsHandler {
         littleLineChartOnCursor.show(currentDragPosX, currentDragPosY);
         tempLineChart_NN.draw(dragStartX, dragStartY, currentDragPosX, currentDragPosY);
         tempLineChart_NN.backgroundStyle.removeAllFills();
-        tempLineChart_NN.backgroundStyle.addFill(0, new AppColor(fillColor));
+        tempLineChart_NN.backgroundStyle.addFill(0, new AppColor(fillColor,uuid(50)));
         tempLineChart_NN.backgroundStyle.removeAllStrokes();
-        tempLineChart_NN.backgroundStyle.addStroke(0, new AppColor(strokeColor));
+        tempLineChart_NN.backgroundStyle.addStroke(0, new AppColor(strokeColor,uuid(50)));
         tempLineChart_NN.backgroundStyle.setStrokeWidth(strokeWidth);
         tempLineChart_NN.setBorderDashArray(parsedStrokeDashArray);
     }
@@ -326,9 +328,9 @@ public class MainCanvasItemsHandler {
         littleLineChartOnCursor.show(currentDragPosX, currentDragPosY);
         tempLineChart_NS.draw(dragStartX, dragStartY, currentDragPosX, currentDragPosY);
         tempLineChart_NS.backgroundStyle.removeAllFills();
-        tempLineChart_NS.backgroundStyle.addFill(0, new AppColor(fillColor));
+        tempLineChart_NS.backgroundStyle.addFill(0, new AppColor(fillColor,uuid(50)));
         tempLineChart_NS.backgroundStyle.removeAllStrokes();
-        tempLineChart_NS.backgroundStyle.addStroke(0, new AppColor(strokeColor));
+        tempLineChart_NS.backgroundStyle.addStroke(0, new AppColor(strokeColor,uuid(50)));
         tempLineChart_NS.backgroundStyle.setStrokeWidth(strokeWidth);
         tempLineChart_NS.setBorderDashArray(parsedStrokeDashArray);
     }
@@ -338,9 +340,9 @@ public class MainCanvasItemsHandler {
         littleLineChartOnCursor.show(currentDragPosX, currentDragPosY);
         tempLineChart_SN.draw(dragStartX, dragStartY, currentDragPosX, currentDragPosY);
         tempLineChart_SN.backgroundStyle.removeAllFills();
-        tempLineChart_SN.backgroundStyle.addFill(0, new AppColor(fillColor));
+        tempLineChart_SN.backgroundStyle.addFill(0, new AppColor(fillColor,uuid(50)));
         tempLineChart_SN.backgroundStyle.removeAllStrokes();
-        tempLineChart_SN.backgroundStyle.addStroke(0, new AppColor(strokeColor));
+        tempLineChart_SN.backgroundStyle.addStroke(0, new AppColor(strokeColor,uuid(50)));
         tempLineChart_SN.backgroundStyle.setStrokeWidth(strokeWidth);
         tempLineChart_SN.setBorderDashArray(parsedStrokeDashArray);
     }
@@ -350,9 +352,9 @@ public class MainCanvasItemsHandler {
         littleRectangleOnCursor.show(currentDragPosX, currentDragPosY);
         tempRectangle.draw(dragStartX, dragStartY, currentDragPosX, currentDragPosY);
         tempRectangle.backgroundStyle.removeAllFills();
-        tempRectangle.backgroundStyle.addFill(0, new AppColor(fillColor));
+        tempRectangle.backgroundStyle.addFill(0, new AppColor(fillColor,uuid(50)));
         tempRectangle.backgroundStyle.removeAllStrokes();
-        tempRectangle.backgroundStyle.addStroke(0, new AppColor(strokeColor));
+        tempRectangle.backgroundStyle.addStroke(0, new AppColor(strokeColor,uuid(50)));
         tempRectangle.backgroundStyle.setStrokeWidth(strokeWidth);
         tempRectangle.setBorderDashArray(parsedStrokeDashArray);
     }
@@ -362,9 +364,9 @@ public class MainCanvasItemsHandler {
         littleScatterChartOnCursor.show(currentDragPosX, currentDragPosY);
         tempScatterChart_NN.draw(dragStartX, dragStartY, currentDragPosX, currentDragPosY);
         tempScatterChart_NN.backgroundStyle.removeAllFills();
-        tempScatterChart_NN.backgroundStyle.addFill(0, new AppColor(fillColor));
+        tempScatterChart_NN.backgroundStyle.addFill(0, new AppColor(fillColor,uuid(50)));
         tempScatterChart_NN.backgroundStyle.removeAllStrokes();
-        tempScatterChart_NN.backgroundStyle.addStroke(0, new AppColor(strokeColor));
+        tempScatterChart_NN.backgroundStyle.addStroke(0, new AppColor(strokeColor,uuid(50)));
         tempScatterChart_NN.backgroundStyle.setStrokeWidth(strokeWidth);
         tempScatterChart_NN.setBorderDashArray(parsedStrokeDashArray);
     }
@@ -374,9 +376,9 @@ public class MainCanvasItemsHandler {
         littleScatterChartOnCursor.show(currentDragPosX, currentDragPosY);
         tempScatterChart_NS.draw(dragStartX, dragStartY, currentDragPosX, currentDragPosY);
         tempScatterChart_NS.backgroundStyle.removeAllFills();
-        tempScatterChart_NS.backgroundStyle.addFill(0, new AppColor(fillColor));
+        tempScatterChart_NS.backgroundStyle.addFill(0, new AppColor(fillColor,uuid(50)));
         tempScatterChart_NS.backgroundStyle.removeAllStrokes();
-        tempScatterChart_NS.backgroundStyle.addStroke(0, new AppColor(strokeColor));
+        tempScatterChart_NS.backgroundStyle.addStroke(0, new AppColor(strokeColor,uuid(50)));
         tempScatterChart_NS.backgroundStyle.setStrokeWidth(strokeWidth);
         tempScatterChart_NS.setBorderDashArray(parsedStrokeDashArray);
     }
@@ -386,9 +388,9 @@ public class MainCanvasItemsHandler {
         littleScatterChartOnCursor.show(currentDragPosX, currentDragPosY);
         tempScatterChart_SN.draw(dragStartX, dragStartY, currentDragPosX, currentDragPosY);
         tempScatterChart_SN.backgroundStyle.removeAllFills();
-        tempScatterChart_SN.backgroundStyle.addFill(0, new AppColor(fillColor));
+        tempScatterChart_SN.backgroundStyle.addFill(0, new AppColor(fillColor,uuid(50)));
         tempScatterChart_SN.backgroundStyle.removeAllStrokes();
-        tempScatterChart_SN.backgroundStyle.addStroke(0, new AppColor(strokeColor));
+        tempScatterChart_SN.backgroundStyle.addStroke(0, new AppColor(strokeColor,uuid(50)));
         tempScatterChart_SN.backgroundStyle.setStrokeWidth(strokeWidth);
         tempScatterChart_SN.setBorderDashArray(parsedStrokeDashArray);
     }

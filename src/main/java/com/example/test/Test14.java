@@ -58,7 +58,7 @@ public class Test14 extends Application {
         List<AppPaint> h=new ArrayList<>();
 
         h.add(createNew());
-        h.add(new AppColor(new Color(1,1,1,1)));
+        h.add(new AppColor(new Color(1,1,1,1),uuid(50)));
 
         h.forEach(appPaint -> print(appPaint.getClass().getName()));
 
@@ -136,7 +136,7 @@ public class Test14 extends Application {
         return new AppLinearGradient(new LinearGradient(0,0,1,1,
                 true, CycleMethod.NO_CYCLE,
                 new Stop(0,new Color(rnd.nextDouble()/2+0.5,rnd.nextDouble()/2,rnd.nextDouble(),0.3 )),
-                new Stop(1,new Color(rnd.nextDouble()/2,rnd.nextDouble()/2+0.5,rnd.nextDouble(),0.3 ))));
+                new Stop(1,new Color(rnd.nextDouble()/2,rnd.nextDouble()/2+0.5,rnd.nextDouble(),0.3 ))),uuid(50));
     }
 
 

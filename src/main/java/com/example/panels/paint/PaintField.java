@@ -55,7 +55,7 @@ public class PaintField extends GridPane {
     
     void setAddRadialGradientButtonBehavior(ObservableList<Node> paintsPaneChildren, CSSProperty cssProperty, double infoWidth, double buttonWidth, double buttonHeight){
         addRadialGradientButton.setOnAction(event -> {
-            AppRadialGradient newAppRadialGradient = new AppRadialGradient(new RadialGradient(0,0,0,0,0,true, CycleMethod.NO_CYCLE));
+            AppRadialGradient newAppRadialGradient = new AppRadialGradient(new RadialGradient(0,0,0,0,0,true, CycleMethod.NO_CYCLE),uuid(50));
             PaintField newPaintField = new PaintField(paintsPaneChildren, cssProperty, newAppRadialGradient,infoWidth,buttonWidth,buttonHeight);
             cssProperty.addFill(paintsPaneChildren.indexOf(this), newAppRadialGradient);
             paintsPaneChildren.add(paintsPaneChildren.indexOf(this) + 1, newPaintField);
@@ -67,7 +67,7 @@ public class PaintField extends GridPane {
 
     void setAddColorButtonBehavior(ObservableList<Node> paintsPaneChildren, CSSProperty cssProperty, double infoWidth, double buttonWidth, double buttonHeight) {
         addColorButton.setOnAction(event -> {
-            AppColor newAppColor = new AppColor(Color.TRANSPARENT);
+            AppColor newAppColor = new AppColor(Color.TRANSPARENT,uuid(50));
             PaintField newPaintField = new PaintField(paintsPaneChildren, cssProperty, newAppColor,infoWidth,buttonWidth,buttonHeight);
             cssProperty.addFill(paintsPaneChildren.indexOf(this), newAppColor);
             paintsPaneChildren.add(paintsPaneChildren.indexOf(this) + 1, newPaintField);
@@ -105,7 +105,7 @@ public class PaintField extends GridPane {
 
     void setAddLinearGradientButtonBehavior(ObservableList<Node> paintsPaneChildren, CSSProperty cssProperty, double infoWidth, double buttonWidth, double buttonHeight){
         addLinearGradientButton.setOnAction(event -> {
-            AppLinearGradient newAppLinearGradient = new AppLinearGradient(new LinearGradient(0,0,0,0,true, CycleMethod.NO_CYCLE));
+            AppLinearGradient newAppLinearGradient = new AppLinearGradient(new LinearGradient(0,0,0,0,true, CycleMethod.NO_CYCLE),uuid(50));
             PaintField newPaintField = new PaintField(paintsPaneChildren, cssProperty, newAppLinearGradient,infoWidth,buttonWidth,buttonHeight);
             cssProperty.addFill(paintsPaneChildren.indexOf(this), newAppLinearGradient);
             paintsPaneChildren.add(paintsPaneChildren.indexOf(this) + 1, newPaintField);

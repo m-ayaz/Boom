@@ -11,6 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import static com.example.tools.Tools.uuid;
+
 
 public class Test16 extends Application {
 
@@ -36,7 +38,7 @@ public class Test16 extends Application {
 
         Rectangle r=new Rectangle(200,200);
 
-        AppColor appColor=new AppColor(Color.TRANSPARENT);
+        AppColor appColor=new AppColor(Color.TRANSPARENT,uuid(50));
 
         CSSProperty b=new CSSProperty("-fx-fill","-fx-stroke","-fx-stroke-width");
         b.addFill(0,appColor);

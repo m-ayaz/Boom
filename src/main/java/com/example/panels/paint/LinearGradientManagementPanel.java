@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 
@@ -147,9 +148,9 @@ public class LinearGradientManagementPanel extends Popup {
             AppStop newAppStop;
 //            print("stopsPaneChildren = "+stopsPaneChildren.size());
             if (stopsPaneChildren.size() == 1) {
-                newAppStop = new AppStop(0, Color.WHITE);
+                newAppStop = new AppStop(new Stop(0, Color.WHITE));
             } else {
-                newAppStop = new AppStop(appLinearGradient.getAppStop(0).offset.get(), (Color) appLinearGradient.getAppStop(0).appColor.getPaintProperty().get());
+                newAppStop = new AppStop(new Stop(appLinearGradient.getAppStop(0).offset.get(), (Color) appLinearGradient.getAppStop(0).appColor.get()));
             }
             StopField newStopField = new StopField(stopsPaneChildren, appLinearGradient, newAppStop);
             appLinearGradient.addAppStop(0,newAppStop);
