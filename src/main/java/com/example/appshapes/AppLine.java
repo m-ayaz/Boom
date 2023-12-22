@@ -15,8 +15,8 @@ public class AppLine extends AppRegion {
 //        ((Line) node).setStroke(new Color(0, 0, 0, 1));
         getRegion().setBackground(Background.fill(Color.TRANSPARENT));
         getRegion().setBorder(Border.stroke(Color.BLACK));
-        setWidth(startY-startX);
-        setHeight(endY-endX);
+        setWidth(endX-startX);
+        setHeight(endY-startY);
     }
 
     public String toTeX() {

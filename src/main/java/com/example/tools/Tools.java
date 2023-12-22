@@ -239,17 +239,18 @@ public class Tools {
         region.setMinSize(width, height);
     }
 
-    public static void setCustomWidth(Region region, double width) {
-        region.setMaxWidth(width);
-        region.setPrefWidth(width);
-        region.setMinWidth(width);
-    }
 
-    public static void setCustomHeight(Region region, double height) {
-        region.setMaxHeight(height);
-        region.setPrefHeight(height);
-        region.setMinHeight(height);
-    }
+        public static void setCustomWidth (Region region,double width){
+            region.setMaxWidth(width);
+            region.setPrefWidth(width);
+            region.setMinWidth(width);
+        }
+
+        public static void setCustomHeight (Region region,double height){
+            region.setMaxHeight(height);
+            region.setPrefHeight(height);
+            region.setMinHeight(height);
+        }
 
 //    static void deepCopy(SeriesAreaStyleProperty propertyFrom, SeriesAreaStyleProperty propertyTo) {
 //        propertyTo.fill.set(propertyFrom.fill.get());

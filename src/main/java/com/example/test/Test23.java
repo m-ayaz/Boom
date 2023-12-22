@@ -1,20 +1,23 @@
 package com.example.test;
 
+import com.example.apppaints.AppColor;
 import com.example.apppaints.AppLinearGradient;
 import com.example.appshapes.AppEllipse;
+import com.example.appshapes.AppLine;
 import com.example.appshapes.AppRectangle;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
-import static com.example.tools.Tools.print;
-import static com.example.tools.Tools.uuid;
+import static com.example.tools.Tools.*;
 
 
 public class Test23 extends Application {
@@ -42,8 +45,13 @@ public class Test23 extends Application {
         AppRectangle appRectangle1 = new AppRectangle(300, 300);
 
         AppEllipse appEllipse = new AppEllipse(200, 400);
+
+        AppLine appLine=new AppLine(50,50,300,300);
 //
-        container.getChildren().addAll(appRectangle.getRegion(), appRectangle1.getRegion(), appEllipse.getRegion());
+
+        Line line=new Line(0,0,200,200);
+
+        container.getChildren().addAll(appRectangle.getRegion(), appRectangle1.getRegion(), appEllipse.getRegion(),appLine.getRegion());
 
         appRectangle.backgroundStyle.addFill(0, new AppLinearGradient(new LinearGradient(0, 0, 300, 300, false, CycleMethod.NO_CYCLE,
                 new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("0000ff88"))), uuid(50)));
@@ -60,6 +68,9 @@ public class Test23 extends Application {
         appEllipse.backgroundStyle.addFill(0, new AppLinearGradient(new LinearGradient(0, 1, 1, 0, true, CycleMethod.NO_CYCLE,
                 new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("00ffff88"))), uuid(50)));
 
+        appLine.backgroundStyle.addFill(0,new AppColor(Color.RED,uuid(50)));
+        appLine.backgroundStyle.addStroke(0,new AppColor(Color.RED,uuid(50)));
+        appLine.backgroundStyle.setStrokeWidth(10);
 
         appRectangle.backgroundStyle.setStrokeWidth(10);
         appRectangle1.backgroundStyle.setStrokeWidth(10);
@@ -69,6 +80,16 @@ public class Test23 extends Application {
                 new Stop(0, Color.TRANSPARENT), new Stop(1, Color.BLACK)), uuid(50)));
 //        appRectangle1.backgroundStyle.addStroke(0,new AppColor(Color.BLACK,uuid(50)));
 
+        Region r=new Region();
+        r.setBackground(Background.fill(Color.RED));
+
+        container.getChildren().add(r);
+
+        r.setShape(new Line(1,2,3,4));
+
+
+
+        setCustomSize(r,200,200);
 //        for(AppPaint appPaint:appRectangle.backgroundStyle.getFillArray()){
 //            print(((AppLinearGradient)appPaint).getAppStop(0));
 //        }
