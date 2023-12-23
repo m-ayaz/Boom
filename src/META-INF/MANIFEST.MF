@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Main-Class: com.example.Boom.Production
+Main-Class: com.boom.Boom.Production
 
 
 

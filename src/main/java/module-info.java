@@ -1,4 +1,4 @@
-module com.example.Boom {
+module com.boom.Boom {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.json;
@@ -6,40 +6,40 @@ module com.example.Boom {
     requires java.desktop;
     requires javafx.swing;
 
-    opens com.example.indicators to javafx.fxml;
-    exports com.example.indicators;
-    opens com.example.Boom to javafx.fxml;
-    exports com.example.Boom;
-    exports com.example.controllers;
-    opens com.example.controllers to javafx.fxml;
-    exports com.example.appshapes;
-    opens com.example.appshapes to javafx.fxml;
-    opens com.example.icons to javafx.fxml;
-    exports com.example.icons;
-    opens com.example.test to javafx.fxml;
-    exports com.example.test;
-    exports com.example.exceptions;
-    opens com.example.exceptions to javafx.fxml;
-    opens com.example.appcharts.number_number to javafx.fxml;
-    exports com.example.appcharts.number_number;
-    opens com.example.appcharts.string_number to javafx.fxml;
-    exports com.example.appcharts.string_number;
-    opens com.example.appcharts.number_string to javafx.fxml;
-    exports com.example.appcharts.number_string;
-    opens com.example.styles to javafx.fxml;
-    exports com.example.styles;
-    exports com.example.apppaints;
-    opens com.example.apppaints to javafx.fxml;
-    exports com.example.panels.paint;
-    opens com.example.panels.paint to javafx.fxml;
-    exports com.example.structures.abstracts;
-    opens com.example.structures.abstracts to javafx.fxml;
-    exports com.example.structures.enums;
-    opens com.example.structures.enums to javafx.fxml;
-    exports com.example.structures.interfaces;
-    opens com.example.structures.interfaces to javafx.fxml;
-    exports com.example;
-    opens com.example to javafx.fxml;
+    opens com.boom.indicators to javafx.fxml;
+    exports com.boom.indicators;
+    opens com.boom.Boom to javafx.fxml;
+    exports com.boom.Boom;
+    exports com.boom.controllers;
+    opens com.boom.controllers to javafx.fxml;
+    exports com.boom.appshapes;
+    opens com.boom.appshapes to javafx.fxml;
+    opens com.boom.icons to javafx.fxml;
+    exports com.boom.icons;
+    opens com.boom.test to javafx.fxml;
+    exports com.boom.test;
+    exports com.boom.exceptions;
+    opens com.boom.exceptions to javafx.fxml;
+    opens com.boom.appcharts.number_number to javafx.fxml;
+    exports com.boom.appcharts.number_number;
+    opens com.boom.appcharts.string_number to javafx.fxml;
+    exports com.boom.appcharts.string_number;
+    opens com.boom.appcharts.number_string to javafx.fxml;
+    exports com.boom.appcharts.number_string;
+    opens com.boom.styles to javafx.fxml;
+    exports com.boom.styles;
+    exports com.boom.apppaints;
+    opens com.boom.apppaints to javafx.fxml;
+    exports com.boom.panels.paint;
+    opens com.boom.panels.paint to javafx.fxml;
+    exports com.boom.structures.abstracts;
+    opens com.boom.structures.abstracts to javafx.fxml;
+    exports com.boom.structures.enums;
+    opens com.boom.structures.enums to javafx.fxml;
+    exports com.boom.structures.interfaces;
+    opens com.boom.structures.interfaces to javafx.fxml;
+    exports com.boom;
+    opens com.boom to javafx.fxml;
 
 }
  

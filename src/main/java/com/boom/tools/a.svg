@@ -1,0 +1,61 @@
+<svg width="1000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+
+	<defs>
+		<linearGradient id="ji8c9chmxfb53c8stmbii8svoz5vu4ylw7tqlgn4r3zjp3lth7" x1="0.000000" y1="1.000000" x2="1.000000" y2="0.000000" gradientUnits="objectBoundingBox">
+			<stop offset="0.000000" stop-color="#00000000" />
+			<stop offset="1.000000" stop-color="#ff000088" />
+		</linearGradient>
+		<linearGradient id="o2m1sk5uaqx74st70atze8ifpleg7247t9vz1ksluis6r3asy3" x1="0.000000" y1="0.000000" x2="300.000000" y2="300.000000" gradientUnits="userSpaceOnUse">
+			<stop offset="0.000000" stop-color="#00000000" />
+			<stop offset="1.000000" stop-color="#0000ff88" />
+		</linearGradient>
+		<linearGradient id="1ddyountm2f9rkbnkp46hn5en0h4jdinj5nyfw8mcyi0uib028" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox">
+			<stop offset="0.000000" stop-color="#00000000" />
+			<stop offset="1.000000" stop-color="#000000ff" />
+		</linearGradient>
+		<linearGradient id="h4an7zsctiw9scfht9ns6trgzl9rnj74a53j02yhea3tzsyt0s" x1="0.000000" y1="1.000000" x2="1.000000" y2="0.000000" gradientUnits="objectBoundingBox">
+			<stop offset="0.000000" stop-color="#00000000" />
+			<stop offset="1.000000" stop-color="#00ff0088" />
+		</linearGradient>
+		<linearGradient id="wm4x02ng4lji0vr1utg2wxpt463b3yj8jqgyfg41qixj9nurud" x1="0.000000" y1="0.000000" x2="300.000000" y2="300.000000" gradientUnits="userSpaceOnUse">
+			<stop offset="0.000000" stop-color="#00000000" />
+			<stop offset="1.000000" stop-color="#ffff0088" />
+		</linearGradient>
+		<linearGradient id="4zdfp0tob72jucpkai45kwhbrjuuefr15r86rm7pcvjrxi8zjq" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox">
+			<stop offset="0.000000" stop-color="#00000000" />
+			<stop offset="1.000000" stop-color="#000000ff" />
+		</linearGradient>
+		<linearGradient id="8tq3wargd03ysemd78hpa7ge2eno467btidr11ixryauewaybr" x1="0.000000" y1="1.000000" x2="1.000000" y2="0.000000" gradientUnits="objectBoundingBox">
+			<stop offset="0.000000" stop-color="#00000000" />
+			<stop offset="1.000000" stop-color="#00ffff88" />
+		</linearGradient>
+		<linearGradient id="9o5vgb7pi54fft3ytyhsy40d101soiwzvkeyiv2v4112oqoysw" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox">
+			<stop offset="0.000000" stop-color="#00000000" />
+			<stop offset="1.000000" stop-color="#ff00ff88" />
+		</linearGradient>
+		<linearGradient id="7310pwgq2s431239nog3v3gisyy0sohb5tt8euqf64od3kyfuz" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox">
+			<stop offset="0.000000" stop-color="#ff000088" />
+			<stop offset="1.000000" stop-color="#00000000" />
+		</linearGradient>
+		<linearGradient id="pwhvhvokgv58dz1hwsorczajrfexmrujwwiwepx1uctxwpt7e6" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox">
+			<stop offset="0.000000" stop-color="#00000088" />
+			<stop offset="1.000000" stop-color="#ff00ff88" />
+		</linearGradient>
+	</defs>
+	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="url(#ji8c9chmxfb53c8stmbii8svoz5vu4ylw7tqlgn4r3zjp3lth7)" transform="translate(200.000000,100.000000) rotate(90.000000) scale(1.400000,1.000000) rotate(-70.000000)"/>
+	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="url(#o2m1sk5uaqx74st70atze8ifpleg7247t9vz1ksluis6r3asy3)" transform="translate(200.000000,100.000000) rotate(90.000000) scale(1.400000,1.000000) rotate(-70.000000)"/>
+	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="transparent" stroke="url(#1ddyountm2f9rkbnkp46hn5en0h4jdinj5nyfw8mcyi0uib028)" stroke-width="10.000000" transform="translate(200.000000,100.000000) rotate(90.000000) scale(1.400000,1.000000) rotate(-70.000000)"/>
+	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="url(#h4an7zsctiw9scfht9ns6trgzl9rnj74a53j02yhea3tzsyt0s)" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="url(#wm4x02ng4lji0vr1utg2wxpt463b3yj8jqgyfg41qixj9nurud)" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="transparent" stroke="url(#4zdfp0tob72jucpkai45kwhbrjuuefr15r86rm7pcvjrxi8zjq)" stroke-width="10.000000" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+	<ellipse cx="100.000000" cy="200.000000" rx="100.000000" ry="200.000000" fill="url(#8tq3wargd03ysemd78hpa7ge2eno467btidr11ixryauewaybr)" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+	<ellipse cx="100.000000" cy="200.000000" rx="100.000000" ry="200.000000" fill="url(#9o5vgb7pi54fft3ytyhsy40d101soiwzvkeyiv2v4112oqoysw)" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+<!--	<line x1="499.0" y1="0" x2="500.000000" y2="500.000000" stroke="red" stroke-width="10.000000" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>-->
+	<line x1="0.0" y1="499.0" x2="500.000000" y2="500.000000" stroke="url(#7310pwgq2s431239nog3v3gisyy0sohb5tt8euqf64od3kyfuz)" stroke-width="10.000000" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+	<line x1="0.0" y1="499.0" x2="500.000000" y2="500.000000" stroke="url(#pwhvhvokgv58dz1hwsorczajrfexmrujwwiwepx1uctxwpt7e6)" stroke-width="10.000000" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+
+
+
+
+</svg>
