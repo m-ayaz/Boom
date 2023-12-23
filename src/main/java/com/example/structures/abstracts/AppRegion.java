@@ -119,6 +119,8 @@ public abstract class AppRegion {
         return String.join("", backgroundStyle.getStrokeArray().stream().map(appPaint -> appPaint.toSVG(tabIndent)).toList());
     }
 
+    double w, h;
+
     public abstract JSONObject toJSON();
 
     void bindBorder() {
@@ -129,7 +131,6 @@ public abstract class AppRegion {
         border.getStrokeDashArray().addAll(5.0, 6.0, 6.0, 6.0);
         border.setVisible(false);
         region.boundsInParentProperty().addListener((_1, _2, newVal) -> {
-            double w, h;
             if (shape != null) {
                 if (shape.getClass().getName().equals(NodeTypeEnum.Ellipse.getNodeType())) {
                     ((Ellipse) shape).setRadiusX(getWidth() / 2);
