@@ -42,6 +42,16 @@ public class CSSProperty extends SimpleStringProperty {
         appPaint.addListener(  (a,b,c) -> update());
     }
 
+    public void addFill(AppPaint appPaint) {
+        fillArray.add( appPaint);
+        appPaint.addListener((a,b,c) -> update());
+    }
+
+    public void addStroke(AppPaint appPaint) {
+        strokeArray.add( appPaint);
+        appPaint.addListener(  (a,b,c) -> update());
+    }
+
     public ObservableList<AppPaint> getFillArray() {
         return fillArray;
     }
@@ -92,6 +102,25 @@ public class CSSProperty extends SimpleStringProperty {
         double width = strokeWidth == null || strokeWidth.get() == 0 ? 1 : strokeWidth.get();
         set("%s: %s; %s: %s; %s: %s;".formatted(fillColorFX, fills, strokeColorFX, strokes, strokeWidthFX, width));
     }
+
+    public String fillsToSVG(int tabIndent) {
+        return String.join("", fillArray.stream().map(appPaint -> appPaint.toSVG(tabIndent)).toList());
+    }
+
+    public String fillsToTeX() {
+        return null;
+    }
+
+    public String strokesToTeX() {
+        return null;
+    }
+
+    public String strokesToSVG(int tabIndent) {
+        return String.join("", strokeArray.stream().map(appPaint -> appPaint.toSVG(tabIndent)).toList());
+    }
+
+
+
 
 
 }

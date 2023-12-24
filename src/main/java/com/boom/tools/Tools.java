@@ -1,6 +1,7 @@
 package com.boom.tools;
 
 import com.boom.appcharts.number_number.AppAreaChart_NumberNumber;
+import com.boom.appcharts.number_number.AppLineChart_NumberNumber;
 import com.boom.appcharts.number_number.AppScatterChart_NumberNumber;
 import com.boom.appcharts.number_string.AppAreaChart_NumberString;
 import com.boom.appcharts.number_string.AppLineChart_NumberString;
@@ -9,20 +10,22 @@ import com.boom.appcharts.string_number.AppAreaChart_StringNumber;
 import com.boom.appcharts.string_number.AppLineChart_StringNumber;
 import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
 import com.boom.appshapes.AppText;
-import com.boom.appcharts.number_number.AppLineChart_NumberNumber;
 import com.boom.exceptions.AppException;
+import com.boom.structures.abstracts.AppAreaShape;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.structures.enums.AppExceptionEnum;
+import com.boom.styles.CSSProperty;
 import com.boom.styles.SeriesLineStyleProperty;
-import javafx.scene.chart.*;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.Border;
+import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
 import org.json.simple.JSONObject;
 
-import java.util.*;
+import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Tools {
@@ -66,46 +69,58 @@ public class Tools {
         return newAffine;
     }
 
-    public static void deepCopy(Rectangle rectangleFrom, Rectangle rectangleTo) {
-        rectangleTo.setX(rectangleFrom.getX());
-        rectangleTo.setY(rectangleFrom.getY());
-        rectangleTo.setWidth(rectangleFrom.getWidth());
-        rectangleTo.setHeight(rectangleFrom.getHeight());
-        rectangleTo.setFill(rectangleFrom.getFill());
-        rectangleTo.setStroke(rectangleFrom.getStroke());
-        rectangleTo.setStrokeWidth(rectangleFrom.getStrokeWidth());
-        rectangleTo.getStrokeDashArray().addAll(rectangleFrom.getStrokeDashArray());
-    }
-
-    public static void deepCopy(Ellipse ellipseFrom, Ellipse ellipseTo) {
-        ellipseTo.setCenterX(ellipseFrom.getCenterX());
-        ellipseTo.setCenterY(ellipseFrom.getCenterY());
-        ellipseTo.setRadiusX(ellipseFrom.getRadiusX());
-        ellipseTo.setRadiusY(ellipseFrom.getRadiusY());
-        ellipseTo.setStyle(ellipseFrom.getStyle());
-        ellipseTo.setFill(ellipseFrom.getFill());
-        ellipseTo.setStroke(ellipseFrom.getStroke());
-        ellipseTo.setStrokeWidth(ellipseFrom.getStrokeWidth());
-        ellipseTo.getStrokeDashArray().addAll(ellipseFrom.getStrokeDashArray());
-    }
-
-    public static void deepCopy(Region regionFrom, Region regionTo) {
-        setCustomSize(regionTo,regionFrom.getPrefWidth(),regionFrom.getPrefHeight());
-        regionTo.setBackground(Background.fill(regionFrom.getBackground().getFills().get(0).getFill()));
-        regionTo.setBorder(Border.stroke(regionFrom.getBorder().getStrokes().get(0).getTopStroke()));
+//    public static void deepCopy(Rectangle rectangleFrom, Rectangle rectangleTo) {
+//        rectangleTo.setX(rectangleFrom.getX());
+//        rectangleTo.setY(rectangleFrom.getY());
+//        rectangleTo.setWidth(rectangleFrom.getWidth());
+//        rectangleTo.setHeight(rectangleFrom.getHeight());
+//        rectangleTo.setFill(rectangleFrom.getFill());
+//        rectangleTo.setStroke(rectangleFrom.getStroke());
+//        rectangleTo.setStrokeWidth(rectangleFrom.getStrokeWidth());
+//        rectangleTo.getStrokeDashArray().addAll(rectangleFrom.getStrokeDashArray());
+//    }
+//
+//    public static void deepCopy(Ellipse ellipseFrom, Ellipse ellipseTo) {
+//        ellipseTo.setCenterX(ellipseFrom.getCenterX());
+//        ellipseTo.setCenterY(ellipseFrom.getCenterY());
+//        ellipseTo.setRadiusX(ellipseFrom.getRadiusX());
+//        ellipseTo.setRadiusY(ellipseFrom.getRadiusY());
+//        ellipseTo.setStyle(ellipseFrom.getStyle());
+//        ellipseTo.setFill(ellipseFrom.getFill());
+//        ellipseTo.setStroke(ellipseFrom.getStroke());
 //        ellipseTo.setStrokeWidth(ellipseFrom.getStrokeWidth());
 //        ellipseTo.getStrokeDashArray().addAll(ellipseFrom.getStrokeDashArray());
+//    }
+
+//    public static void deepCopy(Region regionFrom, Region regionTo) {
+//        setCustomSize(regionTo,regionFrom.getPrefWidth(),regionFrom.getPrefHeight());
+//        regionTo.setBackground(Background.fill(regionFrom.getBackground().getFills().get(0).getFill()));
+//        regionTo.setBorder(Border.stroke(regionFrom.getBorder().getStrokes().get(0).getTopStroke()));
+////        ellipseTo.setStrokeWidth(ellipseFrom.getStrokeWidth());
+////        ellipseTo.getStrokeDashArray().addAll(ellipseFrom.getStrokeDashArray());
+//    }
+
+    public static void deepCopy(CSSProperty cssPropertyFrom, CSSProperty cssPropertyTo) {
+        cssPropertyTo.removeAllFills();
+        cssPropertyTo.removeAllStrokes();
+        cssPropertyFrom.getFillArray().forEach(cssPropertyTo::addFill);
+        cssPropertyFrom.getStrokeArray().forEach(cssPropertyTo::addStroke);
+        cssPropertyFrom.setStrokeWidth(cssPropertyTo.getStrokeWidth());
     }
 
-    public static void deepCopy(Line lineFrom, Line lineTo) {
-        lineTo.setStartX(lineFrom.getStartX());
-        lineTo.setStartY(lineFrom.getStartY());
-        lineTo.setEndX(lineFrom.getEndX());
-        lineTo.setEndY(lineFrom.getEndY());
-        lineTo.setStroke(lineFrom.getStroke());
-        lineTo.setStrokeWidth(lineFrom.getStrokeWidth());
-        lineTo.getStrokeDashArray().addAll(lineFrom.getStrokeDashArray());
-    }
+//    public static void deepCopy(AppAreaShape areaShapeFrom,AppAreaShape areaShapeTo){
+//
+//    }
+
+//    public static void deepCopy(Line lineFrom, Line lineTo) {
+//        lineTo.setStartX(lineFrom.getStartX());
+//        lineTo.setStartY(lineFrom.getStartY());
+//        lineTo.setEndX(lineFrom.getEndX());
+//        lineTo.setEndY(lineFrom.getEndY());
+//        lineTo.setStroke(lineFrom.getStroke());
+//        lineTo.setStrokeWidth(lineFrom.getStrokeWidth());
+//        lineTo.getStrokeDashArray().addAll(lineFrom.getStrokeDashArray());
+//    }
 
 
     public static void deepCopy(AppText textFrom, AppText textTo) {
@@ -278,8 +293,8 @@ public class Tools {
         }
 //        deepCopy(chartFrom.getBackgroundStyle(), chartTo.getBackgroundStyle());
         deepCopy(chartFrom.affineTransform, chartTo.affineTransform);
-        for (int i = 0; i < ((XYChart<T1, T2>) chartFrom.getNode()).getData().size(); i++) {
-            XYChart.Series<T1, T2> series = ((XYChart<T1, T2>) chartFrom.getNode()).getData().get(i);
+        for (int i = 0; i < ((XYChart<T1, T2>) chartFrom.getStyleableNode()).getData().size(); i++) {
+            XYChart.Series<T1, T2> series = ((XYChart<T1, T2>) chartFrom.getStyleableNode()).getData().get(i);
             chartTo.addSeries(i);
             for (int j = 0; j < series.getData().size(); j++) {
                 XYChart.Data<T1, T2> data = series.getData().get(j);
@@ -289,13 +304,13 @@ public class Tools {
 //                    deepCopy(chartFrom.getSeriesAreaStyles().get(i), chartTo.getSeriesAreaStyles().get(i));
                 } catch (Exception e) {
                     print(e);
-                    print("%s does not have AREA".formatted(chartFrom.getNode().getClass().getSimpleName()));
+                    print("%s does not have AREA".formatted(chartFrom.getStyleableNode().getClass().getSimpleName()));
                 }
                 try {
                     deepCopy(chartFrom.getSeriesLineStyles().get(i), chartTo.getSeriesLineStyles().get(i));
                 } catch (Exception e) {
                     print(e);
-                    print("%s does not have LINE".formatted(chartFrom.getNode().getClass().getSimpleName()));
+                    print("%s does not have LINE".formatted(chartFrom.getStyleableNode().getClass().getSimpleName()));
                 }
             }
         }

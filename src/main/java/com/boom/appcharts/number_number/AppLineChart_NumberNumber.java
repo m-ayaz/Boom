@@ -46,7 +46,7 @@ public class AppLineChart_NumberNumber extends AppXYChart<Number,Number> {
     @Override
     public XYChart.Series addSeries(int index) {
         XYChart.Series<Number,Number> newSeries = new XYChart.Series<>();
-        ((XYChart<Number,Number>) getNode()).getData().add(index, newSeries);
+        ((XYChart<Number,Number>) getStyleableNode()).getData().add(index, newSeries);
         SeriesLineStyleProperty seriesLineStyle=new SeriesLineStyleProperty();
 //        seriesLineStyle.color.set((Color) ((Path)newSeries.getNode().lookup(".chart-series-line")).getStroke());
         newSeries.getNode().lookup(".chart-series-line").styleProperty().bind(seriesLineStyle);
@@ -58,14 +58,14 @@ public class AppLineChart_NumberNumber extends AppXYChart<Number,Number> {
 
     @Override
     public void removeSeries(int index) {
-        ((XYChart<Number,Number>) getNode()).getData().remove(index);
+        ((XYChart<Number,Number>) getStyleableNode()).getData().remove(index);
         seriesLineStyles.remove(index);
         seriesMarkersStyles.remove(index);
     }
     @Override
     public XYChart.Data<Number,Number> addData(Number x,Number y,int seriesIndex, int dataIndex) {
         XYChart.Data<Number,Number> newData=new XYChart.Data<>(x,y);
-        ((XYChart<Number,Number>) getNode()).getData().get(seriesIndex).getData().add(dataIndex,newData);
+        ((XYChart<Number,Number>) getStyleableNode()).getData().get(seriesIndex).getData().add(dataIndex,newData);
         newData.getNode().styleProperty().bind(seriesMarkersStyles.get(seriesIndex));
         return newData;
     }
@@ -84,8 +84,8 @@ public class AppLineChart_NumberNumber extends AppXYChart<Number,Number> {
         plotAreaTransform.prepend(new Scale(1,-1,plotAreaBounds.get().getCenterX(),plotAreaBounds.get().getCenterY()));
         plotAreaTransform.prepend(affineTransform);
         StringBuilder dataString = new StringBuilder();
-        for(XYChart.Series<?,?> series: ((XYChart<?,?>) getNode()).getData()){
-            int seriesIndex = ((XYChart<?, ?>) getNode()).getData().indexOf(series);
+        for(XYChart.Series<?,?> series: ((XYChart<?,?>) getStyleableNode()).getData()){
+            int seriesIndex = ((XYChart<?, ?>) getStyleableNode()).getData().indexOf(series);
             dataString.append("\n\t\\addplot[");
             dataString.append(TeXConversion.colorAsStroke(seriesLineStyles.get(seriesIndex).color.get(),2)).append(",");
             dataString.append("\n\t]");

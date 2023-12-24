@@ -7,7 +7,7 @@ import com.boom.icons.RotationIcon;
 import com.boom.icons.ScalingIcon;
 import com.boom.indicators.*;
 import com.boom.structures.enums.AppExceptionEnum;
-import com.boom.structures.abstracts.AppRegion;
+import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.enums.NodeTypeEnum;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.StringProperty;
@@ -70,7 +70,7 @@ public class MainCanvasMouseHandler {
                                   List<Double> parsedStrokeDashArray,
                                   List<ScalingIcon> scalingIcons,
                                   RotationIcon rotationIcon,
-                                  List<AppRegion> canvasPermanentObjects
+                                  List<AppNode> canvasPermanentObjects
 
     ) {
 
@@ -243,7 +243,7 @@ public class MainCanvasMouseHandler {
                            DoubleProperty dragStartPosY,
                            List<ScalingIcon> scalingIcons,
                            RotationIcon rotationIcon,
-                           List<AppRegion> canvasPermanentObjects) {
+                           List<AppNode> canvasPermanentObjects) {
 
         mainCanvas.setOnMousePressed(mouseEvent -> {
             dragStartPosX.set(mouseEvent.getX());
@@ -275,11 +275,11 @@ public class MainCanvasMouseHandler {
                 2- If the user had pressed on a shape, toggle its selection (i.e. select if unselected, unselect if selected). Otherwise, do nothing.
                  */
 
-                AppRegion firstOnMousePressedShape = null;
+                AppNode firstOnMousePressedShape = null;
 //                firstOnMousePressedShape = null;
                 for (int i = canvasPermanentObjects.size() - 1; i >= 0; i--) {
-                    AppRegion obj = canvasPermanentObjects.get(i);
-                    if (obj.getNode().contains(obj.getNode().parentToLocal(currentPosX.get(), currentPosY.get()))) {
+                    AppNode obj = canvasPermanentObjects.get(i);
+                    if (obj.getStyleableNode().contains(obj.getStyleableNode().parentToLocal(currentPosX.get(), currentPosY.get()))) {
 //                    if (obj.isPressed()) {
                         firstOnMousePressedShape = obj;
                         break;

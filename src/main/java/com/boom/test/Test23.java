@@ -1,6 +1,5 @@
 package com.boom.test;
 
-import com.boom.apppaints.AppColor;
 import com.boom.apppaints.AppLinearGradient;
 import com.boom.appshapes.AppEllipse;
 import com.boom.appshapes.AppLine;
@@ -44,15 +43,15 @@ public class Test23 extends Application {
         AppRectangle appRectangle = new AppRectangle(300, 300);
         AppRectangle appRectangle1 = new AppRectangle(300, 300);
 
-        AppEllipse appEllipse = new AppEllipse(200, 400);
+        AppEllipse appEllipse = new AppEllipse(100, 200);
 
         AppLine appLine=new AppLine(500,500);
 
 
 //        Line line=new Line(0,0,200,200);
 
-        container.getChildren().addAll(appRectangle.getNode(),
-                appRectangle1.getNode(), appEllipse.getNode(),appLine.getNode());
+        container.getChildren().addAll(appRectangle.getStyleableNode(),
+                appRectangle1.getStyleableNode(), appEllipse.getStyleableNode(),appLine.getStyleableNode());
 
         appRectangle.backgroundStyle.removeAllFills();
         appRectangle1.backgroundStyle.removeAllFills();
@@ -137,14 +136,14 @@ public class Test23 extends Application {
 //        print(appRectangle.toSVG());
 //        print(appRectangle1.toSVG());
         print("\t<defs>" +
-                String.join("", appRectangle.fillsToSVG(2)) +
-                String.join("", appRectangle.strokesToSVG(2)) +
-                String.join("", appRectangle1.fillsToSVG(2)) +
-                String.join("", appRectangle1.strokesToSVG(2)) +
-                String.join("", appEllipse.fillsToSVG(2)) +
-                String.join("", appEllipse.strokesToSVG(2)) +
-                String.join("", appLine.fillsToSVG(2)) +
-                String.join("", appLine.strokesToSVG(2)) +
+                String.join("", appRectangle.backgroundStyle.fillsToSVG(2)) +
+                String.join("", appRectangle.backgroundStyle.strokesToSVG(2)) +
+                String.join("", appRectangle1.backgroundStyle.fillsToSVG(2)) +
+                String.join("", appRectangle1.backgroundStyle.strokesToSVG(2)) +
+                String.join("", appEllipse.backgroundStyle.fillsToSVG(2)) +
+                String.join("", appEllipse.backgroundStyle.strokesToSVG(2)) +
+                String.join("", appLine.backgroundStyle.fillsToSVG(2)) +
+                String.join("", appLine.backgroundStyle.strokesToSVG(2)) +
                 "\t\n</defs>" +
                 appRectangle.getSVGClones(2) +
                 appRectangle1.getSVGClones(2) +

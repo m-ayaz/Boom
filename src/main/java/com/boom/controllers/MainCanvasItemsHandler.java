@@ -18,7 +18,7 @@ import com.boom.icons.RotationIcon;
 import com.boom.icons.ScalingIcon;
 import com.boom.indicators.*;
 import com.boom.structures.enums.AppExceptionEnum;
-import com.boom.structures.abstracts.AppRegion;
+import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.structures.enums.NodeTypeEnum;
 import javafx.collections.ObservableList;
@@ -65,9 +65,9 @@ public class MainCanvasItemsHandler {
     LittleLineOnCursor littleLineOnCursor;
     //    LittleTextOnCursor littleTextOnCursor = new LittleTextOnCursor();
     SelectedObjectsController selectedObjectsController;
-    List<AppRegion> validObjects;
+    List<AppNode> validObjects;
 
-    public MainCanvasItemsHandler(ObservableList<Node> mainCanvasChildren, List<AppRegion> validObjects, Line rotationHandle, RotationIcon rotationIcon, List<ScalingIcon> scalingIcons, Circle rotationFixedPoint, Circle scalingFixedPoint, DynamicDragRectangle dynamicDragRectangle, AppEllipse tempEllipse, AppRectangle tempRectangle, AppLine tempLine, AppLineChart_NumberNumber tempLineChart_NN, AppLineChart_NumberString tempLineChart_NS, AppLineChart_StringNumber tempLineChart_SN, AppAreaChart_NumberNumber tempAreaChart_NN, AppAreaChart_NumberString tempAreaChart_NS, AppAreaChart_StringNumber tempAreaChart_SN, AppScatterChart_NumberNumber tempScatterChart_NN, AppScatterChart_NumberString tempScatterChart_NS, AppScatterChart_StringNumber tempScatterChart_SN, LittleLineChartOnCursor littleLineChartOnCursor,
+    public MainCanvasItemsHandler(ObservableList<Node> mainCanvasChildren, List<AppNode> validObjects, Line rotationHandle, RotationIcon rotationIcon, List<ScalingIcon> scalingIcons, Circle rotationFixedPoint, Circle scalingFixedPoint, DynamicDragRectangle dynamicDragRectangle, AppEllipse tempEllipse, AppRectangle tempRectangle, AppLine tempLine, AppLineChart_NumberNumber tempLineChart_NN, AppLineChart_NumberString tempLineChart_NS, AppLineChart_StringNumber tempLineChart_SN, AppAreaChart_NumberNumber tempAreaChart_NN, AppAreaChart_NumberString tempAreaChart_NS, AppAreaChart_StringNumber tempAreaChart_SN, AppScatterChart_NumberNumber tempScatterChart_NN, AppScatterChart_NumberString tempScatterChart_NS, AppScatterChart_StringNumber tempScatterChart_SN, LittleLineChartOnCursor littleLineChartOnCursor,
 //                                  LittleBarChartOnCursor littleBarChartOnCursor,
                                   LittleScatterChartOnCursor littleScatterChartOnCursor, LittleAreaChartOnCursor littleAreaChartOnCursor, LittleEllipseOnCursor littleEllipseOnCursor, LittleRectangleOnCursor littleRectangleOnCursor, LittleLineOnCursor littleLineOnCursor) {
 
@@ -106,10 +106,10 @@ public class MainCanvasItemsHandler {
 
 //        print(mainCanvasChildren);
 
-        mainCanvasChildren.addAll(tempRectangle.getNode(), tempEllipse.getNode(), tempLine.getNode(), tempLineChart_NN.getNode(), tempLineChart_SN.getNode(), tempLineChart_NS.getNode(), tempScatterChart_NN.getNode(), tempScatterChart_SN.getNode(), tempScatterChart_NS.getNode(),
+        mainCanvasChildren.addAll(tempRectangle.getStyleableNode(), tempEllipse.getStyleableNode(), tempLine.getStyleableNode(), tempLineChart_NN.getStyleableNode(), tempLineChart_SN.getStyleableNode(), tempLineChart_NS.getStyleableNode(), tempScatterChart_NN.getStyleableNode(), tempScatterChart_SN.getStyleableNode(), tempScatterChart_NS.getStyleableNode(),
 //                tempBarChart_SN.node,
 //                tempBarChart_NS.node,
-                tempAreaChart_NN.getNode(), tempAreaChart_SN.getNode(), tempAreaChart_NS.getNode(), littleEllipseOnCursor, littleRectangleOnCursor, littleLineOnCursor, littleLineChartOnCursor, littleAreaChartOnCursor,
+                tempAreaChart_NN.getStyleableNode(), tempAreaChart_SN.getStyleableNode(), tempAreaChart_NS.getStyleableNode(), littleEllipseOnCursor, littleRectangleOnCursor, littleLineOnCursor, littleLineChartOnCursor, littleAreaChartOnCursor,
 //                littleBarChartOnCursor,
                 littleScatterChartOnCursor, dynamicDragRectangle, rotationHandle, rotationFixedPoint, scalingFixedPoint, rotationIcon);
         mainCanvasChildren.addAll(scalingIcons);
@@ -120,10 +120,10 @@ public class MainCanvasItemsHandler {
 
     }
 
-    public void addToMainCanvas(AppRegion appRegion) {
-        validObjects.add(appRegion);
-        mainCanvasChildren.add(numOfValidObjects, appRegion.getNode());
-        mainCanvasChildren.add(numOfValidObjects * 2 + 1, appRegion.border);
+    public void addToMainCanvas(AppNode appNode) {
+        validObjects.add(appNode);
+        mainCanvasChildren.add(numOfValidObjects, appNode.getStyleableNode());
+        mainCanvasChildren.add(numOfValidObjects * 2 + 1, appNode.border);
         numOfValidObjects++;
     }
 
@@ -404,10 +404,10 @@ public class MainCanvasItemsHandler {
         double finalSelectedObjectsCOMX = selectedObjectsController.centerXProperty().get();
         double finalSelectedObjectsCOMY = selectedObjectsController.centerYProperty().get();
 
-        List<AppRegion> copiedObjects = new ArrayList<>();
+        List<AppNode> copiedObjects = new ArrayList<>();
 
         selectedObjectsController.getBuffer().forEach(obj -> {
-            AppRegion objCopy;
+            AppNode objCopy;
             if (obj.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
                 objCopy = ((AppEllipse) obj).copy();
             } else if (obj.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
@@ -442,7 +442,7 @@ public class MainCanvasItemsHandler {
     }
 
     public void removeSelectedObjectsFromMainCanvas() {
-        selectedObjectsController.getBuffer().forEach(obj -> mainCanvasChildren.remove(obj.getNode()));
+        selectedObjectsController.getBuffer().forEach(obj -> mainCanvasChildren.remove(obj.getStyleableNode()));
         selectedObjectsController.getBuffer().forEach(obj -> mainCanvasChildren.remove(obj.border));
         selectedObjectsController.getBuffer().forEach(obj -> validObjects.remove(obj));
         numOfValidObjects -= selectedObjectsController.getBuffer().size();

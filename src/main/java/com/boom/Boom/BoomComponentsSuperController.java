@@ -25,7 +25,7 @@ import com.boom.panels.chart.string_number.ChartManagementPane_StringNumber;
 import com.boom.panels.paint.PaintManagementPanel;
 import com.boom.LinearGradientIndicator;
 import com.boom.structures.enums.AppExceptionEnum;
-import com.boom.structures.abstracts.AppRegion;
+import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.structures.enums.NodeTypeEnum;
 import javafx.beans.property.*;
@@ -114,7 +114,7 @@ public class BoomComponentsSuperController {
     List<ScalingIcon> scalingIcons = new ArrayList<>();
     Circle rotationFixedPoint = new Circle(10);
     Circle scalingFixedPoint = new Circle(10);
-    List<AppRegion> canvasPermanentObjects = new ArrayList<>();
+    List<AppNode> canvasPermanentObjects = new ArrayList<>();
     ObjectProperty<Cursor> mainCanvasCursor;
     double selectedObjectsCurrentCenterOfMassPosX;
     double selectedObjectsNewCenterOfMassPosX;
@@ -454,26 +454,26 @@ public class BoomComponentsSuperController {
 
     @FXML
     void objectProp1InputOnKeyTyped(KeyEvent event) {
-        AppRegion selectedShape = mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().get(0);
-        if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
-            selectedShape.setWidth(Double.parseDouble(objectProp1Input.getText()));
-        } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
-            selectedShape.setWidth(Double.parseDouble(objectProp1Input.getText()));
-        } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
-            selectedShape.setWidth(Double.parseDouble(objectProp1Input.getText()));
-        }
+//        AppNode selectedShape = mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().get(0);
+//        if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
+//            selectedShape.setWidth(Double.parseDouble(objectProp1Input.getText()));
+//        } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
+//            selectedShape.setWidth(Double.parseDouble(objectProp1Input.getText()));
+//        } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
+//            selectedShape.setWidth(Double.parseDouble(objectProp1Input.getText()));
+//        }
     }
 
     @FXML
     void objectProp2InputOnKeyTyped(KeyEvent event) {
-        AppRegion selectedShape = mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().get(0);
-        if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
-            selectedShape.setHeight(Double.parseDouble(objectProp2Input.getText()));
-        } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
-            selectedShape.setHeight(Double.parseDouble(objectProp2Input.getText()));
-        } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
-            selectedShape.setHeight(Double.parseDouble(objectProp2Input.getText()));
-        }
+//        AppNode selectedShape = mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().get(0);
+//        if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
+//            selectedShape.setHeight(Double.parseDouble(objectProp2Input.getText()));
+//        } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
+//            selectedShape.setHeight(Double.parseDouble(objectProp2Input.getText()));
+//        } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
+//            selectedShape.setHeight(Double.parseDouble(objectProp2Input.getText()));
+//        }
     }
 
     @FXML
@@ -621,31 +621,31 @@ public class BoomComponentsSuperController {
     }
 
     void setUpObjectsSizeInput() {
-        mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().addListener((ListChangeListener<AppRegion>) change -> {
+        mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().addListener((ListChangeListener<AppNode>) change -> {
 
 //            print(change);
             if (change.getList().size() == 1) {
-                AppRegion selectedShape = change.getList().get(0);
+                AppNode selectedShape = change.getList().get(0);
 
                 paintManagementPanel.registerBackground(selectedShape.backgroundStyle);
                 paintManagementPanel.setVisible(true);
 //                print(selectedShape.type);
 //                print(NodeTypeEnum.LineChart_NN.getNodeType());
                 if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
-                    objectProp1Label.setText("Radius (X)");
-                    objectProp2Label.setText("Radius (Y)");
-                    objectProp1Input.setText("" + selectedShape.getWidth());
-                    objectProp2Input.setText("" + selectedShape.getHeight());
+//                    objectProp1Label.setText("Radius (X)");
+//                    objectProp2Label.setText("Radius (Y)");
+//                    objectProp1Input.setText("" + selectedShape.getWidth());
+//                    objectProp2Input.setText("" + selectedShape.getHeight());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
-                    objectProp1Label.setText("Width");
-                    objectProp2Label.setText("Height");
-                    objectProp1Input.setText("" + selectedShape.getWidth());
-                    objectProp2Input.setText("" + selectedShape.getHeight());
+//                    objectProp1Label.setText("Width");
+//                    objectProp2Label.setText("Height");
+//                    objectProp1Input.setText("" + selectedShape.getWidth());
+//                    objectProp2Input.setText("" + selectedShape.getHeight());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
-                    objectProp1Label.setText("Start (X)");
-                    objectProp2Label.setText("Start (Y)");
-                    objectProp1Input.setText("" + selectedShape.getWidth());
-                    objectProp2Input.setText("" + selectedShape.getHeight());
+//                    objectProp1Label.setText("Start (X)");
+//                    objectProp2Label.setText("Start (Y)");
+//                    objectProp1Input.setText("" + selectedShape.getWidth());
+//                    objectProp2Input.setText("" + selectedShape.getHeight());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.LineChart_NN.getNodeType()) ||
                         selectedShape.getType().equals(NodeTypeEnum.AreaChart_NN.getNodeType()) ||
                         selectedShape.getType().equals(NodeTypeEnum.ScatterChart_NN.getNodeType())) {

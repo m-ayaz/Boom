@@ -2,24 +2,29 @@ package com.boom.appshapes;
 
 import com.boom.structures.abstracts.AppAreaShape;
 import com.boom.structures.abstracts.AppPaint;
-import javafx.scene.Node;
-import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Arc;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
 import static com.boom.tools.Tools.deepCopy;
 import static com.boom.tools.Tools.dissectAffineTransform;
 
-public class AppEllipse extends AppAreaShape {
+public class AppArc extends AppAreaShape {
 
-    public AppEllipse(double radiusX, double radiusY) {
-        super(new Ellipse(radiusX, radiusY));
+    public AppArc( double radiusX, double radiusY, double startAngle, double length) {
+        super(new Arc( 0,0,  radiusX,  radiusY,  startAngle,  length));
+//        backgroundStyle.addFill(0,new AppColor(Color.TRANSPARENT,uuid(50)));
+//        backgroundStyle.addStroke(0,new AppColor(Color.BLACK,uuid(50)));
+////        region.setBackground(Background.fill(Color.TRANSPARENT));
+////        region.setBorder(Border.stroke(Color.BLACK));
+//        setWidth(width);
+//        setHeight(height);
     }
 
 
 //    public String toTeX() {
-////        Color fillColor = Color.valueOf(((Ellipse) node).getFill().toString());
-////        Color strokeColor = Color.valueOf(((Ellipse) node).getStroke().toString());
+////        Color fillColor = Color.valueOf(((Arc) node).getFill().toString());
+////        Color strokeColor = Color.valueOf(((Arc) node).getStroke().toString());
 ////
 ////        return "\n\\begin{scope}[transform canvas = {cm = {%f,%f,%f,%f,(%fpt,%fpt)}}]".formatted(affineTransform.getMxx(), affineTransform.getMyx(), affineTransform.getMxy(), affineTransform.getMyy(), affineTransform.getTx(), affineTransform.getTy()) +
 ////                "\n\t\\draw[" +
@@ -27,10 +32,10 @@ public class AppEllipse extends AppAreaShape {
 ////                "\n\t\tdraw = {rgb,255:red,%d;green,%d;blue,%d},".formatted(Math.round(strokeColor.getRed() * 255), Math.round(strokeColor.getGreen() * 255), Math.round(strokeColor.getBlue() * 255)) +
 ////                "\n\t\tfill opacity = %f,".formatted(fillColor.getOpacity()) +
 ////                "\n\t\tdraw opacity = %f,".formatted(strokeColor.getOpacity()) +
-////                "\n\t\tline width = %fpt,".formatted(((Ellipse) node).getStrokeWidth()) +
-////                (((Ellipse) node).getStrokeDashArray().size() >= 2 ? "\n\t\tdashed, dash pattern = " + ((Ellipse) node).getStrokeDashArray().stream().map(obj -> ((Ellipse) node).getStrokeDashArray().indexOf(obj) % 2 == 0 ? "on " + obj : "off " + obj).collect(Collectors.joining(" ")) : "\n\t\tsolid") + "," +
+////                "\n\t\tline width = %fpt,".formatted(((Arc) node).getStrokeWidth()) +
+////                (((Arc) node).getStrokeDashArray().size() >= 2 ? "\n\t\tdashed, dash pattern = " + ((Arc) node).getStrokeDashArray().stream().map(obj -> ((Arc) node).getStrokeDashArray().indexOf(obj) % 2 == 0 ? "on " + obj : "off " + obj).collect(Collectors.joining(" ")) : "\n\t\tsolid") + "," +
 ////                "\n\t]" +
-////                "\n\t(%fpt,%fpt) ellipse (%fpt and %fpt);".formatted(((Ellipse) node).getCenterX(), ((Ellipse) node).getCenterY(), ((Ellipse) node).getRadiusX(), ((Ellipse) node).getRadiusY()) +
+////                "\n\t(%fpt,%fpt) ellipse (%fpt and %fpt);".formatted(((Arc) node).getCenterX(), ((Arc) node).getCenterY(), ((Arc) node).getRadiusX(), ((Arc) node).getRadiusY()) +
 ////                "\n\\end{scope}";
 //        return null;
 //    }
@@ -43,25 +48,23 @@ public class AppEllipse extends AppAreaShape {
 
     @Override
     public JSONObject toJSON() {
-//        Color fillColor = Color.valueOf(((Ellipse) node).getFill().toString());
-//        Color strokeColor = Color.valueOf(((Ellipse) node).getStroke().toString());
+//        Color fillColor = Color.valueOf(((Arc) node).getFill().toString());
+//        Color strokeColor = Color.valueOf(((Arc) node).getStroke().toString());
         JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("object", NodeTypeEnum.Ellipse.getNodeType());
-//        jsonObject.put("centerX", ((Ellipse) node).getCenterX());
-//        jsonObject.put("centerY", ((Ellipse) node).getCenterY());
-//        jsonObject.put("radiusX", ((Ellipse) node).getRadiusX());
-//        jsonObject.put("radiusY", ((Ellipse) node).getRadiusY());
+//        jsonObject.put("object", NodeTypeEnum.Arc.getNodeType());
+//        jsonObject.put("centerX", ((Arc) node).getCenterX());
+//        jsonObject.put("centerY", ((Arc) node).getCenterY());
+//        jsonObject.put("radiusX", ((Arc) node).getRadiusX());
+//        jsonObject.put("radiusY", ((Arc) node).getRadiusY());
 //        jsonObject.put("fillColor", Arrays.asList(Math.round(fillColor.getRed() * 255), Math.round(fillColor.getGreen() * 255), Math.round(fillColor.getBlue() * 255)));
 //        jsonObject.put("fillOpacity", Math.round(fillColor.getOpacity()));
 //        jsonObject.put("strokeColor", Arrays.asList(Math.round(strokeColor.getRed() * 255), Math.round(strokeColor.getGreen() * 255), Math.round(strokeColor.getBlue() * 255)));
 //        jsonObject.put("strokeOpacity", Math.round(strokeColor.getOpacity()));
-//        jsonObject.put("strokeWidth", ((Ellipse) node).getStrokeWidth());
+//        jsonObject.put("strokeWidth", ((Arc) node).getStrokeWidth());
 ////        print(Arrays.asList(affineTransform.getMxx(), affineTransform.getMxy(), affineTransform.getTx(), affineTransform.getMyx(), affineTransform.getMyy(), affineTransform.getTy()));
 //        jsonObject.put("affineTransformation", Arrays.asList(affineTransform.getMxx(), affineTransform.getMxy(), affineTransform.getTx(), affineTransform.getMyx(), affineTransform.getMyy(), affineTransform.getTy()));
         return jsonObject;
     }
-
-
 
     @Override
     public String getSVGClones(int tabIndent) {
@@ -77,39 +80,63 @@ public class AppEllipse extends AppAreaShape {
     }
 
     public double getRadiusX() {
-        return ((Ellipse) shape).getRadiusX();
+        return  ((Arc) shape).getRadiusX();
     }
 
     public void setRadiusX(double radiusX) {
-        ((Ellipse) shape).setRadiusX(radiusX);
+        ((Arc) shape).setRadiusX(radiusX);
     }
 
 
     @Override
-    public AppEllipse copy() {
+    public AppArc copy() {
         if (getRadiusX() == 0 || getRadiusY() == 0)
             return null;
-        AppEllipse newAppEllipse = new AppEllipse(getRadiusX(), getRadiusY());
-        deepCopy(affineTransform, newAppEllipse.affineTransform);
-        deepCopy(backgroundStyle, newAppEllipse.backgroundStyle);
-        return newAppEllipse;
+        AppArc newAppArc = new AppArc(getRadiusX(),getRadiusY(),getStartAngle(),getLength());
+        deepCopy(affineTransform, newAppArc.affineTransform);
+        deepCopy(backgroundStyle,newAppArc.backgroundStyle);
+//        deepCopy((Arc) shape, (Arc) newAppArc.shape);
+
+        return newAppArc;
     }
 
     @Override
     public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
         styleableNode.setVisible(true);
-        affineTransform.setToTransform(new Translate(Math.min(dragStartX, currentDragPosX) + Math.abs(currentDragPosX - dragStartX) / 2, Math.min(dragStartY, currentDragPosY) + Math.abs(currentDragPosY - dragStartY) / 2));
-        setRadiusX(Math.abs(currentDragPosX - dragStartX) / 2);
-        setRadiusY(Math.abs(currentDragPosY - dragStartY) / 2);
+//        print("==================================================");
+//        print(Math.min(dragStartX, currentDragPosX)+" , "+ Math.min(dragStartY, currentDragPosY));
+//        print(Math.abs(currentDragPosX - dragStartX)+" , "+ Math.abs(currentDragPosY - dragStartY));
+        affineTransform.setToTransform(new Translate(
+                Math.min(dragStartX, currentDragPosX)+Math.abs(currentDragPosX - dragStartX)/2,
+                Math.min(dragStartY, currentDragPosY)+Math.abs(currentDragPosY - dragStartY)/2)
+        );
+        setRadiusX(Math.abs(currentDragPosX - dragStartX)/2);
+        setRadiusY(Math.abs(currentDragPosY - dragStartY)/2);
+    }
+
+    public double getStartAngle(){
+        return ((Arc) shape).getStartAngle();
+    }
+
+    public void setStartAngle(double startAngle){
+        ((Arc) shape).setStartAngle(startAngle);
+    }
+
+    public double getLength(){
+        return ((Arc) shape).getLength();
+    }
+
+    public void setLength(double length){
+        ((Arc) shape).setLength(length);
     }
 
 
     public double getRadiusY() {
-        return ((Ellipse) shape).getRadiusY();
+        return  ((Arc) shape).getRadiusY();
     }
 
     public void setRadiusY(double radiusY) {
-        ((Ellipse) shape).setRadiusY(radiusY);
+        ((Arc) shape).setRadiusY(radiusY );
     }
 
 

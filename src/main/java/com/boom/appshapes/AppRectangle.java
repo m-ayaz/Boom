@@ -1,34 +1,37 @@
 package com.boom.appshapes;
 
 import com.boom.apppaints.AppColor;
+import com.boom.structures.abstracts.AppAreaShape;
 import com.boom.structures.abstracts.AppPaint;
-import com.boom.structures.abstracts.AppRegion;
+import com.boom.structures.abstracts.AppNode;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
 import static com.boom.tools.Tools.*;
 import static com.boom.tools.Tools.uuid;
 
-public class AppRectangle extends AppRegion {
+public class AppRectangle extends AppAreaShape {
 
     public AppRectangle(double width, double height) {
-        super(new Rectangle(1,1),true);
-//        region.setBackground(Background.fill(Color.TRANSPARENT));
-//        region.setBorder(Border.stroke(Color.BLACK));
-        backgroundStyle.addFill(0,new AppColor(Color.TRANSPARENT,uuid(50)));
-        backgroundStyle.addStroke(0,new AppColor(Color.BLACK,uuid(50)));
-        setWidth(width);
-        setHeight(height);
+        super(new Rectangle(width, height));
     }
 
+    @Override
+    public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
+        styleableNode.setVisible(true);
+        affineTransform.setToTransform(new Translate(Math.min(dragStartX, currentDragPosX), Math.min(dragStartY, currentDragPosY)));
+        setWidth(Math.abs(currentDragPosX - dragStartX));
+        setHeight(Math.abs(currentDragPosY - dragStartY));
+    }
 
     public String toTeX() {
 //        Color fillColor = (Color) getRegion().getBackground().getFills().get(0).getFill();
 //        Color strokeColor = (Color) getRegion().getBorder().getStrokes().get(0).getTopStroke();
-        StringBuilder stringBuilder=new StringBuilder();
-         stringBuilder.append("\n\\begin{scope}[transform canvas = {cm = {%f,%f,%f,%f,(%fpt,%fpt)}}]".formatted(affineTransform.getMxx(), affineTransform.getMyx(), affineTransform.getMxy(), affineTransform.getMyy(), affineTransform.getTx(), affineTransform.getTy())) ;
-         stringBuilder.append("\n<defs>");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\n\\begin{scope}[transform canvas = {cm = {%f,%f,%f,%f,(%fpt,%fpt)}}]".formatted(affineTransform.getMxx(), affineTransform.getMyx(), affineTransform.getMxy(), affineTransform.getMyy(), affineTransform.getTx(), affineTransform.getTy()));
 //         for(int i=0;i<backgroundStyle.getFillArray().size();i++) {
 //             stringBuilder
 //                     .append("\n\t\\draw[")
@@ -57,50 +60,6 @@ public class AppRectangle extends AppRegion {
         return null;
     }
 
-//    public String renderSVGPaints(int tabIndent){
-//        ObservableList<AppPaint> fills=backgroundStyle.getFillArray();
-//        ObservableList<AppPaint> strokes=backgroundStyle.getStrokeArray();
-////        double[] dissectedTransform=dissectAffineTransform(affineTransform);
-//        List<String> fillIDs=new ArrayList<>();
-//        List<String> strokeIDs=new ArrayList<>();
-//        StringBuilder stringBuilder=new StringBuilder();
-//        for (AppPaint appPaint: fills){
-//            fillIDs.add(uuid(20)+fills.indexOf(appPaint));
-//            stringBuilder.append(SVGConversion.paintToSVG(appPaint.get(),tabIndent,fillIDs.get(fills.indexOf(appPaint))));
-//        }
-//        for (AppPaint appPaint: strokes){
-//            strokeIDs.add(uuid(20)+strokes.indexOf(appPaint));
-//            stringBuilder.append(SVGConversion.paintToSVG(appPaint.get(),tabIndent,strokeIDs.get(strokes.indexOf(appPaint))));
-//        }
-//        return stringBuilder.toString();
-//    }
-
-
-    public String toSVG() {
-        return null;
-//        ObservableList<AppPaint> fills=backgroundStyle.getFillArray();
-//        ObservableList<AppPaint> strokes=backgroundStyle.getStrokeArray();
-//        double[] dissectedTransform=dissectAffineTransform(affineTransform);
-//        List<String> fillIDs=new ArrayList<>();
-//        List<String> strokeIDs=new ArrayList<>();
-//        StringBuilder stringBuilder=new StringBuilder();
-//        stringBuilder.append("\n\t<defs>");
-//        for (AppPaint appPaint: fills){
-//            stringBuilder.append(appPaint.get(),2,fillIDs.get(fills.indexOf(appPaint))));
-//        }
-//        for (AppPaint appPaint: strokes){
-//                stringBuilder.append((appPaint.get(),2,strokeIDs.get(strokes.indexOf(appPaint))));
-//        }
-//        stringBuilder.append("\n\t</defs>");
-////        for (AppPaint appPaint: fills){
-////                stringBuilder.append("\n\t<rect x=\"0\" y=\"0\" rx=\"0\" ry=\"0\" width=\"%f\" height=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth(),getHeight(),fillIDs.get(fills.indexOf(appPaint)),affineTransform.getTx(),affineTransform.getTy(),dissectedTransform[0],dissectedTransform[1],dissectedTransform[2],dissectedTransform[3]));
-////        }
-////        for (AppPaint appPaint: strokes){
-////                stringBuilder.append("\n\t<rect x=\"0\" y=\"0\" rx=\"0\" ry=\"0\" width=\"%f\" height=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth(),getHeight(),strokeIDs.get(strokes.indexOf(appPaint)),backgroundStyle.getStrokeWidth(),affineTransform.getTx(),affineTransform.getTy(),dissectedTransform[0],dissectedTransform[1],dissectedTransform[2],dissectedTransform[3]));
-////        }
-//        return stringBuilder.toString();
-    }
-
     public String getSVGClones(int tabIndent) {
         double[] dissectedTransform = dissectAffineTransform(affineTransform);
         StringBuilder stringBuilder = new StringBuilder();
@@ -111,16 +70,23 @@ public class AppRectangle extends AppRegion {
             stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<rect x=\"0\" y=\"0\" rx=\"0\" ry=\"0\" width=\"%f\" height=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth(), getHeight(), appPaint.getId(), backgroundStyle.getStrokeWidth(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
         }
         return stringBuilder.toString();
-
     }
 
 
+    public double getWidth() {
+        return ((Rectangle) shape).getWidth();
+    }
+
+
+    public void setWidth(double width) {
+        ((Rectangle) shape).setWidth(width);
+    }
 
 
     public JSONObject toJSON() {
 //        Color fillColor = Color.valueOf(((Rectangle) node).getFill().toString());
 //        Color strokeColor = Color.valueOf(((Rectangle) node).getStroke().toString());
-        JSONObject jsonObject=new JSONObject();
+        JSONObject jsonObject = new JSONObject();
 //        jsonObject.put("object", NodeTypeEnum.Rectangle.getNodeType());
 //        jsonObject.put("x",((Rectangle) node).getX());
 //        jsonObject.put("y",((Rectangle) node).getY());
@@ -136,17 +102,41 @@ public class AppRectangle extends AppRegion {
     }
 
 
-    @Override
-    public AppRectangle copy()  {
 
+    @Override
+    public AppRectangle copy() {
         if (getWidth() == 0 || getHeight() == 0)
             return null;
-        AppRectangle newAppRectangle = new AppRectangle(1,1);
-        deepCopy(affineTransform,newAppRectangle.affineTransform);
-        deepCopy(background,newAppRectangle.background);
-
+        AppRectangle newAppRectangle = new AppRectangle(getWidth(), getHeight());
+        deepCopy(affineTransform, newAppRectangle.affineTransform);
+        deepCopy(backgroundStyle, newAppRectangle.backgroundStyle);
         return newAppRectangle;
+    }
 
+    public void setArcHeight(double arcHeight) {
+        ((Rectangle) shape).setArcHeight(arcHeight);
+    }
+
+    public void setArcWidth(double arcWidth) {
+        ((Rectangle) shape).setArcWidth(arcWidth);
+    }
+
+    public double getArcHeight() {
+        return ((Rectangle) shape).getArcHeight();
+    }
+
+    public double getArcWidth() {
+        return ((Rectangle) shape).getArcWidth();
+    }
+
+
+    public double getHeight() {
+        return ((Rectangle) shape).getHeight();
+    }
+
+
+    public void setHeight(double height) {
+        ((Rectangle) shape).setHeight(height);
     }
 
 

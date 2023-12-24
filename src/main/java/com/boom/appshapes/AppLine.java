@@ -1,19 +1,17 @@
 package com.boom.appshapes;
 
 import com.boom.apppaints.AppColor;
+import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppPaint;
-import com.boom.structures.abstracts.AppRegion;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import org.json.JSONObject;
 
 import static com.boom.tools.Tools.*;
-import static com.boom.tools.Tools.uuid;
 
-public class AppLine extends AppRegion {
+public class AppLine extends AppNode {
     public AppLine(double x, double y) {
-        super(new Line(0,0,x,y),false);
+        super(new Line(0,0,x,y),"","","");
         backgroundStyle.addFill(0,new AppColor(Color.TRANSPARENT,uuid(50)));
         backgroundStyle.addStroke(0,new AppColor(Color.BLACK,uuid(50)));
 //        super(new Line(startX,startY,endX,endY),false);
@@ -25,9 +23,9 @@ public class AppLine extends AppRegion {
         setHeight(y);
     }
 
-    public Region getRegion______________temp(){
-        return background;
-    }
+//    public Region getRegion______________temp(){
+//        return region;
+//    }
 
     public String toTeX() {
 //        Color strokeColor = Color.valueOf(((Line) node).getStroke().toString());
@@ -79,6 +77,14 @@ public class AppLine extends AppRegion {
         return stringBuilder.toString();
     }
 
+    public double getWidth() {
+        return 0;
+    }
+
+    public void setWidth(double width) {
+
+    }
+
     //    @Override
 //    public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
 //        node.setVisible(true);
@@ -96,6 +102,19 @@ public class AppLine extends AppRegion {
 //        deepCopy((Line) node, (Line) newAppLine.node);
 
         return newAppLine;
+    }
+
+    @Override
+    public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
+
+    }
+
+    public double getHeight() {
+        return 0;
+    }
+
+    public void setHeight(double height) {
+
     }
 //    @Override
 //    public void setBackgroundColor(Paint paint) {

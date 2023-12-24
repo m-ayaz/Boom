@@ -4,17 +4,21 @@ import com.boom.styles.CSSProperty;
 import com.boom.styles.SeriesLineStyleProperty;
 import com.boom.styles.SeriesMarkersStyleProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
+import javafx.scene.transform.Translate;
+import org.json.JSONObject;
 
 import java.util.List;
 
-public  abstract class AppXYChart<T1, T2> extends AppRegion {
+import static com.boom.tools.Tools.setCustomHeight;
+import static com.boom.tools.Tools.setCustomWidth;
+
+public  abstract   class AppXYChart<T1, T2> extends AppNode {
 
     // todo Only PieChart is an exception. Think of it later!
 
@@ -26,12 +30,12 @@ public  abstract class AppXYChart<T1, T2> extends AppRegion {
     protected List<SeriesLineStyleProperty> seriesLineStyles;
     protected List<CSSProperty> seriesAreaStyles;
 
-    protected StringProperty xAxisStyle = new SimpleStringProperty();
-    protected StringProperty yAxisStyle = new SimpleStringProperty();
-    protected StringProperty legendStyle = new SimpleStringProperty();
+//    protected CSSProperty xAxisStyle = new CSSProperty();
+//    protected CSSProperty yAxisStyle = new CSSProperty();
+//    protected CSSProperty legendStyle = new CSSProperty();
     public AppXYChart(XYChart<T1, T2> xyChart, double width, double height) {
 
-        super(xyChart);
+        super(xyChart,"-fx-background-color", "-fx-border-color", "-fx-border-width");
 //        backgroundStyle = new BackgroundsProperty("-fx-background-color","-fx-border-color","-fx-border-width");
         xyChart.setPadding(new Insets(0));
         setWidth(width);
@@ -42,6 +46,7 @@ public  abstract class AppXYChart<T1, T2> extends AppRegion {
         plotArea = (Region) xyChart.lookup(".chart-plot-background");
         plotAreaBounds = plotArea.boundsInParentProperty();
 
+        bindBorder(xyChart);
 
         xAxisArea = xyChart.getXAxis();
         yAxisArea = xyChart.getYAxis();
@@ -52,13 +57,55 @@ public  abstract class AppXYChart<T1, T2> extends AppRegion {
     public abstract XYChart.Data<T1, T2> addData(T1 x, T2 y, int seriesIndex, int dataIndex);
 
     public XYChart.Data<T1, T2> addData(T1 x, T2 y, int seriesIndex) {
-        return addData(x, y, seriesIndex, ((XYChart<T1, T2>) background).getData().get(seriesIndex).getData().size());
+        return addData(x, y, seriesIndex, ((XYChart<T1, T2>) styleableNode).getData().get(seriesIndex).getData().size());
     }
 
     public abstract XYChart.Series<T1, T2> addSeries(int index);
 
     public XYChart.Series<T1, T2> addSeries() {
-        return addSeries(((XYChart<T1, T2>) background).getData().size());
+        return addSeries(((XYChart<T1, T2>) styleableNode).getData().size());
+    }
+
+    public double getHeight() {
+        return  ((Region) styleableNode).getPrefHeight();
+    }
+
+    public void setHeight(double height) {
+        setCustomHeight((Region) styleableNode,height);
+    }
+
+    @Override
+    public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
+        styleableNode.setVisible(true);
+//        print("==================================================");
+//        print(Math.min(dragStartX, currentDragPosX)+" , "+ Math.min(dragStartY, currentDragPosY));
+//        print(Math.abs(currentDragPosX - dragStartX)+" , "+ Math.abs(currentDragPosY - dragStartY));
+        affineTransform.setToTransform(new Translate(Math.min(dragStartX, currentDragPosX), Math.min(dragStartY, currentDragPosY)));
+        setWidth(Math.abs(currentDragPosX - dragStartX));
+        setHeight(Math.abs(currentDragPosY - dragStartY));
+    }
+
+//    @Override
+//    protected void bindBorder(Node binder) {
+//
+//    }
+
+    @Override
+    public String getSVGClones(int tabIndent) {
+        return null;
+    }
+
+    public double getWidth() {
+        return ((Region) styleableNode).getPrefWidth();
+    }
+
+    public void setWidth(double width) {
+        setCustomWidth((Region) styleableNode,width);
+    }
+
+    @Override
+    public JSONObject toJSON() {
+        return null;
     }
 
 //    @Override

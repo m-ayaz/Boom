@@ -81,9 +81,9 @@ public class ChartDataTest extends Application {
         chartSeriesPane_SN.registerChart(lineChart3);
 
 
-        VBox vBox_NN=new VBox(chartSeriesPane_NN,lineChart1.getNode());
-        VBox vBox_NS=new VBox(chartSeriesPane_NS,lineChart2.getNode());
-        VBox vBox_SN=new VBox(chartSeriesPane_SN,lineChart3.getNode());
+        VBox vBox_NN=new VBox(chartSeriesPane_NN,lineChart1.getStyleableNode());
+        VBox vBox_NS=new VBox(chartSeriesPane_NS,lineChart2.getStyleableNode());
+        VBox vBox_SN=new VBox(chartSeriesPane_SN,lineChart3.getStyleableNode());
 
 
 
@@ -115,7 +115,7 @@ public class ChartDataTest extends Application {
 //        stage_SN.show();
 
 //        lineChart1.node.lookup(".chart-plot-background").setStyle("-fx-border-color: red;");
-        ObservableList<Axis.TickMark<Number>> g=((XYChart<Number,Number>)lineChart1.getNode()).getXAxis().getTickMarks();
+        ObservableList<Axis.TickMark<Number>> g=((XYChart<Number,Number>)lineChart1.getStyleableNode()).getXAxis().getTickMarks();
 
 //        ;
 
@@ -129,9 +129,9 @@ public class ChartDataTest extends Application {
 
         print("{"+g.stream().map(obj->obj.getValue().toString()).collect(Collectors.joining())+"}");
 
-        print("{"+((XYChart<Number,Number>)lineChart1.getNode()).getData().get(0).getData().stream().map(obj->"("+obj.getXValue()+","+obj.getYValue()+")").collect(Collectors.joining())+"}");
+        print("{"+((XYChart<Number,Number>)lineChart1.getStyleableNode()).getData().get(0).getData().stream().map(obj->"("+obj.getXValue()+","+obj.getYValue()+")").collect(Collectors.joining())+"}");
 
-        ((XYChart<Number,Number>)lineChart1.getNode()).getXAxis().getTickMarks().forEach(obj->{
+        ((XYChart<Number,Number>)lineChart1.getStyleableNode()).getXAxis().getTickMarks().forEach(obj->{
 //            print("====================================");
 //            print(obj.getLabel());
 //            print(obj.getValue());
@@ -142,9 +142,9 @@ public class ChartDataTest extends Application {
 //        print(((XYChart<Number,Number>)lineChart1.node).getXAxis().getTickMarks());
 
 
-        print(((XYChart<Number,Number>)lineChart1.getNode()).getData().get(0).getData());
+        print(((XYChart<Number,Number>)lineChart1.getStyleableNode()).getData().get(0).getData());
 
-        XYChart.Series<Number,Number> series= ((XYChart<Number,Number>)lineChart1.getNode()).getData().get(0);
+        XYChart.Series<Number,Number> series= ((XYChart<Number,Number>)lineChart1.getStyleableNode()).getData().get(0);
 
         print(series.getData().stream().map(obj -> "(" + obj.getXValue() + "," + obj.getYValue() + ")").collect(Collectors.joining()));
         print(series.getData().sorted().stream().map(obj -> "(" + obj.getXValue() + "," + obj.getYValue() + ")").collect(Collectors.joining()));
@@ -160,11 +160,11 @@ public class ChartDataTest extends Application {
 
 //        print(series.get);
         List<String> k=new ArrayList<>();
-        for(int j = 0; j<((XYChart<Number, Number>) lineChart1.getNode()).getData().size(); j++){
+        for(int j = 0; j<((XYChart<Number, Number>) lineChart1.getStyleableNode()).getData().size(); j++){
             print("=================");
-            print(((Path) ((XYChart<Number, Number>) lineChart1.getNode()).getData().get(j).getNode().lookup(".chart-series-area-line")).getStroke());
-            print(((Path) ((XYChart<Number, Number>) lineChart1.getNode()).getData().get(j).getNode().lookup(".chart-series-area-fill")).getFill());
-            k.add(((Path) ((XYChart<Number, Number>) lineChart1.getNode()).getData().get(j).getNode().lookup(".chart-series-area-line")).getStroke().toString());
+            print(((Path) ((XYChart<Number, Number>) lineChart1.getStyleableNode()).getData().get(j).getNode().lookup(".chart-series-area-line")).getStroke());
+            print(((Path) ((XYChart<Number, Number>) lineChart1.getStyleableNode()).getData().get(j).getNode().lookup(".chart-series-area-fill")).getFill());
+            k.add(((Path) ((XYChart<Number, Number>) lineChart1.getStyleableNode()).getData().get(j).getNode().lookup(".chart-series-area-line")).getStroke().toString());
         }
 
         print(k.size());
