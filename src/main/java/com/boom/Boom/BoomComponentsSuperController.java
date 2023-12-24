@@ -75,7 +75,7 @@ public class BoomComponentsSuperController {
     DynamicDragRectangle dynamicDragRectangle = new DynamicDragRectangle();
     AppEllipse tempEllipse = new AppEllipse(0, 0);
     AppRectangle tempRectangle = new AppRectangle(0, 0);
-    AppLine tempLine = new AppLine(0, 0);
+    AppLine tempLine = new AppLine(0, 0,0,0);
 
     AppLineChart_NumberNumber tempLineChart_NN = new AppLineChart_NumberNumber(0, 0);
     AppLineChart_NumberString tempLineChart_NS = new AppLineChart_NumberString(0, 0);
@@ -283,17 +283,17 @@ public class BoomComponentsSuperController {
         visualEffectsTab.setContent(paintManagementPanel);
         paintManagementPanel.setVisible(false);
 
-        LinearGradientIndicator lgi=new LinearGradientIndicator();
-
-        mainCanvas.getChildren().add(lgi);
-
-        lgi.start.setCenterX(50);
-        lgi.start.setCenterY(50);
-
-        lgi.end.setCenterX(100);
-        lgi.end.setCenterY(100);
-
-        lgi.visibleProperty.set(true);
+//        LinearGradientIndicator lgi=new LinearGradientIndicator();
+//
+//        mainCanvas.getChildren().add(lgi);
+//
+//        lgi.start.setCenterX(50);
+//        lgi.start.setCenterY(50);
+//
+//        lgi.end.setCenterX(100);
+//        lgi.end.setCenterY(100);
+//
+//        lgi.visibleProperty.set(true);
 
 
     }

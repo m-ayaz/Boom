@@ -45,7 +45,7 @@ public class Test23 extends Application {
 
         AppEllipse appEllipse = new AppEllipse(100, 200);
 
-        AppLine appLine=new AppLine(500,500);
+        AppLine appLine=new AppLine(0,0,500,500);
 
 
 //        Line line=new Line(0,0,200,200);

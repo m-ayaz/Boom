@@ -1,26 +1,25 @@
 package com.boom.appshapes;
 
-import com.boom.apppaints.AppColor;
-import com.boom.structures.abstracts.AppNode;
+import com.boom.structures.abstracts.AppLineShape;
 import com.boom.structures.abstracts.AppPaint;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import org.json.JSONObject;
 
-import static com.boom.tools.Tools.*;
+import static com.boom.tools.Tools.deepCopy;
+import static com.boom.tools.Tools.dissectAffineTransform;
 
-public class AppLine extends AppNode {
-    public AppLine(double x, double y) {
-        super(new Line(0,0,x,y),"","","");
-        backgroundStyle.addFill(0,new AppColor(Color.TRANSPARENT,uuid(50)));
-        backgroundStyle.addStroke(0,new AppColor(Color.BLACK,uuid(50)));
+public class AppLine extends AppLineShape {
+    public AppLine(double startX, double startY,double  endX, double endY) {
+//        super(new Line(0,0,x,y));
+//        backgroundStyle.addFill(0,new AppColor(Color.TRANSPARENT,uuid(50)));
+//        backgroundStyle.addStroke(0,new AppColor(Color.BLACK,uuid(50)));
 //        super(new Line(startX,startY,endX,endY),false);
-//        super(new Line(startX, startY, endX, endY));
+        super(new Line(startX, startY, endX, endY));
 //        ((Line) node).setStroke(new Color(0, 0, 0, 1));
 //        region.setBackground(Background.fill(Color.TRANSPARENT));
 //        region.setBorder(Border.stroke(Color.BLACK));
-        setWidth(x);
-        setHeight(y);
+//        setWidth(x);
+//        setHeight(y);
     }
 
 //    public Region getRegion______________temp(){
@@ -42,9 +41,9 @@ public class AppLine extends AppNode {
     }
 
 
-    public String toSVG() {
-        return null;
-    }
+//    public String toSVG() {
+//        return null;
+//    }
 
     @Override
     public JSONObject toJSON() {
@@ -71,18 +70,42 @@ public class AppLine extends AppNode {
 //            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth()/2, getHeight()/2,getWidth()/2, getHeight()/2, appPaint.getId(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
 //        }
         for (AppPaint appPaint : backgroundStyle.getStrokeArray()) {
-            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<line x1=\"0\" y1=\"0\" x2=\"%f\" y2=\"%f\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth(),getHeight(),appPaint.getId(),backgroundStyle.getStrokeWidth(),affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getStartX(),getStartY(),getEndX(),getEndY(),appPaint.getId(),backgroundStyle.getStrokeWidth(),affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
 //            " <line x1=\"0\" y1=\"0\" x2=\"%f\" y2=\"%f\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth(),getHeight(),appPaint.getId(),backgroundStyle.getStrokeWidth(),affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]);
         }
         return stringBuilder.toString();
     }
 
-    public double getWidth() {
-        return 0;
+    public double getStartX() {
+        return ((Line) styleableNode).getStartX();
     }
 
-    public void setWidth(double width) {
+    public void setStartX(double startX) {
+        ((Line) styleableNode).setStartX(startX);
+    }
 
+    public double getStartY() {
+        return ((Line) styleableNode).getStartY();
+    }
+
+    public void setStartY(double startY) {
+        ((Line) styleableNode).setStartY(startY);
+    }
+
+    public double getEndX() {
+        return ((Line) styleableNode).getEndX();
+    }
+
+    public void setEndX(double endX) {
+        ((Line) styleableNode).setEndX(endX);
+    }
+
+    public double getEndY() {
+        return ((Line) styleableNode).getEndY();
+    }
+
+    public void setEndY(double endY) {
+        ((Line) styleableNode).setEndY(endY);
     }
 
     //    @Override
@@ -95,10 +118,11 @@ public class AppLine extends AppNode {
 //    }
     @Override
     public AppLine copy()  {
-        if (getWidth()==0||getHeight()==0)
+        if (getStartX()==getStartY()||getEndX()==getEndY())
             return null;
-        AppLine newAppLine = new AppLine(0,0);
+        AppLine newAppLine = new AppLine(getStartX(),getStartY(),getEndX(),getEndY());
         deepCopy(affineTransform,newAppLine.affineTransform);
+
 //        deepCopy((Line) node, (Line) newAppLine.node);
 
         return newAppLine;
@@ -109,13 +133,13 @@ public class AppLine extends AppNode {
 
     }
 
-    public double getHeight() {
-        return 0;
-    }
-
-    public void setHeight(double height) {
-
-    }
+//    public double getHeight() {
+//        return 0;
+//    }
+//
+//    public void setHeight(double height) {
+//
+//    }
 //    @Override
 //    public void setBackgroundColor(Paint paint) {
 //        ((Line) node).setFill(paint);

@@ -332,41 +332,29 @@ public class MainCanvasMouseHandler {
             if (tempObjectName.get().equals(NodeTypeEnum.DynamicDragRectangle.getNodeType())) {
                 dynamicDragRectangle.reset();
             } else if (tempObjectName.get().equals(NodeTypeEnum.Ellipse.getNodeType())) {
-                mainCanvasItemsHandler.drawTempEllipse(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
-                        , parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempEllipse(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1, parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.Rectangle.getNodeType())) {
-                mainCanvasItemsHandler.drawTempRectangle(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
-                        , parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempRectangle(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1, parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.Line.getNodeType())) {
-                mainCanvasItemsHandler.drawTempLine(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
-                        , parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempLine(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1, parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_NN.getNodeType())) {
-                mainCanvasItemsHandler.drawTempLineChart_NN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
-                        , parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempLineChart_NN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1, parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_NS.getNodeType())) {
-                mainCanvasItemsHandler.drawTempLineChart_NS(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
-                        , parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempLineChart_NS(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1, parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_SN.getNodeType())) {
-                mainCanvasItemsHandler.drawTempLineChart_SN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
-                        , parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempLineChart_SN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1, parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.AreaChart_NN.getNodeType())) {
-                mainCanvasItemsHandler.drawTempAreaChart_NN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
-                        , parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempAreaChart_NN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1, parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.AreaChart_NS.getNodeType())) {
-                mainCanvasItemsHandler.drawTempAreaChart_NS(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
-                        , parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempAreaChart_NS(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1, parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.AreaChart_SN.getNodeType())) {
-                mainCanvasItemsHandler.drawTempAreaChart_SN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
-                        , parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempAreaChart_SN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1, parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.ScatterChart_NN.getNodeType())) {
-                mainCanvasItemsHandler.drawTempScatterChart_NN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
-                        , parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempScatterChart_NN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1, parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.ScatterChart_NS.getNodeType())) {
-                mainCanvasItemsHandler.drawTempScatterChart_NS(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
-                        , parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempScatterChart_NS(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1, parsedStrokeDashArray);
             } else if (tempObjectName.get().equals(NodeTypeEnum.ScatterChart_SN.getNodeType())) {
-                mainCanvasItemsHandler.drawTempScatterChart_SN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1
-                        , parsedStrokeDashArray);
+                mainCanvasItemsHandler.drawTempScatterChart_SN(currentPosX.get(), currentPosY.get(), dragStartPosX.get(), dragStartPosY.get(), Color.TRANSPARENT, Color.BLACK, 1, parsedStrokeDashArray);
 //            } else if (tempObjectName.get().equals(NodeTypeEnum.BarChart_NS.getNodeType())) {
 //                mainCanvasItemsHandler.drawTempBarChart_NS(currentPosX, currentPosY, dragStartPosX, dragStartPosY, Color.TRANSPARENT,Color.BLACK,1, parsedStrokeDashArray);
 //            } else if (tempObjectName.get().equals(NodeTypeEnum.BarChart_SN.getNodeType())) {
