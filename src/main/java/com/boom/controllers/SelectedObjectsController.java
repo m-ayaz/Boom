@@ -43,7 +43,7 @@ public class SelectedObjectsController {
     double scalingFactorY;
     List<Affine> oldAffineTransforms;
 
-    SelectedObjectsController(RotationIcon rotationIcon, List<ScalingIcon> scalingIcons, Circle rotationFixedPoint) {
+    public SelectedObjectsController(RotationIcon rotationIcon, List<ScalingIcon> scalingIcons, Circle rotationFixedPoint) {
 
         centerX.bind(minX.add(maxX).divide(2));
         centerY.bind(minY.add(maxY).divide(2));

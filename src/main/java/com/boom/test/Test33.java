@@ -1,26 +1,20 @@
 package com.boom.test;
 
-import com.boom.controllers.eventhandlers.AppMouseEventHandler;
+import com.boom.appcharts.number_number.AppLineChart_NumberNumber;
+import com.boom.appshapes.AppEllipse;
+import com.boom.appshapes.AppRectangle;
+//import com.boom.controllers.eventhandlers.AppMouseEventHandler1;
 import javafx.application.Application;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
-import javax.swing.plaf.basic.BasicTreeUI;
 
 import static com.boom.tools.Tools.print;
 
@@ -31,11 +25,15 @@ public class Test33 extends Application {
         launch();
     }
 
-    String x;
+//    String x;
 
     Button rectButton=new Button("Rectangle");
     Button ellButton=new Button("Ellipse");
     Button arcButton=new Button("Arc");
+
+    Button lcnnButton=new Button("LineChart_NN");
+
+    StringProperty h=new SimpleStringProperty();
 
     @Override
     public void start(Stage stage) {
@@ -52,16 +50,17 @@ public class Test33 extends Application {
 
 
 
-        rectButton.setOnAction(event -> x="rect");
-        ellButton.setOnAction(event -> x="ell");
-        arcButton.setOnAction(event -> x="arc");
+        rectButton.setOnAction(event -> h.set("rect"));
+        ellButton.setOnAction(event -> h.set("ell"));
+        arcButton.setOnAction(event -> h.set("arc"));
+        lcnnButton.setOnAction(event -> h.set("lcnn"));
 
-        Rectangle rectangle;
-        Ellipse ellipse;
-        Arc arc;
+//        Rectangle rectangle;
+//        Ellipse ellipse;
+//        Arc arc;
 //        Polyline polyline=new Polyline();
 
-        HBox hBox=new HBox(rectButton,ellButton,arcButton);
+        HBox hBox=new HBox(rectButton,ellButton,arcButton,lcnnButton);
 //        setCustomHeight(hBox,100);
 
         container.getChildren().addAll(hBox);
@@ -71,9 +70,16 @@ public class Test33 extends Application {
 //        Mouse
 //        ActionEvent actionEvent=new ActionEvent();
 //        MouseEvent mouseEvent;
-        StringProperty h=new SimpleStringProperty();
 
-        AppMouseEventHandler appMouseEventHandler=new AppMouseEventHandler(h);
+//        h.set("rect");
+
+        AppRectangle appRectangle=new AppRectangle(0,0);
+        AppEllipse appEllipse=new AppEllipse(0,0);
+        AppLineChart_NumberNumber appLineChart_numberNumber=new AppLineChart_NumberNumber(0,0);
+
+//        AppMouseEventHandler1 appMouseEventHandler1 =new AppMouseEventHandler1(appRectangle,appEllipse,appLineChart_numberNumber,h,container.getChildren());
+
+        container.getChildren().addAll(appRectangle.getStyleableNode(),appEllipse.getStyleableNode(),appLineChart_numberNumber.getStyleableNode());
 
 //        EventHandler<MouseEvent> eventHandler= mouseEvent -> {
 //            mousePositionX=mouseEvent.getX();
@@ -83,9 +89,11 @@ public class Test33 extends Application {
 //        };
 //        actionEvent.
 
-        container.setOnMouseMoved(appMouseEventHandler);
-        container.setOnMouseDragged(appMouseEventHandler);
-        container.setOnMouseClicked(appMouseEventHandler);
+//        container.setOnMouseMoved(appMouseEventHandler1);
+//        container.setOnMouseDragged(appMouseEventHandler1);
+//        container.setOnMouseClicked(appMouseEventHandler1);
+//        container.setOnMousePressed(appMouseEventHandler1);
+//        container.setOnMouseReleased(appMouseEventHandler1);
 
 
 

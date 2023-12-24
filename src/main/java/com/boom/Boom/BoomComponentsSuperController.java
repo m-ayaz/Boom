@@ -15,6 +15,7 @@ import com.boom.appshapes.AppRectangle;
 import com.boom.configuration.Configs;
 import com.boom.controllers.DynamicDragRectangle;
 import com.boom.controllers.MainCanvasItemsHandler;
+import com.boom.controllers.SelectedObjectsController;
 import com.boom.controllers.eventhandlers.MainCanvasMouseHandler;
 import com.boom.exceptions.AppException;
 import com.boom.icons.*;
@@ -23,7 +24,6 @@ import com.boom.panels.chart.number_number.ChartManagementPane_NumberNumber;
 import com.boom.panels.chart.number_string.ChartManagementPane_NumberString;
 import com.boom.panels.chart.string_number.ChartManagementPane_StringNumber;
 import com.boom.panels.paint.PaintManagementPanel;
-import com.boom.LinearGradientIndicator;
 import com.boom.structures.enums.AppExceptionEnum;
 import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppXYChart;
@@ -114,7 +114,7 @@ public class BoomComponentsSuperController {
     List<ScalingIcon> scalingIcons = new ArrayList<>();
     Circle rotationFixedPoint = new Circle(10);
     Circle scalingFixedPoint = new Circle(10);
-    List<AppNode> canvasPermanentObjects = new ArrayList<>();
+    List<AppNode> validObjects = new ArrayList<>();
     ObjectProperty<Cursor> mainCanvasCursor;
     double selectedObjectsCurrentCenterOfMassPosX;
     double selectedObjectsNewCenterOfMassPosX;
@@ -226,6 +226,8 @@ public class BoomComponentsSuperController {
         tempObjectName.set(NodeTypeEnum.Ellipse.getNodeType());
     }
 
+    SelectedObjectsController selectedObjectsController;
+
     @FXML
     void initialize() {
 
@@ -240,13 +242,15 @@ public class BoomComponentsSuperController {
 
         mainCanvasChildren = mainCanvas.getChildren();
 
-        mainCanvasCursor = mainCanvas.cursorProperty();
+//        mainCanvasCursor = mainCanvas.cursorProperty();
 
         instantiateObjects();
 
         settleIcons();
 
-        mainCanvasItemsHandler = new MainCanvasItemsHandler(mainCanvasChildren, canvasPermanentObjects,
+        selectedObjectsController = new SelectedObjectsController(rotationIcon, scalingIcons, rotationFixedPoint);
+
+        mainCanvasItemsHandler = new MainCanvasItemsHandler(mainCanvasChildren, validObjects,
                 rotationHandle, rotationIcon, scalingIcons, rotationFixedPoint, scalingFixedPoint,
                 dynamicDragRectangle, tempEllipse, tempRectangle, tempLine, tempLineChart_NN,
                 tempLineChart_NS, tempLineChart_SN, tempAreaChart_NN, tempAreaChart_NS, tempAreaChart_SN,
@@ -256,7 +260,7 @@ public class BoomComponentsSuperController {
                 littleAreaChartOnCursor,
                 littleEllipseOnCursor,
                 littleRectangleOnCursor,
-                littleLineOnCursor);
+                littleLineOnCursor,selectedObjectsController);
 
         tempObjectName.set(NodeTypeEnum.DynamicDragRectangle.getNodeType());
 
@@ -266,12 +270,62 @@ public class BoomComponentsSuperController {
 
         setUpObjectsCenterOfMassInput();
 
-        new MainCanvasMouseHandler(mainCanvas, cursorPositionLabel,
-                tempObjectName, dynamicDragRectangle, littleLineChartOnCursor,
-                littleScatterChartOnCursor, littleAreaChartOnCursor, littleEllipseOnCursor,
-                littleRectangleOnCursor, littleLineOnCursor, mainCanvasItemsHandler, currentPosX,
-                currentPosY, previousPosX, previousPosY, dragStartPosX, dragStartPosY, parsedStrokeDashArray, scalingIcons,
-                rotationIcon, canvasPermanentObjects);
+        MainCanvasMouseHandler mainCanvasMouseHandler=new MainCanvasMouseHandler(
+                mainCanvasChildren,
+                 validObjects,
+                 rotationHandle,
+                 rotationFixedPoint,
+                 scalingFixedPoint,
+                 mainCanvas,
+                 cursorPositionLabel,
+                 tempObjectName,
+                 dynamicDragRectangle,
+                 tempEllipse,
+                 tempRectangle,
+                 tempLine,
+                 tempLineChart_NN,
+                 tempLineChart_NS,
+                 tempLineChart_SN,
+                 tempAreaChart_NN,
+                 tempAreaChart_NS,
+                 tempAreaChart_SN,
+////    AppBarChart_NumberString tempBarChart_NS = new AppBarChart_NumberString(0,0);
+////    AppBarChart_StringNumber tempBarChart_SN = new AppBarChart_StringNumber(0,0);
+                 tempScatterChart_NN,
+                 tempScatterChart_NS,
+                 tempScatterChart_SN,
+                 littleLineChartOnCursor,
+//                                  LittleBarChartOnCursor littleBarChartOnCursor,
+                 littleScatterChartOnCursor,
+                 littleAreaChartOnCursor,
+                 littleEllipseOnCursor,
+                 littleRectangleOnCursor,
+                 littleLineOnCursor,
+                 mainCanvasItemsHandler,
+                 currentPosX,
+                 currentPosY,
+                 previousPosX,
+                 previousPosY,
+                 dragStartPosX,
+                 dragStartPosY,
+//                                  ColorPicker fillSolidColorPicker,
+//                                  ColorPicker strokeSolidColorPicker,
+//                                  TextField strokeWidthInput,
+                 parsedStrokeDashArray,
+                 scalingIcons,
+
+
+                //
+////    AppBarChart_NumberString tempBarChart_NS = new AppBarChart_NumberString(0,0);
+////    AppBarChart_StringNumber tempBarChart_SN = new AppBarChart_StringNumber(0,0);
+//
+                rotationIcon);
+
+        mainCanvas.setOnMouseMoved(mainCanvasMouseHandler);
+        mainCanvas.setOnMouseDragged(mainCanvasMouseHandler);
+        mainCanvas.setOnMouseClicked(mainCanvasMouseHandler);
+        mainCanvas.setOnMousePressed(mainCanvasMouseHandler);
+        mainCanvas.setOnMouseReleased(mainCanvasMouseHandler);
 
         xAxisType.getItems().addAll("Number", "String");
         yAxisType.getItems().addAll("Number", "String");
@@ -511,9 +565,9 @@ public class BoomComponentsSuperController {
             PrintWriter printWriter = new PrintWriter(saveFile);
 
             if (fileChooser.getSelectedExtensionFilter().equals(jsonExtension)) {
-                printWriter.println(exportProjectAsJSON(canvasPermanentObjects));
+                printWriter.println(exportProjectAsJSON(validObjects));
             } else if (fileChooser.getSelectedExtensionFilter().equals(texExtension)) {
-                printWriter.println(exportProjectAsTeX(canvasPermanentObjects));
+                printWriter.println(exportProjectAsTeX(validObjects));
             } else if (fileChooser.getSelectedExtensionFilter().equals(pngExtension)) {
                 SnapshotParameters snapshotParameters = new SnapshotParameters();
                 snapshotParameters.setFill(new Color(0, 0, 0, 0.1));

@@ -63,8 +63,8 @@ public class Test32 extends Application {
 
         print(ellipse.getBoundsInParent());
 
-        ellipse.setTranslateX(200);
-        ellipse.setTranslateY(200);
+        region.setTranslateX(500);
+        region.setTranslateY(500);
 
 //        Rectangle rectangle=new Rectangle();
 
