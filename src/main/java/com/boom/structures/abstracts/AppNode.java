@@ -1,12 +1,18 @@
 package com.boom.structures.abstracts;
 
 import com.boom.styles.CSSProperty;
+import javafx.event.EventType;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
 import org.json.JSONObject;
 
+import java.awt.event.MouseAdapter;
+import java.beans.EventHandler;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class AppNode {
@@ -67,6 +73,23 @@ public abstract class AppNode {
 //    public void setBorderDashArray(List<Double> parsedStrokeDashArray) {
 //
 //    }
+
+
+//    public void setConfigurationActions(EventType<MouseEvent>... eventTypes) {
+//        Collections.addAll(this.configurationActions, eventTypes);
+//    }
+//
+//    /**
+//     * Each AppNode object should determine what change each configuration action does. Example:
+//     * Rectangle: Click for starting resize, move for resize
+//     */
+//    List<EventType<MouseEvent>> configurationActions=new ArrayList<>();
+//
+//
+//
+//    public abstract void configureOnMouseAction(MouseEvent mouseEvent);
+
+
 
 
     public abstract JSONObject toJSON();

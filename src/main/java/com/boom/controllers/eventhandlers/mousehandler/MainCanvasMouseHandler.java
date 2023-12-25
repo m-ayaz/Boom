@@ -9,6 +9,7 @@ import com.boom.appcharts.number_string.AppScatterChart_NumberString;
 import com.boom.appcharts.string_number.AppAreaChart_StringNumber;
 import com.boom.appcharts.string_number.AppLineChart_StringNumber;
 import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
+import com.boom.appshapes.AppArc;
 import com.boom.appshapes.AppEllipse;
 import com.boom.appshapes.AppLine;
 import com.boom.appshapes.AppRectangle;
@@ -35,6 +36,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 import java.util.List;
+
+import static com.boom.tools.Tools.print;
 
 /**
  * {link #setOnMouseMoved()} )} )} )}
@@ -73,6 +76,7 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
     StringProperty tempObjectName;
     DynamicDragRectangle dynamicDragRectangle;
     AppEllipse tempEllipse;
+    AppArc tempArc;
     AppRectangle tempRectangle;
     AppLine tempLine;
     AppLineChart_NumberNumber tempLineChart_NN;
@@ -91,6 +95,7 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
     LittleScatterChartOnCursor littleScatterChartOnCursor;
     LittleAreaChartOnCursor littleAreaChartOnCursor;
     LittleEllipseOnCursor littleEllipseOnCursor;
+    LittleArcOnCursor littleArcOnCursor;
     LittleRectangleOnCursor littleRectangleOnCursor;
     LittleLineOnCursor littleLineOnCursor;
     MainCanvasItemsHandler mainCanvasItemsHandler;
@@ -145,6 +150,7 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
             StringProperty tempObjectName,
             DynamicDragRectangle dynamicDragRectangle,
             AppEllipse tempEllipse,
+            AppArc tempArc,
             AppRectangle tempRectangle,
             AppLine tempLine,
             AppLineChart_NumberNumber tempLineChart_NN,
@@ -163,6 +169,7 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
             LittleScatterChartOnCursor littleScatterChartOnCursor,
             LittleAreaChartOnCursor littleAreaChartOnCursor,
             LittleEllipseOnCursor littleEllipseOnCursor,
+            LittleArcOnCursor littleArcOnCursor,
             LittleRectangleOnCursor littleRectangleOnCursor,
             LittleLineOnCursor littleLineOnCursor,
             MainCanvasItemsHandler mainCanvasItemsHandler,
@@ -193,6 +200,7 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
         this.tempObjectName=tempObjectName;
         this.dynamicDragRectangle=dynamicDragRectangle;
         this.tempEllipse=tempEllipse;
+        this.tempArc=tempArc;
         this.tempRectangle=tempRectangle;
         this.tempLine=tempLine;
         this.tempLineChart_NN=tempLineChart_NN;
@@ -208,6 +216,7 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
         this.littleScatterChartOnCursor=littleScatterChartOnCursor;
         this.littleAreaChartOnCursor=littleAreaChartOnCursor;
         this.littleEllipseOnCursor=littleEllipseOnCursor;
+        this.littleArcOnCursor=littleArcOnCursor;
         this.littleRectangleOnCursor=littleRectangleOnCursor;
         this.littleLineOnCursor=littleLineOnCursor;
         this.mainCanvasItemsHandler=mainCanvasItemsHandler;
@@ -248,6 +257,7 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
 
         if (mouseEvent.getEventType().equals(MouseEvent.MOUSE_EXITED)) {
             littleEllipseOnCursor.hide();
+            littleArcOnCursor.hide();
             littleRectangleOnCursor.hide();
             littleLineOnCursor.hide();
             littleLineChartOnCursor.hide();
@@ -337,133 +347,163 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
         if (tempObjectName.get().equals(NodeTypeEnum.DynamicDragRectangle.getNodeType())) {
             dynamicDragRectangle.reset();
         } else if (tempObjectName.get().equals(NodeTypeEnum.Rectangle.getNodeType())) {
-            if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            littleRectangleOnCursor.show(x.get(), y.get());
+             if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 drawingStage++;
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
                 selectedObjectsController.unselectAll();
                 tempRectangle.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
-                littleRectangleOnCursor.show(moveX.get(), moveY.get());
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 mainCanvasItemsHandler.copyToMainCanvas(tempRectangle);
                 drawingStage = 0;
             }
         } else if (tempObjectName.get().equals(NodeTypeEnum.Line.getNodeType())) {
+            littleLineOnCursor.show(moveX.get(), moveY.get());
             if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 drawingStage++;
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
                 selectedObjectsController.unselectAll();
                 tempLine.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
-                littleLineOnCursor.show(moveX.get(), moveY.get());
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 mainCanvasItemsHandler.copyToMainCanvas(tempLine);
                 drawingStage = 0;
             }
         } else if (tempObjectName.get().equals(NodeTypeEnum.Ellipse.getNodeType())) {
+            littleEllipseOnCursor.show(moveX.get(), moveY.get());
             if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 drawingStage++;
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
                 selectedObjectsController.unselectAll();
                 tempEllipse.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
-                littleEllipseOnCursor.show(moveX.get(), moveY.get());
+
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 mainCanvasItemsHandler.copyToMainCanvas(tempEllipse);
                 drawingStage = 0;
             }
+        } else if (tempObjectName.get().equals(NodeTypeEnum.Arc.getNodeType())) {
+            littleArcOnCursor.show(moveX.get(), moveY.get());
+            if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+                drawingStage++;
+            } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+                selectedObjectsController.unselectAll();
+                tempArc.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
+            } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+                drawingStage++;
+            } else if (drawingStage == 2 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+                selectedObjectsController.unselectAll();
+                double angle=Math.atan2(moveY.get()-tempArc.affineTransform.getTy(), moveX.get()-tempArc.affineTransform.getTx());
+                if(!mouseEvent.isControlDown()) {
+                    tempArc.setLength(-angle * 180 / Math.PI - (angle > 0 ? 0 : 360));
+                }else {
+                    tempArc.setStartAngle(-angle * 180 / Math.PI - (angle > 0 ? 0 : 360));
+                }
+            } else if (drawingStage == 2 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+                mainCanvasItemsHandler.copyToMainCanvas(tempArc);
+                tempArc.setStartAngle(0);
+                tempArc.setLength(270);
+                drawingStage = 0;
+            }
         } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_NN.getNodeType())) {
+            littleLineChartOnCursor.show(moveX.get(), moveY.get());
             if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 drawingStage++;
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
                 selectedObjectsController.unselectAll();
                 tempLineChart_NN.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
-                littleLineChartOnCursor.show(moveX.get(), moveY.get());
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 mainCanvasItemsHandler.copyToMainCanvas(tempLineChart_NN);
                 drawingStage = 0;
             }
         } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_NS.getNodeType())) {
+            littleLineChartOnCursor.show(moveX.get(), moveY.get());
             if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 drawingStage++;
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
                 selectedObjectsController.unselectAll();
                 tempLineChart_NS.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
-                littleLineChartOnCursor.show(moveX.get(), moveY.get());
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 mainCanvasItemsHandler.copyToMainCanvas(tempLineChart_NS);
                 drawingStage = 0;
             }
         } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_SN.getNodeType())) {
+            littleLineChartOnCursor.show(moveX.get(), moveY.get());
             if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 drawingStage++;
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
                 selectedObjectsController.unselectAll();
                 tempLineChart_SN.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
-                littleLineChartOnCursor.show(moveX.get(), moveY.get());
+
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 mainCanvasItemsHandler.copyToMainCanvas(tempLineChart_SN);
                 drawingStage = 0;
             }
         } else if (tempObjectName.get().equals(NodeTypeEnum.ScatterChart_NN.getNodeType())) {
+            littleScatterChartOnCursor.show(moveX.get(), moveY.get());
             if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 drawingStage++;
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
                 selectedObjectsController.unselectAll();
                 tempScatterChart_NN.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
-                littleScatterChartOnCursor.show(moveX.get(), moveY.get());
+
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 mainCanvasItemsHandler.copyToMainCanvas(tempScatterChart_NN);
                 drawingStage = 0;
             }
         } else if (tempObjectName.get().equals(NodeTypeEnum.ScatterChart_NS.getNodeType())) {
+            littleScatterChartOnCursor.show(moveX.get(), moveY.get());
             if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 drawingStage++;
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
                 selectedObjectsController.unselectAll();
                 tempScatterChart_NS.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
-                littleScatterChartOnCursor.show(moveX.get(), moveY.get());
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 mainCanvasItemsHandler.copyToMainCanvas(tempScatterChart_NS);
                 drawingStage = 0;
             }
         } else if (tempObjectName.get().equals(NodeTypeEnum.ScatterChart_SN.getNodeType())) {
+            littleScatterChartOnCursor.show(moveX.get(), moveY.get());
             if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 drawingStage++;
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
                 selectedObjectsController.unselectAll();
                 tempScatterChart_SN.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
-                littleScatterChartOnCursor.show(moveX.get(), moveY.get());
+
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 mainCanvasItemsHandler.copyToMainCanvas(tempScatterChart_SN);
                 drawingStage = 0;
             }
         } else if (tempObjectName.get().equals(NodeTypeEnum.AreaChart_NN.getNodeType())) {
+            littleAreaChartOnCursor.show(moveX.get(), moveY.get());
             if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 drawingStage++;
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
                 selectedObjectsController.unselectAll();
                 tempAreaChart_NN.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
-                littleAreaChartOnCursor.show(moveX.get(), moveY.get());
+
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 mainCanvasItemsHandler.copyToMainCanvas(tempAreaChart_NN);
                 drawingStage = 0;
             }
         } else if (tempObjectName.get().equals(NodeTypeEnum.AreaChart_NS.getNodeType())) {
+            littleAreaChartOnCursor.show(moveX.get(), moveY.get());
             if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 drawingStage++;
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
                 selectedObjectsController.unselectAll();
                 tempAreaChart_NS.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
-                littleAreaChartOnCursor.show(moveX.get(), moveY.get());
+//                littleAreaChartOnCursor.show(moveX.get(), moveY.get());
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 mainCanvasItemsHandler.copyToMainCanvas(tempAreaChart_NS);
                 drawingStage = 0;
             }
         } else if (tempObjectName.get().equals(NodeTypeEnum.AreaChart_SN.getNodeType())) {
+            littleAreaChartOnCursor.show(moveX.get(), moveY.get());
             if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 drawingStage++;
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
                 selectedObjectsController.unselectAll();
                 tempAreaChart_SN.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
-                littleAreaChartOnCursor.show(moveX.get(), moveY.get());
+//                littleAreaChartOnCursor.show(moveX.get(), moveY.get());
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 mainCanvasItemsHandler.copyToMainCanvas(tempAreaChart_SN);
                 drawingStage = 0;

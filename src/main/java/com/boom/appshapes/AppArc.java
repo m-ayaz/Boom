@@ -3,17 +3,19 @@ package com.boom.appshapes;
 import com.boom.structures.abstracts.AppAreaShape;
 import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppPaint;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
-import static com.boom.tools.Tools.deepCopy;
-import static com.boom.tools.Tools.dissectAffineTransform;
+import static com.boom.tools.Tools.*;
 
 public class AppArc extends AppAreaShape {
 
-    public AppArc(double radiusX, double radiusY, double startAngle, double length) {
+    public AppArc(double radiusX, double radiusY, double startAngle, double length, ArcType arcType) {
         super(new Arc(0, 0, radiusX, radiusY, startAngle, length));
+        setArcType(arcType);
 //        backgroundStyle.addFill(0,new AppColor(Color.TRANSPARENT,uuid(50)));
 //        backgroundStyle.addStroke(0,new AppColor(Color.BLACK,uuid(50)));
 ////        region.setBackground(Background.fill(Color.TRANSPARENT));
@@ -48,9 +50,9 @@ public class AppArc extends AppAreaShape {
 
     @Override
     public AppArc copy() {
-        if (getRadiusX() == 0 || getRadiusY() == 0)
+        if (getRadiusX() == 0 || getRadiusY() == 0||getLength()==0)
             return null;
-        AppArc newAppArc = new AppArc(getRadiusX(), getRadiusY(), getStartAngle(), getLength());
+        AppArc newAppArc = new AppArc(getRadiusX(), getRadiusY(), getStartAngle(), getLength(),getArcType());
         deepCopy(affineTransform, newAppArc.affineTransform);
         deepCopy(backgroundStyle, newAppArc.backgroundStyle);
         return newAppArc;
@@ -65,6 +67,8 @@ public class AppArc extends AppAreaShape {
         );
         setRadiusX(Math.abs(currentDragPosX - dragStartX) / 2);
         setRadiusY(Math.abs(currentDragPosY - dragStartY) / 2);
+//        print("_________________________");
+//        print(Math.abs(currentDragPosX - dragStartX) / 2+" , "+Math.abs(currentDragPosY - dragStartY) / 2);
     }
 
     public double getLength() {
@@ -73,6 +77,14 @@ public class AppArc extends AppAreaShape {
 
     public void setLength(double length) {
         ((Arc) shape).setLength(length);
+    }
+
+    public ArcType getArcType() {
+        return ((Arc) shape).getType();
+    }
+
+    public void setArcType(ArcType arcType) {
+        ((Arc) shape).setType(arcType);
     }
 
     public double getRadiusX() {

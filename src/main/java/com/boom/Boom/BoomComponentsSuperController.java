@@ -47,6 +47,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
@@ -75,7 +76,7 @@ public class BoomComponentsSuperController {
 
     DynamicDragRectangle dynamicDragRectangle = new DynamicDragRectangle();
     AppEllipse tempEllipse = new AppEllipse(0, 0);
-    AppArc tempArc = new AppArc(0,0,0,0);
+    AppArc tempArc = new AppArc(0,0,0,270, ArcType.ROUND);
     AppRectangle tempRectangle = new AppRectangle(0, 0);
     AppLine tempLine = new AppLine(0, 0,0,0);
 
@@ -287,6 +288,7 @@ public class BoomComponentsSuperController {
                  tempObjectName,
                  dynamicDragRectangle,
                  tempEllipse,
+                 tempArc,
                  tempRectangle,
                  tempLine,
                  tempLineChart_NN,
@@ -305,6 +307,7 @@ public class BoomComponentsSuperController {
                  littleScatterChartOnCursor,
                  littleAreaChartOnCursor,
                  littleEllipseOnCursor,
+                 littleArcOnCursor,
                  littleRectangleOnCursor,
                  littleLineOnCursor,
                  mainCanvasItemsHandler,
