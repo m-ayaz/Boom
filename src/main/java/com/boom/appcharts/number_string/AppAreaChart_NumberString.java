@@ -1,6 +1,7 @@
 package com.boom.appcharts.number_string;
 
 import com.boom.configuration.Configs;
+import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.styles.CSSProperty;
 import com.boom.apppaints.AppColor;
@@ -53,6 +54,11 @@ public class AppAreaChart_NumberString extends AppXYChart<Number,String> {
         seriesLineStyles.add(index, seriesLineStyle);
         seriesMarkersStyles.add(index, new SeriesMarkersStyleProperty());
         return newSeries;
+    }
+
+    @Override
+    public AppNode parseFromJSON(JSONObject jsonObject) {
+        return null;
     }
 
     @Override

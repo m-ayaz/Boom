@@ -1,6 +1,7 @@
 package com.boom.appcharts.string_number;
 
 
+import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.styles.SeriesMarkersStyleProperty;
 import com.boom.tools.TeXConversion;
@@ -20,17 +21,22 @@ import static com.boom.tools.Tools.deepCopy;
 
 public class AppScatterChart_StringNumber extends AppXYChart<String,Number> {
     public AppScatterChart_StringNumber(double width, double height) {
-        super(new ScatterChart<>(new CategoryAxis(), new NumberAxis()),width,height);
-        modifyType(getType() +"_NN");
-        seriesMarkersStyles=new ArrayList<>();
+        super(new ScatterChart<>(new CategoryAxis(), new NumberAxis()), width, height);
+        modifyType(getType() + "_NN");
+        seriesMarkersStyles = new ArrayList<>();
     }
 
     @Override
-    public AppXYChart<String,Number> copy()  {
-        if (getWidth()==0||getHeight()==0) {
+    public AppNode parseFromJSON(JSONObject jsonObject) {
+        return null;
+    }
+
+    @Override
+    public AppXYChart<String, Number> copy() {
+        if (getWidth() == 0 || getHeight() == 0) {
             return null;
         }
-        AppXYChart<String,Number> newChart = new AppScatterChart_StringNumber(getWidth(),getHeight());
+        AppXYChart<String, Number> newChart = new AppScatterChart_StringNumber(getWidth(), getHeight());
         deepCopy(this, newChart);
         return newChart;
     }
@@ -41,23 +47,23 @@ public class AppScatterChart_StringNumber extends AppXYChart<String,Number> {
     }
 
     @Override
-    public XYChart.Series<String,Number> addSeries(int index) {
-        XYChart.Series<String,Number> newSeries = new XYChart.Series<>();
-        ((XYChart<String,Number>) getStyleableNode()).getData().add(index, newSeries);
-        seriesMarkersStyles.add(index,new SeriesMarkersStyleProperty());
+    public XYChart.Series<String, Number> addSeries(int index) {
+        XYChart.Series<String, Number> newSeries = new XYChart.Series<>();
+        ((XYChart<String, Number>) getStyleableNode()).getData().add(index, newSeries);
+        seriesMarkersStyles.add(index, new SeriesMarkersStyleProperty());
         return newSeries;
     }
 
     @Override
     public void removeSeries(int index) {
-        ((XYChart<String,Number>) getStyleableNode()).getData().remove(index);
+        ((XYChart<String, Number>) getStyleableNode()).getData().remove(index);
         seriesMarkersStyles.remove(index);
     }
 
     @Override
-    public XYChart.Data<String,Number> addData(String x,Number y,int seriesIndex, int dataIndex) {
-        XYChart.Data<String,Number> newData=new XYChart.Data<>(x,y);
-        ((XYChart<String,Number>) getStyleableNode()).getData().get(seriesIndex).getData().add(dataIndex,newData);
+    public XYChart.Data<String, Number> addData(String x, Number y, int seriesIndex, int dataIndex) {
+        XYChart.Data<String, Number> newData = new XYChart.Data<>(x, y);
+        ((XYChart<String, Number>) getStyleableNode()).getData().get(seriesIndex).getData().add(dataIndex, newData);
         newData.getNode().styleProperty().bind(seriesMarkersStyles.get(seriesIndex));
         return newData;
     }
@@ -86,8 +92,8 @@ public class AppScatterChart_StringNumber extends AppXYChart<String,Number> {
 //                TeXConversion.colorAsFill(backgroundStyle.fill.get(),3)+","+
 //                TeXConversion.colorAsStroke(backgroundStyle.stroke.get(),3)+","+
                 "\n\t\t}," +
-                TeXConversion.tickMarks(xAxisArea.getTickMarks(),2)+","+
-                TeXConversion.tickMarks(yAxisArea.getTickMarks(),2)+","+
+                TeXConversion.tickMarks(xAxisArea.getTickMarks(), 2) + "," +
+                TeXConversion.tickMarks(yAxisArea.getTickMarks(), 2) + "," +
                 "\n\t\twidth = %fpt,".formatted(plotAreaBounds.get().getWidth()) +
                 "\n\t\theight = %fpt,".formatted(plotAreaBounds.get().getHeight()) +
                 "\n\t\tscale only axis" +

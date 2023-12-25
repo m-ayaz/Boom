@@ -1,6 +1,7 @@
 package com.boom.structures.abstracts;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Stop;
 
@@ -29,6 +30,8 @@ public abstract class AppPaint extends  SimpleObjectProperty<Paint>{
     public abstract String toJSON();
 
     public abstract String toSVG(int tabIndent);
+
+    public  abstract AppPaint copy(String id);
 
 
 

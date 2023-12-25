@@ -1,6 +1,7 @@
 package com.boom.appcharts.string_number;
 
 import com.boom.configuration.Configs;
+import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.styles.SeriesLineStyleProperty;
 import com.boom.styles.SeriesMarkersStyleProperty;
@@ -27,6 +28,11 @@ public class AppLineChart_StringNumber extends AppXYChart<String,Number> {
         modifyType(getType() +"_NN");
         seriesMarkersStyles=new ArrayList<>();
         seriesLineStyles=new ArrayList<>();
+    }
+
+    @Override
+    public AppNode parseFromJSON(JSONObject jsonObject) {
+        return null;
     }
 
     @Override

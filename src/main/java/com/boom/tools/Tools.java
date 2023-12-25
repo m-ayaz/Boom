@@ -103,8 +103,8 @@ public class Tools {
     public static void deepCopy(CSSProperty cssPropertyFrom, CSSProperty cssPropertyTo) {
         cssPropertyTo.removeAllFills();
         cssPropertyTo.removeAllStrokes();
-        cssPropertyFrom.getFillArray().forEach(cssPropertyTo::addFill);
-        cssPropertyFrom.getStrokeArray().forEach(cssPropertyTo::addStroke);
+        cssPropertyFrom.getFillArray().forEach(appPaint -> cssPropertyTo.addFill(appPaint.copy(uuid(50))));
+        cssPropertyFrom.getStrokeArray().forEach(appPaint -> cssPropertyTo.addStroke(appPaint.copy(uuid(50))));
         cssPropertyFrom.setStrokeWidth(cssPropertyTo.getStrokeWidth());
     }
 
@@ -255,17 +255,17 @@ public class Tools {
     }
 
 
-        public static void setCustomWidth (Region region,double width){
-            region.setMaxWidth(width);
-            region.setPrefWidth(width);
-            region.setMinWidth(width);
-        }
+    public static void setCustomWidth(Region region, double width) {
+        region.setMaxWidth(width);
+        region.setPrefWidth(width);
+        region.setMinWidth(width);
+    }
 
-        public static void setCustomHeight (Region region,double height){
-            region.setMaxHeight(height);
-            region.setPrefHeight(height);
-            region.setMinHeight(height);
-        }
+    public static void setCustomHeight(Region region, double height) {
+        region.setMaxHeight(height);
+        region.setPrefHeight(height);
+        region.setMinHeight(height);
+    }
 
 //    static void deepCopy(SeriesAreaStyleProperty propertyFrom, SeriesAreaStyleProperty propertyTo) {
 //        propertyTo.fill.set(propertyFrom.fill.get());
@@ -286,12 +286,12 @@ public class Tools {
 //    }
 
     public static <T1, T2> void deepCopy(AppXYChart<T1, T2> chartFrom, AppXYChart<T1, T2> chartTo) {
-        try {
-            throw new RuntimeException("sdasd");
-        }catch (Exception e){
-            print(e);
-        }
-//        deepCopy(chartFrom.getBackgroundStyle(), chartTo.getBackgroundStyle());
+//        try {
+//            throw new RuntimeException("sdasd");
+//        }catch (Exception e){
+//            print(e);
+//        }
+        deepCopy(chartFrom.getBackgroundStyle(), chartTo.getBackgroundStyle());
         deepCopy(chartFrom.affineTransform, chartTo.affineTransform);
         for (int i = 0; i < ((XYChart<T1, T2>) chartFrom.getStyleableNode()).getData().size(); i++) {
             XYChart.Series<T1, T2> series = ((XYChart<T1, T2>) chartFrom.getStyleableNode()).getData().get(i);
@@ -300,8 +300,8 @@ public class Tools {
                 XYChart.Data<T1, T2> data = series.getData().get(j);
                 chartTo.addData(data.getXValue(), data.getYValue(), i, j);
                 try {
-                    throw new Exception("Fix here");
-//                    deepCopy(chartFrom.getSeriesAreaStyles().get(i), chartTo.getSeriesAreaStyles().get(i));
+//                    throw new Exception("Fix here");
+                    deepCopy(chartFrom.getSeriesAreaStyles().get(i), chartTo.getSeriesAreaStyles().get(i));
                 } catch (Exception e) {
                     print(e);
                     print("%s does not have AREA".formatted(chartFrom.getStyleableNode().getClass().getSimpleName()));
@@ -317,41 +317,40 @@ public class Tools {
     }
 
 
-    public static double[] dissectAffineTransform(Affine affine){
+    public static double[] dissectAffineTransform(Affine affine) {
 
-        double a=affine.getMxx();
-        double b=affine.getMxy();
-        double c=affine.getMyx();
-        double d=affine.getMyy();
-        double sx,sy,th1,th2;
+        double a = affine.getMxx();
+        double b = affine.getMxy();
+        double c = affine.getMyx();
+        double d = affine.getMyy();
+        double sx, sy, th1, th2;
 
-        double N2=a*a+b*b+c*c+d*d;
-        double D=affine.determinant();
-        if(D==0){
+        double N2 = a * a + b * b + c * c + d * d;
+        double D = affine.determinant();
+        if (D == 0) {
             throw new AppException(AppExceptionEnum.UnexpectedError);
         }
 
-        sx=Math.sqrt((N2+Math.sqrt(N2*N2-4*D*D))/2);
-        if(D>0) {
+        sx = Math.sqrt((N2 + Math.sqrt(N2 * N2 - 4 * D * D)) / 2);
+        if (D > 0) {
             sy = Math.sqrt((N2 - Math.sqrt(N2 * N2 - 4 * D * D)) / 2);
-        }
-        else {
-            sy =- Math.sqrt((N2 - Math.sqrt(N2 * N2 - 4 * D * D)) / 2);
+        } else {
+            sy = -Math.sqrt((N2 - Math.sqrt(N2 * N2 - 4 * D * D)) / 2);
         }
 
 //        th1=Math.atan2(d*sx-a*sy,b*sx+c*sy);
 //        th2=Math.atan2(d*sx-a*sy,-c*sx-b*sy);
 
 //        if()
-        if(sx==sy){
-            th1=0;
-        }else{
+        if (sx == sy) {
+            th1 = 0;
+        } else {
 //            th1=Math.acos(Math.sqrt((a*a+b*b-sy*sy)/(sx*sx-sy*sy)));
-            th1=Math.atan2(c-b,a+d)/2+Math.atan2(c+b,a-d)/2;
+            th1 = Math.atan2(c - b, a + d) / 2 + Math.atan2(c + b, a - d) / 2;
         }
-        th2=th1-Math.atan2(c+b,a-d);
+        th2 = th1 - Math.atan2(c + b, a - d);
 
-        return new double[]{th1*180/Math.PI,sx,sy,th2*180/Math.PI};
+        return new double[]{th1 * 180 / Math.PI, sx, sy, th2 * 180 / Math.PI};
     }
 
 }

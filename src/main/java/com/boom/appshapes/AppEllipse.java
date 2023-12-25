@@ -1,8 +1,8 @@
 package com.boom.appshapes;
 
 import com.boom.structures.abstracts.AppAreaShape;
+import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppPaint;
-import javafx.scene.Node;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
@@ -40,51 +40,6 @@ public class AppEllipse extends AppAreaShape {
 //        return null;
 //    }
 
-
-    @Override
-    public JSONObject toJSON() {
-//        Color fillColor = Color.valueOf(((Ellipse) node).getFill().toString());
-//        Color strokeColor = Color.valueOf(((Ellipse) node).getStroke().toString());
-        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("object", NodeTypeEnum.Ellipse.getNodeType());
-//        jsonObject.put("centerX", ((Ellipse) node).getCenterX());
-//        jsonObject.put("centerY", ((Ellipse) node).getCenterY());
-//        jsonObject.put("radiusX", ((Ellipse) node).getRadiusX());
-//        jsonObject.put("radiusY", ((Ellipse) node).getRadiusY());
-//        jsonObject.put("fillColor", Arrays.asList(Math.round(fillColor.getRed() * 255), Math.round(fillColor.getGreen() * 255), Math.round(fillColor.getBlue() * 255)));
-//        jsonObject.put("fillOpacity", Math.round(fillColor.getOpacity()));
-//        jsonObject.put("strokeColor", Arrays.asList(Math.round(strokeColor.getRed() * 255), Math.round(strokeColor.getGreen() * 255), Math.round(strokeColor.getBlue() * 255)));
-//        jsonObject.put("strokeOpacity", Math.round(strokeColor.getOpacity()));
-//        jsonObject.put("strokeWidth", ((Ellipse) node).getStrokeWidth());
-////        print(Arrays.asList(affineTransform.getMxx(), affineTransform.getMxy(), affineTransform.getTx(), affineTransform.getMyx(), affineTransform.getMyy(), affineTransform.getTy()));
-//        jsonObject.put("affineTransformation", Arrays.asList(affineTransform.getMxx(), affineTransform.getMxy(), affineTransform.getTx(), affineTransform.getMyx(), affineTransform.getMyy(), affineTransform.getTy()));
-        return jsonObject;
-    }
-
-
-
-    @Override
-    public String getSVGClones(int tabIndent) {
-        double[] dissectedTransform = dissectAffineTransform(affineTransform);
-        StringBuilder stringBuilder = new StringBuilder();
-        for (AppPaint appPaint : backgroundStyle.getFillArray()) {
-            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getRadiusX(), getRadiusY(), getRadiusX(), getRadiusY(), appPaint.getId(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
-        }
-        for (AppPaint appPaint : backgroundStyle.getStrokeArray()) {
-            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getRadiusX(), getRadiusY(), getRadiusX(), getRadiusY(), appPaint.getId(), backgroundStyle.getStrokeWidth(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
-        }
-        return stringBuilder.toString();
-    }
-
-    public double getRadiusX() {
-        return ((Ellipse) shape).getRadiusX();
-    }
-
-    public void setRadiusX(double radiusX) {
-        ((Ellipse) shape).setRadiusX(radiusX);
-    }
-
-
     @Override
     public AppEllipse copy() {
         if (getRadiusX() == 0 || getRadiusY() == 0)
@@ -103,6 +58,13 @@ public class AppEllipse extends AppAreaShape {
         setRadiusY(Math.abs(currentDragPosY - dragStartY) / 2);
     }
 
+    public double getRadiusX() {
+        return ((Ellipse) shape).getRadiusX();
+    }
+
+    public void setRadiusX(double radiusX) {
+        ((Ellipse) shape).setRadiusX(radiusX);
+    }
 
     public double getRadiusY() {
         return ((Ellipse) shape).getRadiusY();
@@ -110,6 +72,44 @@ public class AppEllipse extends AppAreaShape {
 
     public void setRadiusY(double radiusY) {
         ((Ellipse) shape).setRadiusY(radiusY);
+    }
+
+    @Override
+    public String getSVGClones(int tabIndent) {
+        double[] dissectedTransform = dissectAffineTransform(affineTransform);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (AppPaint appPaint : backgroundStyle.getFillArray()) {
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getRadiusX(), getRadiusY(), getRadiusX(), getRadiusY(), appPaint.getId(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+        }
+        for (AppPaint appPaint : backgroundStyle.getStrokeArray()) {
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getRadiusX(), getRadiusY(), getRadiusX(), getRadiusY(), appPaint.getId(), backgroundStyle.getStrokeWidth(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+        }
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public AppNode parseFromJSON(JSONObject jsonObject) {
+        return null;
+    }
+
+    @Override
+    public JSONObject toJSON() {
+//        Color fillColor = Color.valueOf(((Ellipse) node).getFill().toString());
+//        Color strokeColor = Color.valueOf(((Ellipse) node).getStroke().toString());
+        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("object", NodeTypeEnum.Ellipse.getNodeType());
+////        jsonObject.put("centerX", ((Ellipse) node).getCenterX());
+////        jsonObject.put("centerY", ((Ellipse) node).getCenterY());
+//        jsonObject.put("radiusX", getRadiusX());
+//        jsonObject.put("radiusY", getRadiusY());
+//        jsonObject.put("fillColor", Arrays.asList(Math.round(fillColor.getRed() * 255), Math.round(fillColor.getGreen() * 255), Math.round(fillColor.getBlue() * 255)));
+//        jsonObject.put("fillOpacity", Math.round(fillColor.getOpacity()));
+//        jsonObject.put("strokeColor", Arrays.asList(Math.round(strokeColor.getRed() * 255), Math.round(strokeColor.getGreen() * 255), Math.round(strokeColor.getBlue() * 255)));
+//        jsonObject.put("strokeOpacity", Math.round(strokeColor.getOpacity()));
+//        jsonObject.put("strokeWidth", ((Ellipse) node).getStrokeWidth());
+////        print(Arrays.asList(affineTransform.getMxx(), affineTransform.getMxy(), affineTransform.getTx(), affineTransform.getMyx(), affineTransform.getMyy(), affineTransform.getTy()));
+//        jsonObject.put("affineTransformation", Arrays.asList(affineTransform.getMxx(), affineTransform.getMxy(), affineTransform.getTx(), affineTransform.getMyx(), affineTransform.getMyy(), affineTransform.getTy()));
+        return jsonObject;
     }
 
 

@@ -1,6 +1,7 @@
 package com.boom.appshapes;
 
 import com.boom.structures.abstracts.AppLineShape;
+import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppPaint;
 import javafx.scene.shape.Line;
 import org.json.JSONObject;
@@ -106,6 +107,11 @@ public class AppLine extends AppLineShape {
 
     public void setEndY(double endY) {
         ((Line) styleableNode).setEndY(endY);
+    }
+
+    @Override
+    public AppNode parseFromJSON(JSONObject jsonObject) {
+        return null;
     }
 
     //    @Override

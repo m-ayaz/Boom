@@ -17,6 +17,7 @@ public abstract class AppNode {
 //    public Region region;
     protected Node styleableNode;
     protected String type;
+    public abstract AppNode  parseFromJSON(JSONObject jsonObject);
 
     public AppNode(Node styleableNode, String fillColorFX, String strokeColorFX, String strokeWidthFX) {
         this.styleableNode = styleableNode;

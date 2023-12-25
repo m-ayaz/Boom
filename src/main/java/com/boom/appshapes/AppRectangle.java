@@ -1,17 +1,14 @@
 package com.boom.appshapes;
 
-import com.boom.apppaints.AppColor;
 import com.boom.structures.abstracts.AppAreaShape;
-import com.boom.structures.abstracts.AppPaint;
 import com.boom.structures.abstracts.AppNode;
-import javafx.scene.Node;
-import javafx.scene.paint.Color;
+import com.boom.structures.abstracts.AppPaint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
-import static com.boom.tools.Tools.*;
-import static com.boom.tools.Tools.uuid;
+import static com.boom.tools.Tools.deepCopy;
+import static com.boom.tools.Tools.dissectAffineTransform;
 
 public class AppRectangle extends AppAreaShape {
 
@@ -83,6 +80,7 @@ public class AppRectangle extends AppAreaShape {
     }
 
 
+    @Override
     public JSONObject toJSON() {
 //        Color fillColor = Color.valueOf(((Rectangle) node).getFill().toString());
 //        Color strokeColor = Color.valueOf(((Rectangle) node).getStroke().toString());
@@ -102,6 +100,10 @@ public class AppRectangle extends AppAreaShape {
     }
 
 
+    @Override
+    public AppNode parseFromJSON(JSONObject jsonObject) {
+        return null;
+    }
 
     @Override
     public AppRectangle copy() {

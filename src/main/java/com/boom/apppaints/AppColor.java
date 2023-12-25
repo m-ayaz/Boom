@@ -23,6 +23,11 @@ public class AppColor extends AppPaint {
     public String toSVG(int tabIndent) {
         return "\n"+"\t".repeat(tabIndent)+"<linearGradient id=\"%s\">  <stop stop-color=\"%s\"/> </linearGradient>".formatted(id, getFormatted());
     }
+
+    @Override
+    public AppPaint copy(String id) {
+        return new AppColor(Color.valueOf(getFormatted()),id);
+    }
 }
 
 

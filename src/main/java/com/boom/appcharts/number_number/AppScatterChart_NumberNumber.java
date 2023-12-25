@@ -1,6 +1,7 @@
 package com.boom.appcharts.number_number;
 
 
+import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.styles.SeriesMarkersStyleProperty;
 import com.boom.tools.TeXConversion;
@@ -22,6 +23,11 @@ public class AppScatterChart_NumberNumber extends AppXYChart<Number,Number> {
         super(new ScatterChart<>(new NumberAxis(), new NumberAxis()),width,height);
         modifyType(getType() +"_NN");
         seriesMarkersStyles=new ArrayList<>();
+    }
+
+    @Override
+    public AppNode parseFromJSON(JSONObject jsonObject) {
+        return null;
     }
 
     @Override

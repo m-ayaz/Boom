@@ -9,6 +9,7 @@ import com.boom.appcharts.number_string.AppScatterChart_NumberString;
 import com.boom.appcharts.string_number.AppAreaChart_StringNumber;
 import com.boom.appcharts.string_number.AppLineChart_StringNumber;
 import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
+import com.boom.appshapes.AppArc;
 import com.boom.appshapes.AppEllipse;
 import com.boom.appshapes.AppLine;
 import com.boom.appshapes.AppRectangle;
@@ -16,7 +17,7 @@ import com.boom.configuration.Configs;
 import com.boom.controllers.DynamicDragRectangle;
 import com.boom.controllers.MainCanvasItemsHandler;
 import com.boom.controllers.SelectedObjectsController;
-import com.boom.controllers.eventhandlers.MainCanvasMouseHandler;
+import com.boom.controllers.eventhandlers.mousehandler.MainCanvasMouseHandler;
 import com.boom.exceptions.AppException;
 import com.boom.icons.*;
 import com.boom.indicators.*;
@@ -74,6 +75,7 @@ public class BoomComponentsSuperController {
 
     DynamicDragRectangle dynamicDragRectangle = new DynamicDragRectangle();
     AppEllipse tempEllipse = new AppEllipse(0, 0);
+    AppArc tempArc = new AppArc(0,0,0,0);
     AppRectangle tempRectangle = new AppRectangle(0, 0);
     AppLine tempLine = new AppLine(0, 0,0,0);
 
@@ -98,6 +100,7 @@ public class BoomComponentsSuperController {
     LittleScatterChartOnCursor littleScatterChartOnCursor = new LittleScatterChartOnCursor();
     LittleAreaChartOnCursor littleAreaChartOnCursor = new LittleAreaChartOnCursor();
     LittleEllipseOnCursor littleEllipseOnCursor = new LittleEllipseOnCursor();
+    LittleArcOnCursor littleArcOnCursor=new LittleArcOnCursor();
     LittleRectangleOnCursor littleRectangleOnCursor = new LittleRectangleOnCursor();
     LittleLineOnCursor littleLineOnCursor = new LittleLineOnCursor();
 
@@ -165,6 +168,7 @@ public class BoomComponentsSuperController {
 
     @FXML
     void appWindowOnKeyTyped(KeyEvent event) {
+
         // todo temporary. Change the key.
         if (event.getCode().getChar().equals("K")) {
 //            mainAppPlayGround.setDividerPositions(1 - objectPropertiesPane.getPrefWidth() * 1.1 / mainAppPlayGround.getWidth());
@@ -252,13 +256,14 @@ public class BoomComponentsSuperController {
 
         mainCanvasItemsHandler = new MainCanvasItemsHandler(mainCanvasChildren, validObjects,
                 rotationHandle, rotationIcon, scalingIcons, rotationFixedPoint, scalingFixedPoint,
-                dynamicDragRectangle, tempEllipse, tempRectangle, tempLine, tempLineChart_NN,
+                dynamicDragRectangle, tempEllipse,tempArc, tempRectangle, tempLine, tempLineChart_NN,
                 tempLineChart_NS, tempLineChart_SN, tempAreaChart_NN, tempAreaChart_NS, tempAreaChart_SN,
                 tempScatterChart_NN, tempScatterChart_NS, tempScatterChart_SN, littleLineChartOnCursor,
 //                 littleBarChartOnCursor,
                 littleScatterChartOnCursor,
                 littleAreaChartOnCursor,
                 littleEllipseOnCursor,
+                littleArcOnCursor,
                 littleRectangleOnCursor,
                 littleLineOnCursor,selectedObjectsController);
 
@@ -270,9 +275,10 @@ public class BoomComponentsSuperController {
 
         setUpObjectsCenterOfMassInput();
 
-        MainCanvasMouseHandler mainCanvasMouseHandler=new MainCanvasMouseHandler(
+        MainCanvasMouseHandler mainCanvasMouseHandlerMAINFILEFIXLATER =new MainCanvasMouseHandler(
                 mainCanvasChildren,
                  validObjects,
+                 selectedObjectsController,
                  rotationHandle,
                  rotationFixedPoint,
                  scalingFixedPoint,
@@ -321,11 +327,11 @@ public class BoomComponentsSuperController {
 //
                 rotationIcon);
 
-        mainCanvas.setOnMouseMoved(mainCanvasMouseHandler);
-        mainCanvas.setOnMouseDragged(mainCanvasMouseHandler);
-        mainCanvas.setOnMouseClicked(mainCanvasMouseHandler);
-        mainCanvas.setOnMousePressed(mainCanvasMouseHandler);
-        mainCanvas.setOnMouseReleased(mainCanvasMouseHandler);
+        mainCanvas.setOnMouseMoved(mainCanvasMouseHandlerMAINFILEFIXLATER);
+        mainCanvas.setOnMouseDragged(mainCanvasMouseHandlerMAINFILEFIXLATER);
+        mainCanvas.setOnMouseClicked(mainCanvasMouseHandlerMAINFILEFIXLATER);
+        mainCanvas.setOnMousePressed(mainCanvasMouseHandlerMAINFILEFIXLATER);
+        mainCanvas.setOnMouseReleased(mainCanvasMouseHandlerMAINFILEFIXLATER);
 
         xAxisType.getItems().addAll("Number", "String");
         yAxisType.getItems().addAll("Number", "String");
@@ -677,6 +683,7 @@ public class BoomComponentsSuperController {
     void setUpObjectsSizeInput() {
         mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().addListener((ListChangeListener<AppNode>) change -> {
 
+
 //            print(change);
             if (change.getList().size() == 1) {
                 AppNode selectedShape = change.getList().get(0);
@@ -686,30 +693,33 @@ public class BoomComponentsSuperController {
 //                print(selectedShape.type);
 //                print(NodeTypeEnum.LineChart_NN.getNodeType());
                 if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
-//                    objectProp1Label.setText("Radius (X)");
-//                    objectProp2Label.setText("Radius (Y)");
-//                    objectProp1Input.setText("" + selectedShape.getWidth());
-//                    objectProp2Input.setText("" + selectedShape.getHeight());
+                    objectProp1Label.setText("Radius (X)");
+                    objectProp2Label.setText("Radius (Y)");
+                    objectProp1Input.setText("" + ((AppEllipse)selectedShape).getRadiusX());
+                    objectProp2Input.setText("" + ((AppEllipse)selectedShape).getRadiusY());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
-//                    objectProp1Label.setText("Width");
-//                    objectProp2Label.setText("Height");
-//                    objectProp1Input.setText("" + selectedShape.getWidth());
-//                    objectProp2Input.setText("" + selectedShape.getHeight());
+                    objectProp1Label.setText("Width");
+                    objectProp2Label.setText("Height");
+                    objectProp1Input.setText("" + ((AppRectangle)selectedShape).getWidth());
+                    objectProp2Input.setText("" + ((AppRectangle)selectedShape).getHeight());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
 //                    objectProp1Label.setText("Start (X)");
 //                    objectProp2Label.setText("Start (Y)");
-//                    objectProp1Input.setText("" + selectedShape.getWidth());
-//                    objectProp2Input.setText("" + selectedShape.getHeight());
+//                    objectProp1Input.setText("" + ((AppLine)selectedShape).get());
+//                    objectProp2Input.setText("" + ((AppLine)selectedShape).getHeight());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.LineChart_NN.getNodeType()) ||
                         selectedShape.getType().equals(NodeTypeEnum.AreaChart_NN.getNodeType()) ||
                         selectedShape.getType().equals(NodeTypeEnum.ScatterChart_NN.getNodeType())) {
                     objectProp1Label.setText("Start (X)");
                     objectProp2Label.setText("Start (Y)");
+                    print(uuid(100));
                     try {
                         chartManagementPane_NN.registerChart((AppXYChart<Number, Number>) selectedShape);
                     } catch (Exception e) {
-                        throw new RuntimeException(e);
+                        print(e);
+//                        throw new RuntimeException(e);
                     }
+
 
 //                    chartTabContainer.getContent()..clear();
                     chartTabContainer.setContent(chartManagementPane_NN);
@@ -721,11 +731,11 @@ public class BoomComponentsSuperController {
                         selectedShape.getType().equals(NodeTypeEnum.BarChart_NS.getNodeType())) {
                     objectProp1Label.setText("Start (X)");
                     objectProp2Label.setText("Start (Y)");
-//                    ChartManagementPane_NumberString chartManagementPane = new ChartManagementPane_NumberString();
                     try {
                         chartManagementPane_NS.registerChart((AppXYChart<Number, String>) selectedShape);
                     } catch (Exception e) {
-                        throw new RuntimeException(e);
+                        print(e);
+//                        throw new RuntimeException(e);
                     }
 
 //                    chartTabContainer.getChildren().clear();
@@ -739,11 +749,11 @@ public class BoomComponentsSuperController {
                         selectedShape.getType().equals(NodeTypeEnum.BarChart_SN.getNodeType())) {
                     objectProp1Label.setText("Start (X)");
                     objectProp2Label.setText("Start (Y)");
-//                    ChartManagementPane_StringNumber chartManagementPane = new ChartManagementPane_StringNumber();
                     try {
                         chartManagementPane_SN.registerChart((AppXYChart<String, Number>) selectedShape);
                     } catch (Exception e) {
-                        throw new RuntimeException(e);
+                        print(e);
+//                        throw new RuntimeException(e);
                     }
 
 //                    chartTabContainer.getChildren().clear();
@@ -778,6 +788,7 @@ public class BoomComponentsSuperController {
         scatterChartButton.setGraphic(new ScatterChartIcon());
         pieChartButton.setGraphic(new PieChartIcon());
         ellipseButton.setGraphic(new EllipseIcon(25, 13, new Color(1, 0, 0, 0.2), new Color(0, 0, 0, 1), 1));
+        arcButton.setGraphic(new ArcIcon(25, 13,45,270, new Color(0, 1, 0, 0.2), new Color(0, 0, 0, 1), 1));
         rectangleButton.setGraphic(new RectangleIcon(50, 26, new Color(0, 0, 1, 0.2), new Color(0, 0, 0, 1), 1));
     }
 
@@ -939,7 +950,7 @@ public class BoomComponentsSuperController {
 
     @FXML
     void arcButtonOnAction(ActionEvent event) {
-
+        tempObjectName.set(NodeTypeEnum.Arc.getNodeType());
     }
 
 

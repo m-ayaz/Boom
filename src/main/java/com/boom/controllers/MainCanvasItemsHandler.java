@@ -10,6 +10,7 @@ import com.boom.appcharts.string_number.AppAreaChart_StringNumber;
 import com.boom.appcharts.string_number.AppLineChart_StringNumber;
 import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
 import com.boom.apppaints.AppColor;
+import com.boom.appshapes.AppArc;
 import com.boom.appshapes.AppEllipse;
 import com.boom.appshapes.AppLine;
 import com.boom.appshapes.AppRectangle;
@@ -29,7 +30,6 @@ import javafx.scene.shape.Line;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.boom.tools.Tools.print;
 import static com.boom.tools.Tools.uuid;
 
 public class MainCanvasItemsHandler {
@@ -37,6 +37,7 @@ public class MainCanvasItemsHandler {
     ObservableList<Node> mainCanvasChildren;
     DynamicDragRectangle dynamicDragRectangle;
     AppEllipse tempEllipse;
+    AppArc tempArc;
     AppRectangle tempRectangle;
     AppLine tempLine;
     AppLineChart_NumberNumber tempLineChart_NN;
@@ -59,6 +60,7 @@ public class MainCanvasItemsHandler {
     //    LittleBarChartOnCursor littleBarChartOnCursor;
     LittleScatterChartOnCursor littleScatterChartOnCursor;
     LittleAreaChartOnCursor littleAreaChartOnCursor;
+    LittleArcOnCursor littleArcOnCursor;
     LittleEllipseOnCursor littleEllipseOnCursor;
     LittleRectangleOnCursor littleRectangleOnCursor;
     LittleLineOnCursor littleLineOnCursor;
@@ -66,9 +68,9 @@ public class MainCanvasItemsHandler {
     SelectedObjectsController selectedObjectsController;
     List<AppNode> validObjects;
 
-    public MainCanvasItemsHandler(ObservableList<Node> mainCanvasChildren, List<AppNode> validObjects, Line rotationHandle, RotationIcon rotationIcon, List<ScalingIcon> scalingIcons, Circle rotationFixedPoint, Circle scalingFixedPoint, DynamicDragRectangle dynamicDragRectangle, AppEllipse tempEllipse, AppRectangle tempRectangle, AppLine tempLine, AppLineChart_NumberNumber tempLineChart_NN, AppLineChart_NumberString tempLineChart_NS, AppLineChart_StringNumber tempLineChart_SN, AppAreaChart_NumberNumber tempAreaChart_NN, AppAreaChart_NumberString tempAreaChart_NS, AppAreaChart_StringNumber tempAreaChart_SN, AppScatterChart_NumberNumber tempScatterChart_NN, AppScatterChart_NumberString tempScatterChart_NS, AppScatterChart_StringNumber tempScatterChart_SN, LittleLineChartOnCursor littleLineChartOnCursor,
+    public MainCanvasItemsHandler(ObservableList<Node> mainCanvasChildren, List<AppNode> validObjects, Line rotationHandle, RotationIcon rotationIcon, List<ScalingIcon> scalingIcons, Circle rotationFixedPoint, Circle scalingFixedPoint, DynamicDragRectangle dynamicDragRectangle, AppEllipse tempEllipse,AppArc tempArc, AppRectangle tempRectangle, AppLine tempLine, AppLineChart_NumberNumber tempLineChart_NN, AppLineChart_NumberString tempLineChart_NS, AppLineChart_StringNumber tempLineChart_SN, AppAreaChart_NumberNumber tempAreaChart_NN, AppAreaChart_NumberString tempAreaChart_NS, AppAreaChart_StringNumber tempAreaChart_SN, AppScatterChart_NumberNumber tempScatterChart_NN, AppScatterChart_NumberString tempScatterChart_NS, AppScatterChart_StringNumber tempScatterChart_SN, LittleLineChartOnCursor littleLineChartOnCursor,
 //                                  LittleBarChartOnCursor littleBarChartOnCursor,
-                                  LittleScatterChartOnCursor littleScatterChartOnCursor, LittleAreaChartOnCursor littleAreaChartOnCursor, LittleEllipseOnCursor littleEllipseOnCursor, LittleRectangleOnCursor littleRectangleOnCursor, LittleLineOnCursor littleLineOnCursor,SelectedObjectsController selectedObjectsController) {
+                                  LittleScatterChartOnCursor littleScatterChartOnCursor, LittleAreaChartOnCursor littleAreaChartOnCursor, LittleEllipseOnCursor littleEllipseOnCursor,LittleArcOnCursor littleArcOnCursor, LittleRectangleOnCursor littleRectangleOnCursor, LittleLineOnCursor littleLineOnCursor,SelectedObjectsController selectedObjectsController) {
 
 //        this.mainCanvas = mainCanvas;
 
@@ -105,7 +107,7 @@ public class MainCanvasItemsHandler {
 
         this.selectedObjectsController=selectedObjectsController;
 
-        print("selectedObjectsController = "+(this.selectedObjectsController.buffer));
+//        print("selectedObjectsController = "+(this.selectedObjectsController.buffer));
 
 
 
@@ -156,8 +158,8 @@ public class MainCanvasItemsHandler {
         AppNode appNodeClone = tempAppNode.copy();
         if (appNodeClone != null) {
             addToMainCanvas(appNodeClone);
-            print("appNodeClone = "+appNodeClone);
-            print("selectedObjectsController.buffer = "+selectedObjectsController.bufferSize.get());
+//            print("appNodeClone = "+appNodeClone);
+//            print("selectedObjectsController.buffer = "+selectedObjectsController.bufferSize.get());
             selectedObjectsController.select(appNodeClone);
             tempAppNode.hide();
         }
@@ -231,16 +233,16 @@ public class MainCanvasItemsHandler {
         validObjects.forEach(obj -> selectedObjectsController.select(obj));
     }
 
-    public void drawTempAppNode(AppNode tempAppNode, double currentDragPosX, double currentDragPosY, double dragStartX, double dragStartY, Color fillColor, Color strokeColor, double strokeWidth, List<Double> parsedStrokeDashArray) {
-        selectedObjectsController.unselectAll();
-        tempAppNode.draw(dragStartX, dragStartY, currentDragPosX, currentDragPosY);
-        tempAppNode.backgroundStyle.removeAllFills();
-        tempAppNode.backgroundStyle.removeAllStrokes();
-        tempAppNode.backgroundStyle.addFill(0, new AppColor(fillColor, uuid(50)));
-        tempAppNode.backgroundStyle.addStroke(0, new AppColor(strokeColor, uuid(50)));
-        tempAppNode.backgroundStyle.setStrokeWidth(strokeWidth);
-//        tempAppNode.setBorderDashArray(parsedStrokeDashArray);
-    }
+//    public void drawTempAppNode(AppNode tempAppNode, double currentDragPosX, double currentDragPosY, double dragStartX, double dragStartY, Color fillColor, Color strokeColor, double strokeWidth, List<Double> parsedStrokeDashArray) {
+//        selectedObjectsController.unselectAll();
+//        tempAppNode.draw(dragStartX, dragStartY, currentDragPosX, currentDragPosY);
+//        tempAppNode.backgroundStyle.removeAllFills();
+//        tempAppNode.backgroundStyle.removeAllStrokes();
+//        tempAppNode.backgroundStyle.addFill(0, new AppColor(fillColor, uuid(50)));
+//        tempAppNode.backgroundStyle.addStroke(0, new AppColor(strokeColor, uuid(50)));
+//        tempAppNode.backgroundStyle.setStrokeWidth(strokeWidth);
+////        tempAppNode.setBorderDashArray(parsedStrokeDashArray);
+//    }
 }
 
 
