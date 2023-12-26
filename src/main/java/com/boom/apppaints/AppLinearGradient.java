@@ -9,10 +9,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
+import org.json.JSONObject;
 
 import java.util.stream.Collectors;
 
-public class AppLinearGradient extends AppGradient {
+import static com.boom.tools.Tools.uuid;
+
+public final class AppLinearGradient extends AppGradient {
 
 
     public DoubleProperty startX = new SimpleDoubleProperty(0);
@@ -43,8 +46,25 @@ public class AppLinearGradient extends AppGradient {
     }
 
     @Override
-    public String toJSON() {
-        return null;
+    public JSONObject toJSON() {
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("startX",startX);
+        jsonObject.put("startY",startY);
+        jsonObject.put("endX",endX);
+        jsonObject.put("endY",endY);
+        jsonObject.put("isProportional",isProportional);
+        jsonObject.put("stopsProportions",appStops.stream().map(appStop -> appStop.get().getOffset()));
+        jsonObject.put("stopsColors",appStops.stream().map(appStop -> appStop.get().getColor().toString()));
+        return jsonObject;
+    }
+
+    @Override
+    public void parseFromJSON(JSONObject jsonObject) {
+//        Stop[] stops=jsonObject.get("");
+//        set(new LinearGradient(Double.parseDouble(jsonObject.get("startX").toString()),
+//                Double.parseDouble(jsonObject.get("startY").toString()),Double.parseDouble(jsonObject.get("endX").toString())
+//        ,Double.parseDouble(jsonObject.get("endY").toString()),Boolean.parseBoolean(jsonObject.get("isProportional").toString()),CycleMethod.NO_CYCLE,
+//                new Stop(0,Color.TRANSPARENT)));
     }
 
     @Override

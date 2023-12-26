@@ -5,10 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Stop;
 
-import static com.boom.tools.Tools.print;
-import static com.boom.tools.Tools.uuid;
-
-public class AppStop extends SimpleObjectProperty<Stop> {
+public final class AppStop extends SimpleObjectProperty<Stop> {
 
     public AppColor appColor;
     public SimpleDoubleProperty offset=new SimpleDoubleProperty();

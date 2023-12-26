@@ -15,15 +15,17 @@ public class LittleArcOnCursor extends Arc implements LittleIndicatorStructure {
         setStartAngle(45);
         setLength(270);
         setType(ArcType.ROUND);
-        setFill(new Color(0.3, 0.3, 1, 1));
+        setFill(new Color(0.3, 1, 0.3, 1));
         setVisible(false);
     }
+
     @Override
     public void show(double centerX, double centerY) {
         setVisible(true);
         setTranslateX(centerX);
         setTranslateY(centerY);
     }
+
     @Override
     public void hide() {
         setVisible(false);

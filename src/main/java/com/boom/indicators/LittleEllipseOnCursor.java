@@ -12,12 +12,14 @@ public class LittleEllipseOnCursor extends Ellipse implements LittleIndicatorStr
         setFill(new Color(0.3, 0.3, 1, 1));
         setVisible(false);
     }
+
     @Override
     public void show(double centerX, double centerY) {
         setVisible(true);
         setTranslateX(centerX);
         setTranslateY(centerY);
     }
+
     @Override
     public void hide() {
         setVisible(false);

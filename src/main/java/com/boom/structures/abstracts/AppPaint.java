@@ -4,10 +4,12 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Stop;
+import org.json.JSONObject;
 
 public abstract class AppPaint extends  SimpleObjectProperty<Paint>{
 
 //    protected SimpleObjectProperty<Paint> paintProperty = new SimpleObjectProperty<>();
+
     String type;
     protected String id;
 
@@ -27,11 +29,15 @@ public abstract class AppPaint extends  SimpleObjectProperty<Paint>{
 
     public abstract String toTeX();
 
-    public abstract String toJSON();
+    public abstract JSONObject toJSON();
+
+    public abstract void parseFromJSON(JSONObject jsonObject);
 
     public abstract String toSVG(int tabIndent);
 
     public  abstract AppPaint copy(String id);
+
+
 
 
 

@@ -18,8 +18,8 @@ public class LittleRectangleOnCursor extends Rectangle implements LittleIndicato
     @Override
     public void show(double centerX, double centerY) {
         setVisible(true);
-        setTranslateX( centerX);
-        setTranslateY( centerY);
+        setTranslateX(centerX);
+        setTranslateY(centerY);
     }
 
     @Override

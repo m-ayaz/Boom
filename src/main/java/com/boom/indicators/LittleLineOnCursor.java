@@ -7,7 +7,7 @@ import javafx.scene.shape.Line;
 public class LittleLineOnCursor extends Line implements LittleIndicatorStructure {
     public LittleLineOnCursor() {
         setStrokeWidth(4);
-        setStroke(new Color(160.0/256,160.0/256,60.0/256,1));
+        setStroke(new Color(160.0 / 256, 160.0 / 256, 60.0 / 256, 1));
         setVisible(false);
         setStartX(-15);
         setStartY(0);

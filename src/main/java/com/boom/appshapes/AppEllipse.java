@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import static com.boom.tools.Tools.deepCopy;
 import static com.boom.tools.Tools.dissectAffineTransform;
 
-public class AppEllipse extends AppAreaShape {
+public final class AppEllipse extends AppAreaShape {
 
     public AppEllipse(double radiusX, double radiusY) {
         super(new Ellipse(radiusX, radiusY));

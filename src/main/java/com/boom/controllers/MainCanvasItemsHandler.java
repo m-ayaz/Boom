@@ -57,7 +57,7 @@ public class MainCanvasItemsHandler {
 
     //    AppText tempText = new AppText(0, 0, "");
     LittleLineChartOnCursor littleLineChartOnCursor;
-    //    LittleBarChartOnCursor littleBarChartOnCursor;
+        LittleBarChartOnCursor littleBarChartOnCursor;
     LittleScatterChartOnCursor littleScatterChartOnCursor;
     LittleAreaChartOnCursor littleAreaChartOnCursor;
     LittleArcOnCursor littleArcOnCursor;
@@ -69,7 +69,7 @@ public class MainCanvasItemsHandler {
     List<AppNode> validObjects;
 
     public MainCanvasItemsHandler(ObservableList<Node> mainCanvasChildren, List<AppNode> validObjects, Line rotationHandle, RotationIcon rotationIcon, List<ScalingIcon> scalingIcons, Circle rotationFixedPoint, Circle scalingFixedPoint, DynamicDragRectangle dynamicDragRectangle, AppEllipse tempEllipse,AppArc tempArc, AppRectangle tempRectangle, AppLine tempLine, AppLineChart_NumberNumber tempLineChart_NN, AppLineChart_NumberString tempLineChart_NS, AppLineChart_StringNumber tempLineChart_SN, AppAreaChart_NumberNumber tempAreaChart_NN, AppAreaChart_NumberString tempAreaChart_NS, AppAreaChart_StringNumber tempAreaChart_SN, AppScatterChart_NumberNumber tempScatterChart_NN, AppScatterChart_NumberString tempScatterChart_NS, AppScatterChart_StringNumber tempScatterChart_SN, LittleLineChartOnCursor littleLineChartOnCursor,
-//                                  LittleBarChartOnCursor littleBarChartOnCursor,
+                                  LittleBarChartOnCursor littleBarChartOnCursor,
                                   LittleScatterChartOnCursor littleScatterChartOnCursor, LittleAreaChartOnCursor littleAreaChartOnCursor, LittleEllipseOnCursor littleEllipseOnCursor,LittleArcOnCursor littleArcOnCursor, LittleRectangleOnCursor littleRectangleOnCursor, LittleLineOnCursor littleLineOnCursor,SelectedObjectsController selectedObjectsController) {
 
 //        this.mainCanvas = mainCanvas;
@@ -95,7 +95,7 @@ public class MainCanvasItemsHandler {
         this.tempScatterChart_NS = tempScatterChart_NS;
         this.tempScatterChart_SN = tempScatterChart_SN;
         this.littleLineChartOnCursor = littleLineChartOnCursor;
-//        this.littleBarChartOnCursor=littleBarChartOnCursor;
+        this.littleBarChartOnCursor=littleBarChartOnCursor;
         this.littleScatterChartOnCursor = littleScatterChartOnCursor;
         this.littleAreaChartOnCursor = littleAreaChartOnCursor;
         this.littleEllipseOnCursor = littleEllipseOnCursor;
@@ -133,7 +133,7 @@ public class MainCanvasItemsHandler {
                 littleRectangleOnCursor,
                 littleLineOnCursor, littleLineChartOnCursor,
                 littleAreaChartOnCursor,
-//                littleBarChartOnCursor,
+                littleBarChartOnCursor,
                 littleScatterChartOnCursor,
                 dynamicDragRectangle,
                 rotationHandle,
@@ -141,16 +141,6 @@ public class MainCanvasItemsHandler {
                 scalingFixedPoint,
                 rotationIcon);
         mainCanvasChildren.addAll(scalingIcons);
-
-//        mainCanvasChildren.addAll(tempRectangle.getStyleableNode(), tempEllipse.getStyleableNode(), tempLine.getStyleableNode(), tempLineChart_NN.getStyleableNode(), tempLineChart_SN.getStyleableNode(), tempLineChart_NS.getStyleableNode(), tempScatterChart_NN.getStyleableNode(), tempScatterChart_SN.getStyleableNode(), tempScatterChart_NS.getStyleableNode(),
-////                tempBarChart_SN.node,
-////                tempBarChart_NS.node,
-//                tempAreaChart_NN.getStyleableNode(), tempAreaChart_SN.getStyleableNode(), tempAreaChart_NS.getStyleableNode(), littleEllipseOnCursor, littleRectangleOnCursor, littleLineOnCursor, littleLineChartOnCursor, littleAreaChartOnCursor,
-////                littleBarChartOnCursor,
-//                littleScatterChartOnCursor, dynamicDragRectangle, rotationHandle, rotationFixedPoint, scalingFixedPoint, rotationIcon);
-//        mainCanvasChildren.addAll(scalingIcons);
-
-//        numOfValidObjects = 0;
 
         this.validObjects = validObjects;
 

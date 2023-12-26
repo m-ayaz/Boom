@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import static com.boom.tools.Tools.deepCopy;
-import static com.boom.tools.Tools.print;
 
-public class AppLineChart_NumberNumber extends AppXYChart<Number,Number> {
+@SuppressWarnings("unchecked")
+public final class AppLineChart_NumberNumber extends AppXYChart<Number,Number> {
     public AppLineChart_NumberNumber(double width, double height) {
         super(new LineChart<>(new NumberAxis(), new NumberAxis()), width, height);
         modifyType(getType() + "_NN");
@@ -50,7 +50,7 @@ public class AppLineChart_NumberNumber extends AppXYChart<Number,Number> {
     }
 
     @Override
-    public XYChart.Series addSeries(int index) {
+    public XYChart.Series<Number,Number> addSeries(int index) {
         XYChart.Series<Number, Number> newSeries = new XYChart.Series<>();
         ((XYChart<Number, Number>) getStyleableNode()).getData().add(index, newSeries);
         SeriesLineStyleProperty seriesLineStyle = new SeriesLineStyleProperty();

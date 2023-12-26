@@ -13,13 +13,13 @@ import static com.boom.tools.Tools.print;
 
 public class ProjectManager {
 
-    public static JSONArray exportProjectAsJSON(List<AppNode> canvasPermanentObjects) {
+    public static JSONArray exportProjectAsJSON(List<AppNode> validObjects) {
         JSONArray jsonScript = new JSONArray();
-        canvasPermanentObjects.forEach(obj -> jsonScript.put(obj.toJSON()));
+        validObjects.forEach(obj -> jsonScript.put(obj.toJSON()));
         return jsonScript;
     }
 
-    public static StringBuilder exportProjectAsTeX(List<AppNode> canvasPermanentObjects) {
+    public static StringBuilder exportProjectAsTeX(List<AppNode> validObjects) {
 //        print("exportProjectAsTeX" );
         StringBuilder texScript = new StringBuilder();
         texScript.append("% Generated with LaTeX Drawer (Free Edition)");
@@ -27,14 +27,18 @@ public class ProjectManager {
         texScript.append("\n\\usepackage{tikz,pgfplots}");
         texScript.append("\n\\begin{document}");
         texScript.append("\n\\begin{tikzpicture}[transform canvas={cm={1,0,0,-1,(0,0)}}]");
-        for (AppNode canvasPermanentObject : canvasPermanentObjects) {
-//            texScript.append("\n").append(canvasPermanentObject.toTeX());
-//            print(canvasPermanentObject.toTeX());
+        for (AppNode validObject : validObjects) {
+//            texScript.append("\n").append(validObject.toTeX());
+//            print(validObject.toTeX());
         }
         texScript.append("\n\\end{tikzpicture}");
         texScript.append("\n\\end{document}");
 //        print(texScript);
         return texScript;
+    }
+
+    public static StringBuilder exportProjectAsSVG(List<AppNode> validObjects) {
+        return null;
     }
 
     public static org.json.simple.JSONArray importProjectFromJSON(String filePath) throws IOException, ParseException {

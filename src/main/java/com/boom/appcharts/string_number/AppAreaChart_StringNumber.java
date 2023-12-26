@@ -23,7 +23,8 @@ import java.util.stream.Collectors;
 
 import static com.boom.tools.Tools.*;
 
-public class AppAreaChart_StringNumber extends AppXYChart<String,Number> {
+@SuppressWarnings("unchecked")
+public final class AppAreaChart_StringNumber extends AppXYChart<String,Number> {
     public AppAreaChart_StringNumber(double width, double height) {
         super(new AreaChart<>(new CategoryAxis(), new NumberAxis()), width, height);
         modifyType(getType() +"_NN");

@@ -7,9 +7,9 @@ import javafx.scene.text.Text;
 
 public class LittleTextOnCursor extends Text implements LittleIndicatorStructure {
 
-    public LittleTextOnCursor(){
+    public LittleTextOnCursor() {
         setText("A");
-        setStroke(new Color(0,0,0,1));
+        setStroke(new Color(0, 0, 0, 1));
         setFont(new Font(20));
         setVisible(false);
         setX(-15);
@@ -26,8 +26,5 @@ public class LittleTextOnCursor extends Text implements LittleIndicatorStructure
     @Override
     public void hide() {
         setVisible(false);
-//        setFont(new Font(0));
-//        setX(0);
-//        setY(0);
     }
 }

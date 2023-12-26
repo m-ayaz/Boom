@@ -3,15 +3,15 @@ package com.boom.appshapes;
 import com.boom.structures.abstracts.AppAreaShape;
 import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppPaint;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
-import static com.boom.tools.Tools.*;
+import static com.boom.tools.Tools.deepCopy;
+import static com.boom.tools.Tools.dissectAffineTransform;
 
-public class AppArc extends AppAreaShape {
+public final class AppArc extends AppAreaShape {
 
     public AppArc(double radiusX, double radiusY, double startAngle, double length, ArcType arcType) {
         super(new Arc(0, 0, radiusX, radiusY, startAngle, length));

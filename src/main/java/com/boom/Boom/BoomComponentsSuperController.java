@@ -25,9 +25,9 @@ import com.boom.panels.chart.number_number.ChartManagementPane_NumberNumber;
 import com.boom.panels.chart.number_string.ChartManagementPane_NumberString;
 import com.boom.panels.chart.string_number.ChartManagementPane_StringNumber;
 import com.boom.panels.paint.PaintManagementPanel;
-import com.boom.structures.enums.AppExceptionEnum;
 import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppXYChart;
+import com.boom.structures.enums.AppExceptionEnum;
 import com.boom.structures.enums.NodeTypeEnum;
 import javafx.beans.property.*;
 import javafx.collections.ListChangeListener;
@@ -65,20 +65,16 @@ import static com.boom.tools.Tools.*;
 
 public class BoomComponentsSuperController {
 
-    DoubleProperty dragStartPosX = new SimpleDoubleProperty();
-    DoubleProperty dragStartPosY = new SimpleDoubleProperty();
     DoubleProperty currentPosX = new SimpleDoubleProperty();
     DoubleProperty currentPosY = new SimpleDoubleProperty();
-    DoubleProperty previousPosX = new SimpleDoubleProperty();
-    DoubleProperty previousPosY = new SimpleDoubleProperty();
     StringProperty tempObjectName = new SimpleStringProperty();
     List<Double> parsedStrokeDashArray = new ArrayList<>();
 
     DynamicDragRectangle dynamicDragRectangle = new DynamicDragRectangle();
     AppEllipse tempEllipse = new AppEllipse(0, 0);
-    AppArc tempArc = new AppArc(0,0,0,270, ArcType.ROUND);
+    AppArc tempArc = new AppArc(0, 0, 0, 270, ArcType.ROUND);
     AppRectangle tempRectangle = new AppRectangle(0, 0);
-    AppLine tempLine = new AppLine(0, 0,0,0);
+    AppLine tempLine = new AppLine(0, 0, 0, 0);
 
     AppLineChart_NumberNumber tempLineChart_NN = new AppLineChart_NumberNumber(0, 0);
     AppLineChart_NumberString tempLineChart_NS = new AppLineChart_NumberString(0, 0);
@@ -101,14 +97,14 @@ public class BoomComponentsSuperController {
     LittleScatterChartOnCursor littleScatterChartOnCursor = new LittleScatterChartOnCursor();
     LittleAreaChartOnCursor littleAreaChartOnCursor = new LittleAreaChartOnCursor();
     LittleEllipseOnCursor littleEllipseOnCursor = new LittleEllipseOnCursor();
-    LittleArcOnCursor littleArcOnCursor=new LittleArcOnCursor();
+    LittleArcOnCursor littleArcOnCursor = new LittleArcOnCursor();
     LittleRectangleOnCursor littleRectangleOnCursor = new LittleRectangleOnCursor();
     LittleLineOnCursor littleLineOnCursor = new LittleLineOnCursor();
 
     ChartManagementPane_NumberNumber chartManagementPane_NN = new ChartManagementPane_NumberNumber();
     ChartManagementPane_NumberString chartManagementPane_NS = new ChartManagementPane_NumberString();
     ChartManagementPane_StringNumber chartManagementPane_SN = new ChartManagementPane_StringNumber();
-    //    LittleTextOnCursor littleTextOnCursor = new LittleTextOnCursor();
+        LittleTextOnCursor littleTextOnCursor = new LittleTextOnCursor();
     MainCanvasItemsHandler mainCanvasItemsHandler;
     boolean isCopyRequested;
     boolean isCutRequested;
@@ -125,6 +121,7 @@ public class BoomComponentsSuperController {
     double selectedObjectsCurrentCenterOfMassPosY;
     double selectedObjectsNewCenterOfMassPosY;
     PaintManagementPanel paintManagementPanel = new PaintManagementPanel();
+    SelectedObjectsController selectedObjectsController;
     @FXML
     private Button areaChartButton;
     @FXML
@@ -159,13 +156,50 @@ public class BoomComponentsSuperController {
     private TextField selectedObjectsCenterXInput;
     @FXML
     private TextField selectedObjectsCenterYInput;
-
     @FXML
     private ScrollPane visualEffectsTab;
     @FXML
     private ComboBox<String> xAxisType;
     @FXML
     private ComboBox<String> yAxisType;
+    @FXML
+    private BorderPane appWindow;
+    @FXML
+    private Button arcButton;
+    @FXML
+    private Tab chartsTab;
+    @FXML
+    private Tab fileTab;
+    @FXML
+    private Tab fileTab1;
+    @FXML
+    private Tab fileTab11;
+    @FXML
+    private Button lineButton;
+    @FXML
+    private Button loadButton;
+    @FXML
+    private Button loadButton1;
+    @FXML
+    private Button loadButton11;
+    @FXML
+    private ScrollPane mainCanvasHolder;
+    @FXML
+    private Button polygonButton;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Button saveButton1;
+    @FXML
+    private Button saveButton11;
+    @FXML
+    private Button selectorButton;
+    @FXML
+    private Tab shapesTab;
+    @FXML
+    private Button textButton;
+    @FXML
+    private Button triangleButton;
 
     @FXML
     void appWindowOnKeyTyped(KeyEvent event) {
@@ -174,11 +208,16 @@ public class BoomComponentsSuperController {
         if (event.getCode().getChar().equals("K")) {
 //            mainAppPlayGround.setDividerPositions(1 - objectPropertiesPane.getPrefWidth() * 1.1 / mainAppPlayGround.getWidth());
 //            if(mainAppPlayGround.getDividerPositions()[0]==0) {
-            mainAppPlayGround.setDividerPositions(1 - 330 / mainAppPlayGround.getWidth());
+            mainAppPlayGround.setDividerPositions(1 - 400 / mainAppPlayGround.getWidth());
 //            }else{
 //                mainAppPlayGround.setDividerPositions(1);
 //            }
         }
+    }
+
+    @FXML
+    void arcButtonOnAction(ActionEvent event) {
+        tempObjectName.set(NodeTypeEnum.Arc.getNodeType());
     }
 
     @FXML
@@ -194,6 +233,7 @@ public class BoomComponentsSuperController {
 
     @FXML
     void barChartButtonOnAction(ActionEvent event) throws AppException {
+        print(uuid(1000));
         switch (xAxisType.getValue() + yAxisType.getValue()) {
             case "NumberNumber", "StringString" -> throw new AppException(AppExceptionEnum.InvalidXYAxisType);
             case "NumberString" -> tempObjectName.set(NodeTypeEnum.BarChart_NS.getNodeType());
@@ -231,8 +271,6 @@ public class BoomComponentsSuperController {
         tempObjectName.set(NodeTypeEnum.Ellipse.getNodeType());
     }
 
-    SelectedObjectsController selectedObjectsController;
-
     @FXML
     void initialize() {
 
@@ -257,16 +295,12 @@ public class BoomComponentsSuperController {
 
         mainCanvasItemsHandler = new MainCanvasItemsHandler(mainCanvasChildren, validObjects,
                 rotationHandle, rotationIcon, scalingIcons, rotationFixedPoint, scalingFixedPoint,
-                dynamicDragRectangle, tempEllipse,tempArc, tempRectangle, tempLine, tempLineChart_NN,
+                dynamicDragRectangle, tempEllipse, tempArc, tempRectangle, tempLine, tempLineChart_NN,
                 tempLineChart_NS, tempLineChart_SN, tempAreaChart_NN, tempAreaChart_NS, tempAreaChart_SN,
                 tempScatterChart_NN, tempScatterChart_NS, tempScatterChart_SN, littleLineChartOnCursor,
-//                 littleBarChartOnCursor,
-                littleScatterChartOnCursor,
-                littleAreaChartOnCursor,
-                littleEllipseOnCursor,
-                littleArcOnCursor,
-                littleRectangleOnCursor,
-                littleLineOnCursor,selectedObjectsController);
+                 littleBarChartOnCursor, littleScatterChartOnCursor, littleAreaChartOnCursor,
+                littleEllipseOnCursor, littleArcOnCursor, littleRectangleOnCursor,
+                littleLineOnCursor, selectedObjectsController);
 
         tempObjectName.set(NodeTypeEnum.DynamicDragRectangle.getNodeType());
 
@@ -276,52 +310,46 @@ public class BoomComponentsSuperController {
 
         setUpObjectsCenterOfMassInput();
 
-        MainCanvasMouseHandler mainCanvasMouseHandlerMAINFILEFIXLATER =new MainCanvasMouseHandler(
+        MainCanvasMouseHandler mainCanvasMouseHandlerMAINFILEFIXLATER = new MainCanvasMouseHandler(
                 mainCanvasChildren,
-                 validObjects,
-                 selectedObjectsController,
-                 rotationHandle,
-                 rotationFixedPoint,
-                 scalingFixedPoint,
-                 mainCanvas,
-                 cursorPositionLabel,
-                 tempObjectName,
-                 dynamicDragRectangle,
-                 tempEllipse,
-                 tempArc,
-                 tempRectangle,
-                 tempLine,
-                 tempLineChart_NN,
-                 tempLineChart_NS,
-                 tempLineChart_SN,
-                 tempAreaChart_NN,
-                 tempAreaChart_NS,
-                 tempAreaChart_SN,
+                validObjects,
+                selectedObjectsController,
+                rotationHandle,
+                rotationFixedPoint,
+                scalingFixedPoint,
+                mainCanvas,
+                cursorPositionLabel,
+                tempObjectName,
+                dynamicDragRectangle,
+                tempEllipse,
+                tempArc,
+                tempRectangle,
+                tempLine,
+                tempLineChart_NN,
+                tempLineChart_NS,
+                tempLineChart_SN,
+                tempAreaChart_NN,
+                tempAreaChart_NS,
+                tempAreaChart_SN,
 ////    AppBarChart_NumberString tempBarChart_NS = new AppBarChart_NumberString(0,0);
 ////    AppBarChart_StringNumber tempBarChart_SN = new AppBarChart_StringNumber(0,0);
-                 tempScatterChart_NN,
-                 tempScatterChart_NS,
-                 tempScatterChart_SN,
-                 littleLineChartOnCursor,
-//                                  LittleBarChartOnCursor littleBarChartOnCursor,
-                 littleScatterChartOnCursor,
-                 littleAreaChartOnCursor,
-                 littleEllipseOnCursor,
-                 littleArcOnCursor,
-                 littleRectangleOnCursor,
-                 littleLineOnCursor,
-                 mainCanvasItemsHandler,
-                 currentPosX,
-                 currentPosY,
-                 previousPosX,
-                 previousPosY,
-                 dragStartPosX,
-                 dragStartPosY,
-//                                  ColorPicker fillSolidColorPicker,
+                tempScatterChart_NN,
+                tempScatterChart_NS,
+                tempScatterChart_SN,
+                littleLineChartOnCursor,
+                                   littleBarChartOnCursor,
+                littleScatterChartOnCursor,
+                littleAreaChartOnCursor,
+                littleEllipseOnCursor,
+                littleArcOnCursor,
+                littleRectangleOnCursor,
+                littleLineOnCursor,
+                mainCanvasItemsHandler,
+                //                                  ColorPicker fillSolidColorPicker,
 //                                  ColorPicker strokeSolidColorPicker,
 //                                  TextField strokeWidthInput,
-                 parsedStrokeDashArray,
-                 scalingIcons,
+                parsedStrokeDashArray,
+                scalingIcons,
 
 
                 //
@@ -545,6 +573,11 @@ public class BoomComponentsSuperController {
     }
 
     @FXML
+    void polygonButtonOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
     void rectangleButtonOnAction(ActionEvent event) {
         tempObjectName.set(NodeTypeEnum.Rectangle.getNodeType());
     }
@@ -562,12 +595,13 @@ public class BoomComponentsSuperController {
             FileChooser fileChooser = new FileChooser();
 
             FileChooser.ExtensionFilter jsonExtension = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
-            FileChooser.ExtensionFilter texExtension = new FileChooser.ExtensionFilter("TeX files (*.tex)", "*.tex");
+            FileChooser.ExtensionFilter texExtension = new FileChooser.ExtensionFilter("Boom TeX files (*.tex)", "*.tex");
             FileChooser.ExtensionFilter pngExtension = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+            FileChooser.ExtensionFilter svgExtension = new FileChooser.ExtensionFilter("Boom SVG files (*.svg)", "*.svg");
 
-            fileChooser.getExtensionFilters().add(jsonExtension);
-            fileChooser.getExtensionFilters().add(texExtension);
-//            fileChooser.getExtensionFilters().add(pngExtension);
+            fileChooser.getExtensionFilters().addAll(jsonExtension,texExtension
+//                    ,svgExtension,pngExtension
+            );
 
             File saveFile = fileChooser.showSaveDialog(null);
 
@@ -577,6 +611,8 @@ public class BoomComponentsSuperController {
                 printWriter.println(exportProjectAsJSON(validObjects));
             } else if (fileChooser.getSelectedExtensionFilter().equals(texExtension)) {
                 printWriter.println(exportProjectAsTeX(validObjects));
+            } else if (fileChooser.getSelectedExtensionFilter().equals(svgExtension)) {
+                printWriter.println(exportProjectAsSVG(validObjects));
             } else if (fileChooser.getSelectedExtensionFilter().equals(pngExtension)) {
                 SnapshotParameters snapshotParameters = new SnapshotParameters();
                 snapshotParameters.setFill(new Color(0, 0, 0, 0.1));
@@ -698,13 +734,13 @@ public class BoomComponentsSuperController {
                 if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
                     objectProp1Label.setText("Radius (X)");
                     objectProp2Label.setText("Radius (Y)");
-                    objectProp1Input.setText("" + ((AppEllipse)selectedShape).getRadiusX());
-                    objectProp2Input.setText("" + ((AppEllipse)selectedShape).getRadiusY());
+                    objectProp1Input.setText("" + ((AppEllipse) selectedShape).getRadiusX());
+                    objectProp2Input.setText("" + ((AppEllipse) selectedShape).getRadiusY());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
                     objectProp1Label.setText("Width");
                     objectProp2Label.setText("Height");
-                    objectProp1Input.setText("" + ((AppRectangle)selectedShape).getWidth());
-                    objectProp2Input.setText("" + ((AppRectangle)selectedShape).getHeight());
+                    objectProp1Input.setText("" + ((AppRectangle) selectedShape).getWidth());
+                    objectProp2Input.setText("" + ((AppRectangle) selectedShape).getHeight());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
 //                    objectProp1Label.setText("Start (X)");
 //                    objectProp2Label.setText("Start (Y)");
@@ -774,8 +810,7 @@ public class BoomComponentsSuperController {
 //                chartDataPane.
 
 
-            }
-            else{
+            } else {
                 chartManagementPane_NN.setVisible(false);
                 chartManagementPane_NS.setVisible(false);
                 chartManagementPane_SN.setVisible(false);
@@ -791,7 +826,7 @@ public class BoomComponentsSuperController {
         scatterChartButton.setGraphic(new ScatterChartIcon());
         pieChartButton.setGraphic(new PieChartIcon());
         ellipseButton.setGraphic(new EllipseIcon(25, 13, new Color(1, 0, 0, 0.2), new Color(0, 0, 0, 1), 1));
-        arcButton.setGraphic(new ArcIcon(25, 13,45,270, new Color(0, 1, 0, 0.2), new Color(0, 0, 0, 1), 1));
+        arcButton.setGraphic(new ArcIcon(25, 13, 45, 270, new Color(0, 1, 0, 0.2), new Color(0, 0, 0, 1), 1));
         rectangleButton.setGraphic(new RectangleIcon(50, 26, new Color(0, 0, 1, 0.2), new Color(0, 0, 0, 1), 1));
     }
 
@@ -814,154 +849,6 @@ public class BoomComponentsSuperController {
     void triangleButtonOnAction(ActionEvent event) {
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @FXML
-    private BorderPane appWindow;
-
-    @FXML
-    private Button arcButton;
-
-
-
-    @FXML
-    private Tab chartsTab;
-
-
-    @FXML
-    private Tab fileTab;
-
-    @FXML
-    private Tab fileTab1;
-
-    @FXML
-    private Tab fileTab11;
-
-    @FXML
-    private Button lineButton;
-
-
-    @FXML
-    private Button loadButton;
-
-    @FXML
-    private Button loadButton1;
-
-    @FXML
-    private Button loadButton11;
-
-
-    @FXML
-    private ScrollPane mainCanvasHolder;
-
-
-    @FXML
-    private Button polygonButton;
-
-
-
-    @FXML
-    private Button saveButton;
-
-    @FXML
-    private Button saveButton1;
-
-    @FXML
-    private Button saveButton11;
-
-
-    @FXML
-    private Button selectorButton;
-
-    @FXML
-    private Tab shapesTab;
-
-    @FXML
-    private Button textButton;
-
-    @FXML
-    private Button triangleButton;
-
-
-    @FXML
-    void arcButtonOnAction(ActionEvent event) {
-        tempObjectName.set(NodeTypeEnum.Arc.getNodeType());
-    }
-
-
-    @FXML
-    void polygonButtonOnAction(ActionEvent event) {
-
-    }
-
 
 
 }

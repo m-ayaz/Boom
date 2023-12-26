@@ -9,12 +9,12 @@ public class LittleBarChartOnCursor extends BarChart<String,Number> implements L
 
     //todo set up background color to white later.
     public LittleBarChartOnCursor() {
-        super(new CategoryAxis(),new NumberAxis());
+        super(new CategoryAxis(), new NumberAxis());
         getData().add(new Series<>());
-        getData().get(0).getData().add(new Data<>("1",1));
-        getData().get(0).getData().add(new Data<>("2",4));
-        getData().get(0).getData().add(new Data<>("3",2));
-        getData().get(0).getData().add(new Data<>("4",3));
+        getData().get(0).getData().add(new Data<>("1", 1));
+        getData().get(0).getData().add(new Data<>("2", 4));
+        getData().get(0).getData().add(new Data<>("3", 2));
+        getData().get(0).getData().add(new Data<>("4", 3));
         getXAxis().setTickLabelsVisible(false);
         getYAxis().setTickLabelsVisible(false);
         setLegendVisible(false);
@@ -35,6 +35,7 @@ public class LittleBarChartOnCursor extends BarChart<String,Number> implements L
         setTranslateX(centerX);
         setTranslateY(centerY);
     }
+
     @Override
     public void hide() {
         setVisible(false);

@@ -2,8 +2,9 @@ package com.boom.apppaints;
 
 import com.boom.structures.abstracts.AppPaint;
 import javafx.scene.paint.Color;
+import org.json.JSONObject;
 
-public class AppColor extends AppPaint {
+public final class AppColor extends AppPaint {
 
     public AppColor(Color color,String id){
         super(color,id);
@@ -15,8 +16,15 @@ public class AppColor extends AppPaint {
     }
 
     @Override
-    public String toJSON() {
-        return null;
+    public JSONObject toJSON() {
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("color",getFormatted());
+        return jsonObject;
+    }
+
+    @Override
+    public void parseFromJSON(JSONObject jsonObject) {
+
     }
 
     @Override

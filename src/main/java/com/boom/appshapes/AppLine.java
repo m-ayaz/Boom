@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import static com.boom.tools.Tools.deepCopy;
 import static com.boom.tools.Tools.dissectAffineTransform;
 
-public class AppLine extends AppLineShape {
+public final class AppLine extends AppLineShape {
     public AppLine(double startX, double startY,double  endX, double endY) {
 //        super(new Line(0,0,x,y));
 //        backgroundStyle.addFill(0,new AppColor(Color.TRANSPARENT,uuid(50)));

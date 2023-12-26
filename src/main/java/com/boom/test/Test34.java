@@ -1,17 +1,12 @@
 package com.boom.test;
 
-import com.boom.appcharts.number_number.AppLineChart_NumberNumber;
-import com.boom.appshapes.AppEllipse;
-import com.boom.appshapes.AppRectangle;
 import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.CubicCurve;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 
 import static com.boom.tools.Tools.print;

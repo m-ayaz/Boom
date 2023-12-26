@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import static com.boom.tools.Tools.deepCopy;
 import static com.boom.tools.Tools.dissectAffineTransform;
 
-public class AppRectangle extends AppAreaShape {
+public final class AppRectangle extends AppAreaShape {
 
     public AppRectangle(double width, double height) {
         super(new Rectangle(width, height));

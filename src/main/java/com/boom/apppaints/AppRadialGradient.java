@@ -9,10 +9,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
+import org.json.JSONObject;
 
 import java.util.stream.Collectors;
 
-public class AppRadialGradient extends AppGradient {
+public final class AppRadialGradient extends AppGradient {
 
 
     public DoubleProperty focusAngle = new SimpleDoubleProperty(0);
@@ -45,8 +46,23 @@ public class AppRadialGradient extends AppGradient {
     }
 
     @Override
-    public String toJSON() {
-        return null;
+    public JSONObject toJSON() {
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("focusAngle",focusAngle);
+        jsonObject.put("focusDistance",focusDistance);
+        jsonObject.put("centerX",centerX);
+        jsonObject.put("centerY",centerY);
+        jsonObject.put("radius",radius);
+        jsonObject.put("isProportional",isProportional);
+        jsonObject.put("focusAngle",focusAngle);
+        jsonObject.put("stopsProportions",appStops.stream().map(appStop -> appStop.get().getOffset()));
+        jsonObject.put("stopsColors",appStops.stream().map(appStop -> appStop.get().getColor().toString()));
+        return jsonObject;
+    }
+
+    @Override
+    public void parseFromJSON(JSONObject jsonObject) {
+
     }
 
     @Override

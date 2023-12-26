@@ -18,7 +18,8 @@ import java.util.stream.Collectors;
 
 import static com.boom.tools.Tools.deepCopy;
 
-public class AppScatterChart_NumberNumber extends AppXYChart<Number,Number> {
+@SuppressWarnings("unchecked")
+public final class AppScatterChart_NumberNumber extends AppXYChart<Number,Number> {
     public AppScatterChart_NumberNumber(double width, double height) {
         super(new ScatterChart<>(new NumberAxis(), new NumberAxis()),width,height);
         modifyType(getType() +"_NN");
