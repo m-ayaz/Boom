@@ -68,6 +68,8 @@ Random rnd=new Random();
 
         int n=5;
 
+        rnd.setSeed(455494859458954L);
+
         parent.setFill(Color.BURLYWOOD);
         for(int i=0;i<n;i++){
             children.add(new Circle(distance*Math.cos(Math.PI*i/(n-1)),distance*Math.sin(Math.PI*i/(n-1)),rRight));

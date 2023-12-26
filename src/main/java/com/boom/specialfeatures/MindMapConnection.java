@@ -85,7 +85,6 @@ public class MindMapConnection extends SVGPath {
 
         rotate.setAngle(Math.atan2(rightCenterY.get() - leftCenterY.get(), rightCenterX.get() - leftCenterX.get()) * 180 / Math.PI);
 
-//        setFill(Color.rgb(0, 0, 0, 0.3));
         setFill(new LinearGradient(leftRadius.get(), 0, distance - rightRadius.get(), 0, false, CycleMethod.NO_CYCLE, new Stop(0, leftColor), new Stop(1, rightColor)));
     }
 
