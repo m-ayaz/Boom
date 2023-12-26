@@ -15,10 +15,6 @@ public enum AppExceptionEnum {
         this.code = code;
     }
 
-//    public int getCode() {
-//        return code;
-//    }
-
     public final int code;
 
 
