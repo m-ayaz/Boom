@@ -1,6 +1,8 @@
 package com.boom.specialfeatures;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -8,8 +10,6 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
-
-import static com.boom.tools.Tools.print;
 
 /**
  * MindMap nodes are Circles, without transforms.
@@ -21,7 +21,7 @@ public class MindMapConnection extends SVGPath {
 
      Rotate rotate = new Rotate();
      Translate translate = new Translate();
-    DoubleProperty leftRadius, rightRadius, leftFactor, rightFactor, middleThickness, leftCenterX, leftCenterY, rightCenterX, rightCenterY;
+    ReadOnlyDoubleProperty leftRadius, rightRadius, leftFactor, rightFactor, middleThickness, leftCenterX, leftCenterY, rightCenterX, rightCenterY;
     Color leftColor, rightColor;
 
     public MindMapConnection(DoubleProperty leftRadius, DoubleProperty rightRadius, DoubleProperty leftCenterX, DoubleProperty leftCenterY, DoubleProperty rightCenterX, DoubleProperty rightCenterY, DoubleProperty middleThickness, DoubleProperty leftFactor, DoubleProperty rightFactor, Color leftColor, Color rightColor) {
