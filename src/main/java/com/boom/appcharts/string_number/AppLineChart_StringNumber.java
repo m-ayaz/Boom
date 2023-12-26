@@ -16,6 +16,7 @@ import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -30,10 +31,7 @@ public final class AppLineChart_StringNumber extends AppXYChart<String,Number> {
         seriesLineStyles=new ArrayList<>();
     }
 
-    @Override
-    public AppNode parseFromJSON(JSONObject jsonObject) {
-        return null;
-    }
+
 
     @Override
     public AppXYChart<String,Number> copy()  {

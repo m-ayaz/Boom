@@ -14,8 +14,8 @@ public abstract class AppGradient extends AppPaint {
     protected ObservableList<AppStop> appStops = FXCollections.observableList(new ArrayList<>());
     public BooleanProperty isProportional = new SimpleBooleanProperty(true);
 
-    protected AppGradient(Paint paint,String id) {
-        super(paint,id);
+    protected AppGradient(Paint paint) {
+        super(paint);
 
     }
 

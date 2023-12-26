@@ -2,23 +2,16 @@ package com.boom.structures.abstracts;
 
 
 import com.boom.apppaints.AppColor;
-import javafx.scene.Node;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Translate;
 
 import static com.boom.tools.Tools.setCustomSize;
-import static com.boom.tools.Tools.uuid;
 
 public abstract   class AppAreaShape extends AppNode {
 
     protected Shape shape;
-
-//    @Override
-//    protected void bindBorder(Node binder) {
-//
-//    }
 
     Translate offset = new Translate();
 
@@ -37,8 +30,8 @@ public abstract   class AppAreaShape extends AppNode {
             offset.setY(c.getMinY());
         });
 
-        backgroundStyle.addFill(0, new AppColor(Color.TRANSPARENT, uuid(50)));
-        backgroundStyle.addStroke(0, new AppColor(Color.BLACK, uuid(50)));
+        backgroundStyle.addFill(0, new AppColor(Color.TRANSPARENT));
+        backgroundStyle.addStroke(0, new AppColor(Color.BLACK));
 
         shape.setFill(Color.TRANSPARENT);
         shape.setStroke(Color.TRANSPARENT);

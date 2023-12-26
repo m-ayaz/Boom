@@ -45,13 +45,13 @@ public class Test23 extends Application {
 
         AppEllipse appEllipse = new AppEllipse(100, 200);
 
-        AppLine appLine=new AppLine(0,0,500,500);
+        AppLine appLine = new AppLine(0, 0, 500, 500);
 
 
 //        Line line=new Line(0,0,200,200);
 
         container.getChildren().addAll(appRectangle.getStyleableNode(),
-                appRectangle1.getStyleableNode(), appEllipse.getStyleableNode(),appLine.getStyleableNode());
+                appRectangle1.getStyleableNode(), appEllipse.getStyleableNode(), appLine.getStyleableNode());
 
         appRectangle.backgroundStyle.removeAllFills();
         appRectangle1.backgroundStyle.removeAllFills();
@@ -64,26 +64,30 @@ public class Test23 extends Application {
         appLine.backgroundStyle.removeAllStrokes();
 
         appRectangle.backgroundStyle.addFill(0, new AppLinearGradient(new LinearGradient(0, 0, 300, 300, false, CycleMethod.NO_CYCLE,
-                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("0000ff88"))), uuid(50)));
+                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("0000ff88")))));
         appRectangle.backgroundStyle.addFill(0, new AppLinearGradient(new LinearGradient(0, 1, 1, 0, true, CycleMethod.NO_CYCLE,
-                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("ff000088"))), uuid(50)));
+                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("ff000088")))));
 
         appRectangle1.backgroundStyle.addFill(0, new AppLinearGradient(new LinearGradient(0, 0, 300, 300, false, CycleMethod.NO_CYCLE,
-                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("ffff0088"))), uuid(50)));
+                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("ffff0088")))));
         appRectangle1.backgroundStyle.addFill(0, new AppLinearGradient(new LinearGradient(0, 1, 1, 0, true, CycleMethod.NO_CYCLE,
-                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("00ff0088"))), uuid(50)));
+                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("00ff0088")))));
 
         appEllipse.backgroundStyle.addFill(0, new AppLinearGradient(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
-                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("ff00ff88"))), uuid(50)));
+                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("ff00ff88")))));
         appEllipse.backgroundStyle.addFill(0, new AppLinearGradient(new LinearGradient(0, 1, 1, 0, true, CycleMethod.NO_CYCLE,
-                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("00ffff88"))), uuid(50)));
+                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("00ffff88")))));
 
 //        appLine.backgroundStyle.addFill(0,new AppColor(Color.rgb(255,0,0,0.5),uuid(50)));
-        appLine.backgroundStyle.addStroke(0,new AppLinearGradient(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
-                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("0000ff88"))), uuid(50)));
-        appLine.backgroundStyle.addStroke(0,new AppLinearGradient(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
-                new Stop(0, Color.valueOf("ff000088")), new Stop(1, Color.TRANSPARENT)), uuid(50)));
+        appLine.backgroundStyle.addStroke(0, new AppLinearGradient(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
+                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.valueOf("0000ff88")))));
+        appLine.backgroundStyle.addStroke(0, new AppLinearGradient(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
+                new Stop(0, Color.valueOf("ff000088")), new Stop(1, Color.TRANSPARENT))));
         appLine.backgroundStyle.setStrokeWidth(10);
+
+
+
+
 
 //        appLine.tttt().setStroke(Color.BLACK);
 //
@@ -95,21 +99,20 @@ public class Test23 extends Application {
         appRectangle.backgroundStyle.setStrokeWidth(10);
         appRectangle1.backgroundStyle.setStrokeWidth(10);
         appRectangle.backgroundStyle.addStroke(0, new AppLinearGradient(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
-                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.BLACK)), uuid(50)));
+                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.BLACK))));
         appRectangle1.backgroundStyle.addStroke(0, new AppLinearGradient(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
-                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.BLACK)), uuid(50)));
+                new Stop(0, Color.TRANSPARENT), new Stop(1, Color.BLACK))));
 //        appRectangle1.backgroundStyle.addStroke(0,new AppColor(Color.BLACK,uuid(50)));
 
-        Region r=new Region();
+        Region r = new Region();
         r.setBackground(Background.fill(Color.RED));
 
         container.getChildren().add(r);
 
-        r.setShape(new Line(1,2,3,4));
+        r.setShape(new Line(1, 2, 3, 4));
 
 
-
-        setCustomSize(r,200,200);
+        setCustomSize(r, 200, 200);
 //        for(AppPaint appPaint:appRectangle.backgroundStyle.getFillArray()){
 //            print(((AppLinearGradient)appPaint).getAppStop(0));
 //        }
@@ -147,7 +150,7 @@ public class Test23 extends Application {
                 "\t\n</defs>" +
                 appRectangle.getSVGClones(2) +
                 appRectangle1.getSVGClones(2) +
-                appEllipse.getSVGClones(2)+
+                appEllipse.getSVGClones(2) +
                 appLine.getSVGClones(2));
 
 //        for(int i=0;appRectangle.backgroundStyle.getFillArray().size())
@@ -216,6 +219,7 @@ public class Test23 extends Application {
 //        InputStream inputStream=new SequenceInputStream();
 //        XMLEncoder xmlEncoder=new XMLEncoder();
 //        XMLDecoder xmlDecoder=new XMLDecoder();
+        print(appRectangle.backgroundStyle.toJSON());
 
 
     }

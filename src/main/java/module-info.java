@@ -2,8 +2,6 @@ module com.boom.Boom {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.json;
-    requires json.simple;
-    requires java.desktop;
     requires javafx.swing;
 
     opens com.boom.indicators to javafx.fxml;

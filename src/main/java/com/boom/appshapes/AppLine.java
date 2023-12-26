@@ -6,6 +6,8 @@ import com.boom.structures.abstracts.AppPaint;
 import javafx.scene.shape.Line;
 import org.json.JSONObject;
 
+
+
 import static com.boom.tools.Tools.deepCopy;
 import static com.boom.tools.Tools.dissectAffineTransform;
 
@@ -109,10 +111,7 @@ public final class AppLine extends AppLineShape {
         ((Line) styleableNode).setEndY(endY);
     }
 
-    @Override
-    public AppNode parseFromJSON(JSONObject jsonObject) {
-        return null;
-    }
+
 
     //    @Override
 //    public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {

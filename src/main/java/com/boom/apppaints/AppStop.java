@@ -13,7 +13,7 @@ public final class AppStop extends SimpleObjectProperty<Stop> {
     public AppStop(Stop stop){
 
         set(stop);
-        appColor=new AppColor(stop.getColor(),"");
+        appColor=new AppColor(stop.getColor());
         offset.set(stop.getOffset());
         appColor.addListener((a, b, c)-> update());
         offset.addListener((a,b,c)-> update());

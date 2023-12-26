@@ -51,8 +51,9 @@ import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -441,23 +442,23 @@ public class BoomComponentsSuperController {
             } else if (jsonString.get("object").equals(NodeTypeEnum.Line.getNodeType())) {
 //                mainCanvasItemsHandler.addToMainCanvas(parseLineFromJSON(jsonString));
             } else if (jsonString.get("object").equals(NodeTypeEnum.LineChart_NN.getNodeType())) {
-                mainCanvasItemsHandler.addToMainCanvas(parseLineChart_NNFromJSON(jsonString));
+//                mainCanvasItemsHandler.addToMainCanvas(+parseLineChart_NNFromJSON(jsonString));
             } else if (jsonString.get("object").equals(NodeTypeEnum.LineChart_NS.getNodeType())) {
-                mainCanvasItemsHandler.addToMainCanvas(parseLineChart_NSFromJSON(jsonString));
+//                mainCanvasItemsHandler.addToMainCanvas(parseLineChart_NSFromJSON(jsonString));
             } else if (jsonString.get("object").equals(NodeTypeEnum.LineChart_SN.getNodeType())) {
-                mainCanvasItemsHandler.addToMainCanvas(parseLineChart_SNFromJSON(jsonString));
+//                mainCanvasItemsHandler.addToMainCanvas(parseLineChart_SNFromJSON(jsonString));
             } else if (jsonString.get("object").equals(NodeTypeEnum.AreaChart_NN.getNodeType())) {
-                mainCanvasItemsHandler.addToMainCanvas(parseAreaChart_NNFromJSON(jsonString));
+//                mainCanvasItemsHandler.addToMainCanvas(parseAreaChart_NNFromJSON(jsonString));
             } else if (jsonString.get("object").equals(NodeTypeEnum.AreaChart_NS.getNodeType())) {
-                mainCanvasItemsHandler.addToMainCanvas(parseAreaChart_NSFromJSON(jsonString));
+//                mainCanvasItemsHandler.addToMainCanvas(parseAreaChart_NSFromJSON(jsonString));
             } else if (jsonString.get("object").equals(NodeTypeEnum.AreaChart_SN.getNodeType())) {
-                mainCanvasItemsHandler.addToMainCanvas(parseAreaChart_SNFromJSON(jsonString));
+//                mainCanvasItemsHandler.addToMainCanvas(parseAreaChart_SNFromJSON(jsonString));
             } else if (jsonString.get("object").equals(NodeTypeEnum.ScatterChart_NN.getNodeType())) {
-                mainCanvasItemsHandler.addToMainCanvas(parseScatterChart_NNFromJSON(jsonString));
+//                mainCanvasItemsHandler.addToMainCanvas(parseScatterChart_NNFromJSON(jsonString));
             } else if (jsonString.get("object").equals(NodeTypeEnum.ScatterChart_NS.getNodeType())) {
-                mainCanvasItemsHandler.addToMainCanvas(parseScatterChart_NSFromJSON(jsonString));
+//                mainCanvasItemsHandler.addToMainCanvas(parseScatterChart_NSFromJSON(jsonString));
             } else if (jsonString.get("object").equals(NodeTypeEnum.ScatterChart_SN.getNodeType())) {
-                mainCanvasItemsHandler.addToMainCanvas(parseScatterChart_SNFromJSON(jsonString));
+//                mainCanvasItemsHandler.addToMainCanvas(parseScatterChart_SNFromJSON(jsonString));
 //
 //            } else if (jsonString.get("object").equals(NodeTypeEnum.BarChart_NS.getNodeType())) {
 //

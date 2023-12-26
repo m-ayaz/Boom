@@ -71,7 +71,7 @@ public class PaintManagementPanel extends VBox {
         primaryAddColorButton.setOnMouseEntered(mouseEvent -> primaryEmptySpace.setVisible(true));
         primaryAddColorButton.setOnMouseExited(mouseEvent -> primaryEmptySpace.setVisible(false));
         primaryAddColorButton.setOnAction(event -> {
-            AppColor newAppColor=new AppColor(Color.TRANSPARENT,uuid(50));
+            AppColor newAppColor=new AppColor(Color.TRANSPARENT);
             PaintField newPaintField = new PaintField(paintsPaneChildren, backgroundsProperty, newAppColor,infoWidth,buttonWidth,buttonHeight);
             backgroundsProperty.addFill(0,newAppColor);
             paintsPaneChildren.add(1, newPaintField);
@@ -83,7 +83,7 @@ public class PaintManagementPanel extends VBox {
         primaryAddLinearGradientButton.setOnMouseEntered(mouseEvent -> primaryEmptySpace.setVisible(true));
         primaryAddLinearGradientButton.setOnMouseExited(mouseEvent -> primaryEmptySpace.setVisible(false));
         primaryAddLinearGradientButton.setOnAction(event -> {
-            AppLinearGradient newAppLinearGradient=new AppLinearGradient(new LinearGradient(0,0,0,0,true, CycleMethod.NO_CYCLE),uuid(50));
+            AppLinearGradient newAppLinearGradient=new AppLinearGradient(new LinearGradient(0,0,0,0,true, CycleMethod.NO_CYCLE));
             PaintField newPaintField = new PaintField(paintsPaneChildren, backgroundsProperty, newAppLinearGradient,infoWidth,buttonWidth,buttonHeight);
             backgroundsProperty.addFill(0,newAppLinearGradient);
             paintsPaneChildren.add(1, newPaintField);
@@ -95,7 +95,7 @@ public class PaintManagementPanel extends VBox {
         primaryAddRadialGradientButton.setOnMouseEntered(mouseEvent -> primaryEmptySpace.setVisible(true));
         primaryAddRadialGradientButton.setOnMouseExited(mouseEvent -> primaryEmptySpace.setVisible(false));
         primaryAddRadialGradientButton.setOnAction(event -> {
-            AppRadialGradient newAppRadialGradient=new AppRadialGradient(new RadialGradient(0,0,0,0,0,true, CycleMethod.NO_CYCLE),uuid(50));
+            AppRadialGradient newAppRadialGradient=new AppRadialGradient(new RadialGradient(0,0,0,0,0,true, CycleMethod.NO_CYCLE));
             PaintField newPaintField = new PaintField(paintsPaneChildren, backgroundsProperty, newAppRadialGradient,infoWidth,buttonWidth,buttonHeight);
             backgroundsProperty.addFill(0,newAppRadialGradient);
             paintsPaneChildren.add(1, newPaintField);

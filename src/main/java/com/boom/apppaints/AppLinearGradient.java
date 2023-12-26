@@ -11,9 +11,8 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import org.json.JSONObject;
 
-import java.util.stream.Collectors;
 
-import static com.boom.tools.Tools.uuid;
+import java.util.stream.Collectors;
 
 public final class AppLinearGradient extends AppGradient {
 
@@ -24,8 +23,8 @@ public final class AppLinearGradient extends AppGradient {
     public DoubleProperty endY = new SimpleDoubleProperty(0);
 
 
-    public AppLinearGradient(LinearGradient linearGradient, String id) {
-        super(linearGradient, id);
+    public AppLinearGradient(LinearGradient linearGradient) {
+        super(linearGradient);
         linearGradient.getStops().forEach(stop -> addAppStop(new AppStop(stop)));
         startX.set(linearGradient.getStartX());
         startY.set(linearGradient.getStartY());
@@ -47,37 +46,30 @@ public final class AppLinearGradient extends AppGradient {
 
     @Override
     public JSONObject toJSON() {
-        JSONObject jsonObject=new JSONObject();
-        jsonObject.put("startX",startX);
-        jsonObject.put("startY",startY);
-        jsonObject.put("endX",endX);
-        jsonObject.put("endY",endY);
-        jsonObject.put("isProportional",isProportional);
-        jsonObject.put("stopsProportions",appStops.stream().map(appStop -> appStop.get().getOffset()));
-        jsonObject.put("stopsColors",appStops.stream().map(appStop -> appStop.get().getColor().toString()));
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("type", getType());
+        jsonObject.put("id", getId());
+        jsonObject.put("startX", startX.get());
+        jsonObject.put("startY", startY.get());
+        jsonObject.put("endX", endX.get());
+        jsonObject.put("endY", endY.get());
+        jsonObject.put("isProportional", isProportional.get());
+        jsonObject.put("stopsProportions", appStops.stream().map(appStop -> appStop.get().getOffset()).toArray());
+        jsonObject.put("stopsColors", appStops.stream().map(appStop -> appStop.get().getColor().toString()).toArray());
         return jsonObject;
     }
 
     @Override
-    public void parseFromJSON(JSONObject jsonObject) {
-//        Stop[] stops=jsonObject.get("");
-//        set(new LinearGradient(Double.parseDouble(jsonObject.get("startX").toString()),
-//                Double.parseDouble(jsonObject.get("startY").toString()),Double.parseDouble(jsonObject.get("endX").toString())
-//        ,Double.parseDouble(jsonObject.get("endY").toString()),Boolean.parseBoolean(jsonObject.get("isProportional").toString()),CycleMethod.NO_CYCLE,
-//                new Stop(0,Color.TRANSPARENT)));
-    }
-
-    @Override
     public String toSVG(int tabIndent) {
-        return "\n" + "\t".repeat(tabIndent) + "<linearGradient id=\"%s\" x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" gradientUnits=\"%s\">".formatted(id,
+        return "\n" + "\t".repeat(tabIndent) + "<linearGradient id=\"%s\" x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" gradientUnits=\"%s\">".formatted(getId(),
                 startX.get(), startY.get(), endX.get(), endY.get(), (isProportional.get() ? "objectBoundingBox" : "userSpaceOnUse")) +
                 appStops.stream().map(appStop -> appStop.toSVG(tabIndent + 1)).collect(Collectors.joining()) +
                 "\n" + "\t".repeat(tabIndent) + "</linearGradient>";
     }
 
     @Override
-    public AppPaint copy(String id) {
-        return new AppLinearGradient(new LinearGradient(startX.get(), startY.get(), endX.get(), endY.get(), isProportional.get(), CycleMethod.NO_CYCLE, appStops.stream().map(appStop -> new Stop(appStop.offset.get(), (Color) appStop.appColor.get())).collect(Collectors.toList())), id);
+    public AppPaint copy() {
+        return new AppLinearGradient(new LinearGradient(startX.get(), startY.get(), endX.get(), endY.get(), isProportional.get(), CycleMethod.NO_CYCLE, appStops.stream().map(appStop -> new Stop(appStop.offset.get(), (Color) appStop.appColor.get())).collect(Collectors.toList())));
     }
 
     @Override

@@ -17,6 +17,7 @@ import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -48,7 +49,7 @@ public final class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
         CSSProperty seriesAreaStyle = new CSSProperty("-fx-fill", "-fx-stroke", "-fx-stroke-width");
         newSeries.getNode().lookup(".chart-series-area-fill").styleProperty().bind(seriesAreaStyle);
         newSeries.getNode().lookup(".chart-series-area-line").styleProperty().bind(seriesLineStyle);
-        seriesAreaStyle.addFill(0, new AppColor(Color.valueOf(Configs.colorConfigs.get("SERIES_AREA_COLOR").get(index % Configs.colorConfigs.get("SERIES_AREA_COLOR").size())),uuid(50)));
+        seriesAreaStyle.addFill(0, new AppColor(Color.valueOf(Configs.colorConfigs.get("SERIES_AREA_COLOR").get(index % Configs.colorConfigs.get("SERIES_AREA_COLOR").size()))));
         seriesLineStyle.color.set(Color.valueOf(Configs.colorConfigs.get("SERIES_LINE_COLOR").get(index % Configs.colorConfigs.get("SERIES_LINE_COLOR").size())));
         seriesAreaStyles.add(index, seriesAreaStyle);
         seriesLineStyles.add(index, seriesLineStyle);
@@ -56,10 +57,10 @@ public final class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
         return newSeries;
     }
 
-    @Override
-    public AppNode parseFromJSON(JSONObject jsonObject) {
-        return null;
-    }
+//    @Override
+//    public AppNode parseFromJSON(JSONObject jsonObject) {
+//        return null;
+//    }
 
     @Override
     public AppXYChart<Number, Number> copy() {

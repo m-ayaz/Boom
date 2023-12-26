@@ -7,13 +7,16 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import static com.boom.tools.Tools.uuid;
+
 public class CSSProperty extends SimpleStringProperty {
 
-
+String id;
 
     ObservableList<AppPaint> fillArray = FXCollections.observableList(new ArrayList<>());
     ObservableList<AppPaint> strokeArray = FXCollections.observableList(new ArrayList<>());
@@ -24,6 +27,7 @@ public class CSSProperty extends SimpleStringProperty {
 
     public CSSProperty(String fillColorFX, String strokeColorFX, String strokeWidthFX) {
         super();
+        id=uuid(100);
         this.fillColorFX = fillColorFX;
         this.strokeColorFX = strokeColorFX;
         this.strokeWidthFX = strokeWidthFX;
@@ -119,6 +123,17 @@ public class CSSProperty extends SimpleStringProperty {
         return String.join("", strokeArray.stream().map(appPaint -> appPaint.toSVG(tabIndent)).toList());
     }
 
+
+    public JSONObject toJSON(){
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("fillColorFX",fillColorFX);
+        jsonObject.put("strokeColorFX",strokeColorFX);
+        jsonObject.put("strokeWidthFX",strokeWidthFX);
+        jsonObject.put("strokeWidth",strokeWidth.get());
+        jsonObject.put("fillArray",fillArray.stream().map(AppPaint::toJSON).toArray());
+        jsonObject.put("strokeArray",strokeArray.stream().map(AppPaint::toJSON).toArray());
+        return jsonObject;
+    }
 
 
 

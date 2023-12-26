@@ -2,11 +2,10 @@ package com.boom.projectmanager;
 
 import com.boom.structures.abstracts.AppNode;
 import org.json.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 import static com.boom.tools.Tools.print;
@@ -16,6 +15,7 @@ public class ProjectManager {
     public static JSONArray exportProjectAsJSON(List<AppNode> validObjects) {
         JSONArray jsonScript = new JSONArray();
         validObjects.forEach(obj -> jsonScript.put(obj.toJSON()));
+//        jsonScript.
         return jsonScript;
     }
 
@@ -41,9 +41,10 @@ public class ProjectManager {
         return null;
     }
 
-    public static org.json.simple.JSONArray importProjectFromJSON(String filePath) throws IOException, ParseException {
-        JSONParser parser = new JSONParser();
-        return (org.json.simple.JSONArray) parser.parse(new FileReader(filePath));
+    public static JSONArray importProjectFromJSON(String filePath) throws IOException, ParseException {
+        return new JSONArray();
+//        JSONParser parser = new JSONParser();
+//        return (JSONArray) parser.parse(new FileReader(filePath));
     }
 
 

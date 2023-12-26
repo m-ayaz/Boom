@@ -6,12 +6,12 @@ import com.boom.styles.SeriesMarkersStyleProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
+
 
 import java.util.List;
 
@@ -103,10 +103,10 @@ public  abstract   class AppXYChart<T1, T2> extends AppNode {
         setCustomWidth((Region) styleableNode,width);
     }
 
-    @Override
-    public JSONObject toJSON() {
-        return null;
-    }
+//    @Override
+//    public JSONObject toJSON() {
+//        return null;
+//    }
 
 //    @Override
 //    public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {

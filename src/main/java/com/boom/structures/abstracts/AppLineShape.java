@@ -8,7 +8,6 @@ import javafx.scene.shape.Shape;
 import javafx.scene.transform.Translate;
 
 import static com.boom.tools.Tools.setCustomSize;
-import static com.boom.tools.Tools.uuid;
 
 public abstract  class AppLineShape extends AppNode {
 
@@ -26,8 +25,8 @@ public abstract  class AppLineShape extends AppNode {
             offset.setY(c.getMinY());
         });
 
-        backgroundStyle.addFill(0, new AppColor(Color.TRANSPARENT, uuid(50)));
-        backgroundStyle.addStroke(0, new AppColor(Color.BLACK, uuid(50)));
+        backgroundStyle.addFill(0, new AppColor(Color.TRANSPARENT));
+        backgroundStyle.addStroke(0, new AppColor(Color.BLACK));
 
         styleableNode.getTransforms().add(offset);
 

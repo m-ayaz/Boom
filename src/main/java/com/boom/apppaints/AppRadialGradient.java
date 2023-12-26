@@ -11,6 +11,7 @@ import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import org.json.JSONObject;
 
+
 import java.util.stream.Collectors;
 
 public final class AppRadialGradient extends AppGradient {
@@ -22,8 +23,8 @@ public final class AppRadialGradient extends AppGradient {
     public DoubleProperty centerY = new SimpleDoubleProperty(0);
     public DoubleProperty radius = new SimpleDoubleProperty(0);
 
-    public AppRadialGradient(RadialGradient radialGradient, String id) {
-        super(radialGradient, id);
+    public AppRadialGradient(RadialGradient radialGradient) {
+        super(radialGradient);
         radialGradient.getStops().forEach(stop -> addAppStop(new AppStop(stop)));
         centerX.set(radialGradient.getCenterX());
         centerY.set(radialGradient.getCenterY());
@@ -48,21 +49,17 @@ public final class AppRadialGradient extends AppGradient {
     @Override
     public JSONObject toJSON() {
         JSONObject jsonObject=new JSONObject();
-        jsonObject.put("focusAngle",focusAngle);
-        jsonObject.put("focusDistance",focusDistance);
-        jsonObject.put("centerX",centerX);
-        jsonObject.put("centerY",centerY);
-        jsonObject.put("radius",radius);
-        jsonObject.put("isProportional",isProportional);
-        jsonObject.put("focusAngle",focusAngle);
-        jsonObject.put("stopsProportions",appStops.stream().map(appStop -> appStop.get().getOffset()));
-        jsonObject.put("stopsColors",appStops.stream().map(appStop -> appStop.get().getColor().toString()));
+        jsonObject.put("type",getType());
+        jsonObject.put("id",getId());
+        jsonObject.put("focusAngle",focusAngle.get());
+        jsonObject.put("focusDistance",focusDistance.get());
+        jsonObject.put("centerX",centerX.get());
+        jsonObject.put("centerY",centerY.get());
+        jsonObject.put("radius",radius.get());
+        jsonObject.put("isProportional",isProportional.get());
+        jsonObject.put("stopsProportions",appStops.stream().map(appStop -> appStop.get().getOffset()).toArray());
+        jsonObject.put("stopsColors",appStops.stream().map(appStop -> appStop.get().getColor().toString()).toArray());
         return jsonObject;
-    }
-
-    @Override
-    public void parseFromJSON(JSONObject jsonObject) {
-
     }
 
     @Override
@@ -71,10 +68,10 @@ public final class AppRadialGradient extends AppGradient {
     }
 
     @Override
-    public AppPaint copy(String id) {
+    public AppPaint copy() {
         return new AppRadialGradient(new RadialGradient(focusAngle.get(), focusDistance.get(), centerX.get(), centerY.get(),
                 radius.get(), isProportional.get(), CycleMethod.NO_CYCLE,
-                appStops.stream().map(appStop -> new Stop(appStop.offset.get(), (Color) appStop.appColor.get())).collect(Collectors.toList())), id);
+                appStops.stream().map(appStop -> new Stop(appStop.offset.get(), (Color) appStop.appColor.get())).collect(Collectors.toList())));
     }
 
     @Override

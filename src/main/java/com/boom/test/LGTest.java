@@ -29,7 +29,7 @@ public class LGTest extends Application {
 
 //        print(x);
 
-        AppLinearGradient appLinearGradient=new AppLinearGradient(x,uuid(50));
+        AppLinearGradient appLinearGradient=new AppLinearGradient(x);
 
 //        print(appLinearGradient.get());
 

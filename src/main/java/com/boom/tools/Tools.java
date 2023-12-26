@@ -1,28 +1,14 @@
 package com.boom.tools;
 
-import com.boom.appcharts.number_number.AppAreaChart_NumberNumber;
-import com.boom.appcharts.number_number.AppLineChart_NumberNumber;
-import com.boom.appcharts.number_number.AppScatterChart_NumberNumber;
-import com.boom.appcharts.number_string.AppAreaChart_NumberString;
-import com.boom.appcharts.number_string.AppLineChart_NumberString;
-import com.boom.appcharts.number_string.AppScatterChart_NumberString;
-import com.boom.appcharts.string_number.AppAreaChart_StringNumber;
-import com.boom.appcharts.string_number.AppLineChart_StringNumber;
-import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
 import com.boom.appshapes.AppText;
 import com.boom.exceptions.AppException;
-import com.boom.structures.abstracts.AppAreaShape;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.structures.enums.AppExceptionEnum;
 import com.boom.styles.CSSProperty;
 import com.boom.styles.SeriesLineStyleProperty;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Ellipse;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
-import org.json.simple.JSONObject;
 
 import java.util.InputMismatchException;
 import java.util.Random;
@@ -103,8 +89,8 @@ public class Tools {
     public static void deepCopy(CSSProperty cssPropertyFrom, CSSProperty cssPropertyTo) {
         cssPropertyTo.removeAllFills();
         cssPropertyTo.removeAllStrokes();
-        cssPropertyFrom.getFillArray().forEach(appPaint -> cssPropertyTo.addFill(appPaint.copy(uuid(50))));
-        cssPropertyFrom.getStrokeArray().forEach(appPaint -> cssPropertyTo.addStroke(appPaint.copy(uuid(50))));
+        cssPropertyFrom.getFillArray().forEach(appPaint -> cssPropertyTo.addFill(appPaint.copy()));
+        cssPropertyFrom.getStrokeArray().forEach(appPaint -> cssPropertyTo.addStroke(appPaint.copy()));
         cssPropertyFrom.setStrokeWidth(cssPropertyTo.getStrokeWidth());
     }
 
@@ -183,41 +169,41 @@ public class Tools {
 //        return newRectangle;
 //    }
 
-    public static AppLineChart_NumberNumber parseLineChart_NNFromJSON(JSONObject jsonString) {
-        return new AppLineChart_NumberNumber(0, 0);
-    }
-
-    public static AppLineChart_NumberString parseLineChart_NSFromJSON(JSONObject jsonString) {
-        return new AppLineChart_NumberString(0, 0);
-    }
-
-    public static AppLineChart_StringNumber parseLineChart_SNFromJSON(JSONObject jsonString) {
-        return new AppLineChart_StringNumber(0, 0);
-    }
-
-    public static AppAreaChart_NumberNumber parseAreaChart_NNFromJSON(JSONObject jsonString) {
-        return new AppAreaChart_NumberNumber(0, 0);
-    }
-
-    public static AppAreaChart_NumberString parseAreaChart_NSFromJSON(JSONObject jsonString) {
-        return new AppAreaChart_NumberString(0, 0);
-    }
-
-    public static AppAreaChart_StringNumber parseAreaChart_SNFromJSON(JSONObject jsonString) {
-        return new AppAreaChart_StringNumber(0, 0);
-    }
-
-    public static AppScatterChart_NumberNumber parseScatterChart_NNFromJSON(JSONObject jsonString) {
-        return new AppScatterChart_NumberNumber(0, 0);
-    }
-
-    public static AppScatterChart_NumberString parseScatterChart_NSFromJSON(JSONObject jsonString) {
-        return new AppScatterChart_NumberString(0, 0);
-    }
-
-    public static AppScatterChart_StringNumber parseScatterChart_SNFromJSON(JSONObject jsonString) {
-        return new AppScatterChart_StringNumber(0, 0);
-    }
+//    public static AppLineChart_NumberNumber parseLineChart_NNFromJSON(JSONObject jsonString) {
+//        return new AppLineChart_NumberNumber(0, 0);
+//    }
+//
+//    public static AppLineChart_NumberString parseLineChart_NSFromJSON(JSONObject jsonString) {
+//        return new AppLineChart_NumberString(0, 0);
+//    }
+//
+//    public static AppLineChart_StringNumber parseLineChart_SNFromJSON(JSONObject jsonString) {
+//        return new AppLineChart_StringNumber(0, 0);
+//    }
+//
+//    public static AppAreaChart_NumberNumber parseAreaChart_NNFromJSON(JSONObject jsonString) {
+//        return new AppAreaChart_NumberNumber(0, 0);
+//    }
+//
+//    public static AppAreaChart_NumberString parseAreaChart_NSFromJSON(JSONObject jsonString) {
+//        return new AppAreaChart_NumberString(0, 0);
+//    }
+//
+//    public static AppAreaChart_StringNumber parseAreaChart_SNFromJSON(JSONObject jsonString) {
+//        return new AppAreaChart_StringNumber(0, 0);
+//    }
+//
+//    public static AppScatterChart_NumberNumber parseScatterChart_NNFromJSON(JSONObject jsonString) {
+//        return new AppScatterChart_NumberNumber(0, 0);
+//    }
+//
+//    public static AppScatterChart_NumberString parseScatterChart_NSFromJSON(JSONObject jsonString) {
+//        return new AppScatterChart_NumberString(0, 0);
+//    }
+//
+//    public static AppScatterChart_StringNumber parseScatterChart_SNFromJSON(JSONObject jsonString) {
+//        return new AppScatterChart_StringNumber(0, 0);
+//    }
 
 //    public static AppLine parseLineFromJSON(JSONObject jsonString) {
 //        AppLine newLine = new AppLine(0, 0, 0, 0);

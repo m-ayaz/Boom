@@ -1,9 +1,9 @@
 package com.boom.appshapes;
 
 import com.boom.structures.abstracts.AppAreaShape;
-import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppPaint;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.transform.MatrixType;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
@@ -87,28 +87,16 @@ public final class AppEllipse extends AppAreaShape {
         return stringBuilder.toString();
     }
 
-    @Override
-    public AppNode parseFromJSON(JSONObject jsonObject) {
-        return null;
-    }
 
     @Override
     public JSONObject toJSON() {
-//        Color fillColor = Color.valueOf(((Ellipse) node).getFill().toString());
-//        Color strokeColor = Color.valueOf(((Ellipse) node).getStroke().toString());
         JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("object", NodeTypeEnum.Ellipse.getNodeType());
-////        jsonObject.put("centerX", ((Ellipse) node).getCenterX());
-////        jsonObject.put("centerY", ((Ellipse) node).getCenterY());
-//        jsonObject.put("radiusX", getRadiusX());
-//        jsonObject.put("radiusY", getRadiusY());
-//        jsonObject.put("fillColor", Arrays.asList(Math.round(fillColor.getRed() * 255), Math.round(fillColor.getGreen() * 255), Math.round(fillColor.getBlue() * 255)));
-//        jsonObject.put("fillOpacity", Math.round(fillColor.getOpacity()));
-//        jsonObject.put("strokeColor", Arrays.asList(Math.round(strokeColor.getRed() * 255), Math.round(strokeColor.getGreen() * 255), Math.round(strokeColor.getBlue() * 255)));
-//        jsonObject.put("strokeOpacity", Math.round(strokeColor.getOpacity()));
-//        jsonObject.put("strokeWidth", ((Ellipse) node).getStrokeWidth());
-////        print(Arrays.asList(affineTransform.getMxx(), affineTransform.getMxy(), affineTransform.getTx(), affineTransform.getMyx(), affineTransform.getMyy(), affineTransform.getTy()));
-//        jsonObject.put("affineTransformation", Arrays.asList(affineTransform.getMxx(), affineTransform.getMxy(), affineTransform.getTx(), affineTransform.getMyx(), affineTransform.getMyy(), affineTransform.getTy()));
+        jsonObject.put("type", type);
+        jsonObject.put("id", id);
+        jsonObject.put("affine",affineTransform.toArray(MatrixType.MT_2D_2x3));
+        jsonObject.put("backgroundStyle",backgroundStyle.toJSON());
+        jsonObject.put("radiusX", getRadiusX());
+        jsonObject.put("radiusY", getRadiusY());
         return jsonObject;
     }
 
