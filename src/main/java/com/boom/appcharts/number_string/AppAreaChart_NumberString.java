@@ -50,8 +50,8 @@ public final class AppAreaChart_NumberString extends AppXYChart<Number,String> {
         CSSProperty seriesAreaStyle = new CSSProperty("-fx-fill", "-fx-stroke", "-fx-stroke-width");
         newSeries.getNode().lookup(".chart-series-area-fill").styleProperty().bind(seriesAreaStyle);
         newSeries.getNode().lookup(".chart-series-area-line").styleProperty().bind(seriesLineStyle);
-        seriesAreaStyle.addFill(0, new AppColor(Color.valueOf(Configs.colorConfigs.get("SERIES_AREA_COLOR").get(index % Configs.colorConfigs.get("SERIES_AREA_COLOR").size()))));
-        seriesLineStyle.color.set(Color.valueOf(Configs.colorConfigs.get("SERIES_LINE_COLOR").get(index % Configs.colorConfigs.get("SERIES_LINE_COLOR").size())));
+        seriesAreaStyle.addFill(0, new AppColor(Color.valueOf(Configs.SERIES_AREA_COLOR.get(index % Configs.SERIES_AREA_COLOR.size()))));
+        seriesLineStyle.color.set(Color.valueOf(Configs.SERIES_LINE_COLOR.get(index % Configs.SERIES_LINE_COLOR.size())));
         seriesAreaStyles.add(index, seriesAreaStyle);
         seriesLineStyles.add(index, seriesLineStyle);
         seriesMarkersStyles.add(index, new SeriesMarkersStyleProperty());

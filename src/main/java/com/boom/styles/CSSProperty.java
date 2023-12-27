@@ -1,5 +1,6 @@
 package com.boom.styles;
 
+import com.boom.configuration.Configs;
 import com.boom.structures.abstracts.AppPaint;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -16,7 +17,7 @@ import static com.boom.tools.Tools.uuid;
 
 public class CSSProperty extends SimpleStringProperty {
 
-String id;
+final String id=uuid(Configs.ID_LENGTH);
 
     ObservableList<AppPaint> fillArray = FXCollections.observableList(new ArrayList<>());
     ObservableList<AppPaint> strokeArray = FXCollections.observableList(new ArrayList<>());
@@ -27,7 +28,6 @@ String id;
 
     public CSSProperty(String fillColorFX, String strokeColorFX, String strokeWidthFX) {
         super();
-        id=uuid(100);
         this.fillColorFX = fillColorFX;
         this.strokeColorFX = strokeColorFX;
         this.strokeWidthFX = strokeWidthFX;

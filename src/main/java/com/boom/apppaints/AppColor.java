@@ -19,8 +19,8 @@ public final class AppColor extends AppPaint {
     @Override
     public JSONObject toJSON() {
         JSONObject jsonObject=new JSONObject();
-        jsonObject.put("type",getType());
-        jsonObject.put("id",getId());
+        jsonObject.put("type",type);
+        jsonObject.put("id",id);
         jsonObject.put("color",getFormatted());
         return jsonObject;
     }
@@ -28,7 +28,7 @@ public final class AppColor extends AppPaint {
 
     @Override
     public String toSVG(int tabIndent) {
-        return "\n"+"\t".repeat(tabIndent)+"<linearGradient id=\"%s\">  <stop stop-color=\"%s\"/> </linearGradient>".formatted(getId(), getFormatted());
+        return "\n"+"\t".repeat(tabIndent)+"<linearGradient id=\"%s\">  <stop stop-color=\"%s\"/> </linearGradient>".formatted(id, getFormatted());
     }
 
     @Override

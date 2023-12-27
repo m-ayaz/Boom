@@ -1,17 +1,10 @@
 package com.boom.tools;
 
 
-import com.boom.exceptions.AppException;
-import com.boom.structures.enums.AppExceptionEnum;
-import com.boom.structures.enums.PaintTypeEnum;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Paint;
-import javafx.scene.paint.Stop;
-import org.json.XML;
 
 import java.util.stream.Collectors;
 

@@ -1,10 +1,9 @@
 package com.boom.appcharts.number_number;
 
+import com.boom.apppaints.AppColor;
 import com.boom.configuration.Configs;
-import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.styles.CSSProperty;
-import com.boom.apppaints.AppColor;
 import com.boom.styles.SeriesLineStyleProperty;
 import com.boom.styles.SeriesMarkersStyleProperty;
 import com.boom.tools.TeXConversion;
@@ -17,17 +16,16 @@ import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
-
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static com.boom.tools.Tools.*;
+import static com.boom.tools.Tools.deepCopy;
 
 @SuppressWarnings("unchecked")
 public final class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
     public AppAreaChart_NumberNumber(double width, double height) {
         super(new AreaChart<>(new NumberAxis(), new NumberAxis()), width, height);
-        modifyType(getType() +"_NN");
+        modifyType(getType() + "_NN");
         seriesMarkersStyles = new ArrayList<>();
         seriesLineStyles = new ArrayList<>();
         seriesAreaStyles = new ArrayList<>();
@@ -49,8 +47,8 @@ public final class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
         CSSProperty seriesAreaStyle = new CSSProperty("-fx-fill", "-fx-stroke", "-fx-stroke-width");
         newSeries.getNode().lookup(".chart-series-area-fill").styleProperty().bind(seriesAreaStyle);
         newSeries.getNode().lookup(".chart-series-area-line").styleProperty().bind(seriesLineStyle);
-        seriesAreaStyle.addFill(0, new AppColor(Color.valueOf(Configs.colorConfigs.get("SERIES_AREA_COLOR").get(index % Configs.colorConfigs.get("SERIES_AREA_COLOR").size()))));
-        seriesLineStyle.color.set(Color.valueOf(Configs.colorConfigs.get("SERIES_LINE_COLOR").get(index % Configs.colorConfigs.get("SERIES_LINE_COLOR").size())));
+        seriesAreaStyle.addFill(0, new AppColor(Color.valueOf(Configs.SERIES_AREA_COLOR.get(index % Configs.SERIES_AREA_COLOR.size()))));
+        seriesLineStyle.color.set(Color.valueOf(Configs.SERIES_LINE_COLOR.get(index % Configs.SERIES_LINE_COLOR.size())));
         seriesAreaStyles.add(index, seriesAreaStyle);
         seriesLineStyles.add(index, seriesLineStyle);
         seriesMarkersStyles.add(index, new SeriesMarkersStyleProperty());
@@ -64,10 +62,10 @@ public final class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
 
     @Override
     public AppXYChart<Number, Number> copy() {
-        if (getWidth()==0||getHeight()==0) {
+        if (getWidth() == 0 || getHeight() == 0) {
             return null;
         }
-        AppXYChart<Number, Number> newChart = new AppAreaChart_NumberNumber(getWidth(),getHeight());
+        AppXYChart<Number, Number> newChart = new AppAreaChart_NumberNumber(getWidth(), getHeight());
         deepCopy(this, newChart);
         return newChart;
     }

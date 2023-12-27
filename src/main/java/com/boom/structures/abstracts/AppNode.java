@@ -1,5 +1,6 @@
 package com.boom.structures.abstracts;
 
+import com.boom.configuration.Configs;
 import com.boom.styles.CSSProperty;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -17,14 +18,13 @@ public abstract class AppNode {
     public CSSProperty backgroundStyle;
     protected Node styleableNode;
     protected String type;
-    protected String id;
+    public final String id = uuid(Configs.ID_LENGTH);
 
     public AppNode(Node styleableNode, String fillColorFX, String strokeColorFX, String strokeWidthFX) {
         this.styleableNode = styleableNode;
         styleableNode.getTransforms().add(affineTransform);
         backgroundStyle = new CSSProperty(fillColorFX, strokeColorFX, strokeWidthFX);
         styleableNode.styleProperty().bind(backgroundStyle);
-        id = uuid(100);
     }
 
     public abstract AppNode copy();

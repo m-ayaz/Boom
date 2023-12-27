@@ -49,8 +49,8 @@ public final class AppRadialGradient extends AppGradient {
     @Override
     public JSONObject toJSON() {
         JSONObject jsonObject=new JSONObject();
-        jsonObject.put("type",getType());
-        jsonObject.put("id",getId());
+        jsonObject.put("type",type);
+        jsonObject.put("id",id);
         jsonObject.put("focusAngle",focusAngle.get());
         jsonObject.put("focusDistance",focusDistance.get());
         jsonObject.put("centerX",centerX.get());

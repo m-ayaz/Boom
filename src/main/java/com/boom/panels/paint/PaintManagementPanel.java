@@ -58,7 +58,7 @@ public class PaintManagementPanel extends VBox {
     
     public void registerBackground(CSSProperty backgroundsProperty) {
         this.backgroundsProperty=backgroundsProperty;
-        paintsPaneChildren.setAll(new HBox(primaryEmptySpace, primaryAddColorButton,primaryAddLinearGradientButton,primaryAddRadialGradientButton));
+        paintsPaneChildren.setAll(new VBox(new HBox(primaryEmptySpace, primaryAddColorButton),primaryAddLinearGradientButton,primaryAddRadialGradientButton));
         for (int i = 0; i < backgroundsProperty.getFillArray().size(); i++) {
             PaintField paintField = new PaintField(paintsPaneChildren, backgroundsProperty,backgroundsProperty.getFillArray().get(i),infoWidth,buttonWidth,buttonHeight);
             paintsPaneChildren.add(paintField);

@@ -54,7 +54,7 @@ public final class AppLineChart_NumberNumber extends AppXYChart<Number,Number> {
         SeriesLineStyleProperty seriesLineStyle = new SeriesLineStyleProperty();
 //        seriesLineStyle.color.set((Color) ((Path)newSeries.getNode().lookup(".chart-series-line")).getStroke());
         newSeries.getNode().lookup(".chart-series-line").styleProperty().bind(seriesLineStyle);
-        seriesLineStyle.color.set(Color.valueOf(Configs.colorConfigs.get("SERIES_LINE_COLOR").get(index % Configs.colorConfigs.get("SERIES_LINE_COLOR").size())));
+        seriesLineStyle.color.set(Color.valueOf(Configs.SERIES_LINE_COLOR.get(index % Configs.SERIES_LINE_COLOR.size())));
         seriesLineStyles.add(index, seriesLineStyle);
         seriesMarkersStyles.add(index, new SeriesMarkersStyleProperty());
         return newSeries;

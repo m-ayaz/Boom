@@ -47,8 +47,8 @@ public final class AppLinearGradient extends AppGradient {
     @Override
     public JSONObject toJSON() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("type", getType());
-        jsonObject.put("id", getId());
+        jsonObject.put("type", type);
+        jsonObject.put("id", id);
         jsonObject.put("startX", startX.get());
         jsonObject.put("startY", startY.get());
         jsonObject.put("endX", endX.get());
@@ -61,7 +61,7 @@ public final class AppLinearGradient extends AppGradient {
 
     @Override
     public String toSVG(int tabIndent) {
-        return "\n" + "\t".repeat(tabIndent) + "<linearGradient id=\"%s\" x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" gradientUnits=\"%s\">".formatted(getId(),
+        return "\n" + "\t".repeat(tabIndent) + "<linearGradient id=\"%s\" x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" gradientUnits=\"%s\">".formatted(id,
                 startX.get(), startY.get(), endX.get(), endY.get(), (isProportional.get() ? "objectBoundingBox" : "userSpaceOnUse")) +
                 appStops.stream().map(appStop -> appStop.toSVG(tabIndent + 1)).collect(Collectors.joining()) +
                 "\n" + "\t".repeat(tabIndent) + "</linearGradient>";
