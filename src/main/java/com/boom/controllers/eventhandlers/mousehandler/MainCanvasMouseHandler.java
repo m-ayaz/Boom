@@ -9,6 +9,7 @@ import com.boom.appcharts.number_string.AppScatterChart_NumberString;
 import com.boom.appcharts.string_number.AppAreaChart_StringNumber;
 import com.boom.appcharts.string_number.AppLineChart_StringNumber;
 import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
+import com.boom.apppaints.AppColor;
 import com.boom.appshapes.AppArc;
 import com.boom.appshapes.AppEllipse;
 import com.boom.appshapes.AppLine;
@@ -32,12 +33,15 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Arc;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 import java.util.List;
+
+import static com.boom.tools.Tools.print;
+import static com.boom.tools.Tools.uuid;
 
 /**
  * {link #setOnMouseMoved()} )} )} )}
@@ -382,33 +386,33 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
                 selectedObjectsController.unselectAll();
                 double angle = Math.atan2(moveY.get() - tempArc.affineTransform.getTy(), moveX.get() - tempArc.affineTransform.getTx());
                 if (!mouseEvent.isControlDown()) {
-                    tempArc.setLength(-angle * 180 / Math.PI - (angle > 0 ? 0 : 360));
+                    tempArc.length.set(-angle * 180 / Math.PI - (angle > 0 ? 0 : 360));
                 } else {
-                    tempArc.setStartAngle(-angle * 180 / Math.PI - (angle > 0 ? 0 : 360));
+                    tempArc.startAngle.set(-angle * 180 / Math.PI - (angle > 0 ? 0 : 360));
                 }
                 if (mouseEvent.isAltDown()) {
-                    tempArc.setArcType(ArcType.CHORD);
+                    tempArc.arcType.set(ArcType.CHORD);
 
                 } else if (mouseEvent.isShiftDown()) {
-                    tempArc.setArcType(ArcType.OPEN);
+                    tempArc.arcType.set(ArcType.OPEN);
 
                 } else {
-                    tempArc.setArcType(ArcType.ROUND);
+                    tempArc.arcType.set(ArcType.ROUND);
                 }
             } else if (drawingStage == 2 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 if (mouseEvent.isAltDown()) {
-                    tempArc.setArcType(ArcType.CHORD);
+                    tempArc.arcType.set(ArcType.CHORD);
 
                 } else if (mouseEvent.isShiftDown()) {
-                    tempArc.setArcType(ArcType.OPEN);
+                    tempArc.arcType.set(ArcType.OPEN);
 
                 } else {
-                    tempArc.setArcType(ArcType.ROUND);
+                    tempArc.arcType.set(ArcType.ROUND);
                 }
                 mainCanvasItemsHandler.copyToMainCanvas(tempArc);
-                tempArc.setStartAngle(0);
-                tempArc.setLength(270);
-                tempArc.setArcType(ArcType.ROUND);
+                tempArc.startAngle.set(0);
+                tempArc.length.set(270);
+                tempArc.arcType.set(ArcType.ROUND);
                 drawingStage = 0;
             }
         } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_NN.getNodeType())) {

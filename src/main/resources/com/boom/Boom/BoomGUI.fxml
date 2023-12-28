@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -45,7 +44,7 @@
                             <children>
                                 <Button fx:id="ellipseButton" mnemonicParsing="false" onAction="#ellipseButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                 <Button fx:id="rectangleButton" layoutX="215.0" layoutY="-6.0" mnemonicParsing="false" onAction="#rectangleButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="0.0" />
-                                <Button fx:id="textButton" layoutX="480.0" mnemonicParsing="false" onAction="#textButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="480.0" AnchorPane.topAnchor="0.0">
+                                <Button fx:id="textButton" layoutX="560.0" mnemonicParsing="false" onAction="#textButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="560.0" AnchorPane.topAnchor="0.0">
                                     <graphic>
                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="A">
                                             <font>
@@ -54,13 +53,11 @@
                                         </Text>
                                     </graphic>
                                 </Button>
-                                <Button fx:id="lineButton" layoutX="260.0" layoutY="-14.0" mnemonicParsing="false" onAction="#lineButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="0.0">
-                                    <graphic>
-                                        <Line endX="99.37867736816406" endY="38.87868118286133" startX="51.5" strokeWidth="3.0" />
-                                    </graphic></Button>
-                                <Button fx:id="triangleButton" layoutX="357.0" mnemonicParsing="false" onAction="#triangleButtonOnAction" prefHeight="80.0" prefWidth="80.0" text="Triangle" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="0.0" />
-                                <Button fx:id="polygonButton" layoutX="485.0" layoutY="-14.0" mnemonicParsing="false" onAction="#polygonButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="0.0" />
+                                <Button fx:id="lineButton" layoutX="320.0" mnemonicParsing="false" onAction="#lineButtonOnAction" prefHeight="80.0" prefWidth="80.0" text="Line" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="0.0" />
+                                <Button fx:id="polygonButton" layoutX="240.0" mnemonicParsing="false" onAction="#polygonButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="0.0" />
                                 <Button fx:id="arcButton" layoutX="160.0" mnemonicParsing="false" onAction="#arcButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="0.0" />
+                        <Button fx:id="quadCurveButton" layoutX="400.0" mnemonicParsing="false" onAction="#quadCurveButtonOnAction" prefHeight="80.0" prefWidth="80.0" text="QuadCurve" />
+                        <Button fx:id="cubicCurveButton" layoutX="480.0" mnemonicParsing="false" onAction="#cubicCurveButtonOnAction" prefHeight="80.0" prefWidth="80.0" text="CubicCurve" />
                             </children>
                         </AnchorPane>
                     </content>

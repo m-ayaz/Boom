@@ -1,15 +1,23 @@
 package com.boom.test;
 
+import com.boom.appshapes.AppPolygon;
+import com.boom.icons.PolygonIcon;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.util.Random;
 
-public class Test46 extends Application {
+import static com.boom.tools.Tools.print;
+import static com.boom.tools.Tools.setCustomSize;
+
+
+public class Test48 extends Application {
 
     public static void main(String[] args) {
         launch();
@@ -20,32 +28,94 @@ public class Test46 extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Pane container = new Pane();
+        GridPane container = new GridPane();
         Scene scene = new Scene(container);
         stage.setScene(scene);
         stage.show();
 
-        Rectangle rectangle = new Rectangle(50, 50, 500, 500);
-        Rectangle rectangle1 = new Rectangle(650, 50, 500, 500);
+        Button button=new Button("Click");
+        setCustomSize(button,300,300);
 
-        ChessBoard p = new ChessBoard(600, 16, Color.valueOf("00000088"), Color.valueOf("00000033"));
-        p.setTranslateX(607);
-//        p.setTranslateY(600);
+        Polygon polygon=new Polygon();
 
-        container.getChildren().addAll(new ChessBoard(600, 16, Color.valueOf("00000088"), Color.valueOf("00000033")), rectangle);
-        container.getChildren().addAll(p, rectangle1);
+//        container.addRow(0,button,polygon);
 
-        rectangle.setFill(new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
-                new Stop(0, Color.TRANSPARENT), new Stop(0.2, Color.YELLOW),
-                new Stop(0.4, Color.valueOf("0000ff88")), new Stop(0.6, Color.GREEN), new Stop(0.8, Color.RED)
-                , new Stop(1, Color.valueOf("ff5599cc"))
-        ));
+        polygon.setFill(new Color(1,1,0,1));
+        polygon.setStroke(Color.BLACK);
+        polygon.setStrokeWidth(3);
 
-        rectangle1.setFill(new RadialGradient(0, 0, 0.5, 0.5, 0.55, true, CycleMethod.NO_CYCLE,
-                new Stop(0, Color.TRANSPARENT), new Stop(0.2, Color.YELLOW),
-                new Stop(0.4, Color.valueOf("0000ff88")), new Stop(0.6, Color.GREEN), new Stop(0.8, Color.RED)
-                , new Stop(1, Color.valueOf("ff5599cc"))
-        ));
+        PolygonIcon polygonIcon=new PolygonIcon(200,200,Color.YELLOW,Color.BLACK,3);
+
+        container.getChildren().addAll(polygonIcon);
+
+//        Random rnd=new Random();
+//
+//        button.setOnAction(event -> {
+//            polygon.getPoints().clear();
+//            for(int i=0;i<6;i++){
+//                polygon.getPoints().addAll(300*rnd.nextDouble(),300*rnd.nextDouble());
+//
+//            }
+//            print(polygon.getPoints());
+//            print(polygon.getBoundsInParent().getCenterX());
+//            print(polygon.getBoundsInParent().getCenterY());
+////            polygon.is
+//        });
+
+//        polygon.getPoints().clear();
+//        polygon.getPoints().addAll(-175.,-100.,-125.,-100.,-75.,0.,-25.,-100.,25.,-100.,75.0,0.,125.,-100.,175.,-100.,125.,100.,-125.,100.);
+
+//        Line line=new Line(100,100,400,400);
+//
+//        container.getChildren().add(line);
+//
+//        line.setStroke(Color.BLACK);
+//        line.setStrokeWidth(20);
+//
+//        line.setOnMouseDragged(mouseEvent -> {
+//            print(uuid(100));
+//        });
+
+//        Rectangle rectangle=new Rectangle(50,50,500,500);
+//
+//        container.getChildren().add(rectangle);
+//
+//        // create a input stream
+//        FileInputStream input = new FileInputStream("C:\\Users\\Mostafa\\Desktop\\a.png");
+//
+//        // create a image
+//        Image image = new Image(input);
+//
+//        ImagePattern imagePattern=new ImagePattern(image,0,0,0.2,0.25,true);
+//
+//
+//
+//        rectangle.setFill(imagePattern);
+//
+////        throw new AppException(AppExceptionEnum.UnexpectedError);
+//
+//        print(AppExceptionEnum.getEnum(AppExceptionEnum.AppNodeNotRegistered.toString()));
+////        Rectangle rectangle1=new Rectangle(650,50,500,500);
+//
+//        ChessBoard p=new ChessBoard(600,16,Color.valueOf("00000088"),Color.valueOf("00000033"));
+//        p.setTranslateX(607);
+////        p.setTranslateY(600);
+//
+//        container.getChildren().addAll(new ChessBoard(600,16,Color.valueOf("00000088"),Color.valueOf("00000033")),rectangle);
+//        container.getChildren().addAll(p,rectangle1);
+//
+//        rectangle.setFill(new LinearGradient(0,0,1,0,true,CycleMethod.NO_CYCLE,
+//                new Stop(0,Color.TRANSPARENT),new Stop(0.2,Color.YELLOW),
+//                new Stop(0.4,Color.valueOf("0000ff88")),new Stop(0.6,Color.GREEN),new Stop(0.8,Color.RED)
+//                ,new Stop(1,Color.valueOf("ff5599cc"))
+//                ));
+//
+//        rectangle1.setFill(new RadialGradient(0,0,0.5,0.5,0.55,true,CycleMethod.NO_CYCLE,
+//                new Stop(0,Color.TRANSPARENT),new Stop(0.2,Color.YELLOW),
+//                new Stop(0.4,Color.valueOf("0000ff88")),new Stop(0.6,Color.GREEN),new Stop(0.8,Color.RED)
+//                ,new Stop(1,Color.valueOf("ff5599cc"))
+//        ));
+
 
 
 //        double a=200,b=400;
@@ -79,6 +149,7 @@ public class Test46 extends Application {
 //
 //            x=!x;
 //        });
+
 
 
 //        Rectangle rectangle=new Rectangle();
@@ -205,20 +276,23 @@ public class Test46 extends Application {
 //        printWriter.println(jsonObject);
 
 
+
+
+
     }
 
     final class ChessBoard extends GridPane {
 
-        public ChessBoard(double length, int n, Color boldColor, Color liteColor) {
+        public ChessBoard( double length, int n, Color boldColor, Color liteColor){
             super();
-            double bitLength = length / n;
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    Rectangle rectangle = new Rectangle(bitLength, bitLength);
-                    add(rectangle, i, j);
-                    if ((i + j) % 2 == 0) {
+            double bitLength=length/n;
+            for(int i=0;i<n;i++){
+                for(int j=0;j<n;j++){
+                    Rectangle rectangle=new Rectangle(bitLength,bitLength);
+                    add(rectangle,i,j);
+                    if((i+j)%2==0){
                         rectangle.setFill(boldColor);
-                    } else {
+                    }else{
                         rectangle.setFill(liteColor);
                     }
                 }
@@ -226,6 +300,25 @@ public class Test46 extends Application {
         }
 
     }
+
+    class MyException extends RuntimeException{
+        public MyException(){
+//            RuntimeException b=new RuntimeException();
+            super();
+//            setStackTrace(new StackTraceElement[]{new StackTraceElement("asdasd","sklad","asa",3)});
+//            printStackTrace();
+            for(int i=0;i< getStackTrace().length;i++){
+                print("____________________________________________________________________");
+                print(getStackTrace()[i].toString());
+            }
+//            print(getStackTrace());
+//            print(getCause());
+//            getMessage();
+//            getLocalizedMessage();
+//            getS
+        }
+    }
+
 
 
 }

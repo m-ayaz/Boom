@@ -32,6 +32,7 @@ public final class AppRadialGradient extends AppGradient {
         focusDistance.set(radialGradient.getFocusDistance());
         radius.set(radialGradient.getRadius());
         isProportional.set(radialGradient.isProportional());
+        cycleMethod.set(radialGradient.getCycleMethod());
         appStops.addListener((ListChangeListener<AppStop>) change -> update());
         centerX.addListener((a, b, c) -> update());
         centerY.addListener((a, b, c) -> update());
@@ -39,6 +40,7 @@ public final class AppRadialGradient extends AppGradient {
         focusDistance.addListener((a, b, c) -> update());
         radius.addListener((a, b, c) -> update());
         isProportional.addListener((a, b, c) -> update());
+        cycleMethod.addListener((a,b,c)->update());
     }
 
     @Override
@@ -57,6 +59,7 @@ public final class AppRadialGradient extends AppGradient {
         jsonObject.put("centerY",centerY.get());
         jsonObject.put("radius",radius.get());
         jsonObject.put("isProportional",isProportional.get());
+        jsonObject.put("cycleMethod",cycleMethod.get().name());
         jsonObject.put("stopsProportions",appStops.stream().map(appStop -> appStop.get().getOffset()).toArray());
         jsonObject.put("stopsColors",appStops.stream().map(appStop -> appStop.get().getColor().toString()).toArray());
         return jsonObject;
@@ -70,14 +73,14 @@ public final class AppRadialGradient extends AppGradient {
     @Override
     public AppPaint copy() {
         return new AppRadialGradient(new RadialGradient(focusAngle.get(), focusDistance.get(), centerX.get(), centerY.get(),
-                radius.get(), isProportional.get(), CycleMethod.NO_CYCLE,
+                radius.get(), isProportional.get(), cycleMethod.get(),
                 appStops.stream().map(appStop -> new Stop(appStop.offset.get(), (Color) appStop.appColor.get())).collect(Collectors.toList())));
     }
 
     @Override
     protected void update() {
         set(new RadialGradient(focusAngle.get(), focusDistance.get(), centerX.get(), centerY.get(),
-                radius.get(), isProportional.get(), CycleMethod.NO_CYCLE,
+                radius.get(), isProportional.get(), cycleMethod.get(),
                 appStops.stream().map(appStop -> new Stop(appStop.offset.get(), (Color) appStop.appColor.get())).collect(Collectors.toList())));
     }
 

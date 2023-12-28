@@ -94,6 +94,14 @@ public class Tools {
         cssPropertyFrom.setStrokeWidth(cssPropertyTo.getStrokeWidth());
     }
 
+//    public static CSSProperty deepCopy(CSSProperty cssProperty) {
+//        CSSProperty  newCSSProperty=new CSSProperty(cssProperty.getFillColorFX(),cssProperty.getStrokeColorFX(),cssProperty.getStrokeWidthFX());
+//        cssProperty.getFillArray().forEach(appPaint -> newCSSProperty.addFill(appPaint.copy()));
+//        cssProperty.getStrokeArray().forEach(appPaint -> newCSSProperty.addStroke(appPaint.copy()));
+//        cssProperty.setStrokeWidth(newCSSProperty.getStrokeWidth());
+//        return newCSSProperty;
+//    }
+
 //    public static void deepCopy(AppAreaShape areaShapeFrom,AppAreaShape areaShapeTo){
 //
 //    }

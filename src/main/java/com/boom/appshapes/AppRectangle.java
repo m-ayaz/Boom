@@ -3,6 +3,8 @@ package com.boom.appshapes;
 import com.boom.structures.abstracts.AppAreaShape;
 import com.boom.structures.abstracts.AppPaint;
 import com.boom.structures.enums.NodeTypeEnum;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.MatrixType;
 import javafx.scene.transform.Translate;
@@ -13,15 +15,22 @@ import static com.boom.tools.Tools.dissectAffineTransform;
 
 public final class AppRectangle extends AppAreaShape {
 
+    public DoubleProperty width, height, arcWidth, arcHeight;
+
     public AppRectangle(double width, double height) {
         super(new Rectangle(width, height));
+        this.width = ((Rectangle) shape).widthProperty();
+        this.height = ((Rectangle) shape).heightProperty();
+        this.arcWidth = ((Rectangle) shape).arcWidthProperty();
+        this.arcHeight = ((Rectangle) shape).arcHeightProperty();
+
     }
 
     @Override
     public AppRectangle copy() {
-        if (getWidth() == 0 || getHeight() == 0)
+        if (width.get() == 0 || height.get() == 0)
             return null;
-        AppRectangle newAppRectangle = new AppRectangle(getWidth(), getHeight());
+        AppRectangle newAppRectangle = new AppRectangle(width.get(), height.get());
         deepCopy(affineTransform, newAppRectangle.affineTransform);
         deepCopy(backgroundStyle, newAppRectangle.backgroundStyle);
         return newAppRectangle;
@@ -31,71 +40,35 @@ public final class AppRectangle extends AppAreaShape {
     public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
         styleableNode.setVisible(true);
         affineTransform.setToTransform(new Translate(Math.min(dragStartX, currentDragPosX), Math.min(dragStartY, currentDragPosY)));
-        setWidth(Math.abs(currentDragPosX - dragStartX));
-        setHeight(Math.abs(currentDragPosY - dragStartY));
+        width.set(Math.abs(currentDragPosX - dragStartX));
+        height.set(Math.abs(currentDragPosY - dragStartY));
     }
 
-    public double getArcHeight() {
-        return ((Rectangle) shape).getArcHeight();
-    }
-
-    public void setArcHeight(double arcHeight) {
-        ((Rectangle) shape).setArcHeight(arcHeight);
-    }
-
-    public double getArcWidth() {
-        return ((Rectangle) shape).getArcWidth();
-    }
-
-    public void setArcWidth(double arcWidth) {
-        ((Rectangle) shape).setArcWidth(arcWidth);
-    }
-
-
-//    @Override
-//    public AppNode parseFromJSON(JSONObject jsonObject) {
-//        return null;
-//    }
-
-    public double getHeight() {
-        return ((Rectangle) shape).getHeight();
-    }
-
-    public void setHeight(double height) {
-        ((Rectangle) shape).setHeight(height);
-    }
 
     public String getSVGClones(int tabIndent) {
         double[] dissectedTransform = dissectAffineTransform(affineTransform);
         StringBuilder stringBuilder = new StringBuilder();
         for (AppPaint appPaint : backgroundStyle.getFillArray()) {
-            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<rect x=\"0\" y=\"0\" rx=\"0\" ry=\"0\" width=\"%f\" height=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth(), getHeight(), appPaint.id, affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<rect x=\"0\" y=\"0\" rx=\"0\" ry=\"0\" width=\"%f\" height=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(width.get(), height.get(), appPaint.id, affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
         }
         for (AppPaint appPaint : backgroundStyle.getStrokeArray()) {
-            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<rect x=\"0\" y=\"0\" rx=\"0\" ry=\"0\" width=\"%f\" height=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth(), getHeight(), appPaint.id, backgroundStyle.getStrokeWidth(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<rect x=\"0\" y=\"0\" rx=\"0\" ry=\"0\" width=\"%f\" height=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(width.get(), height.get(), appPaint.id, backgroundStyle.getStrokeWidth(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
         }
         return stringBuilder.toString();
     }
 
-    public double getWidth() {
-        return ((Rectangle) shape).getWidth();
-    }
-
-    public void setWidth(double width) {
-        ((Rectangle) shape).setWidth(width);
-    }
 
     @Override
     public JSONObject toJSON() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("type", type);
         jsonObject.put("id", id);
-        jsonObject.put("affine",affineTransform.toArray(MatrixType.MT_2D_2x3));
-        jsonObject.put("backgroundStyle",backgroundStyle.toJSON());
-        jsonObject.put("width", getWidth());
-        jsonObject.put("height", getHeight());
-        jsonObject.put("arcWidth", getArcWidth());
-        jsonObject.put("arcHeight", getArcHeight());
+        jsonObject.put("affine", affineTransform.toArray(MatrixType.MT_2D_2x3));
+        jsonObject.put("backgroundStyle", backgroundStyle.toJSON());
+        jsonObject.put("width", width.get());
+        jsonObject.put("height", height.get());
+        jsonObject.put("arcWidth", arcWidth.get());
+        jsonObject.put("arcHeight", arcHeight.get());
         return jsonObject;
     }
 

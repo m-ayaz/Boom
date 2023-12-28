@@ -2,6 +2,7 @@ package com.boom.appshapes;
 
 import com.boom.structures.abstracts.AppAreaShape;
 import com.boom.structures.abstracts.AppPaint;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.transform.MatrixType;
 import javafx.scene.transform.Translate;
@@ -11,9 +12,13 @@ import static com.boom.tools.Tools.deepCopy;
 import static com.boom.tools.Tools.dissectAffineTransform;
 
 public final class AppEllipse extends AppAreaShape {
+    
+    public DoubleProperty radiusX,radiusY;
 
     public AppEllipse(double radiusX, double radiusY) {
         super(new Ellipse(radiusX, radiusY));
+        this.radiusX=((Ellipse) shape).radiusXProperty();
+        this.radiusY=((Ellipse) shape).radiusYProperty();
     }
 
 
@@ -30,7 +35,7 @@ public final class AppEllipse extends AppAreaShape {
 ////                "\n\t\tline width = %fpt,".formatted(((Ellipse) node).getStrokeWidth()) +
 ////                (((Ellipse) node).getStrokeDashArray().size() >= 2 ? "\n\t\tdashed, dash pattern = " + ((Ellipse) node).getStrokeDashArray().stream().map(obj -> ((Ellipse) node).getStrokeDashArray().indexOf(obj) % 2 == 0 ? "on " + obj : "off " + obj).collect(Collectors.joining(" ")) : "\n\t\tsolid") + "," +
 ////                "\n\t]" +
-////                "\n\t(%fpt,%fpt) ellipse (%fpt and %fpt);".formatted(((Ellipse) node).getCenterX(), ((Ellipse) node).getCenterY(), ((Ellipse) node).getRadiusX(), ((Ellipse) node).getRadiusY()) +
+////                "\n\t(%fpt,%fpt) ellipse (%fpt and %fpt);".formatted(((Ellipse) node).getCenterX(), ((Ellipse) node).getCenterY(), ((Ellipse) node).radiusX.get(), ((Ellipse) node).radiusY.get()) +
 ////                "\n\\end{scope}";
 //        return null;
 //    }
@@ -42,9 +47,9 @@ public final class AppEllipse extends AppAreaShape {
 
     @Override
     public AppEllipse copy() {
-        if (getRadiusX() == 0 || getRadiusY() == 0)
+        if (radiusX.get() == 0 || radiusY.get() == 0)
             return null;
-        AppEllipse newAppEllipse = new AppEllipse(getRadiusX(), getRadiusY());
+        AppEllipse newAppEllipse = new AppEllipse(radiusX.get(), radiusY.get());
         deepCopy(affineTransform, newAppEllipse.affineTransform);
         deepCopy(backgroundStyle, newAppEllipse.backgroundStyle);
         return newAppEllipse;
@@ -54,24 +59,8 @@ public final class AppEllipse extends AppAreaShape {
     public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
         styleableNode.setVisible(true);
         affineTransform.setToTransform(new Translate(Math.min(dragStartX, currentDragPosX) + Math.abs(currentDragPosX - dragStartX) / 2, Math.min(dragStartY, currentDragPosY) + Math.abs(currentDragPosY - dragStartY) / 2));
-        setRadiusX(Math.abs(currentDragPosX - dragStartX) / 2);
-        setRadiusY(Math.abs(currentDragPosY - dragStartY) / 2);
-    }
-
-    public double getRadiusX() {
-        return ((Ellipse) shape).getRadiusX();
-    }
-
-    public void setRadiusX(double radiusX) {
-        ((Ellipse) shape).setRadiusX(radiusX);
-    }
-
-    public double getRadiusY() {
-        return ((Ellipse) shape).getRadiusY();
-    }
-
-    public void setRadiusY(double radiusY) {
-        ((Ellipse) shape).setRadiusY(radiusY);
+        radiusX.set(Math.abs(currentDragPosX - dragStartX) / 2);
+        radiusY.set(Math.abs(currentDragPosY - dragStartY) / 2);
     }
 
     @Override
@@ -79,10 +68,10 @@ public final class AppEllipse extends AppAreaShape {
         double[] dissectedTransform = dissectAffineTransform(affineTransform);
         StringBuilder stringBuilder = new StringBuilder();
         for (AppPaint appPaint : backgroundStyle.getFillArray()) {
-            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getRadiusX(), getRadiusY(), getRadiusX(), getRadiusY(), appPaint.id, affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(radiusX.get(), radiusY.get(), radiusX.get(), radiusY.get(), appPaint.id, affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
         }
         for (AppPaint appPaint : backgroundStyle.getStrokeArray()) {
-            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getRadiusX(), getRadiusY(), getRadiusX(), getRadiusY(), appPaint.id, backgroundStyle.getStrokeWidth(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(radiusX.get(), radiusY.get(), radiusX.get(), radiusY.get(), appPaint.id, backgroundStyle.getStrokeWidth(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
         }
         return stringBuilder.toString();
     }
@@ -95,8 +84,8 @@ public final class AppEllipse extends AppAreaShape {
         jsonObject.put("id", id);
         jsonObject.put("affine",affineTransform.toArray(MatrixType.MT_2D_2x3));
         jsonObject.put("backgroundStyle",backgroundStyle.toJSON());
-        jsonObject.put("radiusX", getRadiusX());
-        jsonObject.put("radiusY", getRadiusY());
+        jsonObject.put("radiusX", radiusX.get());
+        jsonObject.put("radiusY", radiusY.get());
         return jsonObject;
     }
 

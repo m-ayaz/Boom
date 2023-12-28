@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
@@ -39,21 +40,11 @@ public class LinearGradientManagementPanel extends Popup {
     Label startYLabel = new Label("Start (Y)");
     Label endXLabel = new Label("End (X)");
     Label endYLabel = new Label("End (Y)");
+    Label cycleMethodLabel = new Label("CycleMethod");
+    ComboBox<CycleMethod> cycleMethod=new ComboBox<>();
     public LinearGradientManagementPanel(AppLinearGradient appLinearGradient) {
 
         super();
-
-//        showAndWait();
-//        requestFocus();
-//        Stage g;
-//        g.initOwner();
-//        setSt
-
-//        print(this.getN);
-
-//        this.
-
-//        scrollMain
 
         setCustomSize(scrollMain,400,600);
 
@@ -64,10 +55,8 @@ public class LinearGradientManagementPanel extends Popup {
         lgProperties.addRow(0, new VBox(startXLabel, startX), new Rectangle(), new VBox(endXLabel, endX));
         lgProperties.addRow(1, new VBox(startYLabel, startY), new Rectangle(), new VBox(endYLabel, endY));
         lgProperties.addRow(2, isProportional);
+        lgProperties.addRow(3, new VBox(cycleMethodLabel,cycleMethod));
 
-
-//        Scene scene=new Scene(scrollMain);
-//        setScene(scene);
         getContent().add(scrollMain);
 
         scrollMain.setContent(main);
@@ -89,6 +78,7 @@ public class LinearGradientManagementPanel extends Popup {
         registerLinearGradient(appLinearGradient);
 
         setIsProportionalBehavior(appLinearGradient);
+        setCycleMethodBehavior(appLinearGradient);
 
     }
 
@@ -141,12 +131,19 @@ public class LinearGradientManagementPanel extends Popup {
         appLinearGradient.isProportional.bind(isProportional.selectedProperty());
     }
 
+    void setCycleMethodBehavior(AppLinearGradient appLinearGradient) {
+        cycleMethod.getItems().add(CycleMethod.NO_CYCLE);
+        cycleMethod.getItems().add(CycleMethod.REPEAT);
+        cycleMethod.getItems().add(CycleMethod.REFLECT);
+        cycleMethod.setValue(CycleMethod.NO_CYCLE);
+        appLinearGradient.cycleMethod.bind(cycleMethod.valueProperty());
+    }
+
     void setPrimaryAddButton(AppLinearGradient appLinearGradient) {
         primaryAddButton.setOnMouseEntered(mouseEvent -> primaryEmptySpace.setVisible(true));
         primaryAddButton.setOnMouseExited(mouseEvent -> primaryEmptySpace.setVisible(false));
         primaryAddButton.setOnAction(event -> {
             AppStop newAppStop;
-//            print("stopsPaneChildren = "+stopsPaneChildren.size());
             if (stopsPaneChildren.size() == 1) {
                 newAppStop = new AppStop(new Stop(0, Color.WHITE));
             } else {

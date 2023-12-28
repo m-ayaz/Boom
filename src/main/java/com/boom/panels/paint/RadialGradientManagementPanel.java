@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
@@ -34,28 +35,18 @@ public class RadialGradientManagementPanel extends Popup {
     TextField focusDistance = new TextField();
     TextField radius = new TextField();
     CheckBox isProportional = new CheckBox("isProportional");
+    ComboBox<CycleMethod> cycleMethod=new ComboBox<>();
     Label primaryEmptySpace = new Label();
     GridPane rgProperties = new GridPane();
     Label centerXLabel = new Label("Center (X)");
-    Label centerYLabel = new Label("Start (Y)");
+    Label centerYLabel = new Label("Center (Y)");
     Label focusAngleLabel = new Label("Focus angle (deg)");
     Label focusDistanceLabel = new Label("Focus distance (relative))");
     Label radiusLabel = new Label("Radius");
+    Label cycleMethodLabel = new Label("CycleMethod");
     public RadialGradientManagementPanel(AppRadialGradient appRadialGradient) {
 
         super();
-
-//        showAndWait();
-//        requestFocus();
-//        Stage g;
-//        g.initOwner();
-//        setSt
-
-//        print(this.getN);
-
-//        this.
-
-//        scrollMain
 
         setCustomSize(scrollMain,400,600);
 
@@ -67,10 +58,9 @@ public class RadialGradientManagementPanel extends Popup {
         rgProperties.addRow(1, new VBox(centerYLabel, centerY), new Rectangle(), new VBox(focusDistanceLabel, focusDistance));
         rgProperties.addRow(2, new VBox(radiusLabel, radius));
         rgProperties.addRow(3, isProportional);
+        rgProperties.addRow(4, new VBox(cycleMethodLabel,cycleMethod));
 
 
-//        Scene scene=new Scene(scrollMain);
-//        setScene(scene);
         getContent().add(scrollMain);
 
         scrollMain.setContent(main);
@@ -93,6 +83,7 @@ public class RadialGradientManagementPanel extends Popup {
         registerRadialGradient(appRadialGradient);
 
         setIsProportionalBehavior(appRadialGradient);
+        setCycleMethodBehavior(appRadialGradient);
 
     }
 
@@ -145,12 +136,19 @@ public class RadialGradientManagementPanel extends Popup {
         AppRadialGradient.isProportional.bind(isProportional.selectedProperty());
     }
 
+    void setCycleMethodBehavior(AppRadialGradient appRadialGradient) {
+        cycleMethod.getItems().add(CycleMethod.NO_CYCLE);
+        cycleMethod.getItems().add(CycleMethod.REPEAT);
+        cycleMethod.getItems().add(CycleMethod.REFLECT);
+        cycleMethod.setValue(CycleMethod.NO_CYCLE);
+        appRadialGradient.cycleMethod.bind(cycleMethod.valueProperty());
+    }
+
     void setPrimaryAddButton(AppRadialGradient AppRadialGradient) {
         primaryAddButton.setOnMouseEntered(mouseEvent -> primaryEmptySpace.setVisible(true));
         primaryAddButton.setOnMouseExited(mouseEvent -> primaryEmptySpace.setVisible(false));
         primaryAddButton.setOnAction(event -> {
             AppStop newAppStop;
-//            print("stopsPaneChildren = "+stopsPaneChildren.size());
             if (stopsPaneChildren.size() == 1) {
                 newAppStop = new AppStop(new Stop(0, Color.WHITE));
             } else {

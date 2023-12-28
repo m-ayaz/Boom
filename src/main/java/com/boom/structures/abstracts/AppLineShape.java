@@ -11,7 +11,7 @@ import static com.boom.tools.Tools.setCustomSize;
 
 public abstract  class AppLineShape extends AppNode {
 
-    Translate offset = new Translate();
+//    Translate offset = new Translate();
 
     public AppLineShape(Shape shape) {
         super(shape, "-fx-fill", "-fx-stroke", "-fx-stroke-width");
@@ -19,18 +19,19 @@ public abstract  class AppLineShape extends AppNode {
 
         bindBorder(shape);
 
-        shape.boundsInLocalProperty().addListener((a, b, c) -> {
-            setCustomSize((Region) styleableNode, c.getWidth(), c.getHeight());
-            offset.setX(c.getMinX());
-            offset.setY(c.getMinY());
-        });
+//        shape.boundsInLocalProperty().addListener((a, b, c) -> {
+//            setCustomSize((Region) styleableNode, c.getWidth(), c.getHeight());
+//            offset.setX(c.getMinX());
+//            offset.setY(c.getMinY());
+//        });
 
         backgroundStyle.addFill(0, new AppColor(Color.TRANSPARENT));
         backgroundStyle.addStroke(0, new AppColor(Color.BLACK));
+        backgroundStyle.setStrokeWidth(20);
 
-        styleableNode.getTransforms().add(offset);
+//        styleableNode.getTransforms().add(offset);
 
-        shape.setMouseTransparent(true);
+//        shape.setMouseTransparent(true);
 
     }
 

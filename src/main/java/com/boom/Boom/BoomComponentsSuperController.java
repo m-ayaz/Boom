@@ -9,10 +9,7 @@ import com.boom.appcharts.number_string.AppScatterChart_NumberString;
 import com.boom.appcharts.string_number.AppAreaChart_StringNumber;
 import com.boom.appcharts.string_number.AppLineChart_StringNumber;
 import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
-import com.boom.appshapes.AppArc;
-import com.boom.appshapes.AppEllipse;
-import com.boom.appshapes.AppLine;
-import com.boom.appshapes.AppRectangle;
+import com.boom.appshapes.*;
 import com.boom.configuration.Configs;
 import com.boom.controllers.DynamicDragRectangle;
 import com.boom.controllers.MainCanvasItemsHandler;
@@ -50,6 +47,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
 import javafx.stage.FileChooser;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -73,6 +71,7 @@ public class BoomComponentsSuperController {
 
     DynamicDragRectangle dynamicDragRectangle = new DynamicDragRectangle();
     AppEllipse tempEllipse = new AppEllipse(0, 0);
+    AppPolygon tempPolygon=new AppPolygon();
     AppArc tempArc = new AppArc(0, 0, 0, 270, ArcType.ROUND);
     AppRectangle tempRectangle = new AppRectangle(0, 0);
     AppLine tempLine = new AppLine(0, 0, 0, 0);
@@ -98,6 +97,7 @@ public class BoomComponentsSuperController {
     LittleScatterChartOnCursor littleScatterChartOnCursor = new LittleScatterChartOnCursor();
     LittleAreaChartOnCursor littleAreaChartOnCursor = new LittleAreaChartOnCursor();
     LittleEllipseOnCursor littleEllipseOnCursor = new LittleEllipseOnCursor();
+    LittlePolygonOnCursor littlePolygonOnCursor=new LittlePolygonOnCursor();
     LittleArcOnCursor littleArcOnCursor = new LittleArcOnCursor();
     LittleRectangleOnCursor littleRectangleOnCursor = new LittleRectangleOnCursor();
     LittleLineOnCursor littleLineOnCursor = new LittleLineOnCursor();
@@ -296,11 +296,11 @@ public class BoomComponentsSuperController {
 
         mainCanvasItemsHandler = new MainCanvasItemsHandler(mainCanvasChildren, validObjects,
                 rotationHandle, rotationIcon, scalingIcons, rotationFixedPoint, scalingFixedPoint,
-                dynamicDragRectangle, tempEllipse, tempArc, tempRectangle, tempLine, tempLineChart_NN,
+                dynamicDragRectangle, tempEllipse,tempPolygon, tempArc, tempRectangle, tempLine, tempLineChart_NN,
                 tempLineChart_NS, tempLineChart_SN, tempAreaChart_NN, tempAreaChart_NS, tempAreaChart_SN,
                 tempScatterChart_NN, tempScatterChart_NS, tempScatterChart_SN, littleLineChartOnCursor,
                  littleBarChartOnCursor, littleScatterChartOnCursor, littleAreaChartOnCursor,
-                littleEllipseOnCursor, littleArcOnCursor, littleRectangleOnCursor,
+                littleEllipseOnCursor,littlePolygonOnCursor, littleArcOnCursor, littleRectangleOnCursor,
                 littleLineOnCursor, selectedObjectsController);
 
         tempObjectName.set(NodeTypeEnum.DynamicDragRectangle.getNodeType());
@@ -374,6 +374,25 @@ public class BoomComponentsSuperController {
 
         visualEffectsTab.setContent(paintManagementPanel);
         paintManagementPanel.setVisible(false);
+
+
+
+
+
+
+
+
+
+
+
+//        AppRectangle appRectangle=new AppRectangle(200,200);
+//
+//        AppLine appLine=new AppLine(0,0,200,200);
+//        appRectangle.affineTransform.appendTranslation(200,200);
+//
+//        mainCanvasItemsHandler.addToMainCanvas(appLine);
+//        mainCanvasItemsHandler.addToMainCanvas(appRectangle);
+//        print(appLine.border);
 
 //        LinearGradientIndicator lgi=new LinearGradientIndicator();
 //
@@ -575,7 +594,7 @@ public class BoomComponentsSuperController {
 
     @FXML
     void polygonButtonOnAction(ActionEvent event) {
-
+        tempObjectName.set(NodeTypeEnum.Polygon.getNodeType());
     }
 
     @FXML
@@ -735,13 +754,13 @@ public class BoomComponentsSuperController {
                 if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
                     objectProp1Label.setText("Radius (X)");
                     objectProp2Label.setText("Radius (Y)");
-                    objectProp1Input.setText("" + ((AppEllipse) selectedShape).getRadiusX());
-                    objectProp2Input.setText("" + ((AppEllipse) selectedShape).getRadiusY());
+                    objectProp1Input.setText("" + ((AppEllipse) selectedShape).radiusX.get());
+                    objectProp2Input.setText("" + ((AppEllipse) selectedShape).radiusY.get());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
                     objectProp1Label.setText("Width");
                     objectProp2Label.setText("Height");
-                    objectProp1Input.setText("" + ((AppRectangle) selectedShape).getWidth());
-                    objectProp2Input.setText("" + ((AppRectangle) selectedShape).getHeight());
+                    objectProp1Input.setText("" + ((AppRectangle) selectedShape).width.get());
+                    objectProp2Input.setText("" + ((AppRectangle) selectedShape).height.get());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
 //                    objectProp1Label.setText("Start (X)");
 //                    objectProp2Label.setText("Start (Y)");
@@ -826,9 +845,10 @@ public class BoomComponentsSuperController {
         barChartButton.setGraphic(new BarChartIcon());
         scatterChartButton.setGraphic(new ScatterChartIcon());
         pieChartButton.setGraphic(new PieChartIcon());
-        ellipseButton.setGraphic(new EllipseIcon(25, 13, new Color(1, 0, 0, 0.2), new Color(0, 0, 0, 1), 1));
-        arcButton.setGraphic(new ArcIcon(25, 13, 45, 270, new Color(0, 1, 0, 0.2), new Color(0, 0, 0, 1), 1));
-        rectangleButton.setGraphic(new RectangleIcon(50, 26, new Color(0, 0, 1, 0.2), new Color(0, 0, 0, 1), 1));
+        ellipseButton.setGraphic(new EllipseIcon(25, 20, new Color(1, 0, 0, 0.2), new Color(0, 0, 0, 1), 1));
+        arcButton.setGraphic(new ArcIcon(25, 20, 45, 270, new Color(0, 1, 0, 0.2), new Color(0, 0, 0, 1), 1));
+        rectangleButton.setGraphic(new RectangleIcon(50, 40, new Color(0, 0, 1, 0.2), new Color(0, 0, 0, 1), 1));
+        polygonButton.setGraphic(new PolygonIcon(50,40,new Color(1,1,0,0.2),new Color(0,0,0,1),1));
     }
 
     @FXML
@@ -850,6 +870,110 @@ public class BoomComponentsSuperController {
     void triangleButtonOnAction(ActionEvent event) {
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @FXML
+    private Button cubicCurveButton;
+
+
+    @FXML
+    private Button quadCurveButton;
+
+
+    @FXML
+    void cubicCurveButtonOnAction(ActionEvent event) {
+
+    }
+
+
+    @FXML
+    void quadCurveButtonOnAction(ActionEvent event) {
+
+    }
+
+
 
 
 }

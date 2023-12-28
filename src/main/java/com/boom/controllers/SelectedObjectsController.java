@@ -1,5 +1,6 @@
 package com.boom.controllers;
 
+import com.boom.appshapes.AppLine;
 import com.boom.icons.RotationIcon;
 import com.boom.icons.ScalingIcon;
 import com.boom.structures.abstracts.AppNode;
@@ -10,12 +11,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.transform.Affine;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.boom.tools.Tools.deepCopy;
+import static com.boom.tools.Tools.*;
 import static java.lang.Math.PI;
 import static java.lang.Math.atan2;
 
@@ -66,7 +68,13 @@ public class SelectedObjectsController {
             rotationFixedPoint.setCenterY(rotationFixedPoint.getCenterY() + currentPosY - previousPosY);
         });
 
-        bufferSize.addListener(event -> {
+        bufferSize.addListener((a,b,c) -> {
+
+//            if(bufferSize.get()==1){
+//                print((AppLine) buffer.get(0));
+//                print();
+//            }
+//            print(buffer.get(0));
 
             minX.set(buffer.stream().mapToDouble(obj1 -> obj1.border.getX()).min().orElse(Double.POSITIVE_INFINITY));
             maxX.set(buffer.stream().mapToDouble(obj1 -> obj1.border.getX() + obj1.border.getWidth()).max().orElse(Double.NEGATIVE_INFINITY));
@@ -90,7 +98,11 @@ public class SelectedObjectsController {
                 previousPosY = currentPosY;
                 currentPosX = mouseEvent.getSceneX();
                 currentPosY = mouseEvent.getSceneY();
-                buffer.forEach(obj1 -> obj1.affineTransform.prependTranslation(currentPosX - previousPosX, currentPosY - previousPosY));
+//                print("dsfjkdsfj");
+                buffer.forEach(obj1 -> {
+//                    print(uuid(20));
+                    obj1.affineTransform.prependTranslation(currentPosX - previousPosX, currentPosY - previousPosY);
+                });
                 rotationIcon.setVisible(false);
                 updateFixedPointPosition(rotationFixedPoint);
             }));
@@ -100,6 +112,20 @@ public class SelectedObjectsController {
                 updateFixedPointPosition(rotationFixedPoint);
             }));
             updateFixedPointPosition(rotationFixedPoint);
+
+
+            if(bufferSize.get()==2){
+//                print(((Line) buffer.get(0).getStyleableNode()));
+//                print(buffer.get(0).getStyleableNode().getOnMouseDragged());
+                buffer.get(0).getStyleableNode().setOnMouseMoved(mouseEvent -> {
+                    print(uuid(10));
+                });
+                buffer.get(1).getStyleableNode().setOnMouseMoved(mouseEvent -> {
+                    print(uuid(20));
+                });
+            }
+
+
         });
 
         rotationIcon.setOnMousePressed(mouseEvent -> {

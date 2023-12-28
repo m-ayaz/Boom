@@ -31,12 +31,14 @@ public final class AppLinearGradient extends AppGradient {
         endX.set(linearGradient.getEndX());
         endY.set(linearGradient.getEndY());
         isProportional.set(linearGradient.isProportional());
+        cycleMethod.set(linearGradient.getCycleMethod());
         appStops.addListener((ListChangeListener<AppStop>) change -> update());
         startX.addListener((a, b, c) -> update());
         startY.addListener((a, b, c) -> update());
         endX.addListener((a, b, c) -> update());
         endY.addListener((a, b, c) -> update());
         isProportional.addListener((a, b, c) -> update());
+        cycleMethod.addListener((a,b,c)->update());
     }
 
     @Override
@@ -54,6 +56,7 @@ public final class AppLinearGradient extends AppGradient {
         jsonObject.put("endX", endX.get());
         jsonObject.put("endY", endY.get());
         jsonObject.put("isProportional", isProportional.get());
+        jsonObject.put("cycleMethod", cycleMethod.get().name());
         jsonObject.put("stopsProportions", appStops.stream().map(appStop -> appStop.get().getOffset()).toArray());
         jsonObject.put("stopsColors", appStops.stream().map(appStop -> appStop.get().getColor().toString()).toArray());
         return jsonObject;
@@ -61,20 +64,20 @@ public final class AppLinearGradient extends AppGradient {
 
     @Override
     public String toSVG(int tabIndent) {
-        return "\n" + "\t".repeat(tabIndent) + "<linearGradient id=\"%s\" x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" gradientUnits=\"%s\">".formatted(id,
-                startX.get(), startY.get(), endX.get(), endY.get(), (isProportional.get() ? "objectBoundingBox" : "userSpaceOnUse")) +
+        return "\n" + "\t".repeat(tabIndent) + "<linearGradient id=\"%s\" x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" gradientUnits=\"%s\" spreadMethod=\"%s\">".formatted(id,
+                startX.get(), startY.get(), endX.get(), endY.get(), svgIsProportional.get(isProportional.get()),svgCycleMethod.get(cycleMethod.get().name())) +
                 appStops.stream().map(appStop -> appStop.toSVG(tabIndent + 1)).collect(Collectors.joining()) +
                 "\n" + "\t".repeat(tabIndent) + "</linearGradient>";
     }
 
     @Override
     public AppPaint copy() {
-        return new AppLinearGradient(new LinearGradient(startX.get(), startY.get(), endX.get(), endY.get(), isProportional.get(), CycleMethod.NO_CYCLE, appStops.stream().map(appStop -> new Stop(appStop.offset.get(), (Color) appStop.appColor.get())).collect(Collectors.toList())));
+        return new AppLinearGradient(new LinearGradient(startX.get(), startY.get(), endX.get(), endY.get(), isProportional.get(), cycleMethod.get(), appStops.stream().map(appStop -> new Stop(appStop.offset.get(), (Color) appStop.appColor.get())).collect(Collectors.toList())));
     }
 
     @Override
     protected void update() {
-        set(new LinearGradient(startX.get(), startY.get(), endX.get(), endY.get(), isProportional.get(), CycleMethod.NO_CYCLE, appStops.stream().map(appStop -> new Stop(appStop.offset.get(), (Color) appStop.appColor.get())).collect(Collectors.toList())));
+        set(new LinearGradient(startX.get(), startY.get(), endX.get(), endY.get(), isProportional.get(), cycleMethod.get(), appStops.stream().map(appStop -> new Stop(appStop.offset.get(), (Color) appStop.appColor.get())).collect(Collectors.toList())));
     }
 
 }

@@ -1,29 +1,32 @@
 package com.boom.appshapes;
 
 import com.boom.structures.abstracts.AppAreaShape;
-import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppPaint;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.transform.MatrixType;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
-
 import static com.boom.tools.Tools.deepCopy;
 import static com.boom.tools.Tools.dissectAffineTransform;
 
 public final class AppArc extends AppAreaShape {
 
+    public DoubleProperty  radiusX,  radiusY,  startAngle,  length;
+    public ObjectProperty<ArcType> arcType;
+
+
     public AppArc(double radiusX, double radiusY, double startAngle, double length, ArcType arcType) {
         super(new Arc(0, 0, radiusX, radiusY, startAngle, length));
-        setArcType(arcType);
-//        backgroundStyle.addFill(0,new AppColor(Color.TRANSPARENT,uuid(50)));
-//        backgroundStyle.addStroke(0,new AppColor(Color.BLACK,uuid(50)));
-////        region.setBackground(Background.fill(Color.TRANSPARENT));
-////        region.setBorder(Border.stroke(Color.BLACK));
-//        setWidth(width);
-//        setHeight(height);
+        ((Arc)shape).setType(arcType);
+        this.radiusX=((Arc)shape).radiusXProperty();
+        this.radiusY=((Arc)shape).radiusYProperty();
+        this.startAngle=((Arc)shape).startAngleProperty();
+        this.length=((Arc)shape).lengthProperty();
+        this.arcType=((Arc)shape).typeProperty();
     }
 
 
@@ -40,7 +43,7 @@ public final class AppArc extends AppAreaShape {
 ////                "\n\t\tline width = %fpt,".formatted(((Arc) node).getStrokeWidth()) +
 ////                (((Arc) node).getStrokeDashArray().size() >= 2 ? "\n\t\tdashed, dash pattern = " + ((Arc) node).getStrokeDashArray().stream().map(obj -> ((Arc) node).getStrokeDashArray().indexOf(obj) % 2 == 0 ? "on " + obj : "off " + obj).collect(Collectors.joining(" ")) : "\n\t\tsolid") + "," +
 ////                "\n\t]" +
-////                "\n\t(%fpt,%fpt) ellipse (%fpt and %fpt);".formatted(((Arc) node).getCenterX(), ((Arc) node).getCenterY(), ((Arc) node).getRadiusX(), ((Arc) node).getRadiusY()) +
+////                "\n\t(%fpt,%fpt) ellipse (%fpt and %fpt);".formatted(((Arc) node).getCenterX(), ((Arc) node).getCenterY(), ((Arc) node).radiusX.get(), ((Arc) node).radiusY.get()) +
 ////                "\n\\end{scope}";
 //        return null;
 //    }
@@ -52,9 +55,9 @@ public final class AppArc extends AppAreaShape {
 
     @Override
     public AppArc copy() {
-        if (getRadiusX() == 0 || getRadiusY() == 0||getLength()==0)
+        if (radiusX.get() == 0 || radiusY.get() == 0||length.get()==0)
             return null;
-        AppArc newAppArc = new AppArc(getRadiusX(), getRadiusY(), getStartAngle(), getLength(),getArcType());
+        AppArc newAppArc = new AppArc(radiusX.get(), radiusY.get(), startAngle.get(), length.get(),arcType.get());
         deepCopy(affineTransform, newAppArc.affineTransform);
         deepCopy(backgroundStyle, newAppArc.backgroundStyle);
         return newAppArc;
@@ -67,42 +70,8 @@ public final class AppArc extends AppAreaShape {
                 Math.min(dragStartX, currentDragPosX) + Math.abs(currentDragPosX - dragStartX) / 2,
                 Math.min(dragStartY, currentDragPosY) + Math.abs(currentDragPosY - dragStartY) / 2)
         );
-        setRadiusX(Math.abs(currentDragPosX - dragStartX) / 2);
-        setRadiusY(Math.abs(currentDragPosY - dragStartY) / 2);
-//        print("_________________________");
-//        print(Math.abs(currentDragPosX - dragStartX) / 2+" , "+Math.abs(currentDragPosY - dragStartY) / 2);
-    }
-
-    public double getLength() {
-        return ((Arc) shape).getLength();
-    }
-
-    public void setLength(double length) {
-        ((Arc) shape).setLength(length);
-    }
-
-    public ArcType getArcType() {
-        return ((Arc) shape).getType();
-    }
-
-    public void setArcType(ArcType arcType) {
-        ((Arc) shape).setType(arcType);
-    }
-
-    public double getRadiusX() {
-        return ((Arc) shape).getRadiusX();
-    }
-
-    public void setRadiusX(double radiusX) {
-        ((Arc) shape).setRadiusX(radiusX);
-    }
-
-    public double getRadiusY() {
-        return ((Arc) shape).getRadiusY();
-    }
-
-    public void setRadiusY(double radiusY) {
-        ((Arc) shape).setRadiusY(radiusY);
+        radiusX.set(Math.abs(currentDragPosX - dragStartX) / 2);
+        radiusY.set(Math.abs(currentDragPosY - dragStartY) / 2);
     }
 
     @Override
@@ -110,22 +79,13 @@ public final class AppArc extends AppAreaShape {
         double[] dissectedTransform = dissectAffineTransform(affineTransform);
         StringBuilder stringBuilder = new StringBuilder();
         for (AppPaint appPaint : backgroundStyle.getFillArray()) {
-            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getRadiusX(), getRadiusY(), getRadiusX(), getRadiusY(), appPaint.id, affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(radiusX.get(), radiusY.get(), radiusX.get(), radiusY.get(), appPaint.id, affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
         }
         for (AppPaint appPaint : backgroundStyle.getStrokeArray()) {
-            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getRadiusX(), getRadiusY(), getRadiusX(), getRadiusY(), appPaint.id, backgroundStyle.getStrokeWidth(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(radiusX.get(), radiusY.get(), radiusX.get(), radiusY.get(), appPaint.id, backgroundStyle.getStrokeWidth(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
         }
         return stringBuilder.toString();
     }
-
-    public double getStartAngle() {
-        return ((Arc) shape).getStartAngle();
-    }
-
-    public void setStartAngle(double startAngle) {
-        ((Arc) shape).setStartAngle(startAngle);
-    }
-
 
     @Override
     public JSONObject toJSON() {
@@ -134,11 +94,11 @@ public final class AppArc extends AppAreaShape {
         jsonObject.put("id", id);
         jsonObject.put("affine",affineTransform.toArray(MatrixType.MT_2D_2x3));
         jsonObject.put("backgroundStyle",backgroundStyle.toJSON());
-        jsonObject.put("radiusX", getRadiusX());
-        jsonObject.put("radiusY", getRadiusY());
-        jsonObject.put("startAngle",getStartAngle());
-        jsonObject.put("length",getLength());
-        jsonObject.put("arcType",getArcType().name());
+        jsonObject.put("radiusX", radiusX.get());
+        jsonObject.put("radiusY", radiusY.get());
+        jsonObject.put("startAngle",startAngle.get());
+        jsonObject.put("length",length.get());
+        jsonObject.put("arcType",arcType.get().name());
         return jsonObject;
     }
 

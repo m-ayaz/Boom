@@ -15,6 +15,12 @@ public enum AppExceptionEnum {
         this.code = code;
     }
 
+    public static AppExceptionEnum getEnum(String name){
+        return valueOf(name);
+
+
+    }
+
     public final int code;
 
 

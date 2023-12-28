@@ -5,6 +5,8 @@ import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.QuadCurve;
 
 public enum NodeTypeEnum {
 
@@ -23,7 +25,10 @@ public enum NodeTypeEnum {
     Ellipse(javafx.scene.shape.Ellipse.class.getName()),
     Rectangle(javafx.scene.shape.Rectangle.class.getName()),
     Line(javafx.scene.shape.Line.class.getName()),
-    Arc(javafx.scene.shape.Arc.class.getName());
+    Arc(javafx.scene.shape.Arc.class.getName()),
+    Polygon(javafx.scene.shape.Polygon.class.getName()),
+    QuadCurve(javafx.scene.shape.QuadCurve.class.getName()),
+    CubicCurve(javafx.scene.shape.CubicCurve.class.getName());
     private final String nodeType;
 
     NodeTypeEnum(String nodeType) {

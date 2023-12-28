@@ -4,10 +4,12 @@ import com.boom.configuration.Configs;
 import com.boom.styles.CSSProperty;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
 import org.json.JSONObject;
 
+import static com.boom.tools.Tools.print;
 import static com.boom.tools.Tools.uuid;
 
 
@@ -16,14 +18,15 @@ public abstract class AppNode {
     public Affine affineTransform = new Affine();
     public Rectangle border = new Rectangle();
     public CSSProperty backgroundStyle;
-    protected Node styleableNode;
+    public Node styleableNode;
     protected String type;
     public final String id = uuid(Configs.ID_LENGTH);
 
     public AppNode(Node styleableNode, String fillColorFX, String strokeColorFX, String strokeWidthFX) {
         this.styleableNode = styleableNode;
-        styleableNode.getTransforms().add(affineTransform);
         backgroundStyle = new CSSProperty(fillColorFX, strokeColorFX, strokeWidthFX);
+
+        styleableNode.getTransforms().add(affineTransform);
         styleableNode.styleProperty().bind(backgroundStyle);
     }
 
@@ -54,7 +57,19 @@ public abstract class AppNode {
         border.setStrokeWidth(1);
         border.getStrokeDashArray().addAll(5.0, 6.0, 6.0, 6.0);
         border.setVisible(false);
+//        if(binder.getClass().getName().equals(Line.class.getName())) {
+//            print(binder.getClass().getName());
+//            print(binder.getBoundsInParent());
+//        }
+        border.setX(binder.getBoundsInParent().getMinX());
+        border.setY(binder.getBoundsInParent().getMinY());
+        border.setWidth(binder.getBoundsInParent().getWidth());
+        border.setHeight(binder.getBoundsInParent().getHeight());
         binder.boundsInParentProperty().addListener((a, b, c) -> {
+//            if(binder.getClass().getName().equals(Line.class.getName())) {
+//                print(binder.getClass().getName());
+//                print(c);
+//            }
             border.setX(c.getMinX());
             border.setY(c.getMinY());
             border.setWidth(c.getWidth());

@@ -17,11 +17,24 @@ import static com.boom.tools.Tools.uuid;
 
 public class CSSProperty extends SimpleStringProperty {
 
-final String id=uuid(Configs.ID_LENGTH);
+public final String id=uuid(Configs.ID_LENGTH);
 
     ObservableList<AppPaint> fillArray = FXCollections.observableList(new ArrayList<>());
     ObservableList<AppPaint> strokeArray = FXCollections.observableList(new ArrayList<>());
     DoubleProperty strokeWidth = new SimpleDoubleProperty();
+
+    public String getFillColorFX() {
+        return fillColorFX;
+    }
+
+    public String getStrokeColorFX() {
+        return strokeColorFX;
+    }
+
+    public String getStrokeWidthFX() {
+        return strokeWidthFX;
+    }
+
     String fillColorFX;
     String strokeColorFX;
     String strokeWidthFX;
