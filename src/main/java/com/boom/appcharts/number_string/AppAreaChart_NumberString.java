@@ -1,7 +1,6 @@
 package com.boom.appcharts.number_string;
 
 import com.boom.configuration.Configs;
-import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.styles.CSSProperty;
 import com.boom.apppaints.AppColor;
@@ -50,8 +49,8 @@ public final class AppAreaChart_NumberString extends AppXYChart<Number,String> {
         CSSProperty seriesAreaStyle = new CSSProperty("-fx-fill", "-fx-stroke", "-fx-stroke-width");
         newSeries.getNode().lookup(".chart-series-area-fill").styleProperty().bind(seriesAreaStyle);
         newSeries.getNode().lookup(".chart-series-area-line").styleProperty().bind(seriesLineStyle);
-        seriesAreaStyle.addFill(0, new AppColor(Color.valueOf(Configs.SERIES_AREA_COLOR.get(index % Configs.SERIES_AREA_COLOR.size()))));
-        seriesLineStyle.color.set(Color.valueOf(Configs.SERIES_LINE_COLOR.get(index % Configs.SERIES_LINE_COLOR.size())));
+        seriesAreaStyle.addFill(0, new AppColor(Color.valueOf(Configs.SERIES_AREA_COLORS_List.get(index % Configs.SERIES_AREA_COLORS_List.size()))));
+        seriesLineStyle.color.set(Color.valueOf(Configs.SERIES_LINE_COLORS_List.get(index % Configs.SERIES_LINE_COLORS_List.size())));
         seriesAreaStyles.add(index, seriesAreaStyle);
         seriesLineStyles.add(index, seriesLineStyle);
         seriesMarkersStyles.add(index, new SeriesMarkersStyleProperty());

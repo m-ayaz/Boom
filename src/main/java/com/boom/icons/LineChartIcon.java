@@ -6,7 +6,7 @@ import javafx.scene.chart.XYChart;
 
 import static com.boom.tools.Tools.setCustomSize;
 
-public class LineChartIcon extends LineChart<Number,Number> {
+public final class LineChartIcon extends LineChart<Number,Number> {
     public LineChartIcon() {
 
         super(new NumberAxis(),new NumberAxis());

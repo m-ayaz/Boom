@@ -1,7 +1,6 @@
 package com.boom.appcharts.number_number;
 
 import com.boom.configuration.Configs;
-import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.styles.SeriesLineStyleProperty;
 import com.boom.styles.SeriesMarkersStyleProperty;
@@ -54,7 +53,7 @@ public final class AppLineChart_NumberNumber extends AppXYChart<Number,Number> {
         SeriesLineStyleProperty seriesLineStyle = new SeriesLineStyleProperty();
 //        seriesLineStyle.color.set((Color) ((Path)newSeries.getNode().lookup(".chart-series-line")).getStroke());
         newSeries.getNode().lookup(".chart-series-line").styleProperty().bind(seriesLineStyle);
-        seriesLineStyle.color.set(Color.valueOf(Configs.SERIES_LINE_COLOR.get(index % Configs.SERIES_LINE_COLOR.size())));
+        seriesLineStyle.color.set(Color.valueOf(Configs.SERIES_LINE_COLORS_List.get(index % Configs.SERIES_LINE_COLORS_List.size())));
         seriesLineStyles.add(index, seriesLineStyle);
         seriesMarkersStyles.add(index, new SeriesMarkersStyleProperty());
         return newSeries;

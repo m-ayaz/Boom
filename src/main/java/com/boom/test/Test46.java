@@ -2,13 +2,11 @@ package com.boom.test;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
-import static com.boom.tools.Tools.setCustomSize;
 
 
 public class Test46 extends Application {
@@ -17,6 +15,7 @@ public class Test46 extends Application {
         launch();
     }
 
+//    boolean x=true;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -26,17 +25,76 @@ public class Test46 extends Application {
         stage.setScene(scene);
         stage.show();
 
+        Rectangle rectangle=new Rectangle(50,50,500,500);
+        Rectangle rectangle1=new Rectangle(650,50,500,500);
+
+        ChessBoard p=new ChessBoard(600,16,Color.valueOf("00000088"),Color.valueOf("00000033"));
+        p.setTranslateX(607);
+//        p.setTranslateY(600);
+
+        container.getChildren().addAll(new ChessBoard(600,16,Color.valueOf("00000088"),Color.valueOf("00000033")),rectangle);
+        container.getChildren().addAll(p,rectangle1);
+
+        rectangle.setFill(new LinearGradient(0,0,1,0,true,CycleMethod.NO_CYCLE,
+                new Stop(0,Color.TRANSPARENT),new Stop(0.2,Color.YELLOW),
+                new Stop(0.4,Color.valueOf("0000ff88")),new Stop(0.6,Color.GREEN),new Stop(0.8,Color.RED)
+                ,new Stop(1,Color.valueOf("ff5599cc"))
+                ));
+
+        rectangle1.setFill(new RadialGradient(0,0,0.5,0.5,0.55,true,CycleMethod.NO_CYCLE,
+                new Stop(0,Color.TRANSPARENT),new Stop(0.2,Color.YELLOW),
+                new Stop(0.4,Color.valueOf("0000ff88")),new Stop(0.6,Color.GREEN),new Stop(0.8,Color.RED)
+                ,new Stop(1,Color.valueOf("ff5599cc"))
+        ));
+
+
+
+//        double a=200,b=400;
+//
+//        Rectangle rectangle=new Rectangle(a,a,b,b);
+//        Rectangle rectangle1=new Rectangle(a,a,b,b);
+//
+//        container.getChildren().addAll(rectangle,rectangle1);
+//
+////        rectangle.setStroke(Color.BLACK);
+//
+////        rectangle.setFill(new LinearGradient(0,0,1,0,true,CycleMethod.REPEAT,
+////                new Stop(0,Color.BLUE),new Stop(1,Color.RED)));
+//
+//        rectangle.setFill(new LinearGradient(0,0,1,0,true, CycleMethod.NO_CYCLE,
+//                new Stop(0, Color.RED),new Stop(1,Color.TRANSPARENT)));
+//        rectangle1.setFill(new LinearGradient(0,1,0,0,true, CycleMethod.NO_CYCLE,
+//                new Stop(1, Color.BLUE),new Stop(0,Color.TRANSPARENT)));
+//
+//        container.setOnMouseClicked(mouseEvent -> {
+//            print("clicked");
+//            container.getChildren().clear();
+//            if(x) {
+//
+//                container.getChildren().addAll(rectangle1, rectangle);
+//            } else
+//             {
+//
+//                container.getChildren().addAll(rectangle,rectangle1);
+//            }
+//
+//            x=!x;
+//        });
+
+
+
 //        Rectangle rectangle=new Rectangle();
 //
 //        container.getChildren().add(rectangle);
 
 
-        LineChart<Number,Number> x=new LineChart<>(new NumberAxis(),new NumberAxis());
+//        LineChart<Number,Number> x=new LineChart<>(new NumberAxis(),new NumberAxis());
+//
+//        container.getChildren().add(x);
+//
+//        setCustomSize(x,400,400);
 
-        container.getChildren().add(x);
-
-        setCustomSize(x,400,400);
-
+//        Scene
 
 
 //        AppRectangle appRectangle=new AppRectangle(200,300);
@@ -152,6 +210,25 @@ public class Test46 extends Application {
 
 
 
+    }
+
+    final class ChessBoard extends GridPane {
+
+        public ChessBoard( double length, int n, Color boldColor, Color liteColor){
+            super();
+            double bitLength=length/n;
+            for(int i=0;i<n;i++){
+                for(int j=0;j<n;j++){
+                    Rectangle rectangle=new Rectangle(bitLength,bitLength);
+                    add(rectangle,i,j);
+                    if((i+j)%2==0){
+                        rectangle.setFill(boldColor);
+                    }else{
+                        rectangle.setFill(liteColor);
+                    }
+                }
+            }
+        }
 
     }
 

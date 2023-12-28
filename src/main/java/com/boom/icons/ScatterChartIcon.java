@@ -5,7 +5,7 @@ import javafx.scene.chart.ScatterChart;
 
 import static com.boom.tools.Tools.setCustomSize;
 
-public class ScatterChartIcon extends ScatterChart<Number,Number> {
+public final class ScatterChartIcon extends ScatterChart<Number,Number> {
     public ScatterChartIcon() {
 
         super(new NumberAxis(),new NumberAxis());

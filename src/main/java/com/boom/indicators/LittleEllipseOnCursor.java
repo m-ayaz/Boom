@@ -3,7 +3,7 @@ package com.boom.indicators;
 import com.boom.structures.interfaces.LittleIndicatorStructure;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
-public class LittleEllipseOnCursor extends Ellipse implements LittleIndicatorStructure {
+public final class LittleEllipseOnCursor extends Ellipse implements LittleIndicatorStructure {
     public LittleEllipseOnCursor() {
         setRadiusX(10);
         setRadiusY(5);

@@ -6,7 +6,7 @@ import javafx.scene.shape.Polygon;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MinusSignIcon extends Polygon {
+public final class MinusSignIcon extends Polygon {
 
     List<Double> initialPoints=new ArrayList<>();
 

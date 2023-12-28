@@ -7,7 +7,7 @@ import javafx.scene.chart.XYChart;
 
 import static com.boom.tools.Tools.setCustomSize;
 
-public class LittleLineChartOnCursor extends LineChart<Number,Number> implements LittleIndicatorStructure {
+public final class LittleLineChartOnCursor extends LineChart<Number,Number> implements LittleIndicatorStructure {
 
     //todo set up background color to white later.
     public LittleLineChartOnCursor() {

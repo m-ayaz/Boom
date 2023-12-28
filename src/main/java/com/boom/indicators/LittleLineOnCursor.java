@@ -4,7 +4,7 @@ import com.boom.structures.interfaces.LittleIndicatorStructure;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
-public class LittleLineOnCursor extends Line implements LittleIndicatorStructure {
+public final class LittleLineOnCursor extends Line implements LittleIndicatorStructure {
     public LittleLineOnCursor() {
         setStrokeWidth(4);
         setStroke(new Color(160.0 / 256, 160.0 / 256, 60.0 / 256, 1));

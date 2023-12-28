@@ -3,7 +3,7 @@ package com.boom.icons;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
-public class RectangleIcon extends Rectangle {
+public final class RectangleIcon extends Rectangle {
 
     public RectangleIcon(double width, double height, Paint fillColor, Paint strokeColor, double strokeWidth){
         setWidth(width);

@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class LittleTextOnCursor extends Text implements LittleIndicatorStructure {
+public final class LittleTextOnCursor extends Text implements LittleIndicatorStructure {
 
     public LittleTextOnCursor() {
         setText("A");

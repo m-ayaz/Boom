@@ -12,7 +12,7 @@ import java.util.List;
 import static com.boom.tools.Tools.matrixMultiplication;
 import static java.lang.Math.*;
 
-public class ScalingIcon extends Polygon {
+public final class ScalingIcon extends Polygon {
 
     DoubleProperty centerX=new SimpleDoubleProperty();
 

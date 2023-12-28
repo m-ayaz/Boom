@@ -6,7 +6,7 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Ellipse;
 
-public class LittleArcOnCursor extends Arc implements LittleIndicatorStructure {
+public final class LittleArcOnCursor extends Arc implements LittleIndicatorStructure {
     public LittleArcOnCursor() {
         setRadiusX(10);
         setRadiusY(5);

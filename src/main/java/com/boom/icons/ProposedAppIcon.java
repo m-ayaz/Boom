@@ -13,7 +13,7 @@ import java.util.List;
 
 import static java.lang.Math.floor;
 
-public class ProposedAppIcon extends Application {
+public final class ProposedAppIcon extends Application {
 
 
     @Override
