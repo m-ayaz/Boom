@@ -1,5 +1,6 @@
 package com.boom.test;
 
+import com.boom.tools.Chessboard;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -28,11 +29,11 @@ public class Test46 extends Application {
         Rectangle rectangle = new Rectangle(50, 50, 500, 500);
         Rectangle rectangle1 = new Rectangle(650, 50, 500, 500);
 
-        ChessBoard p = new ChessBoard(600, 16, Color.valueOf("00000088"), Color.valueOf("00000033"));
+        Chessboard p = new Chessboard(40, 16,16, Color.valueOf("00000088"), Color.valueOf("00000033"));
         p.setTranslateX(607);
 //        p.setTranslateY(600);
 
-        container.getChildren().addAll(new ChessBoard(600, 16, Color.valueOf("00000088"), Color.valueOf("00000033")), rectangle);
+        container.getChildren().addAll(new Chessboard(40, 16,16, Color.valueOf("00000088"), Color.valueOf("00000033")), rectangle);
         container.getChildren().addAll(p, rectangle1);
 
         rectangle.setFill(new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
@@ -207,25 +208,7 @@ public class Test46 extends Application {
 
     }
 
-    final class ChessBoard extends GridPane {
 
-        public ChessBoard(double length, int n, Color boldColor, Color liteColor) {
-            super();
-            double bitLength = length / n;
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    Rectangle rectangle = new Rectangle(bitLength, bitLength);
-                    add(rectangle, i, j);
-                    if ((i + j) % 2 == 0) {
-                        rectangle.setFill(boldColor);
-                    } else {
-                        rectangle.setFill(liteColor);
-                    }
-                }
-            }
-        }
-
-    }
 
 
 }

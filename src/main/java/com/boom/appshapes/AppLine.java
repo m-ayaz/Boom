@@ -1,17 +1,14 @@
 package com.boom.appshapes;
 
 import com.boom.structures.abstracts.AppLineShape;
-import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppPaint;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.shape.Line;
-import javafx.scene.transform.Translate;
+import javafx.scene.transform.MatrixType;
 import org.json.JSONObject;
 
-
-import java.util.List;
-
-import static com.boom.tools.Tools.*;
+import static com.boom.tools.Tools.deepCopy;
+import static com.boom.tools.Tools.dissectAffineTransform;
 
 public final class AppLine extends AppLineShape {
 
@@ -23,7 +20,6 @@ public final class AppLine extends AppLineShape {
         this.startY = ((Line) styleableNode).startYProperty();
         this.endX = ((Line) styleableNode).endXProperty();
         this.endY = ((Line) styleableNode).endYProperty();
-//        print(startX+""+ startY+""+ endX+""+ endY);
     }
 
     public String toTeX() {
@@ -41,37 +37,26 @@ public final class AppLine extends AppLineShape {
     }
 
 
-//    public String toSVG() {
-//        return null;
-//    }
-
     @Override
     public JSONObject toJSON() {
-//        Color strokeColor = Color.valueOf(((Line) node).getStroke().toString());
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("object", NodeTypeEnum.Line.getNodeType());
-//        jsonObject.put("startX", ((Line) node).startX.get());
-//        jsonObject.put("startY", ((Line) node).startY.get());
-//        jsonObject.put("endX", ((Line) node).endX.get());
-//        jsonObject.put("endY", ((Line) node).endY.get());
-//        jsonObject.put("strokeColor", Arrays.asList(Math.round(strokeColor.getRed() * 255), Math.round(strokeColor.getGreen() * 255), Math.round(strokeColor.getBlue() * 255)));
-//        jsonObject.put("strokeOpacity", Math.round(strokeColor.getOpacity()));
-//        jsonObject.put("strokeWidth", ((Line) node).getStrokeWidth());
-//        jsonObject.put("affineTransformation", Arrays.asList(affineTransform.getMxx(), affineTransform.getMxy(), affineTransform.getTx(), affineTransform.getMyx(), affineTransform.getMyy(), affineTransform.getTy()));
-//        return jsonObject;
-        return null;
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("type", type);
+        jsonObject.put("id", id);
+        jsonObject.put("affine", affineTransform.toArray(MatrixType.MT_2D_2x3));
+        jsonObject.put("backgroundStyle", backgroundStyle.toJSON());
+        jsonObject.put("startX", startX.get());
+        jsonObject.put("startY", startY.get());
+        jsonObject.put("endX", endX.get());
+        jsonObject.put("endY", endY.get());
+        return jsonObject;
     }
 
     @Override
     public String getSVGClones(int tabIndent) {
         double[] dissectedTransform = dissectAffineTransform(affineTransform);
         StringBuilder stringBuilder = new StringBuilder();
-//        for (AppPaint appPaint : backgroundStyle.getFillArray()) {
-//            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth()/2, getHeight()/2,getWidth()/2, getHeight()/2, appPaint.id, affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
-//        }
         for (AppPaint appPaint : backgroundStyle.getStrokeArray()) {
             stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(startX.get(), startY.get(), endX.get(), endY.get(), appPaint.id, backgroundStyle.getStrokeWidth(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
-//            " <line x1=\"0\" y1=\"0\" x2=\"%f\" y2=\"%f\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth(),getHeight(),appPaint.id,backgroundStyle.getStrokeWidth(),affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]);
         }
         return stringBuilder.toString();
     }
@@ -82,21 +67,17 @@ public final class AppLine extends AppLineShape {
             return null;
         AppLine newAppLine = new AppLine(startX.get(), startY.get(), endX.get(), endY.get());
         deepCopy(affineTransform, newAppLine.affineTransform);
-        deepCopy(backgroundStyle,newAppLine.backgroundStyle);
+        deepCopy(backgroundStyle, newAppLine.backgroundStyle);
         return newAppLine;
     }
 
     @Override
     public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
         styleableNode.setVisible(true);
-//        affineTransform.setToTransform(new Translate(Math.min(dragStartX, currentDragPosX), Math.min(dragStartY, currentDragPosY)));
-//        print("aaaaaaaa");
         startX.set(dragStartX);
         startY.set(dragStartY);
         endX.set(currentDragPosX);
         endY.set(currentDragPosY);
-//        print();
-//        height.set(Math.abs(currentDragPosY - dragStartY));
     }
 
 }

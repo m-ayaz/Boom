@@ -17,23 +17,27 @@ import static com.boom.tools.Tools.uuid;
 
 public class CSSProperty extends SimpleStringProperty {
 
-public final String id=uuid(Configs.ID_LENGTH);
+    public final String id = uuid(Configs.ID_LENGTH);
 
     ObservableList<AppPaint> fillArray = FXCollections.observableList(new ArrayList<>());
     ObservableList<AppPaint> strokeArray = FXCollections.observableList(new ArrayList<>());
     DoubleProperty strokeWidth = new SimpleDoubleProperty();
+//    ObjectProperty<StrokeLineCap> strokeLineCap=new SimpleObjectProperty<>();
+//    ObjectProperty<StrokeLineJoin> strokeLineJoin=new SimpleObjectProperty<>();
+//    DoubleProperty strokeMiterLimit=new SimpleDoubleProperty();
+//    DoubleProperty strokeDashOffset=new SimpleDoubleProperty();
 
-    public String getFillColorFX() {
-        return fillColorFX;
-    }
-
-    public String getStrokeColorFX() {
-        return strokeColorFX;
-    }
-
-    public String getStrokeWidthFX() {
-        return strokeWidthFX;
-    }
+//    public String getFillColorFX() {
+//        return fillColorFX;
+//    }
+//
+//    public String getStrokeColorFX() {
+//        return strokeColorFX;
+//    }
+//
+//    public String getStrokeWidthFX() {
+//        return strokeWidthFX;
+//    }
 
     String fillColorFX;
     String strokeColorFX;
@@ -41,32 +45,34 @@ public final String id=uuid(Configs.ID_LENGTH);
 
     public CSSProperty(String fillColorFX, String strokeColorFX, String strokeWidthFX) {
         super();
+//        Shape h;
+//        h.setStro
         this.fillColorFX = fillColorFX;
         this.strokeColorFX = strokeColorFX;
         this.strokeWidthFX = strokeWidthFX;
-        fillArray.addListener((ListChangeListener< AppPaint>) change -> update());
+        fillArray.addListener((ListChangeListener<AppPaint>) change -> update());
         strokeArray.addListener((ListChangeListener<AppPaint>) change -> update());
-        strokeWidth.addListener((a,b,c) -> update());
+        strokeWidth.addListener((a, b, c) -> update());
     }
 
     public void addFill(int index, AppPaint appPaint) {
         fillArray.add(index, appPaint);
-        appPaint.addListener((a,b,c) -> update());
+        appPaint.addListener((a, b, c) -> update());
     }
 
     public void addStroke(int index, AppPaint appPaint) {
         strokeArray.add(index, appPaint);
-        appPaint.addListener(  (a,b,c) -> update());
+        appPaint.addListener((a, b, c) -> update());
     }
 
     public void addFill(AppPaint appPaint) {
-        fillArray.add( appPaint);
-        appPaint.addListener((a,b,c) -> update());
+        fillArray.add(appPaint);
+        appPaint.addListener((a, b, c) -> update());
     }
 
     public void addStroke(AppPaint appPaint) {
-        strokeArray.add( appPaint);
-        appPaint.addListener(  (a,b,c) -> update());
+        strokeArray.add(appPaint);
+        appPaint.addListener((a, b, c) -> update());
     }
 
     public ObservableList<AppPaint> getFillArray() {
@@ -77,11 +83,11 @@ public final String id=uuid(Configs.ID_LENGTH);
         return strokeArray;
     }
 
-    public void removeAllFills(){
+    public void removeAllFills() {
         fillArray.clear();
     }
 
-    public void removeAllStrokes(){
+    public void removeAllStrokes() {
         strokeArray.clear();
     }
 
@@ -137,18 +143,16 @@ public final String id=uuid(Configs.ID_LENGTH);
     }
 
 
-    public JSONObject toJSON(){
-        JSONObject jsonObject=new JSONObject();
-        jsonObject.put("fillColorFX",fillColorFX);
-        jsonObject.put("strokeColorFX",strokeColorFX);
-        jsonObject.put("strokeWidthFX",strokeWidthFX);
-        jsonObject.put("strokeWidth",strokeWidth.get());
-        jsonObject.put("fillArray",fillArray.stream().map(AppPaint::toJSON).toArray());
-        jsonObject.put("strokeArray",strokeArray.stream().map(AppPaint::toJSON).toArray());
+    public JSONObject toJSON() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("fillColorFX", fillColorFX);
+        jsonObject.put("strokeColorFX", strokeColorFX);
+        jsonObject.put("strokeWidthFX", strokeWidthFX);
+        jsonObject.put("strokeWidth", strokeWidth.get());
+        jsonObject.put("fillArray", fillArray.stream().map(AppPaint::toJSON).toArray());
+        jsonObject.put("strokeArray", strokeArray.stream().map(AppPaint::toJSON).toArray());
         return jsonObject;
     }
-
-
 
 
 }

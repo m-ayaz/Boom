@@ -1,59 +1,67 @@
 <svg width="1000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg">
 
 
+
+
+
 	<defs>
-		<linearGradient id="ji8c9chmxfb53c8stmbii8svoz5vu4ylw7tqlgn4r3zjp3lth7" x1="0.000000" y1="1.000000" x2="1.000000" y2="0.000000" gradientUnits="objectBoundingBox">
+		<linearGradient id="hl05dxcyi966jkl74ufgw5pgag3k022nh3gssa51htg64ygl6lm47jwyj9ypa3mvo038b6um8ved0cz5vf5ww4aw3nj6nlijo6ct" x1="0.000000" y1="1.000000" x2="1.000000" y2="0.000000" gradientUnits="objectBoundingBox" spreadMethod="pad">
 			<stop offset="0.000000" stop-color="#00000000" />
 			<stop offset="1.000000" stop-color="#ff000088" />
 		</linearGradient>
-		<linearGradient id="o2m1sk5uaqx74st70atze8ifpleg7247t9vz1ksluis6r3asy3" x1="0.000000" y1="0.000000" x2="300.000000" y2="300.000000" gradientUnits="userSpaceOnUse">
+		<linearGradient id="7240c9wpl910o24k5f73hjrmu9onwkm07dvn5qv06obfmu06umt9eue50jv544h6eb24fipqck8fgwkpiv5c61sy4ukcd3uwchln" x1="0.000000" y1="0.000000" x2="300.000000" y2="300.000000" gradientUnits="userSpaceOnUse" spreadMethod="pad">
 			<stop offset="0.000000" stop-color="#00000000" />
 			<stop offset="1.000000" stop-color="#0000ff88" />
 		</linearGradient>
-		<linearGradient id="1ddyountm2f9rkbnkp46hn5en0h4jdinj5nyfw8mcyi0uib028" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox">
+		<linearGradient id="ot32cawy83hyqjfpiivzo1wi7wglihm9qsk48uh2pkvsv7zs07uhibj3qpks7bpkkki1mo2bqp6iie3a6havezba18xqvxvaqfkk" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox" spreadMethod="pad">
 			<stop offset="0.000000" stop-color="#00000000" />
 			<stop offset="1.000000" stop-color="#000000ff" />
 		</linearGradient>
-		<linearGradient id="h4an7zsctiw9scfht9ns6trgzl9rnj74a53j02yhea3tzsyt0s" x1="0.000000" y1="1.000000" x2="1.000000" y2="0.000000" gradientUnits="objectBoundingBox">
+		<linearGradient id="e5p61wzywr5258lkw5iib0mhnhy0edcg5u8ajxwu2yxokt0ozmgk80wn9sh8xsx2cocmczck8ado6o7ru55y7lkuqagirmk4m7dq" x1="0.000000" y1="1.000000" x2="1.000000" y2="0.000000" gradientUnits="objectBoundingBox" spreadMethod="pad">
 			<stop offset="0.000000" stop-color="#00000000" />
 			<stop offset="1.000000" stop-color="#00ff0088" />
 		</linearGradient>
-		<linearGradient id="wm4x02ng4lji0vr1utg2wxpt463b3yj8jqgyfg41qixj9nurud" x1="0.000000" y1="0.000000" x2="300.000000" y2="300.000000" gradientUnits="userSpaceOnUse">
+		<linearGradient id="posm4jokcvcseq775ghk20850teigymud4uj7fdcqdvvj13zh0zn6bdoompm5whihsx9hgmjo2o0kw0xedjpca14xsr5ryxwbn7h" x1="0.000000" y1="0.000000" x2="300.000000" y2="300.000000" gradientUnits="userSpaceOnUse" spreadMethod="pad">
 			<stop offset="0.000000" stop-color="#00000000" />
 			<stop offset="1.000000" stop-color="#ffff0088" />
 		</linearGradient>
-		<linearGradient id="4zdfp0tob72jucpkai45kwhbrjuuefr15r86rm7pcvjrxi8zjq" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox">
+		<linearGradient id="jar4yju2yxkjcy83v8yohent3ae90u184nciu2lmufv3sx3bdyzy4vrtgfiovaek3gwzwooupu30wrjhvx75r7c7w9cah3b1e6l5" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox" spreadMethod="pad">
 			<stop offset="0.000000" stop-color="#00000000" />
 			<stop offset="1.000000" stop-color="#000000ff" />
 		</linearGradient>
-		<linearGradient id="8tq3wargd03ysemd78hpa7ge2eno467btidr11ixryauewaybr" x1="0.000000" y1="1.000000" x2="1.000000" y2="0.000000" gradientUnits="objectBoundingBox">
+		<linearGradient id="3wfd1lzp0q0clz8paqyiwg95i0g3blcd302pb5aw8n3m2h2uvjqwtx6lkoeltustuvb3t7bo2h3648k1jjvfot5ty0sqbi9g84i9" x1="0.000000" y1="1.000000" x2="1.000000" y2="0.000000" gradientUnits="objectBoundingBox" spreadMethod="pad">
 			<stop offset="0.000000" stop-color="#00000000" />
 			<stop offset="1.000000" stop-color="#00ffff88" />
 		</linearGradient>
-		<linearGradient id="9o5vgb7pi54fft3ytyhsy40d101soiwzvkeyiv2v4112oqoysw" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox">
+		<linearGradient id="kli5dlvgufn5awtm20zr2h9ik40zvrk18rwje9arz8hq3fj6uvdwamre78fx9yaqyo2s1bj8zd7w5rhzd1kzr3q0banhzkxvf29y" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox" spreadMethod="pad">
 			<stop offset="0.000000" stop-color="#00000000" />
 			<stop offset="1.000000" stop-color="#ff00ff88" />
 		</linearGradient>
-		<linearGradient id="7310pwgq2s431239nog3v3gisyy0sohb5tt8euqf64od3kyfuz" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox">
+		<linearGradient id="xf8vh5bph0y5caj5lp6fqxr9msrq9ss96laooxu3nmlg9t1r3lo5d461edxlkn5t49i2tmkp5w6gpqhnbmengstcuqvkwhb4r5g2" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox" spreadMethod="pad">
 			<stop offset="0.000000" stop-color="#ff000088" />
 			<stop offset="1.000000" stop-color="#00000000" />
 		</linearGradient>
-		<linearGradient id="pwhvhvokgv58dz1hwsorczajrfexmrujwwiwepx1uctxwpt7e6" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox">
-			<stop offset="0.000000" stop-color="#00000088" />
-			<stop offset="1.000000" stop-color="#ff00ff88" />
+		<linearGradient id="1gvlj4qu00w2ig48vikdbca25w81dwey287954wwa82nfy6hbe16j5eidmgvbsb5gffanloikswwdhkg7vrysyulpvkf0c7t93v4" x1="0.000000" y1="0.000000" x2="1.000000" y2="1.000000" gradientUnits="objectBoundingBox" spreadMethod="pad">
+			<stop offset="0.000000" stop-color="#00000000" />
+			<stop offset="1.000000" stop-color="#0000ff88" />
 		</linearGradient>
 	</defs>
-	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="url(#ji8c9chmxfb53c8stmbii8svoz5vu4ylw7tqlgn4r3zjp3lth7)" transform="translate(200.000000,100.000000) rotate(90.000000) scale(1.400000,1.000000) rotate(-70.000000)"/>
-	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="url(#o2m1sk5uaqx74st70atze8ifpleg7247t9vz1ksluis6r3asy3)" transform="translate(200.000000,100.000000) rotate(90.000000) scale(1.400000,1.000000) rotate(-70.000000)"/>
-	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="transparent" stroke="url(#1ddyountm2f9rkbnkp46hn5en0h4jdinj5nyfw8mcyi0uib028)" stroke-width="10.000000" transform="translate(200.000000,100.000000) rotate(90.000000) scale(1.400000,1.000000) rotate(-70.000000)"/>
-	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="url(#h4an7zsctiw9scfht9ns6trgzl9rnj74a53j02yhea3tzsyt0s)" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
-	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="url(#wm4x02ng4lji0vr1utg2wxpt463b3yj8jqgyfg41qixj9nurud)" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
-	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="transparent" stroke="url(#4zdfp0tob72jucpkai45kwhbrjuuefr15r86rm7pcvjrxi8zjq)" stroke-width="10.000000" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
-	<ellipse cx="100.000000" cy="200.000000" rx="100.000000" ry="200.000000" fill="url(#8tq3wargd03ysemd78hpa7ge2eno467btidr11ixryauewaybr)" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
-	<ellipse cx="100.000000" cy="200.000000" rx="100.000000" ry="200.000000" fill="url(#9o5vgb7pi54fft3ytyhsy40d101soiwzvkeyiv2v4112oqoysw)" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
-<!--	<line x1="499.0" y1="0" x2="500.000000" y2="500.000000" stroke="red" stroke-width="10.000000" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>-->
-	<line x1="0.0" y1="499.0" x2="500.000000" y2="500.000000" stroke="url(#7310pwgq2s431239nog3v3gisyy0sohb5tt8euqf64od3kyfuz)" stroke-width="10.000000" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
-	<line x1="0.0" y1="499.0" x2="500.000000" y2="500.000000" stroke="url(#pwhvhvokgv58dz1hwsorczajrfexmrujwwiwepx1uctxwpt7e6)" stroke-width="10.000000" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="url(#hl05dxcyi966jkl74ufgw5pgag3k022nh3gssa51htg64ygl6lm47jwyj9ypa3mvo038b6um8ved0cz5vf5ww4aw3nj6nlijo6ct)" transform="translate(200.000000,100.000000) rotate(90.000000) scale(1.400000,1.000000) rotate(-70.000000)"/>
+	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="url(#7240c9wpl910o24k5f73hjrmu9onwkm07dvn5qv06obfmu06umt9eue50jv544h6eb24fipqck8fgwkpiv5c61sy4ukcd3uwchln)" transform="translate(200.000000,100.000000) rotate(90.000000) scale(1.400000,1.000000) rotate(-70.000000)"/>
+	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="transparent" stroke="url(#ot32cawy83hyqjfpiivzo1wi7wglihm9qsk48uh2pkvsv7zs07uhibj3qpks7bpkkki1mo2bqp6iie3a6havezba18xqvxvaqfkk)" stroke-width="10.000000" transform="translate(200.000000,100.000000) rotate(90.000000) scale(1.400000,1.000000) rotate(-70.000000)"/>
+	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="url(#e5p61wzywr5258lkw5iib0mhnhy0edcg5u8ajxwu2yxokt0ozmgk80wn9sh8xsx2cocmczck8ado6o7ru55y7lkuqagirmk4m7dq)" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="url(#posm4jokcvcseq775ghk20850teigymud4uj7fdcqdvvj13zh0zn6bdoompm5whihsx9hgmjo2o0kw0xedjpca14xsr5ryxwbn7h)" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+	<rect x="0" y="0" rx="0" ry="0" width="300.000000" height="300.000000" fill="transparent" stroke="url(#jar4yju2yxkjcy83v8yohent3ae90u184nciu2lmufv3sx3bdyzy4vrtgfiovaek3gwzwooupu30wrjhvx75r7c7w9cah3b1e6l5)" stroke-width="10.000000" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+	<ellipse cx="100.000000" cy="200.000000" rx="100.000000" ry="200.000000" fill="url(#3wfd1lzp0q0clz8paqyiwg95i0g3blcd302pb5aw8n3m2h2uvjqwtx6lkoeltustuvb3t7bo2h3648k1jjvfot5ty0sqbi9g84i9)" transform="translate(-100.000000,-200.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+	<ellipse cx="100.000000" cy="200.000000" rx="100.000000" ry="200.000000" fill="url(#kli5dlvgufn5awtm20zr2h9ik40zvrk18rwje9arz8hq3fj6uvdwamre78fx9yaqyo2s1bj8zd7w5rhzd1kzr3q0banhzkxvf29y)" transform="translate(-100.000000,-200.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+	<line x1="0.000000" y1="0.000000" x2="500.000000" y2="500.000000" stroke="url(#xf8vh5bph0y5caj5lp6fqxr9msrq9ss96laooxu3nmlg9t1r3lo5d461edxlkn5t49i2tmkp5w6gpqhnbmengstcuqvkwhb4r5g2)" stroke-width="10.000000" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+	<line x1="0.000000" y1="0.000000" x2="500.000000" y2="500.000000" stroke="url(#1gvlj4qu00w2ig48vikdbca25w81dwey287954wwa82nfy6hbe16j5eidmgvbsb5gffanloikswwdhkg7vrysyulpvkf0c7t93v4)" stroke-width="10.000000" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(0.000000)"/>
+
+
+
+
+
+
 
 
 

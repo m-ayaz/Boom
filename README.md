@@ -1,6 +1,6 @@
 # Boom
 
-Innovative Painting Software
+Innovative Graphics Software for Professionals
 
 Todo List:
 
@@ -9,3 +9,9 @@ Todo List:
 - add variable-controlled sizes feature
 - create dynamic field pane structure
 - TeX export
+- create custom color picker
+- add multiple languages other than English (best of all, Persian :)
+- add effects
+- add blurs
+- add animations
+- add pens

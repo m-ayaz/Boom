@@ -1,5 +1,6 @@
 package com.boom.structures.abstracts;
 
+import com.boom.apppaints.AppColor;
 import com.boom.configuration.Configs;
 import com.boom.styles.CSSProperty;
 import com.boom.styles.SeriesLineStyleProperty;
@@ -7,9 +8,11 @@ import com.boom.styles.SeriesMarkersStyleProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
@@ -21,6 +24,11 @@ import static com.boom.tools.Tools.*;
 public  abstract   class AppXYChart<T1, T2> extends AppNode {
 
     // todo Only PieChart is an exception. Think of it later!
+
+    @Override
+    public boolean contains(double x,double y){
+        return styleableNode.contains(styleableNode.parentToLocal(x,y));
+    }
 
     protected Axis<T1> xAxisArea;
     protected Axis<T2> yAxisArea;
@@ -45,6 +53,10 @@ public  abstract   class AppXYChart<T1, T2> extends AppNode {
 
         xyChart.lookup(".chart-plot-background").styleProperty().bind(backgroundStyle);
 
+        backgroundStyle.addFill(0, new AppColor(Color.TRANSPARENT));
+        backgroundStyle.addStroke(0, new AppColor(Color.TRANSPARENT));
+        backgroundStyle.setStrokeWidth(0);
+
         plotArea = (Region) xyChart.lookup(".chart-plot-background");
         plotAreaBounds = plotArea.boundsInParentProperty();
 
@@ -52,6 +64,21 @@ public  abstract   class AppXYChart<T1, T2> extends AppNode {
 
         xAxisArea = xyChart.getXAxis();
         yAxisArea = xyChart.getYAxis();
+
+//        print(styleableNode.getBoundsInLocal());
+//        print(plotArea.getBoundsInLocal());
+//        styleableNode.boundsInLocalProperty().addListener((a,b,c)->{
+//            print("node local = "+c);
+//        });
+//        styleableNode.boundsInParentProperty().addListener((a,b,c)->{
+//            print("node parent = "+c);
+//        });
+//        plotArea.boundsInLocalProperty().addListener((a,b,c)->{
+//            print("plot local = "+c);
+//        });
+//        plotArea.boundsInParentProperty().addListener((a,b,c)->{
+//            print("plot parent = "+c);
+//        });
 
 
     }
@@ -187,6 +214,36 @@ public  abstract   class AppXYChart<T1, T2> extends AppNode {
 //        node.lookup(".chart-plot-background").getTransforms().clear();
 //        node.getTransforms().add(affineTransform);
 //        node.lookup(".chart-plot-background").getTransforms().add(affineTransform);
+//    }
+
+
+//@Override
+//    protected void bindBorder(Node binder) {
+////    print(uuid(789));
+//        border.setFill(Color.TRANSPARENT);
+//        border.setStroke(Color.BLACK);
+//        border.setMouseTransparent(true);
+//        border.setStrokeWidth(1);
+//        border.getStrokeDashArray().addAll(5.0, 6.0, 6.0, 6.0);
+//        border.setVisible(false);
+////        if(binder.getClass().getName().equals(Line.class.getName())) {
+////            print(binder.getClass().getName());
+////            print(binder.getBoundsInParent());
+////        }
+//        border.setX(binder.getBoundsInParent().getMinX());
+//        border.setY(binder.getBoundsInParent().getMinY());
+//        border.setWidth(binder.getBoundsInParent().getWidth());
+//        border.setHeight(binder.getBoundsInParent().getHeight());
+//        binder.boundsInParentProperty().addListener((a, b, c) -> {
+////            if(binder.getClass().getName().equals(Line.class.getName())) {
+////                print(binder.getClass().getName());
+////                print(c);
+////            }
+//            border.setX(c.getMinX()+plotAreaBounds.get().getMinX());
+//            border.setY(c.getMinY()+plotAreaBounds.get().getMinX());
+//            border.setWidth(plotAreaBounds.get().getWidth());
+//            border.setHeight(plotAreaBounds.get().getHeight());
+//        });
 //    }
 
 

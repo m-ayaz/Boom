@@ -219,7 +219,7 @@ public class Test23 extends Application {
 //        InputStream inputStream=new SequenceInputStream();
 //        XMLEncoder xmlEncoder=new XMLEncoder();
 //        XMLDecoder xmlDecoder=new XMLDecoder();
-        print(appRectangle.backgroundStyle.toJSON());
+//        print(appRectangle.backgroundStyle.toJSON());
 
 
     }

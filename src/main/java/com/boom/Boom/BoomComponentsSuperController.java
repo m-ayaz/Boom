@@ -42,16 +42,15 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Shape;
 import javafx.stage.FileChooser;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -59,8 +58,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.boom.configuration.Configs.*;
 import static com.boom.projectmanager.ProjectManager.*;
-import static com.boom.tools.Tools.*;
+import static com.boom.tools.Tools.print;
+import static com.boom.tools.Tools.uuid;
 
 public class BoomComponentsSuperController {
 
@@ -71,10 +72,11 @@ public class BoomComponentsSuperController {
 
     DynamicDragRectangle dynamicDragRectangle = new DynamicDragRectangle();
     AppEllipse tempEllipse = new AppEllipse(0, 0);
-    AppPolygon tempPolygon=new AppPolygon();
+    AppPolygon tempPolygon = new AppPolygon();
     AppArc tempArc = new AppArc(0, 0, 0, 270, ArcType.ROUND);
     AppRectangle tempRectangle = new AppRectangle(0, 0);
     AppLine tempLine = new AppLine(0, 0, 0, 0);
+    AppQuadCurve tempQuadCurve=new AppQuadCurve(0,0,0,0,0,0);
 
     AppLineChart_NumberNumber tempLineChart_NN = new AppLineChart_NumberNumber(0, 0);
     AppLineChart_NumberString tempLineChart_NS = new AppLineChart_NumberString(0, 0);
@@ -97,22 +99,23 @@ public class BoomComponentsSuperController {
     LittleScatterChartOnCursor littleScatterChartOnCursor = new LittleScatterChartOnCursor();
     LittleAreaChartOnCursor littleAreaChartOnCursor = new LittleAreaChartOnCursor();
     LittleEllipseOnCursor littleEllipseOnCursor = new LittleEllipseOnCursor();
-    LittlePolygonOnCursor littlePolygonOnCursor=new LittlePolygonOnCursor();
+    LittlePolygonOnCursor littlePolygonOnCursor = new LittlePolygonOnCursor();
     LittleArcOnCursor littleArcOnCursor = new LittleArcOnCursor();
     LittleRectangleOnCursor littleRectangleOnCursor = new LittleRectangleOnCursor();
     LittleLineOnCursor littleLineOnCursor = new LittleLineOnCursor();
+    LittleQuadCurveOnCursor littleQuadCurveOnCursor=new LittleQuadCurveOnCursor();
 
     ChartManagementPane_NumberNumber chartManagementPane_NN = new ChartManagementPane_NumberNumber();
     ChartManagementPane_NumberString chartManagementPane_NS = new ChartManagementPane_NumberString();
     ChartManagementPane_StringNumber chartManagementPane_SN = new ChartManagementPane_StringNumber();
-        LittleTextOnCursor littleTextOnCursor = new LittleTextOnCursor();
+    LittleTextOnCursor littleTextOnCursor = new LittleTextOnCursor();
     MainCanvasItemsHandler mainCanvasItemsHandler;
     boolean isCopyRequested;
     boolean isCutRequested;
     ObservableList<Node> mainCanvasChildren;
     Line rotationHandle = new Line();
     RotationIcon rotationIcon = new RotationIcon();
-    List<ScalingIcon> scalingIcons = new ArrayList<>();
+    List<ScalingIcon> scalingIcons = new ArrayList<>(8);
     Circle rotationFixedPoint = new Circle(10);
     Circle scalingFixedPoint = new Circle(10);
     List<AppNode> validObjects = new ArrayList<>();
@@ -201,6 +204,10 @@ public class BoomComponentsSuperController {
     private Button textButton;
     @FXML
     private Button triangleButton;
+    @FXML
+    private Button cubicCurveButton;
+    @FXML
+    private Button quadCurveButton;
 
     @FXML
     void appWindowOnKeyTyped(KeyEvent event) {
@@ -268,6 +275,11 @@ public class BoomComponentsSuperController {
     }
 
     @FXML
+    void cubicCurveButtonOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
     void ellipseButtonOnAction(ActionEvent event) {
         tempObjectName.set(NodeTypeEnum.Ellipse.getNodeType());
     }
@@ -296,11 +308,11 @@ public class BoomComponentsSuperController {
 
         mainCanvasItemsHandler = new MainCanvasItemsHandler(mainCanvasChildren, validObjects,
                 rotationHandle, rotationIcon, scalingIcons, rotationFixedPoint, scalingFixedPoint,
-                dynamicDragRectangle, tempEllipse,tempPolygon, tempArc, tempRectangle, tempLine, tempLineChart_NN,
+                dynamicDragRectangle, tempEllipse, tempPolygon, tempArc, tempRectangle, tempLine, tempLineChart_NN,
                 tempLineChart_NS, tempLineChart_SN, tempAreaChart_NN, tempAreaChart_NS, tempAreaChart_SN,
                 tempScatterChart_NN, tempScatterChart_NS, tempScatterChart_SN, littleLineChartOnCursor,
-                 littleBarChartOnCursor, littleScatterChartOnCursor, littleAreaChartOnCursor,
-                littleEllipseOnCursor,littlePolygonOnCursor, littleArcOnCursor, littleRectangleOnCursor,
+                littleBarChartOnCursor, littleScatterChartOnCursor, littleAreaChartOnCursor,
+                littleEllipseOnCursor, littlePolygonOnCursor, littleArcOnCursor, littleRectangleOnCursor,
                 littleLineOnCursor, selectedObjectsController);
 
         tempObjectName.set(NodeTypeEnum.DynamicDragRectangle.getNodeType());
@@ -311,7 +323,7 @@ public class BoomComponentsSuperController {
 
         setUpObjectsCenterOfMassInput();
 
-        MainCanvasMouseHandler mainCanvasMouseHandlerMAINFILEFIXLATER = new MainCanvasMouseHandler(
+        MainCanvasMouseHandler mainCanvasMouseHandler = new MainCanvasMouseHandler(
                 mainCanvasChildren,
                 validObjects,
                 selectedObjectsController,
@@ -338,7 +350,7 @@ public class BoomComponentsSuperController {
                 tempScatterChart_NS,
                 tempScatterChart_SN,
                 littleLineChartOnCursor,
-                                   littleBarChartOnCursor,
+                littleBarChartOnCursor,
                 littleScatterChartOnCursor,
                 littleAreaChartOnCursor,
                 littleEllipseOnCursor,
@@ -359,11 +371,11 @@ public class BoomComponentsSuperController {
 //
                 rotationIcon);
 
-        mainCanvas.setOnMouseMoved(mainCanvasMouseHandlerMAINFILEFIXLATER);
-        mainCanvas.setOnMouseDragged(mainCanvasMouseHandlerMAINFILEFIXLATER);
-        mainCanvas.setOnMouseClicked(mainCanvasMouseHandlerMAINFILEFIXLATER);
-        mainCanvas.setOnMousePressed(mainCanvasMouseHandlerMAINFILEFIXLATER);
-        mainCanvas.setOnMouseReleased(mainCanvasMouseHandlerMAINFILEFIXLATER);
+        mainCanvas.setOnMouseMoved(mainCanvasMouseHandler);
+        mainCanvas.setOnMouseDragged(mainCanvasMouseHandler);
+        mainCanvas.setOnMouseClicked(mainCanvasMouseHandler);
+        mainCanvas.setOnMousePressed(mainCanvasMouseHandler);
+        mainCanvas.setOnMouseReleased(mainCanvasMouseHandler);
 
         xAxisType.getItems().addAll("Number", "String");
         yAxisType.getItems().addAll("Number", "String");
@@ -377,15 +389,11 @@ public class BoomComponentsSuperController {
 
 
 
+//        mainAppPlayGround.setBackground(Background.fill(Color.valueOf("00000055")));
 
-
-
-
-
-
-
-
-//        AppRectangle appRectangle=new AppRectangle(200,200);
+//        AppEllipse appEllipse = new AppEllipse(200, 100);
+//        mainCanvasItemsHandler.addToMainCanvas(appEllipse);
+//        appEllipse.affineTransform.prependTranslation(0, 0);
 //
 //        AppLine appLine=new AppLine(0,0,200,200);
 //        appRectangle.affineTransform.appendTranslation(200,200);
@@ -598,6 +606,11 @@ public class BoomComponentsSuperController {
     }
 
     @FXML
+    void quadCurveButtonOnAction(ActionEvent event) {
+        tempObjectName.set(NodeTypeEnum.QuadCurve.getNodeType());
+    }
+
+    @FXML
     void rectangleButtonOnAction(ActionEvent event) {
         tempObjectName.set(NodeTypeEnum.Rectangle.getNodeType());
     }
@@ -619,7 +632,7 @@ public class BoomComponentsSuperController {
             FileChooser.ExtensionFilter pngExtension = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
             FileChooser.ExtensionFilter svgExtension = new FileChooser.ExtensionFilter("Boom SVG files (*.svg)", "*.svg");
 
-            fileChooser.getExtensionFilters().addAll(jsonExtension,texExtension
+            fileChooser.getExtensionFilters().addAll(jsonExtension, texExtension
 //                    ,svgExtension,pngExtension
             );
 
@@ -690,7 +703,6 @@ public class BoomComponentsSuperController {
 
     @FXML
     void selectorButtonOnAction(ActionEvent event) {
-//        dynamicDragRectangle.reset();
         tempObjectName.set(NodeTypeEnum.DynamicDragRectangle.getNodeType());
         mainCanvasItemsHandler.getSelectedObjectsController().unselectAll();
         littleEllipseOnCursor.hide();
@@ -845,134 +857,16 @@ public class BoomComponentsSuperController {
         barChartButton.setGraphic(new BarChartIcon());
         scatterChartButton.setGraphic(new ScatterChartIcon());
         pieChartButton.setGraphic(new PieChartIcon());
-        ellipseButton.setGraphic(new EllipseIcon(25, 20, new Color(1, 0, 0, 0.2), new Color(0, 0, 0, 1), 1));
-        arcButton.setGraphic(new ArcIcon(25, 20, 45, 270, new Color(0, 1, 0, 0.2), new Color(0, 0, 0, 1), 1));
-        rectangleButton.setGraphic(new RectangleIcon(50, 40, new Color(0, 0, 1, 0.2), new Color(0, 0, 0, 1), 1));
-        polygonButton.setGraphic(new PolygonIcon(50,40,new Color(1,1,0,0.2),new Color(0,0,0,1),1));
-    }
-
-    @FXML
-    void shapesRectangleButtonOnAction1(ActionEvent event) {
-
-    }
-
-    @FXML
-    void shapesRectangleButtonOnAction2(ActionEvent event) {
-
+        ellipseButton.setGraphic(new EllipseIcon(SHAPE_BUTTON_ICON_WIDTH / 2, SHAPE_BUTTON_ICON_HEIGHT / 2, Color.valueOf(ELLIPSE_BUTTON_ICON_COLOR), Color.BLACK, 1));
+        arcButton.setGraphic(new ArcIcon(SHAPE_BUTTON_ICON_WIDTH / 2, SHAPE_BUTTON_ICON_HEIGHT / 2, 45, 270, Color.valueOf(ARC_BUTTON_ICON_COLOR), Color.BLACK, 1));
+        rectangleButton.setGraphic(new RectangleIcon(SHAPE_BUTTON_ICON_WIDTH, SHAPE_BUTTON_ICON_HEIGHT, Color.valueOf(RECTANGLE_BUTTON_ICON_COLOR), Color.BLACK, 1));
+        polygonButton.setGraphic(new PolygonIcon(SHAPE_BUTTON_ICON_WIDTH, SHAPE_BUTTON_ICON_HEIGHT, Color.valueOf(POLYGON_BUTTON_ICON_COLOR), Color.BLACK, 1));
     }
 
     @FXML
     void textButtonOnAction(ActionEvent event) {
 
     }
-
-    @FXML
-    void triangleButtonOnAction(ActionEvent event) {
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @FXML
-    private Button cubicCurveButton;
-
-
-    @FXML
-    private Button quadCurveButton;
-
-
-    @FXML
-    void cubicCurveButtonOnAction(ActionEvent event) {
-
-    }
-
-
-    @FXML
-    void quadCurveButtonOnAction(ActionEvent event) {
-
-    }
-
 
 
 

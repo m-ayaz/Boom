@@ -38,6 +38,7 @@ public class MainCanvasItemsHandler {
     AppArc tempArc;
     AppRectangle tempRectangle;
     AppLine tempLine;
+    AppQuadCurve tempQuadCurve;
     AppLineChart_NumberNumber tempLineChart_NN;
     AppLineChart_NumberString tempLineChart_NS;
     AppLineChart_StringNumber tempLineChart_SN;
@@ -63,13 +64,14 @@ public class MainCanvasItemsHandler {
     LittlePolygonOnCursor littlePolygonOnCursor;
     LittleRectangleOnCursor littleRectangleOnCursor;
     LittleLineOnCursor littleLineOnCursor;
+    LittleQuadCurveOnCursor littleQuadCurveOnCursor;
     //    LittleTextOnCursor littleTextOnCursor = new LittleTextOnCursor();
     SelectedObjectsController selectedObjectsController;
     List<AppNode> validObjects;
 
-    public MainCanvasItemsHandler(ObservableList<Node> mainCanvasChildren, List<AppNode> validObjects, Line rotationHandle, RotationIcon rotationIcon, List<ScalingIcon> scalingIcons, Circle rotationFixedPoint, Circle scalingFixedPoint, DynamicDragRectangle dynamicDragRectangle, AppEllipse tempEllipse,AppPolygon tempPolygon,AppArc tempArc, AppRectangle tempRectangle, AppLine tempLine, AppLineChart_NumberNumber tempLineChart_NN, AppLineChart_NumberString tempLineChart_NS, AppLineChart_StringNumber tempLineChart_SN, AppAreaChart_NumberNumber tempAreaChart_NN, AppAreaChart_NumberString tempAreaChart_NS, AppAreaChart_StringNumber tempAreaChart_SN, AppScatterChart_NumberNumber tempScatterChart_NN, AppScatterChart_NumberString tempScatterChart_NS, AppScatterChart_StringNumber tempScatterChart_SN, LittleLineChartOnCursor littleLineChartOnCursor,
+    public MainCanvasItemsHandler(ObservableList<Node> mainCanvasChildren, List<AppNode> validObjects, Line rotationHandle, RotationIcon rotationIcon, List<ScalingIcon> scalingIcons, Circle rotationFixedPoint, Circle scalingFixedPoint, DynamicDragRectangle dynamicDragRectangle, AppEllipse tempEllipse,AppQuadCurve tempQuadCurve,AppPolygon tempPolygon,AppArc tempArc, AppRectangle tempRectangle, AppLine tempLine, AppLineChart_NumberNumber tempLineChart_NN, AppLineChart_NumberString tempLineChart_NS, AppLineChart_StringNumber tempLineChart_SN, AppAreaChart_NumberNumber tempAreaChart_NN, AppAreaChart_NumberString tempAreaChart_NS, AppAreaChart_StringNumber tempAreaChart_SN, AppScatterChart_NumberNumber tempScatterChart_NN, AppScatterChart_NumberString tempScatterChart_NS, AppScatterChart_StringNumber tempScatterChart_SN, LittleLineChartOnCursor littleLineChartOnCursor,
                                   LittleBarChartOnCursor littleBarChartOnCursor,
-                                  LittleScatterChartOnCursor littleScatterChartOnCursor, LittleAreaChartOnCursor littleAreaChartOnCursor, LittleEllipseOnCursor littleEllipseOnCursor,LittlePolygonOnCursor littlePolygonOnCursor,LittleArcOnCursor littleArcOnCursor, LittleRectangleOnCursor littleRectangleOnCursor, LittleLineOnCursor littleLineOnCursor,SelectedObjectsController selectedObjectsController) {
+                                  LittleScatterChartOnCursor littleScatterChartOnCursor, LittleAreaChartOnCursor littleAreaChartOnCursor, LittleEllipseOnCursor littleEllipseOnCursor,LittleQuadCurveOnCursor littleQuadCurveOnCursor,LittlePolygonOnCursor littlePolygonOnCursor,LittleArcOnCursor littleArcOnCursor, LittleRectangleOnCursor littleRectangleOnCursor, LittleLineOnCursor littleLineOnCursor,SelectedObjectsController selectedObjectsController) {
 
 //        this.mainCanvas = mainCanvas;
 
@@ -86,6 +88,7 @@ public class MainCanvasItemsHandler {
         this.tempPolygon=tempPolygon;
         this.tempRectangle = tempRectangle;
         this.tempLine = tempLine;
+        this.tempQuadCurve=tempQuadCurve;
         this.tempLineChart_NN = tempLineChart_NN;
         this.tempLineChart_NS = tempLineChart_NS;
         this.tempLineChart_SN = tempLineChart_SN;
@@ -104,6 +107,7 @@ public class MainCanvasItemsHandler {
         this.littleLineOnCursor = littleLineOnCursor;
         this.littleArcOnCursor=littleArcOnCursor;
         this.littlePolygonOnCursor=littlePolygonOnCursor;
+        this.littleQuadCurveOnCursor=littleQuadCurveOnCursor;
 
 
 

@@ -237,43 +237,6 @@ public class Test47 extends Application {
 
     }
 
-    final class ChessBoard extends GridPane {
-
-        public ChessBoard( double length, int n, Color boldColor, Color liteColor){
-            super();
-            double bitLength=length/n;
-            for(int i=0;i<n;i++){
-                for(int j=0;j<n;j++){
-                    Rectangle rectangle=new Rectangle(bitLength,bitLength);
-                    add(rectangle,i,j);
-                    if((i+j)%2==0){
-                        rectangle.setFill(boldColor);
-                    }else{
-                        rectangle.setFill(liteColor);
-                    }
-                }
-            }
-        }
-
-    }
-
-    class MyException extends RuntimeException{
-        public MyException(){
-//            RuntimeException b=new RuntimeException();
-            super();
-//            setStackTrace(new StackTraceElement[]{new StackTraceElement("asdasd","sklad","asa",3)});
-//            printStackTrace();
-            for(int i=0;i< getStackTrace().length;i++){
-                print("____________________________________________________________________");
-                print(getStackTrace()[i].toString());
-            }
-//            print(getStackTrace());
-//            print(getCause());
-//            getMessage();
-//            getLocalizedMessage();
-//            getS
-        }
-    }
 
 
 

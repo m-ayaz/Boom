@@ -11,6 +11,11 @@ import static com.boom.tools.Tools.setCustomSize;
 
 public abstract  class AppLineShape extends AppNode {
 
+    @Override
+    public boolean contains(double x,double y){
+        return styleableNode.contains(styleableNode.parentToLocal(x,y));
+    }
+
 //    Translate offset = new Translate();
 
     public AppLineShape(Shape shape) {

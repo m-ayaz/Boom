@@ -18,7 +18,7 @@ public abstract class AppNode {
     public Affine affineTransform = new Affine();
     public Rectangle border = new Rectangle();
     public CSSProperty backgroundStyle;
-    public Node styleableNode;
+    protected Node styleableNode;
     protected String type;
     public final String id = uuid(Configs.ID_LENGTH);
 
@@ -28,6 +28,19 @@ public abstract class AppNode {
 
         styleableNode.getTransforms().add(affineTransform);
         styleableNode.styleProperty().bind(backgroundStyle);
+//        Rectangle h=new Rectangle();
+//        h.setStyle("-fx-stroke");
+
+
+
+
+
+
+
+
+
+
+
     }
 
     public abstract AppNode copy();
@@ -81,6 +94,9 @@ public abstract class AppNode {
     protected void modifyType(String newType) {
         this.type = newType;
     }
+
+    public abstract boolean  contains(double x,double y);
+
 
 
 }

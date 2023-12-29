@@ -9,7 +9,6 @@ import com.boom.appcharts.number_string.AppScatterChart_NumberString;
 import com.boom.appcharts.string_number.AppAreaChart_StringNumber;
 import com.boom.appcharts.string_number.AppLineChart_StringNumber;
 import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
-import com.boom.apppaints.AppColor;
 import com.boom.appshapes.AppArc;
 import com.boom.appshapes.AppEllipse;
 import com.boom.appshapes.AppLine;
@@ -33,15 +32,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 import java.util.List;
-
-import static com.boom.tools.Tools.print;
-import static com.boom.tools.Tools.uuid;
 
 /**
  * {link #setOnMouseMoved()} )} )} )}
@@ -294,13 +289,10 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
                  */
 
                 AppNode firstAppNode = null;
-//                firstAppNode = null;
                 for (int i = validObjects.size() - 1; i >= 0; i--) {
-                    AppNode obj = validObjects.get(i);
-//                    print(obj);
-                    if (obj.getStyleableNode().contains(obj.getStyleableNode().parentToLocal(pressX.get(), pressY.get()))) {
-//                    if (obj.isPressed()) {
-                        firstAppNode = obj;
+                    AppNode appNode = validObjects.get(i);
+                    if (appNode.contains(pressX.get(), pressY.get())) {
+                        firstAppNode = appNode;
                         break;
                     }
                 }
@@ -361,6 +353,17 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
                 mainCanvasItemsHandler.copyToMainCanvas(tempLine);
                 drawingStage = 0;
             }
+//        } else if (tempObjectName.get().equals(NodeTypeEnum.QuadCurve.getNodeType())) {
+//            littleQ.show(x.get(), y.get());
+//            if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+//                drawingStage++;
+//            } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+//                selectedObjectsController.unselectAll();
+//                tempLine.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
+//            } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+//                mainCanvasItemsHandler.copyToMainCanvas(tempLine);
+//                drawingStage = 0;
+//            }
         } else if (tempObjectName.get().equals(NodeTypeEnum.Ellipse.getNodeType())) {
             littleEllipseOnCursor.show(x.get(), y.get());
             if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {

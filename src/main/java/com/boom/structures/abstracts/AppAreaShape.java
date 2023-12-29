@@ -13,7 +13,7 @@ public abstract   class AppAreaShape extends AppNode {
 
     protected Shape shape;
 
-    Translate offset = new Translate();
+    protected Translate offset = new Translate();
 
     public AppAreaShape(Shape shape) {
         super(new Region(), "-fx-background-color", "-fx-border-color", "-fx-border-width");
@@ -44,6 +44,11 @@ public abstract   class AppAreaShape extends AppNode {
         ((Region) styleableNode).setShape(shape);
 
 
+    }
+
+    @Override
+    public boolean contains(double x,double y){
+        return styleableNode.contains(styleableNode.parentToLocal(x,y))&& shape.contains(shape.parentToLocal(x,y));
     }
 
 }
