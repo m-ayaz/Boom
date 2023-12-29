@@ -6,7 +6,7 @@ import javafx.scene.chart.NumberAxis;
 import static com.boom.tools.Tools.setCustomSize;
 
 public final class AreaChartIcon extends AreaChart<Number,Number> {
-    public AreaChartIcon() {
+    public AreaChartIcon(double width,double height) {
 
         super(new NumberAxis(),new NumberAxis());
 
@@ -25,8 +25,8 @@ public final class AreaChartIcon extends AreaChart<Number,Number> {
         setLegendVisible(false);
         setStyle("-fx-padding: -5pt;");
 
-        int size=70;
+//        int size=70;
 
-        setCustomSize(this,size,size);
+        setCustomSize(this,width,height);
     }
 }

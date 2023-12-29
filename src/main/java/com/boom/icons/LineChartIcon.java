@@ -7,7 +7,7 @@ import javafx.scene.chart.XYChart;
 import static com.boom.tools.Tools.setCustomSize;
 
 public final class LineChartIcon extends LineChart<Number,Number> {
-    public LineChartIcon() {
+    public LineChartIcon(double width,double height) {
 
         super(new NumberAxis(),new NumberAxis());
 
@@ -26,8 +26,8 @@ public final class LineChartIcon extends LineChart<Number,Number> {
         setLegendVisible(false);
         setStyle("-fx-padding: -5pt;");
 
-        int size=70;
+//        int size=70;
 
-        setCustomSize(this,size,size);
+        setCustomSize(this,width,height);
     }
 }

@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="appWindow" onKeyPressed="#appWindowOnKeyTyped" prefHeight="714.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.boom.Boom.BoomComponentsSuperController">
+<BorderPane fx:id="appWindow" onKeyPressed="#appWindowOnKeyTyped" prefHeight="714.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.boom.Boom.BoomComponentsSuperController">
     <top>
         <TabPane maxHeight="110.0" minHeight="110.0" prefHeight="110.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="1.7976931348623157E308">
             <tabs>
@@ -44,7 +44,7 @@
                             <children>
                                 <Button fx:id="ellipseButton" mnemonicParsing="false" onAction="#ellipseButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                 <Button fx:id="rectangleButton" layoutX="215.0" layoutY="-6.0" mnemonicParsing="false" onAction="#rectangleButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="0.0" />
-                                <Button fx:id="textButton" layoutX="560.0" mnemonicParsing="false" onAction="#textButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="560.0" AnchorPane.topAnchor="0.0">
+                                <Button fx:id="textButton" layoutX="640.0" mnemonicParsing="false" onAction="#textButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="640.0" AnchorPane.topAnchor="0.0">
                                     <graphic>
                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="A">
                                             <font>
@@ -53,11 +53,12 @@
                                         </Text>
                                     </graphic>
                                 </Button>
-                                <Button fx:id="lineButton" layoutX="320.0" mnemonicParsing="false" onAction="#lineButtonOnAction" prefHeight="80.0" prefWidth="80.0" text="Line" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="0.0" />
+                                <Button fx:id="lineButton" layoutX="320.0" mnemonicParsing="false" onAction="#lineButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="0.0" />
                                 <Button fx:id="polygonButton" layoutX="240.0" mnemonicParsing="false" onAction="#polygonButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="0.0" />
                                 <Button fx:id="arcButton" layoutX="160.0" mnemonicParsing="false" onAction="#arcButtonOnAction" prefHeight="80.0" prefWidth="80.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="0.0" />
-                        <Button fx:id="quadCurveButton" layoutX="400.0" mnemonicParsing="false" onAction="#quadCurveButtonOnAction" prefHeight="80.0" prefWidth="80.0" text="QuadCurve" />
-                        <Button fx:id="cubicCurveButton" layoutX="480.0" mnemonicParsing="false" onAction="#cubicCurveButtonOnAction" prefHeight="80.0" prefWidth="80.0" text="CubicCurve" />
+                        <Button fx:id="quadCurveButton" layoutX="400.0" mnemonicParsing="false" onAction="#quadCurveButtonOnAction" prefHeight="80.0" prefWidth="80.0" />
+                        <Button fx:id="cubicCurveButton" layoutX="480.0" mnemonicParsing="false" onAction="#cubicCurveButtonOnAction" prefHeight="80.0" prefWidth="80.0" />
+                        <Button fx:id="polylineButton" layoutX="560.0" mnemonicParsing="false" onAction="#polylineButtonOnAction" prefHeight="80.0" prefWidth="80.0" />
                             </children>
                         </AnchorPane>
                     </content>

@@ -20,9 +20,9 @@ import static com.boom.tools.Tools.setCustomSize;
 
 public class RadialGradientManagementPanel extends Popup {
 
-    ScrollPane scrollMain=new ScrollPane();
+    ScrollPane scrollMain = new ScrollPane();
 
-    public VBox main=new VBox();
+    public VBox main = new VBox();
 
     VBox stopsPane = new VBox();
 
@@ -35,7 +35,7 @@ public class RadialGradientManagementPanel extends Popup {
     TextField focusDistance = new TextField();
     TextField radius = new TextField();
     CheckBox isProportional = new CheckBox("isProportional");
-    ComboBox<CycleMethod> cycleMethod=new ComboBox<>();
+    ComboBox<CycleMethod> cycleMethod = new ComboBox<>();
     Label primaryEmptySpace = new Label();
     GridPane rgProperties = new GridPane();
     Label centerXLabel = new Label("Center (X)");
@@ -44,11 +44,12 @@ public class RadialGradientManagementPanel extends Popup {
     Label focusDistanceLabel = new Label("Focus distance (relative))");
     Label radiusLabel = new Label("Radius");
     Label cycleMethodLabel = new Label("CycleMethod");
+
     public RadialGradientManagementPanel(AppRadialGradient appRadialGradient) {
 
         super();
 
-        setCustomSize(scrollMain,400,600);
+        setCustomSize(scrollMain, 400, 600);
 
         setHideOnEscape(true);
         setAutoHide(true);
@@ -58,7 +59,7 @@ public class RadialGradientManagementPanel extends Popup {
         rgProperties.addRow(1, new VBox(centerYLabel, centerY), new Rectangle(), new VBox(focusDistanceLabel, focusDistance));
         rgProperties.addRow(2, new VBox(radiusLabel, radius));
         rgProperties.addRow(3, isProportional);
-        rgProperties.addRow(4, new VBox(cycleMethodLabel,cycleMethod));
+        rgProperties.addRow(4, new VBox(cycleMethodLabel, cycleMethod));
 
 
         getContent().add(scrollMain);
@@ -137,10 +138,8 @@ public class RadialGradientManagementPanel extends Popup {
     }
 
     void setCycleMethodBehavior(AppRadialGradient appRadialGradient) {
-        cycleMethod.getItems().add(CycleMethod.NO_CYCLE);
-        cycleMethod.getItems().add(CycleMethod.REPEAT);
-        cycleMethod.getItems().add(CycleMethod.REFLECT);
-        cycleMethod.setValue(CycleMethod.NO_CYCLE);
+        cycleMethod.getItems().addAll(CycleMethod.NO_CYCLE, CycleMethod.REPEAT, CycleMethod.REFLECT);
+        cycleMethod.setValue(appRadialGradient.cycleMethod.get());
         appRadialGradient.cycleMethod.bind(cycleMethod.valueProperty());
     }
 
@@ -155,7 +154,7 @@ public class RadialGradientManagementPanel extends Popup {
                 newAppStop = new AppStop(new Stop(AppRadialGradient.getAppStop(0).offset.get(), (Color) AppRadialGradient.getAppStop(0).appColor.get()));
             }
             StopField newStopField = new StopField(stopsPaneChildren, AppRadialGradient, newAppStop);
-            AppRadialGradient.addAppStop(0,newAppStop);
+            AppRadialGradient.addAppStop(0, newAppStop);
             stopsPaneChildren.add(1, newStopField);
         });
     }

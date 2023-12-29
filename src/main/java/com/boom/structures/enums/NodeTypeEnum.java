@@ -27,6 +27,7 @@ public enum NodeTypeEnum {
     Line(javafx.scene.shape.Line.class.getName()),
     Arc(javafx.scene.shape.Arc.class.getName()),
     Polygon(javafx.scene.shape.Polygon.class.getName()),
+    Polyline(javafx.scene.shape.Polyline.class.getName()),
     QuadCurve(javafx.scene.shape.QuadCurve.class.getName()),
     CubicCurve(javafx.scene.shape.CubicCurve.class.getName());
     private final String nodeType;

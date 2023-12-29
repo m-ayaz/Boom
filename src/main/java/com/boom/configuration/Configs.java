@@ -21,6 +21,7 @@ public final class Configs {
     public static double PAINT_MANAGEMENT_PANEL_EMPTY_SPACE_WIDTH=200;
 
 
+
     public static double SHAPE_BUTTON_ICON_WIDTH = 50;
     public static double SHAPE_BUTTON_ICON_HEIGHT = 40;
     public static int ID_LENGTH = 100;
@@ -31,9 +32,13 @@ public final class Configs {
     public static String ARC_BUTTON_ICON_COLOR="00ff0033";
     public static String RECTANGLE_BUTTON_ICON_COLOR="0000ff33";
     public static String POLYGON_BUTTON_ICON_COLOR="ffff0033";
-    public static String LINE_BUTTON_ICON_COLOR="ff883333";
-    public static String QUAD_CURVE_BUTTON_ICON_COLOR="ffff0033";
-    public static String CUBIC_CURVE_BUTTON_ICON_COLOR="ffff0033";
+    public static String LINE_BUTTON_ICON_COLOR="ff883399";
+    public static String QUAD_CURVE_BUTTON_ICON_COLOR="00ffff99";
+    public static String CUBIC_CURVE_BUTTON_ICON_COLOR="ff00ff99";
+    public static String POLYLINE_CURVE_BUTTON_ICON_COLOR="ff00ff99";
+
+    public static double CHART_BUTTON_WIDTH=70;
+    public static double CHART_BUTTON_HEIGHT=70;
 
 //    public static HashMap<String, Number> configs = new HashMap<>();
 //

@@ -34,6 +34,7 @@ public class MainCanvasItemsHandler {
     ObservableList<Node> mainCanvasChildren;
     DynamicDragRectangle dynamicDragRectangle;
     AppEllipse tempEllipse;
+    AppPolyline tempPolyline;
     AppCubicCurve tempCubicCurve;
     AppPolygon tempPolygon;
     AppArc tempArc;
@@ -62,6 +63,7 @@ public class MainCanvasItemsHandler {
     LittleAreaChartOnCursor littleAreaChartOnCursor;
     LittleArcOnCursor littleArcOnCursor;
     LittleEllipseOnCursor littleEllipseOnCursor;
+    LittlePolylineOnCursor littlePolylineOnCursor;
     LittleCubicCurveOnCursor littleCubicCurveOnCursor;
     LittlePolygonOnCursor littlePolygonOnCursor;
     LittleRectangleOnCursor littleRectangleOnCursor;
@@ -71,9 +73,9 @@ public class MainCanvasItemsHandler {
     SelectedObjectsController selectedObjectsController;
     List<AppNode> validObjects;
 
-    public MainCanvasItemsHandler(ObservableList<Node> mainCanvasChildren, List<AppNode> validObjects, Line rotationHandle, RotationIcon rotationIcon, List<ScalingIcon> scalingIcons, Circle rotationFixedPoint, Circle scalingFixedPoint, DynamicDragRectangle dynamicDragRectangle, AppEllipse tempEllipse,AppCubicCurve tempCubicCurve,AppQuadCurve tempQuadCurve,AppPolygon tempPolygon,AppArc tempArc, AppRectangle tempRectangle, AppLine tempLine, AppLineChart_NumberNumber tempLineChart_NN, AppLineChart_NumberString tempLineChart_NS, AppLineChart_StringNumber tempLineChart_SN, AppAreaChart_NumberNumber tempAreaChart_NN, AppAreaChart_NumberString tempAreaChart_NS, AppAreaChart_StringNumber tempAreaChart_SN, AppScatterChart_NumberNumber tempScatterChart_NN, AppScatterChart_NumberString tempScatterChart_NS, AppScatterChart_StringNumber tempScatterChart_SN, LittleLineChartOnCursor littleLineChartOnCursor,
+    public MainCanvasItemsHandler(ObservableList<Node> mainCanvasChildren, List<AppNode> validObjects, Line rotationHandle, RotationIcon rotationIcon, List<ScalingIcon> scalingIcons, Circle rotationFixedPoint, Circle scalingFixedPoint, DynamicDragRectangle dynamicDragRectangle, AppEllipse tempEllipse,AppPolyline tempPolyline,AppCubicCurve tempCubicCurve,AppQuadCurve tempQuadCurve,AppPolygon tempPolygon,AppArc tempArc, AppRectangle tempRectangle, AppLine tempLine, AppLineChart_NumberNumber tempLineChart_NN, AppLineChart_NumberString tempLineChart_NS, AppLineChart_StringNumber tempLineChart_SN, AppAreaChart_NumberNumber tempAreaChart_NN, AppAreaChart_NumberString tempAreaChart_NS, AppAreaChart_StringNumber tempAreaChart_SN, AppScatterChart_NumberNumber tempScatterChart_NN, AppScatterChart_NumberString tempScatterChart_NS, AppScatterChart_StringNumber tempScatterChart_SN, LittleLineChartOnCursor littleLineChartOnCursor,
                                   LittleBarChartOnCursor littleBarChartOnCursor,
-                                  LittleScatterChartOnCursor littleScatterChartOnCursor, LittleAreaChartOnCursor littleAreaChartOnCursor, LittleEllipseOnCursor littleEllipseOnCursor,LittleCubicCurveOnCursor littleCubicCurveOnCursor,LittleQuadCurveOnCursor littleQuadCurveOnCursor,LittlePolygonOnCursor littlePolygonOnCursor,LittleArcOnCursor littleArcOnCursor, LittleRectangleOnCursor littleRectangleOnCursor, LittleLineOnCursor littleLineOnCursor,SelectedObjectsController selectedObjectsController) {
+                                  LittleScatterChartOnCursor littleScatterChartOnCursor, LittleAreaChartOnCursor littleAreaChartOnCursor, LittleEllipseOnCursor littleEllipseOnCursor,LittlePolylineOnCursor littlePolylineOnCursor,LittleCubicCurveOnCursor littleCubicCurveOnCursor,LittleQuadCurveOnCursor littleQuadCurveOnCursor,LittlePolygonOnCursor littlePolygonOnCursor,LittleArcOnCursor littleArcOnCursor, LittleRectangleOnCursor littleRectangleOnCursor, LittleLineOnCursor littleLineOnCursor,SelectedObjectsController selectedObjectsController) {
 
 //        this.mainCanvas = mainCanvas;
 

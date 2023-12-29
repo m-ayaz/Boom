@@ -1,21 +1,23 @@
 package com.boom.appshapes;
 
-import com.boom.structures.abstracts.AppAreaShape;
+import com.boom.structures.abstracts.AppLineShape;
 import com.boom.structures.abstracts.AppNode;
 import javafx.collections.ObservableList;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Polyline;
+import javafx.scene.shape.Shape;
 import javafx.scene.transform.MatrixType;
 import org.json.JSONObject;
 
 import static com.boom.tools.Tools.deepCopy;
 
-public final class AppPolygon extends AppAreaShape {
-
+public class AppPolyline extends AppLineShape {
     public ObservableList<Double> points;
 
-    public AppPolygon(double... points){
-        super(new Polygon(points));
-        this.points=((Polygon) shape).getPoints();
+    public AppPolyline(double... points){
+        super(new Polyline(points));
+        this.points=((Polyline) styleableNode).getPoints();
     }
 
     @Override
@@ -27,10 +29,10 @@ public final class AppPolygon extends AppAreaShape {
         for (int i = 0; i < points.size(); i++) {
             xs[i] = points.get(i);
         }
-        AppPolygon newAppPolygon = new AppPolygon(xs);
-        deepCopy(affineTransform, newAppPolygon.affineTransform);
-        deepCopy(backgroundStyle, newAppPolygon.backgroundStyle);
-        return newAppPolygon;
+        AppPolyline newAppPolyline = new AppPolyline(xs);
+        deepCopy(affineTransform, newAppPolyline.affineTransform);
+        deepCopy(backgroundStyle, newAppPolyline.backgroundStyle);
+        return newAppPolyline;
     }
 
     @Override
@@ -54,5 +56,4 @@ public final class AppPolygon extends AppAreaShape {
         jsonObject.put("points", points);
         return jsonObject;
     }
-
 }

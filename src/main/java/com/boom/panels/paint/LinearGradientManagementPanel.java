@@ -132,10 +132,8 @@ public class LinearGradientManagementPanel extends Popup {
     }
 
     void setCycleMethodBehavior(AppLinearGradient appLinearGradient) {
-        cycleMethod.getItems().add(CycleMethod.NO_CYCLE);
-        cycleMethod.getItems().add(CycleMethod.REPEAT);
-        cycleMethod.getItems().add(CycleMethod.REFLECT);
-        cycleMethod.setValue(CycleMethod.NO_CYCLE);
+        cycleMethod.getItems().addAll(CycleMethod.NO_CYCLE,CycleMethod.REPEAT,CycleMethod.REFLECT);
+        cycleMethod.setValue(appLinearGradient.cycleMethod.get());
         appLinearGradient.cycleMethod.bind(cycleMethod.valueProperty());
     }
 

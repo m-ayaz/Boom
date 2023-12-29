@@ -1,16 +1,11 @@
 package com.boom.test;
 
-import com.boom.indicators.LittleCubicCurveOnCursor;
-import com.boom.indicators.LittleQuadCurveOnCursor;
+import com.boom.controllers.eventhandlers.mousehandler.AppMouseEventHandler;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.layout.Pane;
-import javafx.scene.transform.Translate;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
-
-import static com.boom.tools.Tools.setCustomSize;
 
 
 public class Test55 extends Application {
@@ -28,6 +23,23 @@ public class Test55 extends Application {
         Scene scene = new Scene(container);
         stage.setScene(scene);
         stage.show();
+
+        AppMouseEventHandler handler1=new AppMouseEventHandler(10);
+        AppMouseEventHandler handler2=new AppMouseEventHandler(20);
+
+        container.setOnMouseClicked(handler1);
+        container.setOnMouseMoved(handler2);
+
+//        container.setOnMouse
+
+//        Polygon polygon=new Polygon();
+//
+//        container.getChildren().add(polygon);
+//
+//        polygon.getPoints().addAll(300.,300.,300.,450.,450.,450.);
+
+
+
 
 //        LineChart<Number,Number> lineChart=new LineChart<>(new NumberAxis(),new NumberAxis());
 //
@@ -100,9 +112,9 @@ public class Test55 extends Application {
 
 //        container.getChildren().add(new Chessboard(100,5,10,Color.BLACK,Color.WHEAT));
 
-        LittleCubicCurveOnCursor littleQuadCurveOnCursor=new LittleCubicCurveOnCursor();
-        container.getChildren().add(littleQuadCurveOnCursor);
-        littleQuadCurveOnCursor.show(300,300);
+//        LittleCubicCurveOnCursor littleQuadCurveOnCursor=new LittleCubicCurveOnCursor();
+//        container.getChildren().add(littleQuadCurveOnCursor);
+//        littleQuadCurveOnCursor.show(300,300);
 
 
     }

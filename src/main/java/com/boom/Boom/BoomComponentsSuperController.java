@@ -72,12 +72,13 @@ public class BoomComponentsSuperController {
 
     DynamicDragRectangle dynamicDragRectangle = new DynamicDragRectangle();
     AppEllipse tempEllipse = new AppEllipse(0, 0);
+    AppPolyline tempPolyline=new AppPolyline();
     AppPolygon tempPolygon = new AppPolygon();
     AppArc tempArc = new AppArc(0, 0, 0, 270, ArcType.ROUND);
     AppRectangle tempRectangle = new AppRectangle(0, 0);
     AppLine tempLine = new AppLine(0, 0, 0, 0);
-    AppQuadCurve tempQuadCurve=new AppQuadCurve(0,0,0,0,0,0);
-    AppCubicCurve tempCubicCurve=new AppCubicCurve(0,0,0,0,0,0,0,0);
+    AppQuadCurve tempQuadCurve = new AppQuadCurve(0, 0, 0, 0, 0, 0);
+    AppCubicCurve tempCubicCurve = new AppCubicCurve(0, 0, 0, 0, 0, 0, 0, 0);
 
     AppLineChart_NumberNumber tempLineChart_NN = new AppLineChart_NumberNumber(0, 0);
     AppLineChart_NumberString tempLineChart_NS = new AppLineChart_NumberString(0, 0);
@@ -100,12 +101,13 @@ public class BoomComponentsSuperController {
     LittleScatterChartOnCursor littleScatterChartOnCursor = new LittleScatterChartOnCursor();
     LittleAreaChartOnCursor littleAreaChartOnCursor = new LittleAreaChartOnCursor();
     LittleEllipseOnCursor littleEllipseOnCursor = new LittleEllipseOnCursor();
+    LittlePolylineOnCursor littlePolylineOnCursor=new LittlePolylineOnCursor();
     LittlePolygonOnCursor littlePolygonOnCursor = new LittlePolygonOnCursor();
     LittleArcOnCursor littleArcOnCursor = new LittleArcOnCursor();
     LittleRectangleOnCursor littleRectangleOnCursor = new LittleRectangleOnCursor();
     LittleLineOnCursor littleLineOnCursor = new LittleLineOnCursor();
-    LittleQuadCurveOnCursor littleQuadCurveOnCursor=new LittleQuadCurveOnCursor();
-    LittleCubicCurveOnCursor littleCubicCurveOnCursor=new LittleCubicCurveOnCursor();
+    LittleQuadCurveOnCursor littleQuadCurveOnCursor = new LittleQuadCurveOnCursor();
+    LittleCubicCurveOnCursor littleCubicCurveOnCursor = new LittleCubicCurveOnCursor();
 
     ChartManagementPane_NumberNumber chartManagementPane_NN = new ChartManagementPane_NumberNumber();
     ChartManagementPane_NumberString chartManagementPane_NS = new ChartManagementPane_NumberString();
@@ -310,11 +312,11 @@ public class BoomComponentsSuperController {
 
         mainCanvasItemsHandler = new MainCanvasItemsHandler(mainCanvasChildren, validObjects,
                 rotationHandle, rotationIcon, scalingIcons, rotationFixedPoint, scalingFixedPoint,
-                dynamicDragRectangle, tempEllipse,tempCubicCurve,tempQuadCurve, tempPolygon, tempArc, tempRectangle, tempLine, tempLineChart_NN,
+                dynamicDragRectangle, tempEllipse,tempPolyline, tempCubicCurve, tempQuadCurve, tempPolygon, tempArc, tempRectangle, tempLine, tempLineChart_NN,
                 tempLineChart_NS, tempLineChart_SN, tempAreaChart_NN, tempAreaChart_NS, tempAreaChart_SN,
                 tempScatterChart_NN, tempScatterChart_NS, tempScatterChart_SN, littleLineChartOnCursor,
                 littleBarChartOnCursor, littleScatterChartOnCursor, littleAreaChartOnCursor,
-                littleEllipseOnCursor,littleCubicCurveOnCursor,littleQuadCurveOnCursor, littlePolygonOnCursor, littleArcOnCursor, littleRectangleOnCursor,
+                littleEllipseOnCursor,littlePolylineOnCursor, littleCubicCurveOnCursor, littleQuadCurveOnCursor, littlePolygonOnCursor, littleArcOnCursor, littleRectangleOnCursor,
                 littleLineOnCursor, selectedObjectsController);
 
         tempObjectName.set(NodeTypeEnum.DynamicDragRectangle.getNodeType());
@@ -337,8 +339,10 @@ public class BoomComponentsSuperController {
                 tempObjectName,
                 dynamicDragRectangle,
                 tempEllipse,
+                tempPolyline,
                 tempCubicCurve,
                 tempQuadCurve,
+                tempPolygon,
                 tempArc,
                 tempRectangle,
                 tempLine,
@@ -358,8 +362,10 @@ public class BoomComponentsSuperController {
                 littleScatterChartOnCursor,
                 littleAreaChartOnCursor,
                 littleEllipseOnCursor,
+                littlePolylineOnCursor,
                 littleCubicCurveOnCursor,
                 littleQuadCurveOnCursor,
+                littlePolygonOnCursor,
                 littleArcOnCursor,
                 littleRectangleOnCursor,
                 littleLineOnCursor,
@@ -392,7 +398,6 @@ public class BoomComponentsSuperController {
 
         visualEffectsTab.setContent(paintManagementPanel);
         paintManagementPanel.setVisible(false);
-
 
 
 //        mainAppPlayGround.setBackground(Background.fill(Color.valueOf("00000055")));
@@ -859,15 +864,18 @@ public class BoomComponentsSuperController {
     }
 
     void settleIcons() {
-        lineChartButton.setGraphic(new LineChartIcon());
-        areaChartButton.setGraphic(new AreaChartIcon());
-        barChartButton.setGraphic(new BarChartIcon());
-        scatterChartButton.setGraphic(new ScatterChartIcon());
-        pieChartButton.setGraphic(new PieChartIcon());
+        lineChartButton.setGraphic(new LineChartIcon(CHART_BUTTON_WIDTH,CHART_BUTTON_HEIGHT));
+        areaChartButton.setGraphic(new AreaChartIcon(CHART_BUTTON_WIDTH,CHART_BUTTON_HEIGHT));
+        barChartButton.setGraphic(new BarChartIcon(CHART_BUTTON_WIDTH,CHART_BUTTON_HEIGHT));
+        scatterChartButton.setGraphic(new ScatterChartIcon(CHART_BUTTON_WIDTH,CHART_BUTTON_HEIGHT));
+        pieChartButton.setGraphic(new PieChartIcon(CHART_BUTTON_WIDTH,CHART_BUTTON_HEIGHT));
         ellipseButton.setGraphic(new EllipseIcon(SHAPE_BUTTON_ICON_WIDTH / 2, SHAPE_BUTTON_ICON_HEIGHT / 2, Color.valueOf(ELLIPSE_BUTTON_ICON_COLOR), Color.BLACK, 1));
         arcButton.setGraphic(new ArcIcon(SHAPE_BUTTON_ICON_WIDTH / 2, SHAPE_BUTTON_ICON_HEIGHT / 2, 45, 270, Color.valueOf(ARC_BUTTON_ICON_COLOR), Color.BLACK, 1));
         rectangleButton.setGraphic(new RectangleIcon(SHAPE_BUTTON_ICON_WIDTH, SHAPE_BUTTON_ICON_HEIGHT, Color.valueOf(RECTANGLE_BUTTON_ICON_COLOR), Color.BLACK, 1));
         polygonButton.setGraphic(new PolygonIcon(SHAPE_BUTTON_ICON_WIDTH, SHAPE_BUTTON_ICON_HEIGHT, Color.valueOf(POLYGON_BUTTON_ICON_COLOR), Color.BLACK, 1));
+        lineButton.setGraphic(new LineIcon(0, 0, 36, 36, Color.valueOf(LINE_BUTTON_ICON_COLOR), 10));
+        quadCurveButton.setGraphic(new QuadCurveIcon(0, 0, 36, 0, 36, 36, Color.TRANSPARENT, Color.valueOf(QUAD_CURVE_BUTTON_ICON_COLOR), 10));
+        cubicCurveButton.setGraphic(new CubicCurveIcon(0, 0, 12, 0, 24, 36, 36, 36, Color.TRANSPARENT, Color.valueOf(CUBIC_CURVE_BUTTON_ICON_COLOR), 10));
     }
 
     @FXML
@@ -875,6 +883,13 @@ public class BoomComponentsSuperController {
 
     }
 
+    @FXML
+    private Button polylineButton;
+
+    @FXML
+    void polylineButtonOnAction(ActionEvent event) {
+        tempObjectName.set(NodeTypeEnum.Polyline.getNodeType());
+    }
 
 
 }

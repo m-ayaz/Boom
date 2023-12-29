@@ -2,14 +2,15 @@ package com.boom.structures.abstracts;
 
 import com.boom.configuration.Configs;
 import com.boom.styles.CSSProperty;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
 import org.json.JSONObject;
 
-import static com.boom.tools.Tools.print;
+
 import static com.boom.tools.Tools.uuid;
 
 
@@ -42,6 +43,8 @@ public abstract class AppNode {
 
 
     }
+
+//    public abstract void setMouseHandler(EventHandler<MouseEvent> mouseEventHandler);
 
     public abstract AppNode copy();
 

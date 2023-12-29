@@ -28,12 +28,19 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
 
 import java.util.List;
+import java.util.Random;
+
+import static com.boom.tools.Tools.print;
 
 /**
  * {link #setOnMouseMoved()} )} )} )}
@@ -72,9 +79,11 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
     StringProperty tempObjectName;
     DynamicDragRectangle dynamicDragRectangle;
     AppEllipse tempEllipse;
+    AppPolyline tempPolyline;
     AppCubicCurve tempCubicCurve;
     AppArc tempArc;
     AppRectangle tempRectangle;
+    AppPolygon tempPolygon;
     AppLine tempLine;
     AppQuadCurve tempQuadCurve;
     AppLineChart_NumberNumber tempLineChart_NN;
@@ -98,6 +107,8 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
     LittleRectangleOnCursor littleRectangleOnCursor;
     LittleLineOnCursor littleLineOnCursor;
     LittleQuadCurveOnCursor littleQuadCurveOnCursor;
+    LittlePolygonOnCursor littlePolygonOnCursor;
+    LittlePolylineOnCursor littlePolylineOnCursor;
     MainCanvasItemsHandler mainCanvasItemsHandler;
     //    DoubleProperty currentPosX;
 //    DoubleProperty currentPosY;
@@ -150,8 +161,10 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
             StringProperty tempObjectName,
             DynamicDragRectangle dynamicDragRectangle,
             AppEllipse tempEllipse,
+            AppPolyline tempPolyline,
             AppCubicCurve tempCubicCurve,
             AppQuadCurve tempQuadCurve,
+            AppPolygon tempPolygon,
             AppArc tempArc,
             AppRectangle tempRectangle,
             AppLine tempLine,
@@ -171,8 +184,10 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
             LittleScatterChartOnCursor littleScatterChartOnCursor,
             LittleAreaChartOnCursor littleAreaChartOnCursor,
             LittleEllipseOnCursor littleEllipseOnCursor,
+            LittlePolylineOnCursor littlePolylineOnCursor,
             LittleCubicCurveOnCursor littleCubicCurveOnCursor,
             LittleQuadCurveOnCursor littleQuadCurveOnCursor,
+            LittlePolygonOnCursor littlePolygonOnCursor,
             LittleArcOnCursor littleArcOnCursor,
             LittleRectangleOnCursor littleRectangleOnCursor,
             LittleLineOnCursor littleLineOnCursor,
@@ -198,8 +213,10 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
         this.tempObjectName = tempObjectName;
         this.dynamicDragRectangle = dynamicDragRectangle;
         this.tempEllipse = tempEllipse;
+        this.tempPolyline=tempPolyline;
         this.tempCubicCurve = tempCubicCurve;
         this.tempQuadCurve = tempQuadCurve;
+        this.tempPolygon=tempPolygon;
         this.tempArc = tempArc;
         this.tempRectangle = tempRectangle;
         this.tempLine = tempLine;
@@ -217,8 +234,10 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
         this.littleScatterChartOnCursor = littleScatterChartOnCursor;
         this.littleAreaChartOnCursor = littleAreaChartOnCursor;
         this.littleEllipseOnCursor = littleEllipseOnCursor;
+        this.littlePolylineOnCursor= littlePolylineOnCursor;
         this.littleCubicCurveOnCursor = littleCubicCurveOnCursor;
         this.littleQuadCurveOnCursor = littleQuadCurveOnCursor;
+        this.littlePolygonOnCursor=littlePolygonOnCursor;
         this.littleArcOnCursor = littleArcOnCursor;
         this.littleRectangleOnCursor = littleRectangleOnCursor;
         this.littleLineOnCursor = littleLineOnCursor;
@@ -233,6 +252,9 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent mouseEvent) {
+
+//        mouseEvent.get
+
         x.set(mouseEvent.getX());
         y.set(mouseEvent.getY());
         if (mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
@@ -254,8 +276,10 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
 
         if (mouseEvent.getEventType().equals(MouseEvent.MOUSE_EXITED)) {
             littleEllipseOnCursor.hide();
+            littlePolylineOnCursor.hide();
             littleCubicCurveOnCursor.hide();
             littleQuadCurveOnCursor.hide();
+            littlePolygonOnCursor.hide();
             littleArcOnCursor.hide();
             littleRectangleOnCursor.hide();
             littleLineOnCursor.hide();
@@ -284,9 +308,6 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
                     !scalingIcons.get(7).contains(pressX.get(), pressY.get())
 
             ) {
-//                print(uuid(50));
-//                print("selectedObjectsController = "+selectedObjectsController.getBuffer());
-//                print("validObjects = "+validObjects);
 
                 /*
                 (a) ctrl button is up
@@ -322,18 +343,6 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
             }
         }
 
-//        List<ScalingIcon> scalingIcons=new ArrayList<>();
-//        for(int i=0;i<8;i++) {
-//            scalingIcons.add(new ScalingIcon(0, 0, 0, 0, 0, Color.RED, Color.RED, 0));
-//        }
-
-//        print("========================================");
-//        print(x.get() + "," + y.get());
-//
-//        print(mouseEvent.getEventType().getName());
-//        print("drawingStage = " + drawingStage);
-
-//        print(tempObjectName.get());
         if (tempObjectName.get() == null) {
             return;
         }
@@ -417,6 +426,42 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
             } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
                 mainCanvasItemsHandler.copyToMainCanvas(tempEllipse);
                 drawingStage = 0;
+            }
+        } else if (tempObjectName.get().equals(NodeTypeEnum.Polygon.getNodeType())) {
+            littlePolygonOnCursor.show(x.get(), y.get());
+            tempPolygon.getStyleableNode().setVisible(true);
+            if (tempPolygon.points.size()<=2){
+                tempPolygon.points.setAll(x.get(),y.get());
+            }
+            if ( mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)&&mouseEvent.getClickCount()==1) {
+                tempPolygon.points.addAll(x.get(),y.get());
+            } else if ( mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+                selectedObjectsController.unselectAll();
+                if(tempPolygon.points.size()>=2) {
+                    tempPolygon.points.set(tempPolygon.points.size() - 2, x.get());
+                    tempPolygon.points.set(tempPolygon.points.size() - 1, y.get());
+                }
+            } else if ( mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)&& mouseEvent.getClickCount()>=2) {
+                mainCanvasItemsHandler.copyToMainCanvas(tempPolygon);
+                tempPolygon.points.clear();
+            }
+        } else if (tempObjectName.get().equals(NodeTypeEnum.Polyline.getNodeType())) {
+            littlePolylineOnCursor.show(x.get(), y.get());
+            tempPolyline.getStyleableNode().setVisible(true);
+            if (tempPolyline.points.size()<=2){
+                tempPolyline.points.setAll(x.get(),y.get());
+            }
+            if ( mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)&&mouseEvent.getClickCount()==1) {
+                tempPolyline.points.addAll(x.get(),y.get());
+            } else if ( mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+                selectedObjectsController.unselectAll();
+                if(tempPolyline.points.size()>=2) {
+                    tempPolyline.points.set(tempPolyline.points.size() - 2, x.get());
+                    tempPolyline.points.set(tempPolyline.points.size() - 1, y.get());
+                }
+            } else if ( mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)&& mouseEvent.getClickCount()>=2) {
+                mainCanvasItemsHandler.copyToMainCanvas(tempPolyline);
+                tempPolyline.points.clear();
             }
         } else if (tempObjectName.get().equals(NodeTypeEnum.Arc.getNodeType())) {
             littleArcOnCursor.show(x.get(), y.get());
@@ -570,15 +615,6 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
         }
 
 
-//        if(mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)){
-//        }
-
-
-//        switch (mouseEvent.getEventType().getName()){
-//            case MouseEvent.MOUSE_CLICKED.getName() -> {
-//                int x = 1;
-//            }
-//        }
 
     }
 

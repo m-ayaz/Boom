@@ -4,7 +4,6 @@ import com.boom.structures.abstracts.AppAreaShape;
 import com.boom.structures.abstracts.AppPaint;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.shape.Ellipse;
-import javafx.scene.transform.Affine;
 import javafx.scene.transform.MatrixType;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;

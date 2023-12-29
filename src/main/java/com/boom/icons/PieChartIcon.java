@@ -5,7 +5,7 @@ import javafx.scene.chart.PieChart;
 import static com.boom.tools.Tools.setCustomSize;
 
 public final class PieChartIcon extends PieChart {
-    public PieChartIcon() {
+    public PieChartIcon(double width,double height) {
 
         getData().add(new Data("",2));
         getData().add(new Data("",3));
@@ -17,6 +17,6 @@ public final class PieChartIcon extends PieChart {
 
         int size=60;
 
-        setCustomSize(this,size,size);
+        setCustomSize(this,width,height);
     }
 }
