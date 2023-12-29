@@ -9,10 +9,7 @@ import com.boom.appcharts.number_string.AppScatterChart_NumberString;
 import com.boom.appcharts.string_number.AppAreaChart_StringNumber;
 import com.boom.appcharts.string_number.AppLineChart_StringNumber;
 import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
-import com.boom.appshapes.AppArc;
-import com.boom.appshapes.AppEllipse;
-import com.boom.appshapes.AppLine;
-import com.boom.appshapes.AppRectangle;
+import com.boom.appshapes.*;
 import com.boom.controllers.DynamicDragRectangle;
 import com.boom.controllers.MainCanvasItemsHandler;
 import com.boom.controllers.SelectedObjectsController;
@@ -75,9 +72,11 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
     StringProperty tempObjectName;
     DynamicDragRectangle dynamicDragRectangle;
     AppEllipse tempEllipse;
+    AppCubicCurve tempCubicCurve;
     AppArc tempArc;
     AppRectangle tempRectangle;
     AppLine tempLine;
+    AppQuadCurve tempQuadCurve;
     AppLineChart_NumberNumber tempLineChart_NN;
     AppLineChart_NumberString tempLineChart_NS;
     AppLineChart_StringNumber tempLineChart_SN;
@@ -94,9 +93,11 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
     LittleScatterChartOnCursor littleScatterChartOnCursor;
     LittleAreaChartOnCursor littleAreaChartOnCursor;
     LittleEllipseOnCursor littleEllipseOnCursor;
+    LittleCubicCurveOnCursor littleCubicCurveOnCursor;
     LittleArcOnCursor littleArcOnCursor;
     LittleRectangleOnCursor littleRectangleOnCursor;
     LittleLineOnCursor littleLineOnCursor;
+    LittleQuadCurveOnCursor littleQuadCurveOnCursor;
     MainCanvasItemsHandler mainCanvasItemsHandler;
     //    DoubleProperty currentPosX;
 //    DoubleProperty currentPosY;
@@ -149,6 +150,8 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
             StringProperty tempObjectName,
             DynamicDragRectangle dynamicDragRectangle,
             AppEllipse tempEllipse,
+            AppCubicCurve tempCubicCurve,
+            AppQuadCurve tempQuadCurve,
             AppArc tempArc,
             AppRectangle tempRectangle,
             AppLine tempLine,
@@ -168,6 +171,8 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
             LittleScatterChartOnCursor littleScatterChartOnCursor,
             LittleAreaChartOnCursor littleAreaChartOnCursor,
             LittleEllipseOnCursor littleEllipseOnCursor,
+            LittleCubicCurveOnCursor littleCubicCurveOnCursor,
+            LittleQuadCurveOnCursor littleQuadCurveOnCursor,
             LittleArcOnCursor littleArcOnCursor,
             LittleRectangleOnCursor littleRectangleOnCursor,
             LittleLineOnCursor littleLineOnCursor,
@@ -193,6 +198,8 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
         this.tempObjectName = tempObjectName;
         this.dynamicDragRectangle = dynamicDragRectangle;
         this.tempEllipse = tempEllipse;
+        this.tempCubicCurve = tempCubicCurve;
+        this.tempQuadCurve = tempQuadCurve;
         this.tempArc = tempArc;
         this.tempRectangle = tempRectangle;
         this.tempLine = tempLine;
@@ -210,6 +217,8 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
         this.littleScatterChartOnCursor = littleScatterChartOnCursor;
         this.littleAreaChartOnCursor = littleAreaChartOnCursor;
         this.littleEllipseOnCursor = littleEllipseOnCursor;
+        this.littleCubicCurveOnCursor = littleCubicCurveOnCursor;
+        this.littleQuadCurveOnCursor = littleQuadCurveOnCursor;
         this.littleArcOnCursor = littleArcOnCursor;
         this.littleRectangleOnCursor = littleRectangleOnCursor;
         this.littleLineOnCursor = littleLineOnCursor;
@@ -245,6 +254,8 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
 
         if (mouseEvent.getEventType().equals(MouseEvent.MOUSE_EXITED)) {
             littleEllipseOnCursor.hide();
+            littleCubicCurveOnCursor.hide();
+            littleQuadCurveOnCursor.hide();
             littleArcOnCursor.hide();
             littleRectangleOnCursor.hide();
             littleLineOnCursor.hide();
@@ -353,17 +364,48 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
                 mainCanvasItemsHandler.copyToMainCanvas(tempLine);
                 drawingStage = 0;
             }
-//        } else if (tempObjectName.get().equals(NodeTypeEnum.QuadCurve.getNodeType())) {
-//            littleQ.show(x.get(), y.get());
-//            if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
-//                drawingStage++;
-//            } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
-//                selectedObjectsController.unselectAll();
-//                tempLine.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
-//            } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
-//                mainCanvasItemsHandler.copyToMainCanvas(tempLine);
-//                drawingStage = 0;
-//            }
+        } else if (tempObjectName.get().equals(NodeTypeEnum.QuadCurve.getNodeType())) {
+            littleQuadCurveOnCursor.show(x.get(), y.get());
+            if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+                drawingStage++;
+            } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+                selectedObjectsController.unselectAll();
+                tempQuadCurve.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
+            } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+                drawingStage++;
+            } else if (drawingStage == 2 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+                selectedObjectsController.unselectAll();
+                tempQuadCurve.controlX.set(x.get());
+                tempQuadCurve.controlY.set(y.get());
+            } else if (drawingStage == 2 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+                mainCanvasItemsHandler.copyToMainCanvas(tempQuadCurve);
+                drawingStage = 0;
+            }
+        } else if (tempObjectName.get().equals(NodeTypeEnum.CubicCurve.getNodeType())) {
+            littleCubicCurveOnCursor.show(x.get(), y.get());
+            if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+                drawingStage++;
+            } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+                selectedObjectsController.unselectAll();
+                tempCubicCurve.draw(pressX.get(), pressY.get(), moveX.get(), moveY.get());
+            } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+                drawingStage++;
+            } else if (drawingStage == 2 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+                selectedObjectsController.unselectAll();
+                tempCubicCurve.controlX1.set(x.get());
+                tempCubicCurve.controlY1.set(y.get());
+                tempCubicCurve.controlX2.set(x.get());
+                tempCubicCurve.controlY2.set(y.get());
+            } else if (drawingStage == 2 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+                drawingStage++;
+            } else if (drawingStage == 3 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+                selectedObjectsController.unselectAll();
+                tempCubicCurve.controlX2.set(x.get());
+                tempCubicCurve.controlY2.set(y.get());
+            } else if (drawingStage == 3 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+                mainCanvasItemsHandler.copyToMainCanvas(tempCubicCurve);
+                drawingStage = 0;
+            }
         } else if (tempObjectName.get().equals(NodeTypeEnum.Ellipse.getNodeType())) {
             littleEllipseOnCursor.show(x.get(), y.get());
             if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
@@ -539,6 +581,5 @@ public class MainCanvasMouseHandler implements EventHandler<MouseEvent> {
 //        }
 
     }
-
 
 }

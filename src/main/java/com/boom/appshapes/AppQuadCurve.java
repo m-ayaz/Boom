@@ -4,13 +4,12 @@ import com.boom.structures.abstracts.AppLineShape;
 import com.boom.structures.abstracts.AppNode;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.shape.QuadCurve;
-import javafx.scene.shape.Shape;
 import javafx.scene.transform.MatrixType;
 import org.json.JSONObject;
 
 import static com.boom.tools.Tools.deepCopy;
 
-public class AppQuadCurve extends AppLineShape {
+public final class AppQuadCurve extends AppLineShape {
 
     public DoubleProperty startX, startY, controlX, controlY, endX, endY;
 
@@ -39,6 +38,8 @@ public class AppQuadCurve extends AppLineShape {
         styleableNode.setVisible(true);
         startX.set(dragStartX);
         startY.set(dragStartY);
+        controlX.set(dragStartX/2+currentDragPosX/2);
+        controlY.set(dragStartY/2+currentDragPosY/2);
         endX.set(currentDragPosX);
         endY.set(currentDragPosY);
     }

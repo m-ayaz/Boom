@@ -1,5 +1,6 @@
 package com.boom.test;
 
+import com.boom.indicators.LittleCubicCurveOnCursor;
 import com.boom.indicators.LittleQuadCurveOnCursor;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -99,7 +100,7 @@ public class Test55 extends Application {
 
 //        container.getChildren().add(new Chessboard(100,5,10,Color.BLACK,Color.WHEAT));
 
-        LittleQuadCurveOnCursor littleQuadCurveOnCursor=new LittleQuadCurveOnCursor();
+        LittleCubicCurveOnCursor littleQuadCurveOnCursor=new LittleCubicCurveOnCursor();
         container.getChildren().add(littleQuadCurveOnCursor);
         littleQuadCurveOnCursor.show(300,300);
 

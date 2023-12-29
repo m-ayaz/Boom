@@ -77,6 +77,7 @@ public class BoomComponentsSuperController {
     AppRectangle tempRectangle = new AppRectangle(0, 0);
     AppLine tempLine = new AppLine(0, 0, 0, 0);
     AppQuadCurve tempQuadCurve=new AppQuadCurve(0,0,0,0,0,0);
+    AppCubicCurve tempCubicCurve=new AppCubicCurve(0,0,0,0,0,0,0,0);
 
     AppLineChart_NumberNumber tempLineChart_NN = new AppLineChart_NumberNumber(0, 0);
     AppLineChart_NumberString tempLineChart_NS = new AppLineChart_NumberString(0, 0);
@@ -104,6 +105,7 @@ public class BoomComponentsSuperController {
     LittleRectangleOnCursor littleRectangleOnCursor = new LittleRectangleOnCursor();
     LittleLineOnCursor littleLineOnCursor = new LittleLineOnCursor();
     LittleQuadCurveOnCursor littleQuadCurveOnCursor=new LittleQuadCurveOnCursor();
+    LittleCubicCurveOnCursor littleCubicCurveOnCursor=new LittleCubicCurveOnCursor();
 
     ChartManagementPane_NumberNumber chartManagementPane_NN = new ChartManagementPane_NumberNumber();
     ChartManagementPane_NumberString chartManagementPane_NS = new ChartManagementPane_NumberString();
@@ -276,7 +278,7 @@ public class BoomComponentsSuperController {
 
     @FXML
     void cubicCurveButtonOnAction(ActionEvent event) {
-
+        tempObjectName.set(NodeTypeEnum.CubicCurve.getNodeType());
     }
 
     @FXML
@@ -308,11 +310,11 @@ public class BoomComponentsSuperController {
 
         mainCanvasItemsHandler = new MainCanvasItemsHandler(mainCanvasChildren, validObjects,
                 rotationHandle, rotationIcon, scalingIcons, rotationFixedPoint, scalingFixedPoint,
-                dynamicDragRectangle, tempEllipse, tempPolygon, tempArc, tempRectangle, tempLine, tempLineChart_NN,
+                dynamicDragRectangle, tempEllipse,tempCubicCurve,tempQuadCurve, tempPolygon, tempArc, tempRectangle, tempLine, tempLineChart_NN,
                 tempLineChart_NS, tempLineChart_SN, tempAreaChart_NN, tempAreaChart_NS, tempAreaChart_SN,
                 tempScatterChart_NN, tempScatterChart_NS, tempScatterChart_SN, littleLineChartOnCursor,
                 littleBarChartOnCursor, littleScatterChartOnCursor, littleAreaChartOnCursor,
-                littleEllipseOnCursor, littlePolygonOnCursor, littleArcOnCursor, littleRectangleOnCursor,
+                littleEllipseOnCursor,littleCubicCurveOnCursor,littleQuadCurveOnCursor, littlePolygonOnCursor, littleArcOnCursor, littleRectangleOnCursor,
                 littleLineOnCursor, selectedObjectsController);
 
         tempObjectName.set(NodeTypeEnum.DynamicDragRectangle.getNodeType());
@@ -335,6 +337,8 @@ public class BoomComponentsSuperController {
                 tempObjectName,
                 dynamicDragRectangle,
                 tempEllipse,
+                tempCubicCurve,
+                tempQuadCurve,
                 tempArc,
                 tempRectangle,
                 tempLine,
@@ -354,6 +358,8 @@ public class BoomComponentsSuperController {
                 littleScatterChartOnCursor,
                 littleAreaChartOnCursor,
                 littleEllipseOnCursor,
+                littleCubicCurveOnCursor,
+                littleQuadCurveOnCursor,
                 littleArcOnCursor,
                 littleRectangleOnCursor,
                 littleLineOnCursor,
@@ -712,6 +718,7 @@ public class BoomComponentsSuperController {
         littleBarChartOnCursor.hide();
         littleScatterChartOnCursor.hide();
         littleAreaChartOnCursor.hide();
+        littleQuadCurveOnCursor.hide();
     }
 
     void setUpObjectsCenterOfMassInput() {

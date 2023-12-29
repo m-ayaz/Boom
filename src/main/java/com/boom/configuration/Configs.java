@@ -32,7 +32,8 @@ public final class Configs {
     public static String RECTANGLE_BUTTON_ICON_COLOR="0000ff33";
     public static String POLYGON_BUTTON_ICON_COLOR="ffff0033";
     public static String LINE_BUTTON_ICON_COLOR="ff883333";
-    public static String QUADCURVE_BUTTON_ICON_COLOR="ffff0033";
+    public static String QUAD_CURVE_BUTTON_ICON_COLOR="ffff0033";
+    public static String CUBIC_CURVE_BUTTON_ICON_COLOR="ffff0033";
 
 //    public static HashMap<String, Number> configs = new HashMap<>();
 //
