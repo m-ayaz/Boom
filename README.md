@@ -16,3 +16,4 @@ Todo List:
 - add animations
 - add pens
 - font management
+- connectors between shapes

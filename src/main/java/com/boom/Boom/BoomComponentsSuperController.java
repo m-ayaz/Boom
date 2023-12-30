@@ -48,6 +48,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -425,6 +426,21 @@ public class BoomComponentsSuperController {
 //
 //        lgi.visibleProperty.set(true);
 
+//        Menu menu=new Menu("asl;als;");
+//        MenuItem menuItem1=new CustomMenuItem(new Button("asasas"));
+//        MenuItem menuItem2=new CheckMenuItem("sadlsadklad",new Button("akslakls"));
+//        MenuItem menuItem3=new RadioMenuItem("aaaa",new Button("al"));
+//        MenuItem menuItem4=new SeparatorMenuItem();
+//        MenuItem menuItem5=new MenuItem("asasas",new Button("asasas"));
+//        menu.getItems().addAll(menuItem1,menuItem2,menuItem3,menuItem4,menuItem5);
+//
+//        tempMenuBar.getMenus().add(menu);
+//
+//        menuItem1.setGraphic(new Rectangle(50,50,Color.RED));
+//
+//        tempMenuBar.setBackground(Background.fill(Color.valueOf("00000099")));
+//        tempMenuBar.getMenus().forEach(m);
+
 
     }
 
@@ -643,6 +659,8 @@ public class BoomComponentsSuperController {
             FileChooser.ExtensionFilter pngExtension = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
             FileChooser.ExtensionFilter svgExtension = new FileChooser.ExtensionFilter("Boom SVG files (*.svg)", "*.svg");
 
+
+
             fileChooser.getExtensionFilters().addAll(jsonExtension, texExtension
 //                    ,svgExtension,pngExtension
             );
@@ -668,8 +686,8 @@ public class BoomComponentsSuperController {
                 throw new AppException(AppExceptionEnum.UnknownFileExtension);
             }
             printWriter.close();
-        } catch (Exception ignored) {
-            print(ignored);
+        } catch (Exception e) {
+            print(e);
         }
     }
 
