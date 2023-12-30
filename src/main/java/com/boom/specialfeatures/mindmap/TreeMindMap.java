@@ -1,4 +1,4 @@
-package com.boom.specialfeatures;
+package com.boom.specialfeatures.mindmap;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;

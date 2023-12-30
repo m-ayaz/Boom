@@ -876,6 +876,7 @@ public class BoomComponentsSuperController {
         lineButton.setGraphic(new LineIcon(0, 0, 36, 36, Color.valueOf(LINE_BUTTON_ICON_COLOR), 10));
         quadCurveButton.setGraphic(new QuadCurveIcon(0, 0, 36, 0, 36, 36, Color.TRANSPARENT, Color.valueOf(QUAD_CURVE_BUTTON_ICON_COLOR), 10));
         cubicCurveButton.setGraphic(new CubicCurveIcon(0, 0, 12, 0, 24, 36, 36, 36, Color.TRANSPARENT, Color.valueOf(CUBIC_CURVE_BUTTON_ICON_COLOR), 10));
+        polylineButton.setGraphic(new PolylineIcon(30,30,Color.TRANSPARENT,Color.rgb(255,128,0,1),5));
     }
 
     @FXML

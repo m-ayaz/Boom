@@ -34,6 +34,8 @@ public abstract class AppPaint extends  SimpleObjectProperty<Paint> {
 
     public abstract AppPaint copy();
 
+    protected abstract void update();
+
 //    public String getType() {
 //        return type;
 //    }

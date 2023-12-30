@@ -1,11 +1,8 @@
 package com.boom.test;
 
-import com.boom.specialfeatures.TreeMindMapNode;
 import javafx.application.Application;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
@@ -17,12 +14,10 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static com.boom.projectmanager.ProjectManager.exportProjectAsJSON;
 import static com.boom.tools.Tools.print;
 
 

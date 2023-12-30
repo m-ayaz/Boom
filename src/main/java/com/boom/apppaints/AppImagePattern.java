@@ -81,7 +81,8 @@ public final class AppImagePattern extends AppPaint {
     }
 
 
-    void update() {
+    @Override
+    protected void update() {
         set(new ImagePattern(image.get(),x.get(), y.get(), width.get(), height.get(), isProportional.get()));
     }
 

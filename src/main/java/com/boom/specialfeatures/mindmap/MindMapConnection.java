@@ -1,4 +1,4 @@
-package com.boom.specialfeatures;
+package com.boom.specialfeatures.mindmap;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;

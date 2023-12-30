@@ -57,7 +57,6 @@ public abstract class AppGradient extends AppPaint {
         appStops.remove(appStop);
     }
 
-     protected abstract void update();
 
 
 }

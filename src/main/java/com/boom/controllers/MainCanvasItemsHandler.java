@@ -128,6 +128,7 @@ public class MainCanvasItemsHandler {
         mainCanvasChildren.addAll(
                 tempRectangle.getStyleableNode(),
                 tempEllipse.getStyleableNode(),
+                tempPolyline.getStyleableNode(),
                 tempPolygon.getStyleableNode(),
                 tempArc.getStyleableNode(),
                 tempLine.getStyleableNode(),
@@ -145,6 +146,7 @@ public class MainCanvasItemsHandler {
                 tempAreaChart_SN.getStyleableNode(),
                 tempAreaChart_NS.getStyleableNode(),
                 littleEllipseOnCursor,
+                littlePolylineOnCursor,
                 littleCubicCurveOnCursor,
                 littleQuadCurveOnCursor,
                 littlePolygonOnCursor,

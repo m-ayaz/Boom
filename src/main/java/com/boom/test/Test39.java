@@ -1,6 +1,6 @@
 package com.boom.test;
 
-import com.boom.specialfeatures.TreeMindMapNode;
+import com.boom.specialfeatures.mindmap.TreeMindMapNode;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;

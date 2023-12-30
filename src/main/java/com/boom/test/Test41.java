@@ -1,6 +1,6 @@
 package com.boom.test;
 
-import com.boom.specialfeatures.TreeMindMapNode;
+import com.boom.specialfeatures.mindmap.TreeMindMapNode;
 import javafx.application.Application;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Scene;
@@ -8,9 +8,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.net.HttpCookie;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

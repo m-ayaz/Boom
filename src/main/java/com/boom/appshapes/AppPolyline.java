@@ -3,16 +3,13 @@ package com.boom.appshapes;
 import com.boom.structures.abstracts.AppLineShape;
 import com.boom.structures.abstracts.AppNode;
 import javafx.collections.ObservableList;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Polyline;
-import javafx.scene.shape.Shape;
 import javafx.scene.transform.MatrixType;
 import org.json.JSONObject;
 
 import static com.boom.tools.Tools.deepCopy;
 
-public class AppPolyline extends AppLineShape {
+public final class AppPolyline extends AppLineShape {
     public ObservableList<Double> points;
 
     public AppPolyline(double... points){

@@ -1,7 +1,5 @@
-package com.boom.specialfeatures;
+package com.boom.specialfeatures.mindmap;
 
-import com.boom.exceptions.AppException;
-import com.boom.structures.enums.AppExceptionEnum;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -14,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.boom.tools.Tools.print;
-import static com.boom.tools.Tools.uuid;
 
 /**
  * firstChildOffset: first child connection angle offset from parent connection angle
