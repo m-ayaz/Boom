@@ -1,11 +1,11 @@
 package com.boom.panels.chart.number_number;
 
+import com.boom.exceptions.AppException;
 import com.boom.icons.MinusSignIcon;
 import com.boom.icons.PlusSignIcon;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.structures.enums.AppExceptionEnum;
 import com.boom.structures.enums.NodeTypeEnum;
-import com.boom.exceptions.AppException;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
@@ -16,9 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import static com.boom.tools.Tools.print;
-
-public class ChartManagementPane_NumberNumber extends VBox {
+@SuppressWarnings("unchecked")
+public final class ChartManagementPane_NumberNumber extends VBox {
 
     TabPane seriesList = new TabPane();
     AppXYChart<Number, Number> appXYChart;
@@ -44,13 +43,9 @@ public class ChartManagementPane_NumberNumber extends VBox {
         addSeriesButton.setGraphic(new PlusSignIcon(10, 3, new Color(0, 0.7, 0, 1), new Color(0, 0, 0, 1), 0.3));
         removeSeriesButton.setGraphic(new MinusSignIcon(3, 20, new Color(1, 0, 0, 1), new Color(0, 0, 0, 1), 0.3));
 
-//        getChildren.a(1,seriesList);
-
-//        getChildren().addAll(addSeries,removeSeries,seriesList);
-
         addSeriesButton.setOnAction(event -> {
             XYChart.Series<Number, Number> newSeries = appXYChart.addSeries();
-            int seriesIndex = ((XYChart) appXYChart.getStyleableNode()).getData().indexOf(newSeries);
+            int seriesIndex = ((XYChart<Number,Number>) appXYChart.getStyleableNode()).getData().indexOf(newSeries);
             Tab newTab = new Tab();
             SeriesManagementPane_NumberNumber newDataPane;
             if (appXYChart.getType().equals(NodeTypeEnum.AreaChart_NN.getNodeType())) {
@@ -74,7 +69,7 @@ public class ChartManagementPane_NumberNumber extends VBox {
         removeSeriesButton.setOnAction(event -> {
             Tab tab = seriesList.getSelectionModel().getSelectedItem();
             if (tab != null) {
-                appXYChart.removeSeries(((XYChart) appXYChart.getStyleableNode()).getData().indexOf(((SeriesManagementPane_NumberNumber) ((ScrollPane) tab.getContent()).getContent()).series));
+                appXYChart.removeSeries(((XYChart<Number, Number>) appXYChart.getStyleableNode()).getData().indexOf(((SeriesManagementPane_NumberNumber) ((ScrollPane) tab.getContent()).getContent()).series));
                 seriesList.getTabs().remove(tab);
                 renameTabs();
             }
@@ -85,7 +80,7 @@ public class ChartManagementPane_NumberNumber extends VBox {
     public void registerChart(AppXYChart<Number, Number> appXYChart) {
         this.appXYChart = appXYChart;
         seriesList.getTabs().clear();
-        for (int i = 0; i < ((XYChart) appXYChart.getStyleableNode()).getData().size(); i++) {
+        for (int i = 0; i < ((XYChart<Number, Number>) appXYChart.getStyleableNode()).getData().size(); i++) {
             XYChart.Series<Number, Number> series = ((XYChart<Number, Number>) appXYChart.getStyleableNode()).getData().get(i);
             Tab tab = new Tab();
             SeriesManagementPane_NumberNumber dataPane;
@@ -105,12 +100,6 @@ public class ChartManagementPane_NumberNumber extends VBox {
             seriesList.getTabs().add(tab);
         }
         renameTabs();
-
-//        chartFillColor.setValue(appXYChart.getBackgroundStyle().fill.get());
-//        chartFillColor.setOnAction(event -> appXYChart.getBackgroundStyle().fill.set(chartFillColor.getValue()));
-//        chartStrokeColor.setValue(appXYChart.getBackgroundStyle().stroke.get());
-//        chartStrokeColor.setOnAction(event -> appXYChart.getBackgroundStyle().stroke.set(chartStrokeColor.getValue()));
-
 
     }
 

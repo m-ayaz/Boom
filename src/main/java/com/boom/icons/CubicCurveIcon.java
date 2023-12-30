@@ -2,7 +2,6 @@ package com.boom.icons;
 
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.CubicCurve;
-import javafx.scene.shape.QuadCurve;
 
 public final class CubicCurveIcon extends CubicCurve {
 

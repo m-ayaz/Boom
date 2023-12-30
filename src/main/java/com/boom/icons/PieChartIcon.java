@@ -15,8 +15,6 @@ public final class PieChartIcon extends PieChart {
         setLegendVisible(false);
         setStyle("-fx-padding: -5pt;");
 
-        int size=60;
-
         setCustomSize(this,width,height);
     }
 }

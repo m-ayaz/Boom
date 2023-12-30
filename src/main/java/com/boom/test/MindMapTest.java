@@ -5,11 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.QuadCurve;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
-
-import static com.boom.tools.Tools.print;
 
 
 public class MindMapTest extends Application {

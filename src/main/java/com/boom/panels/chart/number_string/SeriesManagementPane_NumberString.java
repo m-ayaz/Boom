@@ -13,7 +13,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class SeriesManagementPane_NumberString extends SeriesManagementPaneBase {
+@SuppressWarnings("unchecked")
+public final class SeriesManagementPane_NumberString extends SeriesManagementPaneBase {
 
     XYChart.Series<Number, String> series;
 
@@ -80,7 +81,7 @@ public class SeriesManagementPane_NumberString extends SeriesManagementPaneBase 
         primaryAddButton.setOnMouseExited(mouseEvent -> primaryEmptySpace.setVisible(false));
         primaryAddButton.setOnAction(event -> {
             XYChart.Data<Number, String> newData;
-            int seriesIndex = ((XYChart) appXYChart.getStyleableNode()).getData().indexOf(series);
+            int seriesIndex = ((XYChart<Number, String>) appXYChart.getStyleableNode()).getData().indexOf(series);
             if (dataSetPaneChildren.size() == 1) {
                 newData = appXYChart.addData(0, "", seriesIndex, 0);
             } else {

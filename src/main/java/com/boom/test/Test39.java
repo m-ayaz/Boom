@@ -93,7 +93,7 @@ Random rnd=new Random();
         container.getChildren().addAll(children);
         container.getChildren().addAll(parent.getConnections());
 
-        parent.getChildren().forEach(child->print(child.angleWithParent));
+//        parent.getChildren().forEach(child->print(child.angleWithParent));
 
 
 

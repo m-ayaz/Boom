@@ -11,8 +11,6 @@ import javafx.scene.shape.Circle;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.boom.tools.Tools.print;
-
 /**
  * firstChildOffset: first child connection angle offset from parent connection angle
  * lastChildOffset: last child connection angle offset from parent connection angle
@@ -23,8 +21,8 @@ public class TreeMindMapNode extends Circle {
 
      DoubleProperty parentCenterX;
      DoubleProperty parentCenterY;
-    public DoubleBinding angleWithParent;
-    public DoubleProperty distanceToParent;
+     DoubleBinding angleWithParent;
+     DoubleProperty distanceToParent;
 
     public ObservableList<TreeMindMapNode> getChildren() {
         return children;
@@ -171,7 +169,7 @@ public class TreeMindMapNode extends Circle {
                      radiusProperty(),  child.radiusProperty(), centerXProperty(),
                      centerYProperty(),  child.centerXProperty(),  child.centerYProperty(),
                      new SimpleDoubleProperty(10),  new SimpleDoubleProperty(1.05),
-                    new SimpleDoubleProperty(1.05), (Color) getFill(), (Color) child.getFill()
+                    new SimpleDoubleProperty(1.05), (Color) getStroke(), (Color) child.getStroke()
             ));
         }
         return connections;

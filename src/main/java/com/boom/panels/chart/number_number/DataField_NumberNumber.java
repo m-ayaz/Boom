@@ -8,7 +8,8 @@ import javafx.scene.chart.XYChart;
 
 import static com.boom.tools.Tools.print;
 
-public class DataField_NumberNumber extends DataFieldBase<Number,Number> {
+@SuppressWarnings("unchecked")
+public final class DataField_NumberNumber extends DataFieldBase<Number,Number> {
 
 
     DataField_NumberNumber(ObservableList<Node> children, AppXYChart<Number, Number> appXYChart, XYChart.Series<Number, Number> series, XYChart.Data<Number, Number> data) {
@@ -34,7 +35,7 @@ public class DataField_NumberNumber extends DataFieldBase<Number,Number> {
 
 
         addButton.setOnAction(event -> {
-            int seriesIndex = ((XYChart) appXYChart.getStyleableNode()).getData().indexOf(series);
+            int seriesIndex = ((XYChart<Number,Number>) appXYChart.getStyleableNode()).getData().indexOf(series);
             XYChart.Data<Number, Number> newData = appXYChart.addData(data.getXValue(), data.getYValue(), seriesIndex, children.indexOf(this));
             DataField_NumberNumber newDataField = new DataField_NumberNumber(children, appXYChart, series, newData);
             children.add(children.indexOf(this) + 1, newDataField);

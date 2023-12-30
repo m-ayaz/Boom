@@ -16,7 +16,6 @@ import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 
 import static com.boom.tools.Tools.setCustomSize;
-import static com.boom.tools.Tools.uuid;
 
 public class NodeColorTest extends Application {
     @Override

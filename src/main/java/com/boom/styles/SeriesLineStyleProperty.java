@@ -3,8 +3,6 @@ package com.boom.styles;
 import javafx.beans.property.*;
 import javafx.scene.paint.Color;
 
-import static com.boom.tools.Tools.print;
-
 public class SeriesLineStyleProperty extends SimpleStringProperty {
 
     public SeriesLineStyleProperty() {

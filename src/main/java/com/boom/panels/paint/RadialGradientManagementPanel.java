@@ -18,7 +18,7 @@ import javafx.stage.Popup;
 import static com.boom.tools.Tools.print;
 import static com.boom.tools.Tools.setCustomSize;
 
-public class RadialGradientManagementPanel extends Popup {
+public final class RadialGradientManagementPanel extends Popup {
 
     ScrollPane scrollMain = new ScrollPane();
 

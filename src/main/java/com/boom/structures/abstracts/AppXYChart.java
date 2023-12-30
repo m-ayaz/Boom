@@ -1,26 +1,24 @@
 package com.boom.structures.abstracts;
 
 import com.boom.apppaints.AppColor;
-import com.boom.configuration.Configs;
 import com.boom.styles.CSSProperty;
 import com.boom.styles.SeriesLineStyleProperty;
 import com.boom.styles.SeriesMarkersStyleProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Translate;
-import org.json.JSONObject;
-
 
 import java.util.List;
 
-import static com.boom.tools.Tools.*;
+import static com.boom.tools.Tools.setCustomHeight;
+import static com.boom.tools.Tools.setCustomWidth;
 
+@SuppressWarnings("unchecked")
 public  abstract   class AppXYChart<T1, T2> extends AppNode {
 
     // todo Only PieChart is an exception. Think of it later!

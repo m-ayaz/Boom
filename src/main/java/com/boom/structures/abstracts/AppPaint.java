@@ -11,7 +11,7 @@ import static com.boom.tools.Tools.uuid;
 public abstract class AppPaint extends  SimpleObjectProperty<Paint> {
 
     public final String type;
-    public final String id=uuid(Configs.ID_LENGTH);
+    public final String id = uuid(Configs.ID_LENGTH);
 
     protected AppPaint(Paint paint) {
         set(paint);
@@ -35,9 +35,5 @@ public abstract class AppPaint extends  SimpleObjectProperty<Paint> {
     public abstract AppPaint copy();
 
     protected abstract void update();
-
-//    public String getType() {
-//        return type;
-//    }
 
 }

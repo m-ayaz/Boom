@@ -15,3 +15,4 @@ Todo List:
 - add blurs
 - add animations
 - add pens
+- font management

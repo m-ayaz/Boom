@@ -70,30 +70,30 @@ Random rnd=new Random();
             angle=Math.atan2(mouseEvent.getY()-circle1.getCenterY(), mouseEvent.getX()-circle1.getCenterX());
 //            print(angle+2*r*Math.PI);
 //            if(angle<0)
-            circle2.setCenterX(circle1.getCenterX()+length*Math.cos(1./(Math.PI-angle)));
-            circle2.setCenterY(circle1.getCenterY()+length*Math.sin(1./(Math.PI-angle)));
+            circle2.setCenterX(circle1.getCenterX()+length*Math.cos(Math.exp(1./(Math.PI-angle))));
+            circle2.setCenterY(circle1.getCenterY()+length*Math.sin(Math.exp(1./(Math.PI-angle))));
         });
 
 
 
         container.getChildren().addAll(circle1,circle2,line);
 
-        JSONObject jsonObject=new JSONObject();
+//        JSONObject jsonObject=new JSONObject();
+//
+//        List<Double> doubles= Arrays.asList(1.0,1.1,1.6,1.6,4.0,3.0);
 
-        List<Double> doubles= Arrays.asList(1.0,1.1,1.6,1.6,4.0,3.0);
-
-        jsonObject.put("alsaskalsk",doubles);
-
-        FileChooser fileChooser = new FileChooser();
-
-
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
-
-        File saveFile = fileChooser.showSaveDialog(null);
-
-        PrintWriter printWriter = new PrintWriter(saveFile);
-
-            printWriter.println(jsonObject);
+//        jsonObject.put("alsaskalsk",doubles);
+//
+//        FileChooser fileChooser = new FileChooser();
+//
+//
+//        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
+//
+//        File saveFile = fileChooser.showSaveDialog(null);
+//
+//        PrintWriter printWriter = new PrintWriter(saveFile);
+//
+//            printWriter.println(jsonObject);
 
 
 

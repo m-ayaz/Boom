@@ -26,8 +26,6 @@ public final class BarChartIcon extends BarChart<String,Number> {
         setLegendVisible(false);
         setStyle("-fx-padding: -5pt;");
 
-        int size=70;
-
         setCustomSize(this,width,height);
 
         setBarGap(-2);

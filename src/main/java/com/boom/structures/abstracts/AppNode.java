@@ -2,14 +2,11 @@ package com.boom.structures.abstracts;
 
 import com.boom.configuration.Configs;
 import com.boom.styles.CSSProperty;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
 import org.json.JSONObject;
-
 
 import static com.boom.tools.Tools.uuid;
 
@@ -29,22 +26,10 @@ public abstract class AppNode {
 
         styleableNode.getTransforms().add(affineTransform);
         styleableNode.styleProperty().bind(backgroundStyle);
-//        Rectangle h=new Rectangle();
-//        h.setStyle("-fx-stroke");
-
-
-
-
-
-
-
-
-
 
 
     }
 
-//    public abstract void setMouseHandler(EventHandler<MouseEvent> mouseEventHandler);
 
     public abstract AppNode copy();
 
@@ -73,19 +58,11 @@ public abstract class AppNode {
         border.setStrokeWidth(1);
         border.getStrokeDashArray().addAll(5.0, 6.0, 6.0, 6.0);
         border.setVisible(false);
-//        if(binder.getClass().getName().equals(Line.class.getName())) {
-//            print(binder.getClass().getName());
-//            print(binder.getBoundsInParent());
-//        }
         border.setX(binder.getBoundsInParent().getMinX());
         border.setY(binder.getBoundsInParent().getMinY());
         border.setWidth(binder.getBoundsInParent().getWidth());
         border.setHeight(binder.getBoundsInParent().getHeight());
         binder.boundsInParentProperty().addListener((a, b, c) -> {
-//            if(binder.getClass().getName().equals(Line.class.getName())) {
-//                print(binder.getClass().getName());
-//                print(c);
-//            }
             border.setX(c.getMinX());
             border.setY(c.getMinY());
             border.setWidth(c.getWidth());
@@ -98,8 +75,7 @@ public abstract class AppNode {
         this.type = newType;
     }
 
-    public abstract boolean  contains(double x,double y);
-
+    public abstract boolean contains(double x, double y);
 
 
 }

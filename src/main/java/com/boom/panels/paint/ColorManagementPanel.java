@@ -13,7 +13,7 @@ import javafx.stage.Popup;
 import static com.boom.tools.Tools.print;
 import static com.boom.tools.Tools.setCustomSize;
 
-public class ColorManagementPanel extends Popup {
+public final class ColorManagementPanel extends Popup {
 
 
 //    ObjectProperty<Color> colorProperty = new SimpleObjectProperty<>();

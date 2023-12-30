@@ -3,12 +3,7 @@ package com.boom.projectmanager;
 import com.boom.structures.abstracts.AppNode;
 import org.json.JSONArray;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
-
-import static com.boom.tools.Tools.print;
 
 public class ProjectManager {
 
@@ -41,7 +36,7 @@ public class ProjectManager {
         return null;
     }
 
-    public static JSONArray importProjectFromJSON(String filePath) throws IOException, ParseException {
+    public static JSONArray importProjectFromJSON(String filePath) {
         return new JSONArray();
 //        JSONParser parser = new JSONParser();
 //        return (JSONArray) parser.parse(new FileReader(filePath));

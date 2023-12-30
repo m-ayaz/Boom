@@ -5,8 +5,6 @@ import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.QuadCurve;
 
 public enum NodeTypeEnum {
 

@@ -53,7 +53,8 @@ Random rnd=new Random();
 //        parent.setFill(new Color(1,0,0,1));
 
         TreeMindMapNode layer1=new TreeMindMapNode(new SimpleDoubleProperty(45),new SimpleDoubleProperty(315),new SimpleDoubleProperty(300),500,500,90);
-        layer1.setFill(Color.rgb(255,0,0,1));
+        layer1.setStroke(Color.rgb(255,0,0,1));
+        layer1.setFill(Color.rgb(0,0,0,0));
         layer1.setRadius(130);
 //        layer1.assignToParentNode(new SimpleDoubleProperty(600),new SimpleDoubleProperty(400),new SimpleDoubleProperty(0),(new SimpleDoubleProperty(90)).add(0));
 
@@ -62,15 +63,16 @@ Random rnd=new Random();
         int[] p=new int[]{7,6,4,10};
         for(int i=0;i<n2;i++){
             layer2s.add(new TreeMindMapNode(new SimpleDoubleProperty(360./(p[i]+1)),new SimpleDoubleProperty(360.-360./(p[i]+1)),new SimpleDoubleProperty(170)));
-            layer2s.get(i).setFill(Color.rgb(0,255,0,1));
+            layer2s.get(i).setStroke(Color.rgb(0,255,0,1));
+            layer2s.get(i).setFill(Color.rgb(0,0,0,0));
             layer2s.get(i).setRadius(70);
             layer1.addChild(layer2s.get(i));
         }
 
-        print(layer2s.get(0).angleWithParent);
-        print(layer2s.get(1).angleWithParent);
-        print(layer2s.get(2).angleWithParent);
-        print(layer2s.get(3).angleWithParent);
+//        print(layer2s.get(0).angleWithParent);
+//        print(layer2s.get(1).angleWithParent);
+//        print(layer2s.get(2).angleWithParent);
+//        print(layer2s.get(3).angleWithParent);
 
         List<TreeMindMapNode> layer3s=new ArrayList<>();
 //        TreeMindMapNode temp;
@@ -80,7 +82,8 @@ Random rnd=new Random();
             for (int j = 0; j < p[i]; j++) {
                 TreeMindMapNode temp=new TreeMindMapNode(new SimpleDoubleProperty(90), new SimpleDoubleProperty(180), new SimpleDoubleProperty(200));
                 layer3s.add(temp);
-                temp.setFill(Color.rgb(0, 0, 255, 1));
+                temp.setStroke(Color.rgb(0, 0, 255, 1));
+                temp.setFill(Color.rgb(0, 0, 0, 0));
                 temp.setRadius(30);
                 layer2s.get(i).addChild(temp);
 //                layer2s.get()

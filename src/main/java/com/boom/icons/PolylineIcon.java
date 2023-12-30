@@ -1,7 +1,6 @@
 package com.boom.icons;
 
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.StrokeLineJoin;
 
