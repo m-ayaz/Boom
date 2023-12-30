@@ -17,3 +17,4 @@ Todo List:
 - add pens
 - font management
 - connectors between shapes
+- add arc to mindmap connection 
