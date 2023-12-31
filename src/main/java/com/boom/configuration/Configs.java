@@ -15,6 +15,7 @@ public final class Configs {
     public static String POLYGON_BUTTON_ICON_COLOR = "ffff0033";
     public static String POLYLINE_CURVE_BUTTON_ICON_COLOR = "ff00ff99";
     public static String QUAD_CURVE_BUTTON_ICON_COLOR = "00ffff99";
+    public static double CURVE_BUTTON_ICONS_STROKE_WIDTH=5;
     public static String RECTANGLE_BUTTON_ICON_COLOR = "0000ff33";
     public static double ADD_DATA_BUTTON_HEIGHT = 40;
     public static double ADD_DATA_BUTTON_WIDTH = 40;

@@ -1,10 +1,8 @@
 package com.boom.test;
 
-import com.boom.controllers.eventhandlers.mousehandler.AppMouseEventHandler;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
 
@@ -24,11 +22,11 @@ public class Test55 extends Application {
         stage.setScene(scene);
         stage.show();
 
-        AppMouseEventHandler handler1=new AppMouseEventHandler(10);
-        AppMouseEventHandler handler2=new AppMouseEventHandler(20);
-
-        container.setOnMouseClicked(handler1);
-        container.setOnMouseMoved(handler2);
+//        AppMouseEventHandler handler1=new AppMouseEventHandler(10);
+//        AppMouseEventHandler handler2=new AppMouseEventHandler(20);
+//
+//        container.setOnMouseClicked(handler1);
+//        container.setOnMouseMoved(handler2);
 
 //        container.setOnMouse
 

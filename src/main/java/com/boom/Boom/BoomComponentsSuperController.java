@@ -42,13 +42,11 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -335,7 +333,6 @@ public class BoomComponentsSuperController {
                 rotationHandle,
                 rotationFixedPoint,
                 scalingFixedPoint,
-                mainCanvas,
                 cursorPositionLabel,
                 tempObjectName,
                 dynamicDragRectangle,
@@ -891,10 +888,10 @@ public class BoomComponentsSuperController {
         arcButton.setGraphic(new ArcIcon(SHAPE_BUTTON_ICON_WIDTH / 2, SHAPE_BUTTON_ICON_HEIGHT / 2, 45, 270, Color.valueOf(ARC_BUTTON_ICON_COLOR), Color.BLACK, 1));
         rectangleButton.setGraphic(new RectangleIcon(SHAPE_BUTTON_ICON_WIDTH, SHAPE_BUTTON_ICON_HEIGHT, Color.valueOf(RECTANGLE_BUTTON_ICON_COLOR), Color.BLACK, 1));
         polygonButton.setGraphic(new PolygonIcon(SHAPE_BUTTON_ICON_WIDTH, SHAPE_BUTTON_ICON_HEIGHT, Color.valueOf(POLYGON_BUTTON_ICON_COLOR), Color.BLACK, 1));
-        lineButton.setGraphic(new LineIcon(0, 0, 36, 36, Color.valueOf(LINE_BUTTON_ICON_COLOR), 10));
-        quadCurveButton.setGraphic(new QuadCurveIcon(0, 0, 36, 0, 36, 36, Color.TRANSPARENT, Color.valueOf(QUAD_CURVE_BUTTON_ICON_COLOR), 10));
-        cubicCurveButton.setGraphic(new CubicCurveIcon(0, 0, 12, 0, 24, 36, 36, 36, Color.TRANSPARENT, Color.valueOf(CUBIC_CURVE_BUTTON_ICON_COLOR), 10));
-        polylineButton.setGraphic(new PolylineIcon(30,30,Color.TRANSPARENT,Color.rgb(255,128,0,1),5));
+        lineButton.setGraphic(new LineIcon(0, 0, 36, 36, Color.valueOf(LINE_BUTTON_ICON_COLOR), CURVE_BUTTON_ICONS_STROKE_WIDTH));
+        quadCurveButton.setGraphic(new QuadCurveIcon(0, 0, 36, 0, 36, 36, Color.TRANSPARENT, Color.valueOf(QUAD_CURVE_BUTTON_ICON_COLOR), CURVE_BUTTON_ICONS_STROKE_WIDTH));
+        cubicCurveButton.setGraphic(new CubicCurveIcon(0, 0, 12+50, 0, 24-50, 36, 36, 36, Color.TRANSPARENT, Color.valueOf(CUBIC_CURVE_BUTTON_ICON_COLOR), CURVE_BUTTON_ICONS_STROKE_WIDTH));
+        polylineButton.setGraphic(new PolylineIcon(30,30,Color.TRANSPARENT,Color.rgb(255,128,0,1),CURVE_BUTTON_ICONS_STROKE_WIDTH));
     }
 
     @FXML

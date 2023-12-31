@@ -1,14 +1,18 @@
 package com.boom.structures.abstracts;
 
 import com.boom.apppaints.AppColor;
+import com.boom.controllers.MainCanvasItemsHandler;
+import com.boom.controllers.SelectedObjectsController;
 import com.boom.styles.CSSProperty;
 import com.boom.styles.SeriesLineStyleProperty;
 import com.boom.styles.SeriesMarkersStyleProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.event.EventType;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Translate;
@@ -243,6 +247,19 @@ public  abstract   class AppXYChart<T1, T2> extends AppNode {
 //            border.setHeight(plotAreaBounds.get().getHeight());
 //        });
 //    }
+
+    @Override
+    public void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY, double pressX, double pressY, double releaseX, double releaseY, double clickX, double clickY, double x, double y) {
+        if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            drawingStage++;
+        } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+            selectedObjectsController.unselectAll();
+            draw(pressX, pressY, moveX, moveY);
+        } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            mainCanvasItemsHandler.copyToMainCanvas(this);
+            drawingStage = 0;
+        }
+    }
 
 
 }

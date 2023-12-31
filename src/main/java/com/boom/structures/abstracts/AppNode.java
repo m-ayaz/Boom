@@ -1,8 +1,13 @@
 package com.boom.structures.abstracts;
 
 import com.boom.configuration.Configs;
+import com.boom.controllers.MainCanvasItemsHandler;
+import com.boom.controllers.SelectedObjectsController;
 import com.boom.styles.CSSProperty;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
@@ -19,6 +24,7 @@ public abstract class AppNode {
     protected Node styleableNode;
     protected String type;
     public final String id = uuid(Configs.ID_LENGTH);
+    protected int configStep;
 
     public AppNode(Node styleableNode, String fillColorFX, String strokeColorFX, String strokeWidthFX) {
         this.styleableNode = styleableNode;
@@ -29,6 +35,10 @@ public abstract class AppNode {
 
 
     }
+
+    protected int drawingStage = 0;
+
+    public abstract void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY , double pressX , double pressY , double releaseX , double releaseY , double clickX , double clickY , double x , double y)    ;
 
 
     public abstract AppNode copy();

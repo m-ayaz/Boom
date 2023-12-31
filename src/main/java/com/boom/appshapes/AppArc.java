@@ -1,9 +1,13 @@
 package com.boom.appshapes;
 
+import com.boom.controllers.MainCanvasItemsHandler;
+import com.boom.controllers.SelectedObjectsController;
 import com.boom.structures.abstracts.AppAreaShape;
 import com.boom.structures.abstracts.AppPaint;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.event.EventType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.transform.MatrixType;
@@ -52,6 +56,50 @@ public final class AppArc extends AppAreaShape {
 //    public String toSVG() {
 //        return null;
 //    }
+
+    @Override
+    public void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY, double pressX, double pressY, double releaseX, double releaseY, double clickX, double clickY, double x, double y) {
+                if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            drawingStage++;
+        } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+            selectedObjectsController.unselectAll();
+            draw(pressX, pressY, moveX, moveY);
+        } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            drawingStage++;
+        } else if (drawingStage == 2 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+            selectedObjectsController.unselectAll();
+            double angle = Math.atan2(moveY - affineTransform.getTy(), moveX - affineTransform.getTx());
+            if (!mouseEvent.isControlDown()) {
+                length.set(-angle * 180 / Math.PI - (angle > 0 ? 0 : 360));
+            } else {
+                startAngle.set(-angle * 180 / Math.PI - (angle > 0 ? 0 : 360));
+            }
+            if (mouseEvent.isAltDown()) {
+                arcType.set(ArcType.CHORD);
+
+            } else if (mouseEvent.isShiftDown()) {
+                arcType.set(ArcType.OPEN);
+
+            } else {
+                arcType.set(ArcType.ROUND);
+            }
+        } else if (drawingStage == 2 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            if (mouseEvent.isAltDown()) {
+                arcType.set(ArcType.CHORD);
+
+            } else if (mouseEvent.isShiftDown()) {
+                arcType.set(ArcType.OPEN);
+
+            } else {
+                arcType.set(ArcType.ROUND);
+            }
+            mainCanvasItemsHandler.copyToMainCanvas(this);
+            startAngle.set(0);
+            length.set(270);
+            arcType.set(ArcType.ROUND);
+            drawingStage = 0;
+        }
+    }
 
     @Override
     public AppArc copy() {

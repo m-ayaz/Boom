@@ -1,10 +1,16 @@
 package com.boom.appshapes;
 
+import com.boom.controllers.MainCanvasItemsHandler;
+import com.boom.controllers.SelectedObjectsController;
+import com.boom.controllers.eventhandlers.mousehandler.AppMouseEventHandler;
 import com.boom.structures.abstracts.AppAreaShape;
 import com.boom.structures.abstracts.AppPaint;
 import com.boom.structures.enums.NodeTypeEnum;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.MatrixType;
@@ -50,10 +56,10 @@ public final class AppRectangle extends AppAreaShape {
         double[] dissectedTransform = dissectAffineTransform(affineTransform);
         StringBuilder stringBuilder = new StringBuilder();
         for (AppPaint appPaint : backgroundStyle.getFillArray()) {
-            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<rect x=\"0\" y=\"0\" rx=\"0\" ry=\"0\" width=\"%f\" height=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(width.get(), height.get(), appPaint.id, affineTransform.getTx()+offset.getX(), affineTransform.getTy()+offset.getY(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<rect x=\"0\" y=\"0\" rx=\"0\" ry=\"0\" width=\"%f\" height=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(width.get(), height.get(), appPaint.id, affineTransform.getTx() + offset.getX(), affineTransform.getTy() + offset.getY(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
         }
         for (AppPaint appPaint : backgroundStyle.getStrokeArray()) {
-            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<rect x=\"0\" y=\"0\" rx=\"0\" ry=\"0\" width=\"%f\" height=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(width.get(), height.get(), appPaint.id, backgroundStyle.getStrokeWidth(), affineTransform.getTx()+offset.getX(), affineTransform.getTy()+offset.getY(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<rect x=\"0\" y=\"0\" rx=\"0\" ry=\"0\" width=\"%f\" height=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(width.get(), height.get(), appPaint.id, backgroundStyle.getStrokeWidth(), affineTransform.getTx() + offset.getX(), affineTransform.getTy() + offset.getY(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
         }
         return stringBuilder.toString();
     }
@@ -71,6 +77,21 @@ public final class AppRectangle extends AppAreaShape {
         jsonObject.put("arcWidth", arcWidth.get());
         jsonObject.put("arcHeight", arcHeight.get());
         return jsonObject;
+    }
+
+
+
+    @Override
+    public void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY , double pressX , double pressY , double releaseX , double releaseY , double clickX , double clickY , double x , double y)    {
+        if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            drawingStage++;
+        } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+            selectedObjectsController.unselectAll();
+            draw(pressX, pressY, moveX, moveY);
+        } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            mainCanvasItemsHandler.copyToMainCanvas(this);
+            drawingStage = 0;
+        }
     }
 
     public String toTeX() {

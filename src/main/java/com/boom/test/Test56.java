@@ -1,18 +1,14 @@
 package com.boom.test;
 
-import com.boom.controllers.eventhandlers.mousehandler.AppMouseEventHandler;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static com.boom.tools.Tools.print;
 

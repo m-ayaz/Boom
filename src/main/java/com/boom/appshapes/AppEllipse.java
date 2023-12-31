@@ -1,8 +1,12 @@
 package com.boom.appshapes;
 
+import com.boom.controllers.MainCanvasItemsHandler;
+import com.boom.controllers.SelectedObjectsController;
 import com.boom.structures.abstracts.AppAreaShape;
 import com.boom.structures.abstracts.AppPaint;
 import javafx.beans.property.DoubleProperty;
+import javafx.event.EventType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.transform.MatrixType;
 import javafx.scene.transform.Translate;
@@ -43,6 +47,20 @@ public final class AppEllipse extends AppAreaShape {
 //    public String toSVG() {
 //        return null;
 //    }
+
+    @Override
+    public void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY, double pressX, double pressY, double releaseX, double releaseY, double clickX, double clickY, double x, double y) {
+        if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            drawingStage++;
+        } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+            selectedObjectsController.unselectAll();
+            draw(pressX, pressY, moveX, moveY);
+
+        } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            mainCanvasItemsHandler.copyToMainCanvas(this);
+            drawingStage = 0;
+        }
+    }
 
     @Override
     public AppEllipse copy() {

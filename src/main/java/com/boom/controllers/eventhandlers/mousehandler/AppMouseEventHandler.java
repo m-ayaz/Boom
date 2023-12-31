@@ -1,51 +1,41 @@
 package com.boom.controllers.eventhandlers.mousehandler;
 
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.input.MouseEvent;
 
-import static com.boom.tools.Tools.print;
-import static com.boom.tools.Tools.uuid;
 
-public  class AppMouseEventHandler implements EventHandler<MouseEvent> {
 
-    DoubleProperty moveX = new SimpleDoubleProperty();
-    DoubleProperty moveY = new SimpleDoubleProperty();
-    DoubleProperty dragX = new SimpleDoubleProperty();
-    DoubleProperty dragY = new SimpleDoubleProperty();
-    DoubleProperty pressX = new SimpleDoubleProperty();
-    DoubleProperty pressY = new SimpleDoubleProperty();
-    DoubleProperty releaseX = new SimpleDoubleProperty();
-    DoubleProperty releaseY = new SimpleDoubleProperty();
-    DoubleProperty clickX = new SimpleDoubleProperty();
-    DoubleProperty clickY = new SimpleDoubleProperty();
-    DoubleProperty x = new SimpleDoubleProperty();
-    DoubleProperty y = new SimpleDoubleProperty();
+public abstract class AppMouseEventHandler implements EventHandler<MouseEvent> {
 
-    int n;
-
-    EventType<MouseEvent> eventType;
-
-    public AppMouseEventHandler(EventType<MouseEvent> eventType){
-        this.eventType=eventType;
-//        this.n=n;
-    }
-
-    public AppMouseEventHandler(int n){
-//        this.eventType=eventType;
-        this.n=n;
-    }
+     double moveX =-1, moveY =-1, dragX =-1, dragY =-1, pressX =-1, pressY =-1, releaseX =-1, releaseY =-1, clickX =-1, clickY =-1, x =-1, y ;
 
     @Override
     public void handle(MouseEvent mouseEvent) {
-//        print(uuid(n));
-        print(mouseEvent);
-//        MouseEvent.
+        x=mouseEvent.getX();
+        y=mouseEvent.getY();
+        if (mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+            moveX=mouseEvent.getX();
+            moveY=mouseEvent.getY();
+        } else if (mouseEvent.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
+            pressX=mouseEvent.getX();
+            pressY=mouseEvent.getY();
+        } else if (mouseEvent.getEventType().equals(MouseEvent.MOUSE_DRAGGED)) {
+            dragX=mouseEvent.getX();
+            dragY=mouseEvent.getY();
+        } else if (mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            clickX=mouseEvent.getX();
+            clickY=mouseEvent.getY();
+        } else if (mouseEvent.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
+            releaseX=mouseEvent.getX();
+            releaseY=mouseEvent.getY();
+        }
+
+        handleLast(mouseEvent);
     }
 
+
+    protected abstract void handleLast(MouseEvent mouseEvent);
 
 
 }

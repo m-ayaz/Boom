@@ -1,8 +1,12 @@
 package com.boom.appshapes;
 
+import com.boom.controllers.MainCanvasItemsHandler;
+import com.boom.controllers.SelectedObjectsController;
 import com.boom.structures.abstracts.AppLineShape;
 import com.boom.structures.abstracts.AppPaint;
 import javafx.beans.property.DoubleProperty;
+import javafx.event.EventType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 import javafx.scene.transform.MatrixType;
 import org.json.JSONObject;
@@ -59,6 +63,19 @@ public final class AppLine extends AppLineShape {
             stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(startX.get(), startY.get(), endX.get(), endY.get(), appPaint.id, backgroundStyle.getStrokeWidth(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
         }
         return stringBuilder.toString();
+    }
+
+    @Override
+    public void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY, double pressX, double pressY, double releaseX, double releaseY, double clickX, double clickY, double x, double y) {
+        if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            drawingStage++;
+        } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+            selectedObjectsController.unselectAll();
+            draw(pressX, pressY, moveX, moveY);
+        } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            mainCanvasItemsHandler.copyToMainCanvas(this);
+            drawingStage = 0;
+        }
     }
 
     @Override

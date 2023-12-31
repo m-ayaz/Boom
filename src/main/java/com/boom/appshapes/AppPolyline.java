@@ -1,8 +1,12 @@
 package com.boom.appshapes;
 
+import com.boom.controllers.MainCanvasItemsHandler;
+import com.boom.controllers.SelectedObjectsController;
 import com.boom.structures.abstracts.AppLineShape;
 import com.boom.structures.abstracts.AppNode;
 import javafx.collections.ObservableList;
+import javafx.event.EventType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Polyline;
 import javafx.scene.transform.MatrixType;
 import org.json.JSONObject;
@@ -15,6 +19,26 @@ public final class AppPolyline extends AppLineShape {
     public AppPolyline(double... points){
         super(new Polyline(points));
         this.points=((Polyline) styleableNode).getPoints();
+    }
+
+    @Override
+    public void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY, double pressX, double pressY, double releaseX, double releaseY, double clickX, double clickY, double x, double y) {
+        styleableNode.setVisible(true);
+        if (points.size()<=2){
+            points.setAll(x,y);
+        }
+        if ( mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)&&mouseEvent.getClickCount()==1) {
+            points.addAll(x,y);
+        } else if ( mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+            selectedObjectsController.unselectAll();
+            if(points.size()>=2) {
+                points.set(points.size() - 2, x);
+                points.set(points.size() - 1, y);
+            }
+        } else if ( mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)&& mouseEvent.getClickCount()>=2) {
+            mainCanvasItemsHandler.copyToMainCanvas(this);
+            points.clear();
+        }
     }
 
     @Override

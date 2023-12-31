@@ -1,19 +1,17 @@
 package com.boom.test;
 
-import com.boom.apppaints.AppColor;
-import com.boom.appshapes.AppRectangle;
+import com.boom.controllers.eventhandlers.mousehandler.AppMouseEventHandler;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.Random;
-
 import static com.boom.tools.Tools.print;
+import static com.boom.tools.Tools.uuid;
 
 
-public class Test58 extends Application {
+public class Test59 extends Application {
 
     public static void main(String[] args) {
         launch();
@@ -29,7 +27,12 @@ public class Test58 extends Application {
         stage.setScene(scene);
         stage.show();
 
-        
+//        Test test=new Test();
+
+
+//        container.setOnMouseMoved(test);
+
+
 
 //        Rectangle rectangle=new Rectangle(300,300,Color.valueOf("00000033"));
 //        rectangle.setMouseTransparent(true);
@@ -74,18 +77,30 @@ public class Test58 extends Application {
 ////        container.getChildren().addAll(rgbaFieldIndicator);
 ////        rgbaFieldIndicator.setTranslateX(300);
 ////        rgbaFieldIndicator.setTranslateY(300);
-//
-//
-//
-//    }
-//
-//    int rem(int x,int y){
-//        return x-y*(x/y);
-//    }
+
+
+
+    }
+
+    int rem(int x,int y){
+        return x-y*(x/y);
     }
 
 }
 
+
+class Test extends AppMouseEventHandler{
+    @Override
+    protected void handleLast(MouseEvent mouseEvent) {
+
+    }
+
+
+//    @Override
+//    protected void handle() {
+//        print(uuid(200));
+//    }
+}
 
 
 
