@@ -16,8 +16,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
 import javafx.stage.Stage;
 
-import static com.boom.tools.Tools.print;
-import static com.boom.tools.Tools.setCustomSize;
+import static com.boom.tools.Tools.*;
 
 
 public class Test58 extends Application {
@@ -27,6 +26,8 @@ public class Test58 extends Application {
     }
 
 //    boolean x=true;
+DoubleProperty width=new SimpleDoubleProperty();
+    DoubleProperty height=new SimpleDoubleProperty();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -57,9 +58,9 @@ public class Test58 extends Application {
         lineChart.getTransforms().add(affine);
 
         lineChart.setPadding(new Insets(0));
-        lineChart.getXAxis().setPadding(new Insets(0));
-        lineChart.getYAxis().setPadding(new Insets(0));
-        ((Region)lineChart.lookup(".chart-plot-background")).setPadding(new Insets(0));
+//        lineChart.getXAxis().setPadding(new Insets(0));
+//        lineChart.getYAxis().setPadding(new Insets(0));
+//        ((Region)lineChart.lookup(".chart-plot-background")).setPadding(new Insets(0));
 
         rectangle.getTransforms().add(affine);
 
@@ -67,9 +68,9 @@ public class Test58 extends Application {
 
 //        DoubleProperty x=new SimpleDoubleProperty();
 
-        ReadOnlyObjectProperty<Bounds> plotBounds=lineChart.lookup(".chart-plot-background").boundsInParentProperty();
-        ReadOnlyObjectProperty<Bounds> xAxisBounds=lineChart.getXAxis().boundsInParentProperty();
-        ReadOnlyObjectProperty<Bounds> yAxisBounds=lineChart.getYAxis().boundsInParentProperty();
+//        ReadOnlyObjectProperty<Bounds> plotBounds=lineChart.lookup(".chart-plot-background").boundsInParentProperty();
+//        ReadOnlyObjectProperty<Bounds> xAxisBounds=lineChart.getXAxis().boundsInParentProperty();
+//        ReadOnlyObjectProperty<Bounds> yAxisBounds=lineChart.getYAxis().boundsInParentProperty();
 
 //        print(plotBounds.get());
 //        print(xAxisBounds.get());
@@ -78,49 +79,67 @@ public class Test58 extends Application {
         rectangle1.setFill(new Color(0,1,0,0.2));
         rectangle2.setFill(new Color(1,0,1,0.2));
 
-        xAxisBounds.addListener((a,b,c)->{
+//        xAxisBounds.addListener((a,b,c)->{
+////            print(c);
+//            rectangle1.setTranslateX(c.getMinX());
+//            rectangle1.setTranslateY(c.getMinY());
+//            rectangle1.setWidth(c.getWidth());
+//            rectangle1.setHeight(c.getHeight());
+//        });
+//
+//
+//        yAxisBounds.addListener((a,b,c)->{
+////            print(c);
+//            rectangle2.setTranslateX(c.getMinX());
+//            rectangle2.setTranslateY(c.getMinY());
+//            rectangle2.setWidth(c.getWidth());
+//            rectangle2.setHeight(c.getHeight());
+//        });
+//
+//        plotBounds.addListener((a,b,c)->{
+////            print(c);
+//            rectangle.setTranslateX(c.getMinX());
+//            rectangle.setTranslateY(c.getMinY());
+//            rectangle.setWidth(c.getWidth());
+//            rectangle.setHeight(c.getHeight());
 //            print(c);
-            rectangle1.setTranslateX(c.getMinX());
-            rectangle1.setTranslateY(c.getMinY());
-            rectangle1.setWidth(c.getWidth());
-            rectangle1.setHeight(c.getHeight());
-        });
-
-
-        yAxisBounds.addListener((a,b,c)->{
-//            print(c);
-            rectangle2.setTranslateX(c.getMinX());
-            rectangle2.setTranslateY(c.getMinY());
-            rectangle2.setWidth(c.getWidth());
-            rectangle2.setHeight(c.getHeight());
-        });
-
-        plotBounds.addListener((a,b,c)->{
-//            print(c);
-            rectangle.setTranslateX(c.getMinX());
-            rectangle.setTranslateY(c.getMinY());
-            rectangle.setWidth(c.getWidth());
-            rectangle.setHeight(c.getHeight());
-            print(c);
-        });
-
-
-
-
-
-
-
-
-//        rectangle.setWidth(200);
-//        rectangle.setHeight(200);
-
-        setCustomSize(lineChart,200,200);
+//        });
+//
+//
+//
+//
+//
+//
+//
+//
+////        rectangle.setWidth(200);
+////        rectangle.setHeight(200);
+//
+//        setCustomSize(lineChart,200,200);
 
 //        affine.prependTranslation(100,100);
 //
 //        affine.prependScale(1.2,1.3);
+        setCustomSize(lineChart,10,10);
 
+        width.addListener((a,b,c)->{
+            double w=lineChart.getBoundsInParent().getWidth();
+            double w1=lineChart.lookup(".chart-plot-background").getBoundsInParent().getWidth();
+            setCustomWidth(lineChart,w/w1*c.doubleValue());
+        });
 
+        height.addListener((a,b,c)->{
+            double h=lineChart.getBoundsInParent().getHeight();
+            double h1=lineChart.lookup(".chart-plot-background").getBoundsInParent().getHeight();
+            print(h/h1*c.doubleValue());
+            print(c.doubleValue());
+            print(h);
+            print(h1);
+            setCustomHeight(lineChart,h/h1*c.doubleValue());
+        });
+
+        width.set(200);
+        height.set(200);
 //        localBounds
 
 //        localBounds.
