@@ -18,9 +18,9 @@ import com.boom.controllers.eventhandlers.mousehandler.MainCanvasMouseHandler;
 import com.boom.exceptions.AppException;
 import com.boom.icons.*;
 import com.boom.indicators.*;
-import com.boom.panels.chart.number_number.ChartManagementPane_NumberNumber;
-import com.boom.panels.chart.number_string.ChartManagementPane_NumberString;
-import com.boom.panels.chart.string_number.ChartManagementPane_StringNumber;
+import com.boom.panels.chart.number_number.ChartManagementPanel_NumberNumber;
+import com.boom.panels.chart.number_string.ChartManagementPanel_NumberString;
+import com.boom.panels.chart.string_number.ChartManagementPanel_StringNumber;
 import com.boom.panels.paint.PaintManagementPanel;
 import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppXYChart;
@@ -108,9 +108,9 @@ public class BoomComponentsSuperController {
     LittleQuadCurveOnCursor littleQuadCurveOnCursor = new LittleQuadCurveOnCursor();
     LittleCubicCurveOnCursor littleCubicCurveOnCursor = new LittleCubicCurveOnCursor();
 
-    ChartManagementPane_NumberNumber chartManagementPane_NN = new ChartManagementPane_NumberNumber();
-    ChartManagementPane_NumberString chartManagementPane_NS = new ChartManagementPane_NumberString();
-    ChartManagementPane_StringNumber chartManagementPane_SN = new ChartManagementPane_StringNumber();
+    ChartManagementPanel_NumberNumber chartManagementPanel_NN = new ChartManagementPanel_NumberNumber();
+    ChartManagementPanel_NumberString chartManagementPanel_NS = new ChartManagementPanel_NumberString();
+    ChartManagementPanel_StringNumber chartManagementPanel_SN = new ChartManagementPanel_StringNumber();
     LittleTextOnCursor littleTextOnCursor = new LittleTextOnCursor();
     MainCanvasItemsHandler mainCanvasItemsHandler;
     boolean isCopyRequested;
@@ -785,6 +785,8 @@ public class BoomComponentsSuperController {
 //            print(change);
             if (change.getList().size() == 1) {
                 AppNode selectedShape = change.getList().get(0);
+//                print(selectedShape.getType());
+//                print(uuid(10));
 
                 paintManagementPanel.registerBackground(selectedShape.backgroundStyle);
                 paintManagementPanel.setVisible(true);
@@ -803,8 +805,8 @@ public class BoomComponentsSuperController {
                 } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
 //                    objectProp1Label.setText("Start (X)");
 //                    objectProp2Label.setText("Start (Y)");
-//                    objectProp1Input.setText("" + ((AppLine)selectedShape).get());
-//                    objectProp2Input.setText("" + ((AppLine)selectedShape).getHeight());
+//                    objectProp1Input.setText("" + ((AppLine)selectedShape).startX.get());
+//                    objectProp2Input.setText("" + ((AppLine)selectedShape).startY.get());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.LineChart_NN.getNodeType()) ||
                         selectedShape.getType().equals(NodeTypeEnum.AreaChart_NN.getNodeType()) ||
                         selectedShape.getType().equals(NodeTypeEnum.ScatterChart_NN.getNodeType())) {
@@ -812,7 +814,7 @@ public class BoomComponentsSuperController {
                     objectProp2Label.setText("Start (Y)");
                     print(uuid(100));
                     try {
-                        chartManagementPane_NN.registerChart((AppXYChart<Number, Number>) selectedShape);
+                        chartManagementPanel_NN.registerChart((AppXYChart<Number, Number>) selectedShape);
                     } catch (Exception e) {
                         print(e);
 //                        throw new RuntimeException(e);
@@ -820,7 +822,8 @@ public class BoomComponentsSuperController {
 
 
 //                    chartTabContainer.getContent()..clear();
-                    chartTabContainer.setContent(chartManagementPane_NN);
+                    chartTabContainer.setContent(chartManagementPanel_NN);
+                    chartTabContainer.setVisible(true);
 //                    objectProp1Input.setText("" + ((AppLineChart_NumberNumber) selectedShape).getStartX());
 //                    objectProp2Input.setText("" + ((AppLine) selectedShape).getStartY());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.LineChart_NS.getNodeType()) ||
@@ -830,7 +833,7 @@ public class BoomComponentsSuperController {
                     objectProp1Label.setText("Start (X)");
                     objectProp2Label.setText("Start (Y)");
                     try {
-                        chartManagementPane_NS.registerChart((AppXYChart<Number, String>) selectedShape);
+                        chartManagementPanel_NS.registerChart((AppXYChart<Number, String>) selectedShape);
                     } catch (Exception e) {
                         print(e);
 //                        throw new RuntimeException(e);
@@ -838,7 +841,8 @@ public class BoomComponentsSuperController {
 
 //                    chartTabContainer.getChildren().clear();
 //                    chartTabContainer.getChildren().add(chartManagementPane);
-                    chartTabContainer.setContent(chartManagementPane_NS);
+                    chartTabContainer.setContent(chartManagementPanel_NS);
+                    chartTabContainer.setVisible(true);
 //                    objectProp1Input.setText("" + ((AppLineChart_NumberNumber) selectedShape).getStartX());
 //                    objectProp2Input.setText("" + ((AppLine) selectedShape).getStartY());
                 } else if (selectedShape.getType().equals(NodeTypeEnum.LineChart_SN.getNodeType()) ||
@@ -848,7 +852,7 @@ public class BoomComponentsSuperController {
                     objectProp1Label.setText("Start (X)");
                     objectProp2Label.setText("Start (Y)");
                     try {
-                        chartManagementPane_SN.registerChart((AppXYChart<String, Number>) selectedShape);
+                        chartManagementPanel_SN.registerChart((AppXYChart<String, Number>) selectedShape);
                     } catch (Exception e) {
                         print(e);
 //                        throw new RuntimeException(e);
@@ -856,7 +860,8 @@ public class BoomComponentsSuperController {
 
 //                    chartTabContainer.getChildren().clear();
 //                    chartTabContainer.getChildren().add(chartManagementPane_numberNumber);
-                    chartTabContainer.setContent(chartManagementPane_SN);
+                    chartTabContainer.setContent(chartManagementPanel_SN);
+                    chartTabContainer.setVisible(true);
 //                    objectProp1Input.setText("" + ((AppLineChart_NumberNumber) selectedShape).getStartX());
 //                    objectProp2Input.setText("" + ((AppLine) selectedShape).getStartY());
                 }
@@ -870,10 +875,11 @@ public class BoomComponentsSuperController {
 
 
             } else {
-                chartManagementPane_NN.setVisible(false);
-                chartManagementPane_NS.setVisible(false);
-                chartManagementPane_SN.setVisible(false);
-                paintManagementPanel.setVisible(false);
+                chartTabContainer.setVisible(false);
+//                chartManagementPanel_NN.setVisible(false);
+//                chartManagementPanel_NS.setVisible(false);
+//                chartManagementPanel_SN.setVisible(false);
+//                paintManagementPanel.setVisible(false);
             }
         });
     }

@@ -18,7 +18,7 @@ public abstract   class AppAreaShape extends AppNode {
     public AppAreaShape(Shape shape) {
         super(new Region(), "-fx-background-color", "-fx-border-color", "-fx-border-width");
         this.shape = shape;
-        this.type = shape.getClass().getName();
+        type = shape.getClass().getName();
 
         bindBorder(shape);
 

@@ -7,7 +7,6 @@ import com.boom.styles.CSSProperty;
 import com.boom.styles.SeriesLineStyleProperty;
 import com.boom.styles.SeriesMarkersStyleProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.event.EventType;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.chart.Axis;
@@ -19,8 +18,7 @@ import javafx.scene.transform.Translate;
 
 import java.util.List;
 
-import static com.boom.tools.Tools.setCustomHeight;
-import static com.boom.tools.Tools.setCustomWidth;
+import static com.boom.tools.Tools.*;
 
 @SuppressWarnings("unchecked")
 public  abstract   class AppXYChart<T1, T2> extends AppNode {
@@ -48,6 +46,7 @@ public  abstract   class AppXYChart<T1, T2> extends AppNode {
 //        print(Configs.x);
 //        Configs.x;
         super(xyChart,"-fx-background-color", "-fx-border-color", "-fx-border-width");
+        type=xyChart.getClass().getName();
 //        backgroundStyle = new BackgroundsProperty("-fx-background-color","-fx-border-color","-fx-border-width");
         xyChart.setPadding(new Insets(0));
         setWidth(width);

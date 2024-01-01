@@ -4,9 +4,9 @@ import com.boom.appcharts.number_number.AppAreaChart_NumberNumber;
 import com.boom.appcharts.number_string.AppAreaChart_NumberString;
 import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
 import com.boom.configuration.Configs;
-import com.boom.panels.chart.number_number.ChartManagementPane_NumberNumber;
-import com.boom.panels.chart.number_string.ChartManagementPane_NumberString;
-import com.boom.panels.chart.string_number.ChartManagementPane_StringNumber;
+import com.boom.panels.chart.number_number.ChartManagementPanel_NumberNumber;
+import com.boom.panels.chart.number_string.ChartManagementPanel_NumberString;
+import com.boom.panels.chart.string_number.ChartManagementPanel_StringNumber;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -67,9 +67,9 @@ public class ChartDataTest extends Application {
 //            lineChart1.addSeries(j);
 //        }
 
-        ChartManagementPane_NumberNumber chartSeriesPane_NN=new ChartManagementPane_NumberNumber();
-        ChartManagementPane_NumberString chartSeriesPane_NS=new ChartManagementPane_NumberString();
-        ChartManagementPane_StringNumber chartSeriesPane_SN=new ChartManagementPane_StringNumber();
+        ChartManagementPanel_NumberNumber chartSeriesPane_NN=new ChartManagementPanel_NumberNumber();
+        ChartManagementPanel_NumberString chartSeriesPane_NS=new ChartManagementPanel_NumberString();
+        ChartManagementPanel_StringNumber chartSeriesPane_SN=new ChartManagementPanel_StringNumber();
 
 
         setCustomSize(chartSeriesPane_NN,b,b);

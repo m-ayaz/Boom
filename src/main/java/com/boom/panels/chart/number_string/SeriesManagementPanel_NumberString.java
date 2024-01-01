@@ -14,14 +14,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 @SuppressWarnings("unchecked")
-public final class SeriesManagementPane_NumberString extends SeriesManagementPaneBase {
+public final class SeriesManagementPanel_NumberString extends SeriesManagementPaneBase {
 
     XYChart.Series<Number, String> series;
 
     AppXYChart<Number, String> appXYChart;
 
 
-    public SeriesManagementPane_NumberString(AppXYChart<Number, String> appXYChart, XYChart.Series<Number, String> series, SeriesLineStyleProperty lineStyleProperty, CSSProperty areaStyleProperty) {
+    public SeriesManagementPanel_NumberString(AppXYChart<Number, String> appXYChart, XYChart.Series<Number, String> series, SeriesLineStyleProperty lineStyleProperty, CSSProperty areaStyleProperty) {
 
         super(lineStyleProperty, areaStyleProperty);
 

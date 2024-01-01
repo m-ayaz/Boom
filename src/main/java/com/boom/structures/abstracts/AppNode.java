@@ -4,8 +4,6 @@ import com.boom.configuration.Configs;
 import com.boom.controllers.MainCanvasItemsHandler;
 import com.boom.controllers.SelectedObjectsController;
 import com.boom.styles.CSSProperty;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;

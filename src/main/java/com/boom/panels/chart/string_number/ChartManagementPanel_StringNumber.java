@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 @SuppressWarnings("unchecked")
-public final class ChartManagementPane_StringNumber extends VBox {
+public final class ChartManagementPanel_StringNumber extends VBox {
 
     TabPane seriesList = new TabPane();
     AppXYChart<String, Number> appXYChart;
@@ -27,7 +27,7 @@ public final class ChartManagementPane_StringNumber extends VBox {
 
     ColorPicker chartStrokeColor = new ColorPicker();
 
-    public ChartManagementPane_StringNumber() {
+    public ChartManagementPanel_StringNumber() {
 
         super();
 
@@ -45,13 +45,13 @@ public final class ChartManagementPane_StringNumber extends VBox {
             XYChart.Series<String, Number> newSeries = appXYChart.addSeries();
             int seriesIndex = ((XYChart<String, Number>) appXYChart.getStyleableNode()).getData().indexOf(newSeries);
             Tab newTab = new Tab();
-            SeriesManagementPane_StringNumber newDataPane;
+            SeriesManagementPanel_StringNumber newDataPane;
             if (appXYChart.getType().equals(NodeTypeEnum.AreaChart_SN.getNodeType())) {
-                newDataPane = new SeriesManagementPane_StringNumber(appXYChart, newSeries, appXYChart.getSeriesLineStyles().get(seriesIndex), appXYChart.getSeriesAreaStyles().get(seriesIndex));
+                newDataPane = new SeriesManagementPanel_StringNumber(appXYChart, newSeries, appXYChart.getSeriesLineStyles().get(seriesIndex), appXYChart.getSeriesAreaStyles().get(seriesIndex));
             } else if (appXYChart.getType().equals(NodeTypeEnum.LineChart_SN.getNodeType())) {
-                newDataPane = new SeriesManagementPane_StringNumber(appXYChart, newSeries, appXYChart.getSeriesLineStyles().get(seriesIndex), null);
+                newDataPane = new SeriesManagementPanel_StringNumber(appXYChart, newSeries, appXYChart.getSeriesLineStyles().get(seriesIndex), null);
             } else if (appXYChart.getType().equals(NodeTypeEnum.ScatterChart_SN.getNodeType())) {
-                newDataPane = new SeriesManagementPane_StringNumber(appXYChart, newSeries, null, null);
+                newDataPane = new SeriesManagementPanel_StringNumber(appXYChart, newSeries, null, null);
             } else {
                 throw new AppException(AppExceptionEnum.ChartTypeNotRegistered);
             }
@@ -67,7 +67,7 @@ public final class ChartManagementPane_StringNumber extends VBox {
         removeSeriesButton.setOnAction(event -> {
             Tab tab = seriesList.getSelectionModel().getSelectedItem();
             if (tab != null) {
-                appXYChart.removeSeries(((XYChart<String, Number>) appXYChart.getStyleableNode()).getData().indexOf(((SeriesManagementPane_StringNumber) ((ScrollPane) tab.getContent()).getContent()).series));
+                appXYChart.removeSeries(((XYChart<String, Number>) appXYChart.getStyleableNode()).getData().indexOf(((SeriesManagementPanel_StringNumber) ((ScrollPane) tab.getContent()).getContent()).series));
                 seriesList.getTabs().remove(tab);
                 renameTabs();
             }
@@ -81,13 +81,13 @@ public final class ChartManagementPane_StringNumber extends VBox {
         for (int i = 0; i < ((XYChart<String, Number>) appXYChart.getStyleableNode()).getData().size(); i++) {
             XYChart.Series<String, Number> series = ((XYChart<String, Number>) appXYChart.getStyleableNode()).getData().get(i);
             Tab tab = new Tab();
-            SeriesManagementPane_StringNumber dataPane;
+            SeriesManagementPanel_StringNumber dataPane;
             if (appXYChart.getStyleableNode().getClass().getName().equals(AreaChart.class.getName())) {
-                dataPane = new SeriesManagementPane_StringNumber(appXYChart, series, appXYChart.getSeriesLineStyles().get(i), appXYChart.getSeriesAreaStyles().get(i));
+                dataPane = new SeriesManagementPanel_StringNumber(appXYChart, series, appXYChart.getSeriesLineStyles().get(i), appXYChart.getSeriesAreaStyles().get(i));
             } else if (appXYChart.getStyleableNode().getClass().getName().equals(LineChart.class.getName())) {
-                dataPane = new SeriesManagementPane_StringNumber(appXYChart, series, appXYChart.getSeriesLineStyles().get(i), null);
+                dataPane = new SeriesManagementPanel_StringNumber(appXYChart, series, appXYChart.getSeriesLineStyles().get(i), null);
             } else if (appXYChart.getStyleableNode().getClass().getName().equals(ScatterChart.class.getName())) {
-                dataPane = new SeriesManagementPane_StringNumber(appXYChart, series, null, null);
+                dataPane = new SeriesManagementPanel_StringNumber(appXYChart, series, null, null);
             } else {
                 throw new AppException(AppExceptionEnum.ChartTypeNotRegistered);
             }

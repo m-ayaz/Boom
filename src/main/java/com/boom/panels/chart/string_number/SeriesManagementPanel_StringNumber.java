@@ -1,4 +1,4 @@
-package com.boom.panels.chart.number_number;
+package com.boom.panels.chart.string_number;
 
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.structures.abstracts.SeriesManagementPaneBase;
@@ -14,14 +14,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 @SuppressWarnings("unchecked")
-public final class SeriesManagementPane_NumberNumber extends SeriesManagementPaneBase {
+public final class SeriesManagementPanel_StringNumber extends SeriesManagementPaneBase {
 
-    XYChart.Series<Number, Number> series;
+    XYChart.Series<String, Number> series;
 
-    AppXYChart<Number, Number> appXYChart;
+    AppXYChart<String, Number> appXYChart;
 
 
-    public SeriesManagementPane_NumberNumber(AppXYChart<Number, Number> appXYChart, XYChart.Series<Number, Number> series, SeriesLineStyleProperty lineStyleProperty, CSSProperty areaStyleProperty) {
+    public SeriesManagementPanel_StringNumber(AppXYChart<String, Number> appXYChart, XYChart.Series<String, Number> series, SeriesLineStyleProperty lineStyleProperty, CSSProperty areaStyleProperty) {
 
         super(lineStyleProperty, areaStyleProperty);
 
@@ -54,7 +54,7 @@ public final class SeriesManagementPane_NumberNumber extends SeriesManagementPan
                 bufferedReader.lines().forEach(data -> {
                     try {
                         series.getData().add(new XYChart.Data<>(
-                                Double.valueOf(data.split(",")[0]),
+                                data.split(",")[0],
                                 Double.valueOf(data.split(",")[1])));
                     } catch (Exception ignored) {
 
@@ -68,11 +68,10 @@ public final class SeriesManagementPane_NumberNumber extends SeriesManagementPan
     @Override
     public void registerSeries() {
         for (int i = 0; i < series.getData().size(); i++) {
-            DataField_NumberNumber dataField = new DataField_NumberNumber(dataSetPaneChildren, appXYChart, series, series.getData().get(i));
+            DataField_StringNumber dataField = new DataField_StringNumber(dataSetPaneChildren, appXYChart, series, series.getData().get(i));
             dataSetPaneChildren.add(dataField);
         }
     }
-
 
     @Override
     protected void setPrimaryAddButton() {
@@ -81,14 +80,14 @@ public final class SeriesManagementPane_NumberNumber extends SeriesManagementPan
         primaryAddButton.setOnMouseEntered(mouseEvent -> primaryEmptySpace.setVisible(true));
         primaryAddButton.setOnMouseExited(mouseEvent -> primaryEmptySpace.setVisible(false));
         primaryAddButton.setOnAction(event -> {
-            XYChart.Data<Number, Number> newData;
-            int seriesIndex = ((XYChart<Number,Number>) appXYChart.getStyleableNode()).getData().indexOf(series);
+            XYChart.Data<String, Number> newData;
+            int seriesIndex = ((XYChart<String, Number>) appXYChart.getStyleableNode()).getData().indexOf(series);
             if (dataSetPaneChildren.size() == 1) {
-                newData = appXYChart.addData(0, 0, seriesIndex, 0);
+                newData = appXYChart.addData("", 0, seriesIndex, 0);
             } else {
                 newData = appXYChart.addData(series.getData().get(0).getXValue(), series.getData().get(0).getYValue(), seriesIndex, 0);
             }
-            DataField_NumberNumber newDataField = new DataField_NumberNumber(dataSetPaneChildren, appXYChart, series, newData);
+            DataField_StringNumber newDataField = new DataField_StringNumber(dataSetPaneChildren, appXYChart, series, newData);
             dataSetPaneChildren.add(1, newDataField);
         });
     }
