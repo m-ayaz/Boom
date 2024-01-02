@@ -32,6 +32,7 @@ public abstract   class AppAreaShape extends AppNode {
 
         backgroundStyle.addFill(0, new AppColor(Color.TRANSPARENT));
         backgroundStyle.addStroke(0, new AppColor(Color.BLACK));
+        backgroundStyle.setStrokeWidth(1);
 
         shape.setFill(Color.TRANSPARENT);
         shape.setStroke(Color.TRANSPARENT);

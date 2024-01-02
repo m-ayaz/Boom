@@ -1,17 +1,23 @@
 package com.boom.structures.abstracts;
 
+import com.boom.appshapes.AppEllipse;
+import com.boom.appshapes.AppRectangle;
 import com.boom.configuration.Configs;
 import com.boom.controllers.MainCanvasItemsHandler;
 import com.boom.controllers.SelectedObjectsController;
+import com.boom.exceptions.AppException;
+import com.boom.structures.enums.AppExceptionEnum;
+import com.boom.structures.enums.NodeTypeEnum;
 import com.boom.styles.CSSProperty;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
 import org.json.JSONObject;
 
-import static com.boom.tools.Tools.uuid;
+import static com.boom.tools.Tools.*;
 
 
 public abstract class AppNode {
@@ -22,7 +28,6 @@ public abstract class AppNode {
     protected Node styleableNode;
     protected String type;
     public final String id = uuid(Configs.ID_LENGTH);
-    protected int configStep;
 
     public AppNode(Node styleableNode, String fillColorFX, String strokeColorFX, String strokeWidthFX) {
         this.styleableNode = styleableNode;
@@ -34,7 +39,7 @@ public abstract class AppNode {
 
     }
 
-    protected int drawingStage = 0;
+    protected int configStep = 0;
 
     public abstract void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY , double pressX , double pressY , double releaseX , double releaseY , double clickX , double clickY , double x , double y)    ;
 
@@ -84,6 +89,25 @@ public abstract class AppNode {
     }
 
     public abstract boolean contains(double x, double y);
+
+    public static AppNode parseJSON(JSONObject jsonObject){
+        AppNode appNode;
+        if(jsonObject.get("type").equals(NodeTypeEnum.Rectangle.getNodeType())){
+            appNode=new AppRectangle( jsonObject.getDouble("width"),  jsonObject.getDouble("height"));
+            appNode.affineTransform.append(parseAffine(jsonObject.getJSONArray("affine")));
+            appNode.backgroundStyle.setFromJSON(jsonObject.getJSONObject("backgroundStyle"));
+            ((AppRectangle)appNode).arcWidth.set(jsonObject.getDouble("arcWidth"));
+            ((AppRectangle)appNode).arcHeight.set(jsonObject.getDouble("arcHeight"));
+            return appNode;
+        }else if(jsonObject.get("type").equals(NodeTypeEnum.Ellipse.getNodeType())){
+            appNode=new AppEllipse( jsonObject.getDouble("radiusX"),  jsonObject.getDouble("radiusY"));
+            appNode.affineTransform.append(parseAffine(jsonObject.getJSONArray("affine")));
+            appNode.backgroundStyle.setFromJSON(jsonObject.getJSONObject("backgroundStyle"));
+            return appNode;
+        }else{
+            throw new AppException(AppExceptionEnum.AppNodeNotRegistered);
+        }
+    }
 
 
 }

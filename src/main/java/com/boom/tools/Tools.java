@@ -9,8 +9,11 @@ import com.boom.styles.SeriesLineStyleProperty;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import javafx.scene.transform.Affine;
+import org.json.JSONArray;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -36,6 +39,33 @@ public class Tools {
         affineTo.setTx(affineFrom.getTx());
         affineTo.setTy(affineFrom.getTy());
         affineTo.setTz(affineFrom.getTz());
+    }
+
+    public static Affine parseAffine(JSONArray jsonArray){
+        Affine affine=new Affine();
+        affine.setMxx(jsonArray.getDouble(0));
+        affine.setMxy(jsonArray.getDouble(1));
+        affine.setTx(jsonArray.getDouble(2));
+        affine.setMyx(jsonArray.getDouble(3));
+        affine.setMyy(jsonArray.getDouble(4));
+        affine.setTy(jsonArray.getDouble(5));
+        return affine;
+    }
+
+    public static List<Double> arrayToList(Object[] array){
+        List<Double> list=new ArrayList<>();
+        for (Object v : array) {
+            list.add(Double.valueOf(v.toString()));
+        }
+        return list;
+    }
+
+    public static List<Double> arrayToList(double[] array){
+        List<Double> list=new ArrayList<>();
+        for (double v : array) {
+            list.add(v);
+        }
+        return list;
     }
 
     public static Affine deepCopy(Affine affine) {

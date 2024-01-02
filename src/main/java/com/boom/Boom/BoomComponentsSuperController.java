@@ -9,6 +9,7 @@ import com.boom.appcharts.number_string.AppScatterChart_NumberString;
 import com.boom.appcharts.string_number.AppAreaChart_StringNumber;
 import com.boom.appcharts.string_number.AppLineChart_StringNumber;
 import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
+import com.boom.apppaints.AppLinearGradient;
 import com.boom.appshapes.*;
 import com.boom.configuration.Configs;
 import com.boom.controllers.DynamicDragRectangle;
@@ -36,6 +37,10 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -43,19 +48,23 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import static com.boom.configuration.Configs.*;
 import static com.boom.projectmanager.ProjectManager.*;
@@ -395,7 +404,13 @@ public class BoomComponentsSuperController {
 
 
         visualEffectsTab.setContent(paintManagementPanel);
-        paintManagementPanel.setVisible(false);
+        paintManagementPanel.visibleProperty().bind(mainCanvasItemsHandler.getSelectedObjectsController().bufferSizeProperty().isEqualTo(1));
+
+        fileChooser.getExtensionFilters().addAll(jsonExtension, texExtension,svgExtension
+//                ,pngExtension, bmpExtension
+        );
+
+        print("Done initialization!");
 
 
 //        mainAppPlayGround.setBackground(Background.fill(Color.valueOf("00000055")));
@@ -438,8 +453,91 @@ public class BoomComponentsSuperController {
 //        tempMenuBar.setBackground(Background.fill(Color.valueOf("00000099")));
 //        tempMenuBar.getMenus().forEach(m);
 
+        AppLinearGradient appLinearGradient=new AppLinearGradient(new LinearGradient(0,0,1,1,true, CycleMethod.NO_CYCLE,
+                new Stop(0,new Color(1,0,0,0.5)),new Stop(1,new Color(0,0,1,0.5))));
+
+        AppRectangle appRectangle=new AppRectangle(200,200);
+        appRectangle.backgroundStyle.addFill(appLinearGradient);
+        AppEllipse appEllipse=new AppEllipse(200,200);
+        appEllipse.backgroundStyle.addFill(new AppLinearGradient(new LinearGradient(0,0,1,1,true, CycleMethod.NO_CYCLE,
+                new Stop(0,new Color(0,1,0,0.5)),new Stop(1,new Color(1,1,0,0.5)))));
+
+
+        appRectangle.affineTransform.prependTranslation(400,200);
+        appEllipse.affineTransform.prependTranslation(200,200);
+
+        Random random=new Random();
+
+        appRectangle.affineTransform.prependScale(random.nextDouble()+1,random.nextDouble()+1);
+        appEllipse.affineTransform.prependScale(random.nextDouble()+1,random.nextDouble()+1);
+        appEllipse.affineTransform.prependRotation(random.nextDouble()*45);
+
+
+//        File fileReader=new File("C:\\Users\\Mostafa\\Desktop\\a.json");
+//        InputStream inputStream=new FileInputStream("C:\\Users\\Mostafa\\Desktop\\a.json");
+//
+//        print(new JSONArray(Files.readString(Path.of("C:\\Users\\Mostafa\\Desktop\\a.json"))));
+
+        mainCanvasItemsHandler.addToMainCanvas(appRectangle);
+        mainCanvasItemsHandler.addToMainCanvas(appEllipse);
+
+//        print(fileReader.rea);
+
+//        print(inputStream.);
+
+//        print(AppNode.parseJSON(appRectangle.toJSON()));
+
+//        JSONObject jsonObject=appRectangle.toJSON();
+
+//        print(jsonObject.getJSONArray("affine").for);
+
+//        jsonObject.
+
+//        Affine affine;
+//        affine.setToTransform();
+
+//        print(AppPaint.parseJSON(jsonObject.getJSONObject("backgroundStyle").getJSONArray("fillArray").getJSONObject(1)));
+//        print(CSSProperty.parseJSON(jsonObject.getJSONObject("backgroundStyle")));
+
+//        JSONObject jsonObject1=new JSONObject();
+//        jsonObject1.put("stopsColors",Arrays.asList())
+
+//        print(appLinearGradient.toJSON().getJSONArray("stopsColors"));
+//        print(AppPaint.parseJSON(appLinearGradient.toJSON()));
+
+
+//        print(CycleMethod.valueOf(CycleMethod.NO_CYCLE.name()));
+//        print(jsonObject.getDouble("width") +50);
+//        print(jsonObject.getString("type"));
+//        print(jsonObject.getJSONArray("affine").getJSONArray(0).getDouble(2));
+//        print(jsonObject.getJSONArray("affine").getDouble(2));
+//        print(jsonObject.get("backgroundStyle"));
+
+//        print(new ArrayList<>(List.of(new double[]{1., 2.})));
+
+//        appEllipse.affineTransform.prependScale(2,1,0,0);
+//
+//        print(appEllipse.affineTransform);
+//
+//        print(validObjects);
+
+//        FileChooser fileChooser=new FileChooser();
+//        print(fileChooser);
+//        File file=new File("C:\\Users\\Mostafa\\Desktop\\aaa.svg");
+//
+//        PrintWriter printWriter=new PrintWriter(file);
+//        print(printWriter);
+//
+////        print(exportProjectAsSVG(validObjects));
+//        printWriter.println(exportProjectAsSVG(validObjects));
+
+
+//        saveButtonOnAction(new ActionEvent());
+
 
     }
+
+
 
     void instantiateObjects() {
 
@@ -474,51 +572,17 @@ public class BoomComponentsSuperController {
         }
     }
 
+    FileChooser fileChooser = new FileChooser();
+
     @FXML
     void loadButtonOnAction(ActionEvent event) throws Exception {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
-        String filePath = fileChooser.showOpenDialog(new ContextMenu()).getAbsolutePath();
-        JSONArray jsonArray = importProjectFromJSON(filePath);
         mainCanvasItemsHandler.selectAll();
         mainCanvasItemsHandler.removeSelectedObjectsFromMainCanvas();
-        JSONObject jsonString;
-//            print(jsonArray);
-        for (Object obj : jsonArray) {
-            jsonString = (JSONObject) obj;
-            if (jsonString.get("object").equals(NodeTypeEnum.Ellipse.getNodeType())) {
-//                mainCanvasItemsHandler.addToMainCanvas(parseEllipseFromJSON(jsonString));
-            } else if (jsonString.get("object").equals(NodeTypeEnum.Rectangle.getNodeType())) {
-//                mainCanvasItemsHandler.addToMainCanvas(parseRectangleFromJSON(jsonString));
-            } else if (jsonString.get("object").equals(NodeTypeEnum.Line.getNodeType())) {
-//                mainCanvasItemsHandler.addToMainCanvas(parseLineFromJSON(jsonString));
-            } else if (jsonString.get("object").equals(NodeTypeEnum.LineChart_NN.getNodeType())) {
-//                mainCanvasItemsHandler.addToMainCanvas(+parseLineChart_NNFromJSON(jsonString));
-            } else if (jsonString.get("object").equals(NodeTypeEnum.LineChart_NS.getNodeType())) {
-//                mainCanvasItemsHandler.addToMainCanvas(parseLineChart_NSFromJSON(jsonString));
-            } else if (jsonString.get("object").equals(NodeTypeEnum.LineChart_SN.getNodeType())) {
-//                mainCanvasItemsHandler.addToMainCanvas(parseLineChart_SNFromJSON(jsonString));
-            } else if (jsonString.get("object").equals(NodeTypeEnum.AreaChart_NN.getNodeType())) {
-//                mainCanvasItemsHandler.addToMainCanvas(parseAreaChart_NNFromJSON(jsonString));
-            } else if (jsonString.get("object").equals(NodeTypeEnum.AreaChart_NS.getNodeType())) {
-//                mainCanvasItemsHandler.addToMainCanvas(parseAreaChart_NSFromJSON(jsonString));
-            } else if (jsonString.get("object").equals(NodeTypeEnum.AreaChart_SN.getNodeType())) {
-//                mainCanvasItemsHandler.addToMainCanvas(parseAreaChart_SNFromJSON(jsonString));
-            } else if (jsonString.get("object").equals(NodeTypeEnum.ScatterChart_NN.getNodeType())) {
-//                mainCanvasItemsHandler.addToMainCanvas(parseScatterChart_NNFromJSON(jsonString));
-            } else if (jsonString.get("object").equals(NodeTypeEnum.ScatterChart_NS.getNodeType())) {
-//                mainCanvasItemsHandler.addToMainCanvas(parseScatterChart_NSFromJSON(jsonString));
-            } else if (jsonString.get("object").equals(NodeTypeEnum.ScatterChart_SN.getNodeType())) {
-//                mainCanvasItemsHandler.addToMainCanvas(parseScatterChart_SNFromJSON(jsonString));
-//
-//            } else if (jsonString.get("object").equals(NodeTypeEnum.BarChart_NS.getNodeType())) {
-//
-//            } else if (jsonString.get("object").equals(NodeTypeEnum.BarChart_SN.getNodeType())) {
-//
-            } else {
-                throw new AppException(AppExceptionEnum.AppNodeNotRegistered);
-            }
-        }
+        fileChooser.getExtensionFilters().add(jsonExtension);
+        String filePath = fileChooser.showOpenDialog(new ContextMenu()).getAbsolutePath();
+        JSONArray jsonArray = new JSONArray(Files.readString(Path.of(filePath)));
+        List<AppNode> appNodes=importProjectFromJSON(jsonArray);
+        appNodes.forEach(appNode -> mainCanvasItemsHandler.addToMainCanvas(appNode));
     }
 
     @FXML
@@ -581,19 +645,6 @@ public class BoomComponentsSuperController {
     void mainCanvasHolderOnKeyTyped(KeyEvent event) {
     }
 
-    @FXML
-    void mainCanvasOnKeyPressed(KeyEvent event) {
-    }
-
-    @FXML
-    void mainCanvasOnKeyReleased(KeyEvent event) {
-//        print("key released on main canvas.");
-    }
-
-    @FXML
-    void mainCanvasOnKeyTyped(KeyEvent event) {
-//        print("key typed on main canvas.");
-    }
 
     @FXML
     void objectProp1InputOnKeyTyped(KeyEvent event) {
@@ -639,28 +690,41 @@ public class BoomComponentsSuperController {
         tempObjectName.set(NodeTypeEnum.Rectangle.getNodeType());
     }
 
+    Pane rasterCanvas=new Pane();
+
+
+
+    FileChooser.ExtensionFilter jsonExtension = new FileChooser.ExtensionFilter("JSON Files (*.json)", "*.json");
+    FileChooser.ExtensionFilter texExtension = new FileChooser.ExtensionFilter("Boom TeX Files (*.tex)", "*.tex");
+    FileChooser.ExtensionFilter pngExtension = new FileChooser.ExtensionFilter("Portable Network Graphics Files (*.png)", "*.png");
+    FileChooser.ExtensionFilter bmpExtension = new FileChooser.ExtensionFilter("Bitmap Files (*.bmp)", "*.bmp");
+    FileChooser.ExtensionFilter jpegExtension = new FileChooser.ExtensionFilter("Joint Photographic Experts Group Files (*.jpeg)", "*.jpeg");
+    FileChooser.ExtensionFilter svgExtension = new FileChooser.ExtensionFilter("Boom Scalable Vector Graphics Files (*.svg)", "*.svg");
+
+//    FileChooser fileChooser = new FileChooser();
+
     @FXML
     void saveButtonOnAction(ActionEvent event) {
 
 
 //        ImageIO.write(SwingFXUtils.fromFXImage(image, null),
 //                "png", file);
+//////
+//        Canvas canvas=new Canvas();
+//        canvas.getGraphicsContext2D().
+
+
 
 
         try {
 
-            FileChooser fileChooser = new FileChooser();
-
-            FileChooser.ExtensionFilter jsonExtension = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
-            FileChooser.ExtensionFilter texExtension = new FileChooser.ExtensionFilter("Boom TeX files (*.tex)", "*.tex");
-            FileChooser.ExtensionFilter pngExtension = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
-            FileChooser.ExtensionFilter svgExtension = new FileChooser.ExtensionFilter("Boom SVG files (*.svg)", "*.svg");
 
 
 
-            fileChooser.getExtensionFilters().addAll(jsonExtension, texExtension
-//                    ,svgExtension,pngExtension
-            );
+
+
+
+
 
             File saveFile = fileChooser.showSaveDialog(null);
 
@@ -673,12 +737,23 @@ public class BoomComponentsSuperController {
             } else if (fileChooser.getSelectedExtensionFilter().equals(svgExtension)) {
                 printWriter.println(exportProjectAsSVG(validObjects));
             } else if (fileChooser.getSelectedExtensionFilter().equals(pngExtension)) {
-                SnapshotParameters snapshotParameters = new SnapshotParameters();
-                snapshotParameters.setFill(new Color(0, 0, 0, 0.1));
+                rasterCanvas.getChildren().setAll(validObjects.stream().map(appNode -> appNode.copy().getStyleableNode()).collect(Collectors.toList()));
+//                SnapshotParameters snapshotParameters = new SnapshotParameters();
+//                snapshotParameters.setFill(new Color(0, 0, 0, 0));
 //                mainCanvas.snapshot(snapshotParameters, new WritableImage((int) mainCanvas.getWidth(), (int) mainCanvas.getHeight()));
 //                mainCanvas.snapshot(snapshotParameters, null);
-                WritableImage image = mainCanvas.snapshot(new SnapshotParameters(), null);
+                WritableImage image = rasterCanvas.snapshot(new SnapshotParameters(), null);
+                print(rasterCanvas);
+                print(image);
                 ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", saveFile);
+            } else if (fileChooser.getSelectedExtensionFilter().equals(bmpExtension)) {
+                rasterCanvas.getChildren().setAll(validObjects.stream().map(appNode -> appNode.copy().getStyleableNode()).collect(Collectors.toList()));
+//                SnapshotParameters snapshotParameters = new SnapshotParameters();
+//                snapshotParameters.setFill(new Color(0, 0, 0, 0));
+//                mainCanvas.snapshot(snapshotParameters, new WritableImage((int) mainCanvas.getWidth(), (int) mainCanvas.getHeight()));
+//                mainCanvas.snapshot(snapshotParameters, null);
+                WritableImage image = rasterCanvas.snapshot(new SnapshotParameters(), null);
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "bmp", saveFile);
             } else {
                 throw new AppException(AppExceptionEnum.UnknownFileExtension);
             }
@@ -789,7 +864,7 @@ public class BoomComponentsSuperController {
 //                print(uuid(10));
 
                 paintManagementPanel.registerBackground(selectedShape.backgroundStyle);
-                paintManagementPanel.setVisible(true);
+//                paintManagementPanel.setVisible(true);
 //                print(selectedShape.type);
 //                print(NodeTypeEnum.LineChart_NN.getNodeType());
                 if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {

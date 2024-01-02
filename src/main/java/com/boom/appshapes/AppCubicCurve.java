@@ -4,14 +4,14 @@ import com.boom.controllers.MainCanvasItemsHandler;
 import com.boom.controllers.SelectedObjectsController;
 import com.boom.structures.abstracts.AppLineShape;
 import com.boom.structures.abstracts.AppNode;
+import com.boom.structures.abstracts.AppPaint;
 import javafx.beans.property.DoubleProperty;
-import javafx.event.EventType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.CubicCurve;
 import javafx.scene.transform.MatrixType;
 import org.json.JSONObject;
 
-import static com.boom.tools.Tools.deepCopy;
+import static com.boom.tools.Tools.*;
 
 public final class AppCubicCurve extends AppLineShape {
 
@@ -31,28 +31,28 @@ public final class AppCubicCurve extends AppLineShape {
 
     @Override
     public void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY, double pressX, double pressY, double releaseX, double releaseY, double clickX, double clickY, double x, double y) {
-        if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
-            drawingStage++;
-        } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+        if (configStep == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            configStep++;
+        } else if (configStep == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
             selectedObjectsController.unselectAll();
             draw(pressX, pressY, moveX, moveY);
-        } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
-            drawingStage++;
-        } else if (drawingStage == 2 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+        } else if (configStep == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            configStep++;
+        } else if (configStep == 2 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
             selectedObjectsController.unselectAll();
             controlX1.set(x);
             controlY1.set(y);
             controlX2.set(x);
             controlY2.set(y);
-        } else if (drawingStage == 2 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
-            drawingStage++;
-        } else if (drawingStage == 3 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+        } else if (configStep == 2 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            configStep++;
+        } else if (configStep == 3 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
             selectedObjectsController.unselectAll();
             controlX2.set(x);
             controlY2.set(y);
-        } else if (drawingStage == 3 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+        } else if (configStep == 3 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
             mainCanvasItemsHandler.copyToMainCanvas(this);
-            drawingStage = 0;
+            configStep = 0;
         }
     }
 
@@ -81,7 +81,12 @@ public final class AppCubicCurve extends AppLineShape {
 
     @Override
     public String getSVGClones(int tabIndent) {
-        return null;
+        double[] dissectedTransform = dissectAffineTransform(affineTransform);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (AppPaint appPaint : backgroundStyle.getStrokeArray()) {
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<path d=\"M %f %f C %f %f %f %f %f %f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(startX.get(), startY.get(),controlX1.get(),controlY1.get(),controlX2.get(),controlY2.get(), endX.get(), endY.get(), appPaint.id, backgroundStyle.getStrokeWidth(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+        }
+        return stringBuilder.toString();
     }
 
     @Override
@@ -89,7 +94,7 @@ public final class AppCubicCurve extends AppLineShape {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("type", type);
         jsonObject.put("id", id);
-        jsonObject.put("affine", affineTransform.toArray(MatrixType.MT_2D_2x3));
+        jsonObject.put("affine", arrayToList(affineTransform.toArray(MatrixType.MT_2D_2x3)));
         jsonObject.put("backgroundStyle", backgroundStyle.toJSON());
         jsonObject.put("startX", startX.get());
         jsonObject.put("startY", startY.get());

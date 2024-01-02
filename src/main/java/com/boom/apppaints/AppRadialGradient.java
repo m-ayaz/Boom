@@ -12,7 +12,12 @@ import javafx.scene.paint.Stop;
 import org.json.JSONObject;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.boom.tools.Tools.arrayToList;
+import static java.lang.Math.*;
 
 public final class AppRadialGradient extends AppGradient {
 
@@ -51,6 +56,12 @@ public final class AppRadialGradient extends AppGradient {
     @Override
     public JSONObject toJSON() {
         JSONObject jsonObject=new JSONObject();
+        List<Double> stopsProportions=new ArrayList<>();
+        List<String> stopsColors=new ArrayList<>();
+        appStops.forEach(appStop -> {
+            stopsProportions.add(appStop.offset.get());
+            stopsColors.add(appStop.appColor.getFormatted());
+        });
         jsonObject.put("type",type);
         jsonObject.put("id",id);
         jsonObject.put("focusAngle",focusAngle.get());
@@ -60,14 +71,17 @@ public final class AppRadialGradient extends AppGradient {
         jsonObject.put("radius",radius.get());
         jsonObject.put("isProportional",isProportional.get());
         jsonObject.put("cycleMethod",cycleMethod.get().name());
-        jsonObject.put("stopsProportions",appStops.stream().map(appStop -> appStop.get().getOffset()).toArray());
-        jsonObject.put("stopsColors",appStops.stream().map(appStop -> appStop.get().getColor().toString()).toArray());
+        jsonObject.put("stopsProportions",stopsProportions);
+        jsonObject.put("stopsColors",stopsColors);
         return jsonObject;
     }
 
     @Override
     public String toSVG(int tabIndent) {
-        return null;
+        return "\n" + "\t".repeat(tabIndent) + "<radialGradient id=\"%s\" cx=\"%f\" cy=\"%f\" fx=\"%f\" fy=\"%f\" r=\"%f\" gradientUnits=\"%s\" spreadMethod=\"%s\">".formatted(id,
+                centerX.get(), centerY.get(), centerX.get()+0.99*focusDistance.get()*radius.get()*cos(focusAngle.get()*PI/180), centerY.get()+0.99*focusDistance.get()*radius.get()*sin(focusAngle.get()*PI/180),radius.get(), svgIsProportional.get(isProportional.get()),svgCycleMethod.get(cycleMethod.get().name())) +
+                appStops.stream().map(appStop -> appStop.toSVG(tabIndent + 1)).collect(Collectors.joining()) +
+                "\n" + "\t".repeat(tabIndent) + "</radialGradient>";
     }
 
     @Override

@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.*;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -25,12 +26,17 @@ public class Test46 extends Application {
         stage.setScene(scene);
         stage.show();
 
-        Rectangle rectangle = new Rectangle(50, 50, 500, 500);
-        Rectangle rectangle1 = new Rectangle(650, 50, 500, 500);
+        Rectangle rectangle = new Rectangle(50, 50, 300, 300);
+        Rectangle rectangle1 = new Rectangle(400, 50, 300, 300);
+        Rectangle rectangle2 = new Rectangle(750, 50, 300, 300);
 
-        Chessboard p = new Chessboard(40, 16,32, Color.valueOf("00000088"), Color.valueOf("00000033"));
+        Circle circle = new Circle(50, 50, 300 );
+        Circle circle1 = new Circle(400, 50, 300);
+        Circle circle2 = new Circle(750, 50, 300);
 
-        container.getChildren().addAll(p,rectangle, rectangle1);
+        Chessboard p = new Chessboard(25, 16,44, Color.valueOf("00000088"), Color.valueOf("00000033"));
+
+        container.getChildren().addAll(p,rectangle, rectangle1,rectangle2);
 
         rectangle.setFill(new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
                 new Stop(0, Color.TRANSPARENT), new Stop(0.2, Color.YELLOW),
@@ -39,6 +45,12 @@ public class Test46 extends Application {
         ));
 
         rectangle1.setFill(new RadialGradient(0, 0, 0.5, 0.5, 0.55, true, CycleMethod.NO_CYCLE,
+                new Stop(0, Color.TRANSPARENT), new Stop(0.2, Color.YELLOW),
+                new Stop(0.4, Color.valueOf("0000ff88")), new Stop(0.6, Color.GREEN), new Stop(0.8, Color.RED)
+                , new Stop(1, Color.valueOf("ff5599cc"))
+        ));
+
+        rectangle2.setFill(new RadialGradient(-45, 0.7, 0.5, 0.5, 0.55, true, CycleMethod.NO_CYCLE,
                 new Stop(0, Color.TRANSPARENT), new Stop(0.2, Color.YELLOW),
                 new Stop(0.4, Color.valueOf("0000ff88")), new Stop(0.6, Color.GREEN), new Stop(0.8, Color.RED)
                 , new Stop(1, Color.valueOf("ff5599cc"))

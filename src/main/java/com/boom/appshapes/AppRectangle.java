@@ -2,23 +2,22 @@ package com.boom.appshapes;
 
 import com.boom.controllers.MainCanvasItemsHandler;
 import com.boom.controllers.SelectedObjectsController;
-import com.boom.controllers.eventhandlers.mousehandler.AppMouseEventHandler;
 import com.boom.structures.abstracts.AppAreaShape;
 import com.boom.structures.abstracts.AppPaint;
-import com.boom.structures.enums.NodeTypeEnum;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Affine;
 import javafx.scene.transform.MatrixType;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static com.boom.tools.Tools.*;
-import static com.boom.tools.Tools.print;
 
 public final class AppRectangle extends AppAreaShape {
 
@@ -70,7 +69,7 @@ public final class AppRectangle extends AppAreaShape {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("type", type);
         jsonObject.put("id", id);
-        jsonObject.put("affine", affineTransform.toArray(MatrixType.MT_2D_2x3));
+        jsonObject.put("affine", arrayToList(affineTransform.toArray(MatrixType.MT_2D_2x3)));
         jsonObject.put("backgroundStyle", backgroundStyle.toJSON());
         jsonObject.put("width", width.get());
         jsonObject.put("height", height.get());
@@ -83,14 +82,14 @@ public final class AppRectangle extends AppAreaShape {
 
     @Override
     public void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY , double pressX , double pressY , double releaseX , double releaseY , double clickX , double clickY , double x , double y)    {
-        if (drawingStage == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
-            drawingStage++;
-        } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
+        if (configStep == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+            configStep++;
+        } else if (configStep == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
             selectedObjectsController.unselectAll();
             draw(pressX, pressY, moveX, moveY);
-        } else if (drawingStage == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+        } else if (configStep == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
             mainCanvasItemsHandler.copyToMainCanvas(this);
-            drawingStage = 0;
+            configStep = 0;
         }
     }
 

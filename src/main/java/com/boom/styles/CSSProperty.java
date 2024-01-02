@@ -8,8 +8,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.swing.text.html.CSS;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -122,7 +124,7 @@ public class CSSProperty extends SimpleStringProperty {
     void update() {
         String fills = fillArray.size() == 0 ? "rgba(0,0,0,0)" : fillArray.stream().map(AppPaint::getFormatted).collect(Collectors.joining(","));
         String strokes = strokeArray.size() == 0 ? "rgba(0,0,0,0)" : strokeArray.stream().map(AppPaint::getFormatted).collect(Collectors.joining(","));
-        double width = strokeWidth == null || strokeWidth.get() == 0 ? 1 : strokeWidth.get();
+        double width = strokeWidth == null ? 0 : strokeWidth.get();
         set("%s: %s; %s: %s; %s: %s;".formatted(fillColorFX, fills, strokeColorFX, strokes, strokeWidthFX, width));
     }
 
@@ -145,13 +147,25 @@ public class CSSProperty extends SimpleStringProperty {
 
     public JSONObject toJSON() {
         JSONObject jsonObject = new JSONObject();
+        JSONArray fills=new JSONArray();
+        JSONArray strokes=new JSONArray();
+        fillArray.forEach(appPaint -> fills.put(appPaint.toJSON()));
+        strokeArray.forEach(appPaint -> strokes.put(appPaint.toJSON()));
         jsonObject.put("fillColorFX", fillColorFX);
         jsonObject.put("strokeColorFX", strokeColorFX);
         jsonObject.put("strokeWidthFX", strokeWidthFX);
         jsonObject.put("strokeWidth", strokeWidth.get());
-        jsonObject.put("fillArray", fillArray.stream().map(AppPaint::toJSON).toArray());
-        jsonObject.put("strokeArray", strokeArray.stream().map(AppPaint::toJSON).toArray());
+        jsonObject.put("fillArray", fills);
+        jsonObject.put("strokeArray", strokes);
         return jsonObject;
+    }
+
+    public void setFromJSON(JSONObject jsonObject){
+        removeAllFills();
+        removeAllStrokes();
+        jsonObject.getJSONArray("fillArray").forEach(fill->addFill(AppPaint.parseJSON((JSONObject) fill)));
+        jsonObject.getJSONArray("strokeArray").forEach(stroke->addStroke(AppPaint.parseJSON((JSONObject) stroke)));
+        setStrokeWidth(jsonObject.getDouble("strokeWidth"));
     }
 
 

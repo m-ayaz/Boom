@@ -4,14 +4,16 @@ import com.boom.controllers.MainCanvasItemsHandler;
 import com.boom.controllers.SelectedObjectsController;
 import com.boom.structures.abstracts.AppLineShape;
 import com.boom.structures.abstracts.AppNode;
+import com.boom.structures.abstracts.AppPaint;
 import javafx.collections.ObservableList;
-import javafx.event.EventType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Polyline;
 import javafx.scene.transform.MatrixType;
 import org.json.JSONObject;
 
-import static com.boom.tools.Tools.deepCopy;
+import java.util.stream.Collectors;
+
+import static com.boom.tools.Tools.*;
 
 public final class AppPolyline extends AppLineShape {
     public ObservableList<Double> points;
@@ -64,7 +66,15 @@ public final class AppPolyline extends AppLineShape {
 
     @Override
     public String getSVGClones(int tabIndent) {
-        return null;
+        double[] dissectedTransform = dissectAffineTransform(affineTransform);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (AppPaint appPaint : backgroundStyle.getFillArray()) {
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<polygon points=\"%s\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(points.stream().map(p1->p1+(points.indexOf(p1)%2==0?",":" ")).collect(Collectors.joining("")), appPaint.id, affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+        }
+        for (AppPaint appPaint : backgroundStyle.getStrokeArray()) {
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<polygon points=\"%s\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(points.stream().map(p1->p1+(points.indexOf(p1)%2==0?",":" ")).collect(Collectors.joining("")), appPaint.id, backgroundStyle.getStrokeWidth(), affineTransform.getTx(), affineTransform.getTy(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+        }
+        return stringBuilder.toString();
     }
 
     @Override
@@ -72,7 +82,7 @@ public final class AppPolyline extends AppLineShape {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("type", type);
         jsonObject.put("id", id);
-        jsonObject.put("affine",affineTransform.toArray(MatrixType.MT_2D_2x3));
+        jsonObject.put("affine",arrayToList(affineTransform.toArray(MatrixType.MT_2D_2x3)));
         jsonObject.put("backgroundStyle",backgroundStyle.toJSON());
         jsonObject.put("points", points);
         return jsonObject;

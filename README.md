@@ -2,10 +2,15 @@
 
 Innovative Graphics Software for Professionals
 
-Todo List:
+<h3> Known Bugs </h3>
+
+- load project has problems
+
+<h3> Features</h3>
 
 - TeX export
 - exact stroke  export
+  
 
 Backlog
 - create mindmap
@@ -22,3 +27,5 @@ Backlog
 - connectors between shapes
 - add arc to mindmap connection 
 - dracula theme (and other themes)
+- 
+- 

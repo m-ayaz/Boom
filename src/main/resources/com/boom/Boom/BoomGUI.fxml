@@ -176,7 +176,7 @@
                     <children>
                         <ScrollPane fx:id="mainCanvasHolder" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" onKeyPressed="#mainCanvasHolderOnKeyPressed" onKeyReleased="#mainCanvasHolderOnKeyReleased" onKeyTyped="#mainCanvasHolderOnKeyTyped" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
-                                <AnchorPane fx:id="mainCanvas" minHeight="0.0" minWidth="0.0" onKeyPressed="#mainCanvasOnKeyPressed" onKeyReleased="#mainCanvasOnKeyReleased" onKeyTyped="#mainCanvasOnKeyTyped" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" />
+                                <AnchorPane fx:id="mainCanvas" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" />
                             </content>
                         </ScrollPane>
                         <Button fx:id="selectorButton" mnemonicParsing="false" onAction="#selectorButtonOnAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">

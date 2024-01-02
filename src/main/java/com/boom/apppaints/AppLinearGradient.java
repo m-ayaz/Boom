@@ -12,7 +12,11 @@ import javafx.scene.paint.Stop;
 import org.json.JSONObject;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.boom.tools.Tools.arrayToList;
 
 public final class AppLinearGradient extends AppGradient {
 
@@ -49,6 +53,12 @@ public final class AppLinearGradient extends AppGradient {
     @Override
     public JSONObject toJSON() {
         JSONObject jsonObject = new JSONObject();
+        List<Double> stopsProportions=new ArrayList<>();
+        List<String> stopsColors=new ArrayList<>();
+        appStops.forEach(appStop -> {
+            stopsProportions.add(appStop.offset.get());
+            stopsColors.add(appStop.appColor.getFormatted());
+        });
         jsonObject.put("type", type);
         jsonObject.put("id", id);
         jsonObject.put("startX", startX.get());
@@ -57,8 +67,8 @@ public final class AppLinearGradient extends AppGradient {
         jsonObject.put("endY", endY.get());
         jsonObject.put("isProportional", isProportional.get());
         jsonObject.put("cycleMethod", cycleMethod.get().name());
-        jsonObject.put("stopsProportions", appStops.stream().map(appStop -> appStop.get().getOffset()).toArray());
-        jsonObject.put("stopsColors", appStops.stream().map(appStop -> appStop.get().getColor().toString()).toArray());
+        jsonObject.put("stopsProportions", stopsProportions);
+        jsonObject.put("stopsColors", stopsColors);
         return jsonObject;
     }
 
