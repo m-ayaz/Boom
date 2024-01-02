@@ -9,9 +9,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.*;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.stream.Collectors;
@@ -35,9 +33,9 @@ public class Test61 extends Application {
         stage.setScene(scene);
         stage.show();
 
-        AppRectangle rectangle = new AppRectangle(300, 300);
-        AppRectangle rectangle1 = new AppRectangle(300, 300);
-        AppRectangle rectangle2 = new AppRectangle(300, 300);
+        AppRectangle rectangle = new AppRectangle(300, 300,0,0);
+        AppRectangle rectangle1 = new AppRectangle(300, 300,0,0);
+        AppRectangle rectangle2 = new AppRectangle(300, 300,0,0);
 
         AppEllipse ellipse = new AppEllipse(150, 150);
         AppEllipse ellipse1 = new AppEllipse(150, 150);

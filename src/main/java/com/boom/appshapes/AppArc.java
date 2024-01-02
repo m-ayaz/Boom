@@ -17,18 +17,18 @@ import static com.boom.tools.Tools.*;
 
 public final class AppArc extends AppAreaShape {
 
-    public DoubleProperty  radiusX,  radiusY,  startAngle,  length;
+    public DoubleProperty radiusX, radiusY, startAngle, length;
     public ObjectProperty<ArcType> arcType;
 
 
     public AppArc(double radiusX, double radiusY, double startAngle, double length, ArcType arcType) {
         super(new Arc(0, 0, radiusX, radiusY, startAngle, length));
-        ((Arc)shape).setType(arcType);
-        this.radiusX=((Arc)shape).radiusXProperty();
-        this.radiusY=((Arc)shape).radiusYProperty();
-        this.startAngle=((Arc)shape).startAngleProperty();
-        this.length=((Arc)shape).lengthProperty();
-        this.arcType=((Arc)shape).typeProperty();
+        ((Arc) shape).setType(arcType);
+        this.radiusX = ((Arc) shape).radiusXProperty();
+        this.radiusY = ((Arc) shape).radiusYProperty();
+        this.startAngle = ((Arc) shape).startAngleProperty();
+        this.length = ((Arc) shape).lengthProperty();
+        this.arcType = ((Arc) shape).typeProperty();
     }
 
 
@@ -57,7 +57,7 @@ public final class AppArc extends AppAreaShape {
 
     @Override
     public void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY, double pressX, double pressY, double releaseX, double releaseY, double clickX, double clickY, double x, double y) {
-                if (configStep == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+        if (configStep == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
             configStep++;
         } else if (configStep == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {
             selectedObjectsController.unselectAll();
@@ -101,9 +101,9 @@ public final class AppArc extends AppAreaShape {
 
     @Override
     public AppArc copy() {
-        if (radiusX.get() == 0 || radiusY.get() == 0||length.get()==0)
+        if (radiusX.get() == 0 || radiusY.get() == 0 || length.get() == 0)
             return null;
-        AppArc newAppArc = new AppArc(radiusX.get(), radiusY.get(), startAngle.get(), length.get(),arcType.get());
+        AppArc newAppArc = new AppArc(radiusX.get(), radiusY.get(), startAngle.get(), length.get(), arcType.get());
         deepCopy(affineTransform, newAppArc.affineTransform);
         deepCopy(backgroundStyle, newAppArc.backgroundStyle);
         return newAppArc;
@@ -138,13 +138,13 @@ public final class AppArc extends AppAreaShape {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("type", type);
         jsonObject.put("id", id);
-        jsonObject.put("affine",arrayToList(affineTransform.toArray(MatrixType.MT_2D_2x3)));
-        jsonObject.put("backgroundStyle",backgroundStyle.toJSON());
+        jsonObject.put("affine", arrayToList(affineTransform.toArray(MatrixType.MT_2D_2x3)));
+        jsonObject.put("backgroundStyle", backgroundStyle.toJSON());
         jsonObject.put("radiusX", radiusX.get());
         jsonObject.put("radiusY", radiusY.get());
-        jsonObject.put("startAngle",startAngle.get());
-        jsonObject.put("length",length.get());
-        jsonObject.put("arcType",arcType.get().name());
+        jsonObject.put("startAngle", startAngle.get());
+        jsonObject.put("length", length.get());
+        jsonObject.put("arcType", arcType.get().name());
         return jsonObject;
     }
 

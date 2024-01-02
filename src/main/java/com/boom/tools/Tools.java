@@ -52,12 +52,34 @@ public class Tools {
         return affine;
     }
 
+//    public static Affine parseAffine(JSONArray jsonArray){
+//        Affine affine=new Affine();
+//        affine.setMxx(jsonArray.getDouble(0));
+//        affine.setMxy(jsonArray.getDouble(1));
+//        affine.setTx(jsonArray.getDouble(2));
+//        affine.setMyx(jsonArray.getDouble(3));
+//        affine.setMyy(jsonArray.getDouble(4));
+//        affine.setTy(jsonArray.getDouble(5));
+//        return affine;
+//    }
+
     public static List<Double> arrayToList(Object[] array){
         List<Double> list=new ArrayList<>();
         for (Object v : array) {
             list.add(Double.valueOf(v.toString()));
         }
         return list;
+    }
+
+    public static double[] arrayToArray(JSONArray jsonArray){
+        double[] array=new double[jsonArray.length()];
+        for(int i=0;i<array.length;i++){
+            array[i]=jsonArray.getDouble(i);
+        }
+        return array;
+//        List<Double> list=new ArrayList<>();
+//        array.forEach(obj->list.add(Double.parseDouble(obj.toString())));
+//        return list;
     }
 
     public static List<Double> arrayToList(double[] array){

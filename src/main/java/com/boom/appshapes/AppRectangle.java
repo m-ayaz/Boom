@@ -11,20 +11,16 @@ import javafx.scene.transform.MatrixType;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import static com.boom.tools.Tools.*;
 
 public final class AppRectangle extends AppAreaShape {
 
     public DoubleProperty width, height, arcWidth, arcHeight;
 
-    public AppRectangle(double width, double height) {
+    public AppRectangle(double width, double height,double arcWidth,double arcHeight) {
         super(new Rectangle(width, height));
+        ((Rectangle) shape).setArcWidth(arcWidth);
+        ((Rectangle) shape).setArcHeight(arcHeight);
         this.width = ((Rectangle) shape).widthProperty();
         this.height = ((Rectangle) shape).heightProperty();
         this.arcWidth = ((Rectangle) shape).arcWidthProperty();
@@ -36,7 +32,7 @@ public final class AppRectangle extends AppAreaShape {
     public AppRectangle copy() {
         if (width.get() == 0 || height.get() == 0)
             return null;
-        AppRectangle newAppRectangle = new AppRectangle(width.get(), height.get());
+        AppRectangle newAppRectangle = new AppRectangle(width.get(), height.get(),arcWidth.get(),arcHeight.get());
         deepCopy(affineTransform, newAppRectangle.affineTransform);
         deepCopy(backgroundStyle, newAppRectangle.backgroundStyle);
         return newAppRectangle;

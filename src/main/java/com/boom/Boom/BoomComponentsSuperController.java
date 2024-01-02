@@ -51,9 +51,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.*;
 import javafx.stage.FileChooser;
 import org.json.JSONArray;
 
@@ -83,7 +81,7 @@ public class BoomComponentsSuperController {
     AppPolyline tempPolyline=new AppPolyline();
     AppPolygon tempPolygon = new AppPolygon();
     AppArc tempArc = new AppArc(0, 0, 0, 270, ArcType.ROUND);
-    AppRectangle tempRectangle = new AppRectangle(0, 0);
+    AppRectangle tempRectangle = new AppRectangle(0, 0,0,0);
     AppLine tempLine = new AppLine(0, 0, 0, 0);
     AppQuadCurve tempQuadCurve = new AppQuadCurve(0, 0, 0, 0, 0, 0);
     AppCubicCurve tempCubicCurve = new AppCubicCurve(0, 0, 0, 0, 0, 0, 0, 0);
@@ -237,7 +235,7 @@ public class BoomComponentsSuperController {
 
     @FXML
     void arcButtonOnAction(ActionEvent event) {
-        tempObjectName.set(NodeTypeEnum.Arc.getNodeType());
+        tempObjectName.set("Arc");
     }
 
     @FXML
@@ -288,14 +286,15 @@ public class BoomComponentsSuperController {
 
     @FXML
     void cubicCurveButtonOnAction(ActionEvent event) {
-        tempObjectName.set(NodeTypeEnum.CubicCurve.getNodeType());
+        tempObjectName.set("CubicCurve");
     }
 
     @FXML
     void ellipseButtonOnAction(ActionEvent event) {
-        tempObjectName.set(NodeTypeEnum.Ellipse.getNodeType());
+        tempObjectName.set("Ellipse");
     }
 
+    MainCanvasMouseHandler mainCanvasMouseHandler;
     @FXML
     void initialize() {
 
@@ -304,6 +303,13 @@ public class BoomComponentsSuperController {
 //        System.out.println("</svg>");
 
         Configs.setDefaultConfig();
+
+        /*
+
+         */
+//        if(!Arc.class.getSimpleName().equals("Arc")|| !CubicCurve.class.getSimpleName().equals("CubicCurve")){
+//            throw new AppException(AppExceptionEnum.SoftwareArchNeedsUpdate);
+//        }
 
         mainCanvas.setPrefWidth(3000);
         mainCanvas.setPrefHeight(3000);
@@ -335,7 +341,7 @@ public class BoomComponentsSuperController {
 
         setUpObjectsCenterOfMassInput();
 
-        MainCanvasMouseHandler mainCanvasMouseHandler = new MainCanvasMouseHandler(
+         mainCanvasMouseHandler = new MainCanvasMouseHandler(
                 mainCanvasChildren,
                 validObjects,
                 selectedObjectsController,
@@ -389,6 +395,8 @@ public class BoomComponentsSuperController {
 ////    AppBarChart_StringNumber tempBarChart_SN = new AppBarChart_StringNumber(0,0);
 //
                 rotationIcon);
+
+//        mainCanvasMouseHandler.ge
 
         mainCanvas.setOnMouseMoved(mainCanvasMouseHandler);
         mainCanvas.setOnMouseDragged(mainCanvasMouseHandler);
@@ -456,7 +464,7 @@ public class BoomComponentsSuperController {
         AppLinearGradient appLinearGradient=new AppLinearGradient(new LinearGradient(0,0,1,1,true, CycleMethod.NO_CYCLE,
                 new Stop(0,new Color(1,0,0,0.5)),new Stop(1,new Color(0,0,1,0.5))));
 
-        AppRectangle appRectangle=new AppRectangle(200,200);
+        AppRectangle appRectangle=new AppRectangle(200,200,0,0);
         appRectangle.backgroundStyle.addFill(appLinearGradient);
         AppEllipse appEllipse=new AppEllipse(200,200);
         appEllipse.backgroundStyle.addFill(new AppLinearGradient(new LinearGradient(0,0,1,1,true, CycleMethod.NO_CYCLE,
@@ -558,7 +566,7 @@ public class BoomComponentsSuperController {
 
     @FXML
     void lineButtonOnAction(ActionEvent event) {
-        tempObjectName.set(NodeTypeEnum.Line.getNodeType());
+        tempObjectName.set("Line");
     }
 
     @FXML
@@ -622,9 +630,9 @@ public class BoomComponentsSuperController {
             isCopyRequested = true;
             isCutRequested = false;
         } else if (pasteShortcut.match(event) && isCopyRequested) {
-            mainCanvasItemsHandler.pasteCopiedSelectedObjects(currentPosX.get(), currentPosY.get());
+            mainCanvasItemsHandler.pasteCopiedSelectedObjects(mainCanvasMouseHandler.getX(), mainCanvasMouseHandler.getY());
         } else if (pasteShortcut.match(event) && isCutRequested) {
-            mainCanvasItemsHandler.pasteCutSelectedObjects(currentPosX.get(), currentPosY.get());
+            mainCanvasItemsHandler.pasteCutSelectedObjects(mainCanvasMouseHandler.getX(), mainCanvasMouseHandler.getY());
         } else if (selectAllShortcut.match(event)) {
             mainCanvasItemsHandler.selectAll();
         } else if (zoomIn.match(event)) {
@@ -677,17 +685,17 @@ public class BoomComponentsSuperController {
 
     @FXML
     void polygonButtonOnAction(ActionEvent event) {
-        tempObjectName.set(NodeTypeEnum.Polygon.getNodeType());
+        tempObjectName.set("Polygon");
     }
 
     @FXML
     void quadCurveButtonOnAction(ActionEvent event) {
-        tempObjectName.set(NodeTypeEnum.QuadCurve.getNodeType());
+        tempObjectName.set("QuadCurve");
     }
 
     @FXML
     void rectangleButtonOnAction(ActionEvent event) {
-        tempObjectName.set(NodeTypeEnum.Rectangle.getNodeType());
+        tempObjectName.set("Rectangle");
     }
 
     Pane rasterCanvas=new Pane();
@@ -703,6 +711,14 @@ public class BoomComponentsSuperController {
 
 //    FileChooser fileChooser = new FileChooser();
 
+//    Pane vectorCanvas=new Pane();
+//    List
+
+    /**
+     * Saves current canvas to file.
+     * If svg format is selected,............
+     * @param event
+     */
     @FXML
     void saveButtonOnAction(ActionEvent event) {
 
@@ -735,7 +751,14 @@ public class BoomComponentsSuperController {
             } else if (fileChooser.getSelectedExtensionFilter().equals(texExtension)) {
                 printWriter.println(exportProjectAsTeX(validObjects));
             } else if (fileChooser.getSelectedExtensionFilter().equals(svgExtension)) {
-                printWriter.println(exportProjectAsSVG(validObjects));
+                List<AppNode> validObjectsCopy=new ArrayList<>();
+                validObjects.forEach(appNode -> {
+                    validObjectsCopy.add(appNode.copy());
+                    selectedObjectsController.select(appNode);
+                });
+                validObjectsCopy.forEach(appNode -> appNode.affineTransform.prependTranslation(-selectedObjectsController.getMinX(),-selectedObjectsController.getMinY()));
+                printWriter.println(exportProjectAsSVG(validObjectsCopy,selectedObjectsController.getMaxX()-selectedObjectsController.getMinX(),selectedObjectsController.getMaxY()-selectedObjectsController.getMinY()));
+                selectedObjectsController.unselectAll();
             } else if (fileChooser.getSelectedExtensionFilter().equals(pngExtension)) {
                 rasterCanvas.getChildren().setAll(validObjects.stream().map(appNode -> appNode.copy().getStyleableNode()).collect(Collectors.toList()));
 //                SnapshotParameters snapshotParameters = new SnapshotParameters();
@@ -867,17 +890,17 @@ public class BoomComponentsSuperController {
 //                paintManagementPanel.setVisible(true);
 //                print(selectedShape.type);
 //                print(NodeTypeEnum.LineChart_NN.getNodeType());
-                if (selectedShape.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
+                if (selectedShape.getType().equals("Ellipse")) {
                     objectProp1Label.setText("Radius (X)");
                     objectProp2Label.setText("Radius (Y)");
                     objectProp1Input.setText("" + ((AppEllipse) selectedShape).radiusX.get());
                     objectProp2Input.setText("" + ((AppEllipse) selectedShape).radiusY.get());
-                } else if (selectedShape.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
+                } else if (selectedShape.getType().equals("Rectangle") ){
                     objectProp1Label.setText("Width");
                     objectProp2Label.setText("Height");
                     objectProp1Input.setText("" + ((AppRectangle) selectedShape).width.get());
                     objectProp2Input.setText("" + ((AppRectangle) selectedShape).height.get());
-                } else if (selectedShape.getType().equals(NodeTypeEnum.Line.getNodeType())) {
+                } else if (selectedShape.getType().equals("Line")) {
 //                    objectProp1Label.setText("Start (X)");
 //                    objectProp2Label.setText("Start (Y)");
 //                    objectProp1Input.setText("" + ((AppLine)selectedShape).startX.get());
@@ -985,7 +1008,7 @@ public class BoomComponentsSuperController {
 
     @FXML
     void polylineButtonOnAction(ActionEvent event) {
-        tempObjectName.set(NodeTypeEnum.Polyline.getNodeType());
+        tempObjectName.set("Polyline");
     }
 
 

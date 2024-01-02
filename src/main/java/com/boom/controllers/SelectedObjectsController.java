@@ -1,6 +1,5 @@
 package com.boom.controllers;
 
-import com.boom.appshapes.AppLine;
 import com.boom.icons.RotationIcon;
 import com.boom.icons.ScalingIcon;
 import com.boom.structures.abstracts.AppNode;
@@ -11,7 +10,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.transform.Affine;
 
 import java.util.ArrayList;
@@ -27,12 +25,46 @@ public class SelectedObjectsController {
 
     IntegerProperty bufferSize = new SimpleIntegerProperty(0);
 
+    public double getMinX() {
+        return minX.get();
+    }
+
+//    public DoubleProperty minXProperty() {
+//        return minX;
+//    }
+
+    public double getMaxX() {
+        return maxX.get();
+    }
+
+//    public DoubleProperty maxXProperty() {
+//        return maxX;
+//    }
+
+    public double getMinY() {
+        return minY.get();
+    }
+
+//    public DoubleProperty minYProperty() {
+//        return minY;
+//    }
+
+    public double getMaxY() {
+        return maxY.get();
+    }
+
+//    public DoubleProperty maxYProperty() {
+//        return maxY;
+//    }
+
     DoubleProperty minX = new SimpleDoubleProperty(0);
     DoubleProperty maxX = new SimpleDoubleProperty(0);
     DoubleProperty minY = new SimpleDoubleProperty(0);
     DoubleProperty maxY = new SimpleDoubleProperty(0);
     DoubleProperty centerX = new SimpleDoubleProperty(0);
     DoubleProperty centerY = new SimpleDoubleProperty(0);
+    //    public DoubleProperty width=new SimpleDoubleProperty();
+//    public DoubleProperty height=new SimpleDoubleProperty();
     double pressPosX;
     double pressPosY;
     double previousPosX;
@@ -46,6 +78,9 @@ public class SelectedObjectsController {
     List<Affine> oldAffineTransforms;
 
     public SelectedObjectsController(RotationIcon rotationIcon, List<ScalingIcon> scalingIcons, Circle rotationFixedPoint) {
+
+//        width.bind(maxX.subtract(minX));
+//        height.bind(maxY.subtract(minY));
 
         centerX.bind(minX.add(maxX).divide(2));
         centerY.bind(minY.add(maxY).divide(2));
@@ -68,7 +103,7 @@ public class SelectedObjectsController {
             rotationFixedPoint.setCenterY(rotationFixedPoint.getCenterY() + currentPosY - previousPosY);
         });
 
-        bufferSize.addListener((a,b,c) -> {
+        bufferSize.addListener((a, b, c) -> {
 
 //            if(bufferSize.get()==1){
 //                print((AppLine) buffer.get(0));
@@ -113,17 +148,17 @@ public class SelectedObjectsController {
             }));
             updateFixedPointPosition(rotationFixedPoint);
 
-
-            if(bufferSize.get()==2){
-//                print(((Line) buffer.get(0).getStyleableNode()));
-//                print(buffer.get(0).getStyleableNode().getOnMouseDragged());
-                buffer.get(0).getStyleableNode().setOnMouseMoved(mouseEvent -> {
-                    print(uuid(10));
-                });
-                buffer.get(1).getStyleableNode().setOnMouseMoved(mouseEvent -> {
-                    print(uuid(20));
-                });
-            }
+//
+//            if(bufferSize.get()==2){
+////                print(((Line) buffer.get(0).getStyleableNode()));
+////                print(buffer.get(0).getStyleableNode().getOnMouseDragged());
+//                buffer.get(0).getStyleableNode().setOnMouseMoved(mouseEvent -> {
+//                    print(uuid(10));
+//                });
+//                buffer.get(1).getStyleableNode().setOnMouseMoved(mouseEvent -> {
+//                    print(uuid(20));
+//                });
+//            }
 
 
         });
@@ -237,6 +272,10 @@ public class SelectedObjectsController {
         }
         bufferSize.setValue(buffer.size());
     }
+
+//    public void selectAll(){
+//
+//    }
 
     public void unselect(AppNode appNode) {
         buffer.remove(appNode);

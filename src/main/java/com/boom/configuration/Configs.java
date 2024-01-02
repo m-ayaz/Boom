@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public final class Configs {
+public  final class Configs {
 
     public static List<String> SERIES_AREA_COLORS_List = Arrays.asList("0xfba71b33", "0x57b75733", "0x41a9c933", "0x4258c933", "0x9a42c833", "0xc8416433", "0x88888833", "0xf3622d33");
     public static List<String> SERIES_LINE_COLORS_List = Arrays.asList("0xfba71bff", "0x57b757ff", "0x41a9c9ff", "0x4258c9ff", "0x9a42c8ff", "0xc84164ff", "0x888888ff", "0xf3622dff");
@@ -43,6 +43,10 @@ public final class Configs {
     public static int ID_LENGTH = 100;
     public static int NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X = 20;
     public static int NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_Y = 4;
+
+//    Configs(){
+//
+//    }
 
     public static void setDefaultConfig() {
     }

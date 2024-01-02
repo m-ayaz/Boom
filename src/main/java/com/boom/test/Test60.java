@@ -1,17 +1,20 @@
 package com.boom.test;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Rotate;
+import javafx.scene.transform.*;
 import javafx.stage.Stage;
 
-import static com.boom.tools.Tools.setCustomSize;
+import static com.boom.tools.Tools.*;
 
 
 public class Test60 extends Application {
@@ -22,6 +25,13 @@ public class Test60 extends Application {
 
 //    boolean x=true;
 
+    LineChart<Number,String> lineChart=new LineChart<>(new NumberAxis(),new CategoryAxis());
+    Rectangle rectangle=new Rectangle();
+
+    Node plotArea=lineChart.lookup(".chart-plot-background");
+    Node xAxis=lineChart.getXAxis();
+    Node yAxis=lineChart.getYAxis();
+
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -30,23 +40,17 @@ public class Test60 extends Application {
         stage.setScene(scene);
         stage.show();
 
-        LineChart<Number,String> lineChart=new LineChart<>(new NumberAxis(),new CategoryAxis());
-        lineChart.getData().add(new XYChart.Series<>());
-        lineChart.getData().get(0).getData().add(new XYChart.Data<>(1,"2"));
-        lineChart.getData().get(0).getData().add(new XYChart.Data<>(3,"5"));
-        lineChart.getData().get(0).getData().add(new XYChart.Data<>(4,"6"));
-        lineChart.getData().get(0).getData().add(new XYChart.Data<>(2,"as"));
-
 
         container.getChildren().add(lineChart);
 
-        lineChart.setTranslateX(100);
-        lineChart.setTranslateY(100);
-
-        setCustomSize(lineChart,300,300);
 
 
-        Rectangle rectangle=new Rectangle();
+
+        Affine affine=initChart(300,300);
+
+        affine.prependTranslation(200,200);;
+
+
 
 //        container.getChildren().add(rectangle);
 
@@ -57,11 +61,19 @@ public class Test60 extends Application {
             rectangle.setHeight(c.getHeight());
         });
 
-        lineChart.setOnMouseMoved(mouseEvent -> {
+        lineChart.setOnMouseClicked(mouseEvent -> {
 
-            lineChart.getTransforms().add(new Rotate(1));
+//            affine.setToTransform(new Translate(200,200));
+//            affine.prepend(new Rotate(Math.random()*20,250,250));
+//            affine.prepend(new Scale(Math.random()*0.5+1,Math.random()*0.5+1));
+//            affine.prepend(new Shear(Math.random()*0.5+1,Math.random()*0.5+1));
+//            print(plotArea.getBoundsInParent());
+            setWidth(100);
+            setHeight(100);
 
         });
+
+
 //        lineChart.getData().get(0).getData().add(new XYChart.Data<>(1,2));
 //        lineChart.getData().get(0).getData().add(new XYChart.Data<>(1,2));
 //        lineChart.getData().get(0).getData().add(new XYChart.Data<>(1,2));
@@ -125,6 +137,43 @@ public class Test60 extends Application {
 
 
     }
+
+    Affine initChart(double w,double h){
+        Affine affine=new Affine();
+        lineChart.getData().add(new XYChart.Series<>());
+        lineChart.getData().get(0).getData().add(new XYChart.Data<>(1,"2"));
+        lineChart.getData().get(0).getData().add(new XYChart.Data<>(3,"5"));
+        lineChart.getData().get(0).getData().add(new XYChart.Data<>(4,"6"));
+        lineChart.getData().get(0).getData().add(new XYChart.Data<>(2,"as"));
+
+        lineChart.getTransforms().add(affine);
+
+        lineChart.setPadding(new Insets(0));
+        ((Region)lineChart.lookup(".chart-plot-background")).setPadding(new Insets(0));
+
+
+
+        setCustomSize(lineChart,w,h);
+        return affine;
+    }
+
+
+
+    void setWidth(double w){
+        print("pref width = "+lineChart.getPrefWidth());
+        print("plot area width = "+plotArea.getBoundsInParent().getWidth());
+        setCustomWidth(lineChart,lineChart.getPrefWidth()+w-plotArea.getBoundsInParent().getWidth());
+        print("plot area width = "+plotArea.getBoundsInParent().getWidth());
+    }
+
+    void setHeight(double h){
+        print("pref height = "+lineChart.getPrefHeight());
+        print("plot area height = "+plotArea.getBoundsInParent().getHeight());
+        setCustomHeight(lineChart,lineChart.getPrefHeight()+h-plotArea.getBoundsInParent().getHeight());
+        print("plot area height = "+plotArea.getBoundsInParent().getHeight());
+    }
+
+
 
 
 }

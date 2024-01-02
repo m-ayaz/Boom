@@ -1,9 +1,9 @@
-package com.boom.test;
+package com.boom.panels.paint;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
-public class RGBAFieldIndicator extends Polygon {
+public final class RGBAFieldIndicator extends Polygon {
 
     public RGBAFieldIndicator(){
 

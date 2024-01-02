@@ -1,4 +1,4 @@
-package com.boom.test;
+package com.boom.panels.paint;
 
 import com.boom.apppaints.AppColor;
 import com.boom.apppaints.AppLinearGradient;
@@ -17,7 +17,7 @@ import static com.boom.configuration.Configs.*;
 import static com.boom.tools.Tools.print;
 import static com.boom.tools.Tools.setCustomSize;
 
-public class AppRGBAColorPicker extends Pane {
+public final class AppRGBAColorPicker extends Pane {
 
 
     AppRectangle redChanger, greenChanger, blueChanger, alphaChanger;
@@ -59,10 +59,10 @@ public class AppRGBAColorPicker extends Pane {
         setCustomSize(this, RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X + RGBA_COLOR_PICKER_BIT_LENGTH_LEFT_MARGIN + RGBA_COLOR_PICKER_BIT_LENGTH_RIGHT_MARGIN, 4 * RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_Y + RGBA_COLOR_PICKER_BIT_LENGTH_TOP_MARGIN + RGBA_COLOR_PICKER_BIT_LENGTH_BOTTOM_MARGIN + 3 * RGBA_COLOR_PICKER_BIT_LENGTH_MIDDLE_MARGIN);
 
 
-        redChanger = new AppRectangle(RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X, RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_Y);
-        greenChanger = new AppRectangle(RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X, RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_Y);
-        blueChanger = new AppRectangle(RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X, RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_Y);
-        alphaChanger = new AppRectangle(RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X, RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_Y);
+        redChanger = new AppRectangle(RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X, RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_Y,0,0);
+        greenChanger = new AppRectangle(RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X, RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_Y,0,0);
+        blueChanger = new AppRectangle(RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X, RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_Y,0,0);
+        alphaChanger = new AppRectangle(RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X, RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_Y,0,0);
 
         redChanger.affineTransform.prependTranslation(RGBA_COLOR_PICKER_BIT_LENGTH_LEFT_MARGIN, RGBA_COLOR_PICKER_BIT_LENGTH_TOP_MARGIN);
         greenChanger.affineTransform.prependTranslation(RGBA_COLOR_PICKER_BIT_LENGTH_LEFT_MARGIN, RGBA_COLOR_PICKER_BIT_LENGTH_TOP_MARGIN + RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_Y + RGBA_COLOR_PICKER_BIT_LENGTH_MIDDLE_MARGIN);
@@ -122,15 +122,15 @@ public class AppRGBAColorPicker extends Pane {
         blueIndicator.translateXProperty().bind(blue.multiply(RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X).add(RGBA_COLOR_PICKER_BIT_LENGTH_TOP_MARGIN));
         alphaIndicator.translateXProperty().bind(alpha.multiply(RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X).add(RGBA_COLOR_PICKER_BIT_LENGTH_TOP_MARGIN));
 
-        red.addListener((a, b, c) -> update("red"));
-        green.addListener((a, b, c) -> update("green"));
-        blue.addListener((a, b, c) -> update("blue"));
-        alpha.addListener((a, b, c) -> update("alpha"));
+        red.addListener((a, b, c) -> update());
+        green.addListener((a, b, c) -> update());
+        blue.addListener((a, b, c) -> update());
+        alpha.addListener((a, b, c) -> update());
 
     }
 
-    void update(String x) {
-        print(x + " = " + red.get() + "," + green.get() + "," + blue.get() + "," + alpha.get());
+    void update() {
+//        print(x + " = " + red.get() + "," + green.get() + "," + blue.get() + "," + alpha.get());
         appColor.set(new Color(red.get(), green.get(), blue.get(), alpha.get()));
         redChangerBackground.getAppStop(0).appColor.set(new Color(0, green.get(), blue.get(), 1));
         redChangerBackground.getAppStop(1).appColor.set(new Color(1, green.get(), blue.get(), 1));

@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -16,8 +17,10 @@ import javafx.scene.text.TextBoundsType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.FormatStringConverter;
+import org.json.JSONArray;
 
 import java.text.MessageFormat;
+import java.util.List;
 
 import static com.boom.tools.Tools.*;
 
@@ -60,6 +63,10 @@ public class Test63 extends Application {
         textArea.setFont(new Font(100));
 
         text.setBoundsType(TextBoundsType.VISUAL);
+
+        JSONArray jsonArray=new JSONArray();
+
+//        List<Double> a=jsonArray.m(u->Double.parseDouble(u.toString()));
 
 //        textArea.setStyle("-fx-label-padding: 0");
 

@@ -21,11 +21,11 @@ import static com.boom.tools.Tools.*;
 
 public class Test23 extends Application {
 
-    public static void setSize(Region region, double width, double height) {
-        region.setMaxSize(width, height);
-        region.setPrefSize(width, height);
-        region.setMinSize(width, height);
-    }
+//    public static void setSize(Region region, double width, double height) {
+//        region.setMaxSize(width, height);
+//        region.setPrefSize(width, height);
+//        region.setMinSize(width, height);
+//    }
 
     public static void main(String[] args) {
         launch();
@@ -40,8 +40,8 @@ public class Test23 extends Application {
         stage.setScene(scene);
         stage.show();
 
-        AppRectangle appRectangle = new AppRectangle(300, 300);
-        AppRectangle appRectangle1 = new AppRectangle(300, 300);
+        AppRectangle appRectangle = new AppRectangle(300, 300,0,0);
+        AppRectangle appRectangle1 = new AppRectangle(300, 300,0,0);
 
         AppEllipse appEllipse = new AppEllipse(100, 200);
 

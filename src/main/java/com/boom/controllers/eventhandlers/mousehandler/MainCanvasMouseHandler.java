@@ -280,30 +280,6 @@ public class MainCanvasMouseHandler extends AppMouseEventHandler {
 
         if (tempObjectName.get().equals(NodeTypeEnum.DynamicDragRectangle.getNodeType())) {
             dynamicDragRectangle.reset();
-        } else if (tempObjectName.get().equals(NodeTypeEnum.Rectangle.getNodeType())) {
-            littleRectangleOnCursor.show(x, y);
-            tempRectangle.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.Line.getNodeType())) {
-            littleLineOnCursor.show(x, y);
-            tempLine.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.QuadCurve.getNodeType())) {
-            littleQuadCurveOnCursor.show(x, y);
-            tempQuadCurve.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.CubicCurve.getNodeType())) {
-            littleCubicCurveOnCursor.show(x, y);
-            tempCubicCurve.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.Ellipse.getNodeType())) {
-            littleEllipseOnCursor.show(x, y);
-            tempEllipse.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.Polygon.getNodeType())) {
-            littlePolygonOnCursor.show(x, y);
-            tempPolygon.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.Polyline.getNodeType())) {
-            littlePolylineOnCursor.show(x, y);
-            tempPolyline.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.Arc.getNodeType())) {
-            littleArcOnCursor.show(x, y);
-            tempArc.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
         } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_NN.getNodeType())) {
             littleLineChartOnCursor.show(x, y);
             tempLineChart_NN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
@@ -332,7 +308,41 @@ public class MainCanvasMouseHandler extends AppMouseEventHandler {
             littleAreaChartOnCursor.show(x, y);
             tempAreaChart_SN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
         } else {
-            throw new AppException(AppExceptionEnum.AppNodeNotRegistered);
+            switch (tempObjectName.get()) {
+                case "Rectangle" -> {
+                    littleRectangleOnCursor.show(x, y);
+                    tempRectangle.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+                }
+                case "Ellipse" -> {
+                    littleEllipseOnCursor.show(x, y);
+                    tempEllipse.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+                }
+                case "Line" -> {
+                    littleLineOnCursor.show(x, y);
+                    tempLine.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+                }
+                case "QuadCurve" -> {
+                    littleQuadCurveOnCursor.show(x, y);
+                    tempQuadCurve.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+                }
+                case "CubicCurve" -> {
+                    littleCubicCurveOnCursor.show(x, y);
+                    tempCubicCurve.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+                }
+                case "Polygon" -> {
+                    littlePolygonOnCursor.show(x, y);
+                    tempPolygon.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+                }
+                case "Polyline" -> {
+                    littlePolylineOnCursor.show(x, y);
+                    tempPolyline.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+                }
+                case "Arc" -> {
+                    littleArcOnCursor.show(x, y);
+                    tempArc.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+                }
+                default -> throw new AppException(AppExceptionEnum.AppNodeNotRegistered);
+            }
         }
 
 

@@ -1,11 +1,14 @@
 package com.boom.projectmanager;
 
+import com.boom.controllers.SelectedObjectsController;
 import com.boom.structures.abstracts.AppNode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.boom.tools.Tools.print;
 
 public class ProjectManager {
 
@@ -33,9 +36,14 @@ public class ProjectManager {
         return texScript;
     }
 
-    public static StringBuilder exportProjectAsSVG(List<AppNode> validObjects) {
+    public static StringBuilder exportProjectAsSVG(List<AppNode> validObjects,double width,double height) {
         StringBuilder svgScript=new StringBuilder();
-        svgScript.append("<svg width=\"1100\" height=\"1000\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">");
+//        SelectedObjectsController selectedObjectsController;
+//        selectedObjectsController.get
+//        validObjects.forEach(appNode -> );
+//        print("width = "+width);
+//        print("height = "+height);
+        svgScript.append("<svg width=\"%f\" height=\"%f\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">".formatted(width,height));
         svgScript.append("\n\t<defs>");
         validObjects.forEach(appNode -> svgScript.append(appNode.backgroundStyle.fillsToSVG(2)));
         validObjects.forEach(appNode -> svgScript.append(appNode.backgroundStyle.strokesToSVG(2)));

@@ -2,6 +2,7 @@ package com.boom.test;
 
 import com.boom.apppaints.AppColor;
 import com.boom.appshapes.AppRectangle;
+import com.boom.panels.paint.AppRGBAColorPicker;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -48,7 +49,7 @@ public class Test57 extends Application {
         print("blue = "+blue);
         print("alpha = "+alpha);
 
-        AppRectangle appRectangle=new AppRectangle(300,300);
+        AppRectangle appRectangle=new AppRectangle(300,300,0,0);
         AppColor appColor=new AppColor(new Color(red,green,blue,1));
 
         appRectangle.backgroundStyle.addFill(appColor);
@@ -77,9 +78,6 @@ public class Test57 extends Application {
 
     }
 
-    int rem(int x,int y){
-        return x-y*(x/y);
-    }
 
 }
 

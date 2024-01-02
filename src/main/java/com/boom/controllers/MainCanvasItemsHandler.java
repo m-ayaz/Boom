@@ -20,6 +20,7 @@ import com.boom.structures.enums.AppExceptionEnum;
 import com.boom.structures.enums.NodeTypeEnum;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.input.Clipboard;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -27,6 +28,7 @@ import javafx.scene.shape.Line;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.boom.tools.Tools.print;
 import static com.boom.tools.Tools.uuid;
 
 public class MainCanvasItemsHandler {
@@ -198,37 +200,24 @@ public class MainCanvasItemsHandler {
     }
 
     public void pasteCopiedSelectedObjects(double currentCursorPosX, double currentCursorPosY) {
-
         List<AppNode> copiedObjects = new ArrayList<>();
-
+//        Clipboard clipboard;
+//        clipboard.
         selectedObjectsController.getBuffer().forEach(obj -> {
-            AppNode objCopy;
-            if (obj.getType().equals(NodeTypeEnum.Ellipse.getNodeType())) {
-                objCopy = ((AppEllipse) obj).copy();
-            } else if (obj.getType().equals(NodeTypeEnum.Rectangle.getNodeType())) {
-                objCopy = ((AppRectangle) obj).copy();
-            } else if (obj.getType().equals(NodeTypeEnum.Line.getNodeType())) {
-                objCopy = ((AppLine) obj).copy();
-            } else if (obj.getType().equals(NodeTypeEnum.LineChart_NN.getNodeType()) ||
-                    obj.getType().equals(NodeTypeEnum.LineChart_NS.getNodeType()) ||
-                    obj.getType().equals(NodeTypeEnum.LineChart_SN.getNodeType()) ||
-                    obj.getType().equals(NodeTypeEnum.ScatterChart_NN.getNodeType()) ||
-                    obj.getType().equals(NodeTypeEnum.ScatterChart_NS.getNodeType()) ||
-                    obj.getType().equals(NodeTypeEnum.ScatterChart_SN.getNodeType()) ||
-                    obj.getType().equals(NodeTypeEnum.AreaChart_NN.getNodeType()) ||
-                    obj.getType().equals(NodeTypeEnum.AreaChart_NS.getNodeType()) ||
-                    obj.getType().equals(NodeTypeEnum.AreaChart_SN.getNodeType())) {
-                objCopy = obj.copy();
-            } else {
-                throw new AppException(AppExceptionEnum.UnexpectedError);
-            }
-
+            AppNode objCopy=obj.copy();
             if (objCopy != null) {
                 objCopy.affineTransform.prependTranslation(currentCursorPosX - selectedObjectsController.centerXProperty().get(), currentCursorPosY - selectedObjectsController.centerYProperty().get());
+            }else{
+                throw new AppException(AppExceptionEnum.UnexpectedError);
             }
+            print("________________________________________");
+            print(currentCursorPosX+","+ currentCursorPosY);
+//            print(cu);
+//            print(( selectedObjectsController.centerXProperty().get()-currentCursorPosX)+",,,,,,,,,,,,,,,"+ (selectedObjectsController.centerYProperty().get()-currentCursorPosY));
             addToMainCanvas(objCopy);
             copiedObjects.add(objCopy);
         });
+        selectedObjectsController.unselectAll();
         copiedObjects.forEach(obj -> selectedObjectsController.select(obj));
     }
 

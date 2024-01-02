@@ -19,15 +19,15 @@ public enum NodeTypeEnum {
     AreaChart_NN(AreaChart.class.getName()+"_NN"),
     AreaChart_NS(AreaChart.class.getName()+"_NS"),
     AreaChart_SN(AreaChart.class.getName()+"_SN"),
-    DynamicDragRectangle("drag"),
-    Ellipse(javafx.scene.shape.Ellipse.class.getName()),
-    Rectangle(javafx.scene.shape.Rectangle.class.getName()),
-    Line(javafx.scene.shape.Line.class.getName()),
-    Arc(javafx.scene.shape.Arc.class.getName()),
-    Polygon(javafx.scene.shape.Polygon.class.getName()),
-    Polyline(javafx.scene.shape.Polyline.class.getName()),
-    QuadCurve(javafx.scene.shape.QuadCurve.class.getName()),
-    CubicCurve(javafx.scene.shape.CubicCurve.class.getName());
+    DynamicDragRectangle("drag");
+//    Ellipse(javafx.scene.shape.Ellipse.class.getName()),
+//    Rectangle(javafx.scene.shape.Rectangle.class.getName()),
+//    Line(javafx.scene.shape.Line.class.getName()),
+//    Arc(javafx.scene.shape.Arc.class.getName()),
+//    Polygon(javafx.scene.shape.Polygon.class.getName()),
+//    Polyline(javafx.scene.shape.Polyline.class.getName()),
+//    QuadCurve(javafx.scene.shape.QuadCurve.class.getName()),
+//    CubicCurve(javafx.scene.shape.CubicCurve.class.getName());
     private final String nodeType;
 
     NodeTypeEnum(String nodeType) {
