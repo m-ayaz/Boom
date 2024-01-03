@@ -1,20 +1,15 @@
 package com.boom.test;
 
+import com.boom.appcharts.AppAxisChart;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.*;
 import javafx.stage.Stage;
 
-import static com.boom.tools.Tools.*;
+import java.util.Random;
+
+import static com.boom.tools.Tools.print;
 
 
 public class Test60 extends Application {
@@ -23,14 +18,7 @@ public class Test60 extends Application {
         launch();
     }
 
-//    boolean x=true;
-
-    LineChart<Number,String> lineChart=new LineChart<>(new NumberAxis(),new CategoryAxis());
-    Rectangle rectangle=new Rectangle();
-
-    Node plotArea=lineChart.lookup(".chart-plot-background");
-    Node xAxis=lineChart.getXAxis();
-    Node yAxis=lineChart.getYAxis();
+    Random rnd=new Random();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -40,146 +28,124 @@ public class Test60 extends Application {
         stage.setScene(scene);
         stage.show();
 
+        AppAxisChart appAxisChart=new AppAxisChart();
 
-        container.getChildren().add(lineChart);
+        appAxisChart.addSeries();
 
+        appAxisChart.addData(0,5.,6.);
 
+        appAxisChart.addData(0,"5.",6.);
 
-
-        Affine affine=initChart(300,300);
-
-        affine.prependTranslation(200,200);;
-
-
-
-//        container.getChildren().add(rectangle);
-
-        lineChart.boundsInLocalProperty().addListener((a,b,c)->{
-            rectangle.setX(c.getMinX());
-            rectangle.setY(c.getMaxY());
-            rectangle.setWidth(c.getWidth());
-            rectangle.setHeight(c.getHeight());
-        });
-
-        lineChart.setOnMouseClicked(mouseEvent -> {
-
-//            affine.setToTransform(new Translate(200,200));
-//            affine.prepend(new Rotate(Math.random()*20,250,250));
-//            affine.prepend(new Scale(Math.random()*0.5+1,Math.random()*0.5+1));
-//            affine.prepend(new Shear(Math.random()*0.5+1,Math.random()*0.5+1));
-//            print(plotArea.getBoundsInParent());
-            setWidth(100);
-            setHeight(100);
-
-        });
-
-
-//        lineChart.getData().get(0).getData().add(new XYChart.Data<>(1,2));
-//        lineChart.getData().get(0).getData().add(new XYChart.Data<>(1,2));
-//        lineChart.getData().get(0).getData().add(new XYChart.Data<>(1,2));
-//        lineChart.getData().get(0).getData().add(new XYChart.Data<>(1,2));
-
-
-
-//        lineChart.getXAxis().
-
-//        Test test=new Test();
-
-
-//        container.setOnMouseMoved(test);
-
-
-
-//        Rectangle rectangle=new Rectangle(300,300,Color.valueOf("00000033"));
-//        rectangle.setMouseTransparent(true);
-
-//        AppRGBAColorPicker appRGBAColorPicker=new AppRGBAColorPicker(  );
+//        Stack
+//        String l="as";
 //
-//
-//
-//        Random rnd=new Random();
-//
-//        double red=rnd.nextDouble()/2+0.5;
-//        double green=rnd.nextDouble()/2+0.5;
-//        double blue=rnd.nextDouble()/2+0.5;
-//        double alpha=rnd.nextDouble()/2+0.5;
-//
-//        print("red  = "+red);
-//        print("green = "+green);
-//        print("blue = "+blue);
-//        print("alpha = "+alpha);
-//
-//        AppRectangle appRectangle=new AppRectangle(300,300);
-//        AppColor appColor=new AppColor(new Color(red,green,blue,1));
-//
-//        appRectangle.backgroundStyle.addFill(appColor);
-//
-//        appRGBAColorPicker.registerColor(appColor);
-//
-////        ColorManagementPanel colorManagementPanel=new ColorManagementPanel(appColor);
+//        print(l instanceof Number);
+
+
+
+//        AreaChart<Number,Number> areaChart=new AreaChart<>(new NumberAxis(),new NumberAxis());
 ////
-////        colorManagementPanel.show(stage);
+////        container.getChildren().add(areaChart);
+////
 //
-////        colorManagementPanel
+////
+////        for(int i=0;i<1;i++){
+////            areaChart.getData().add(new XYChart.Series<>());
+////            for(int j=0;j<10;j++){
+////                areaChart.getData().get(i).getData().add(new XYChart.Data<>(rnd.nextDouble(),rnd.nextDouble()));
+////            }
+////        }
+////
+////        Affine affine=new Affine();
+////        areaChart.getTransforms().add(affine);
+////
+//////        setCustomHeight(areaChart.getXAxis(),20);
+////        setCustomWidth(areaChart.getYAxis(),10);
 //
-////        appColor.addListener((a,b,c)->print("va = "+c));
 //
+////        areaChart.setOnMouseMoved(mouseEvent -> {
+//////            affine.prependScale(1.02,1);
+////            setCustomSize(areaChart,400+rnd.nextDouble()*150,400+rnd.nextDouble()*150);
+////            print(areaChart.getYAxis().getWidth());
+////            print(areaChart.getYAxis().getPrefWidth());
+////        });
 //
+//        HHH hhh=new HHH(new NumberAxis(),new NumberAxis());
 //
-//        container.getChildren().addAll(appRGBAColorPicker,appRectangle.getStyleableNode());
-//        appRectangle.getStyleableNode().setTranslateX(300);
+////        hhh.seriesAdded(new XYChart.Series<>(),0);
 //
-////        RGBAFieldIndicator rgbaFieldIndicator=new RGBAFieldIndicator(20,100,10);
-////        container.getChildren().addAll(rgbaFieldIndicator);
-////        rgbaFieldIndicator.setTranslateX(300);
-////        rgbaFieldIndicator.setTranslateY(300);
+////        setCustomSize(hhh,200,200);
+//
+//        container.getChildren().setAll(hhh);
+//
+//        XYChart.Series<Number,Number> series=new XYChart.Series<>();
 
+//        hhh.addSeries(series,0);
+//
+//        hhh.setOnMouseMoved(mouseEvent -> {
+//            hhh.setTranslateX(rnd.nextDouble()*0);
+//            hhh.addSeries(new XYChart.Series<>(),0);
+//        });
+
+//        hhh.getTransforms().add(new Translate(50,50));
+//        hhh.addData(series,0,new XYChart.Data<>(rnd.nextDouble(), rnd.nextDouble()));
+//        hhh.addData(series,0,new XYChart.Data<>(rnd.nextDouble(), rnd.nextDouble()));
+//        hhh.addData(series,0,new XYChart.Data<>(rnd.nextDouble(), rnd.nextDouble()));
+//        hhh.addData(series,0,new XYChart.Data<>(rnd.nextDouble(), rnd.nextDouble()));
+//        hhh.addData(series,0,new XYChart.Data<>(rnd.nextDouble(), rnd.nextDouble()));
+
+//        print(hhh.getChildrenUnmodifiable());
+
+
+
+
+
+//        areaChart.getXAxis().set
+
+//        print(((Chart)areaChart.getChildrenUnmodifiable().get(1)).);
+//        AreaChart
+
+//        areaChart.setCreateSymbols(false);
 
 
     }
-
-    Affine initChart(double w,double h){
-        Affine affine=new Affine();
-        lineChart.getData().add(new XYChart.Series<>());
-        lineChart.getData().get(0).getData().add(new XYChart.Data<>(1,"2"));
-        lineChart.getData().get(0).getData().add(new XYChart.Data<>(3,"5"));
-        lineChart.getData().get(0).getData().add(new XYChart.Data<>(4,"6"));
-        lineChart.getData().get(0).getData().add(new XYChart.Data<>(2,"as"));
-
-        lineChart.getTransforms().add(affine);
-
-        lineChart.setPadding(new Insets(0));
-        ((Region)lineChart.lookup(".chart-plot-background")).setPadding(new Insets(0));
-
-
-
-        setCustomSize(lineChart,w,h);
-        return affine;
-    }
-
-
-
-    void setWidth(double w){
-        print("pref width = "+lineChart.getPrefWidth());
-        print("plot area width = "+plotArea.getBoundsInParent().getWidth());
-        setCustomWidth(lineChart,lineChart.getPrefWidth()+w-plotArea.getBoundsInParent().getWidth());
-        print("plot area width = "+plotArea.getBoundsInParent().getWidth());
-    }
-
-    void setHeight(double h){
-        print("pref height = "+lineChart.getPrefHeight());
-        print("plot area height = "+plotArea.getBoundsInParent().getHeight());
-        setCustomHeight(lineChart,lineChart.getPrefHeight()+h-plotArea.getBoundsInParent().getHeight());
-        print("plot area height = "+plotArea.getBoundsInParent().getHeight());
-    }
-
-
 
 
 }
 
+class HHH<X,Y> extends XYChart<X,Y> {
 
+    public HHH(Axis<X> axis, Axis<Y> axis1) {
+        super(axis, axis1);
+    }
 
+    @Override
+    protected void dataItemAdded(Series series, int i, Data data) {
 
+    }
 
+    @Override
+    protected void dataItemRemoved(Data data, Series series) {
 
+    }
+
+    @Override
+    protected void dataItemChanged(Data data) {
+
+    }
+
+    @Override
+    protected void seriesAdded(Series series, int i) {
+
+    }
+
+    @Override
+    protected void seriesRemoved(Series series) {
+
+    }
+
+    @Override
+    protected void layoutPlotChildren() {
+
+    }
+}
