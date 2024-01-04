@@ -32,9 +32,9 @@ public class Test60 extends Application {
 
         appAxisChart.addSeries();
 
-        appAxisChart.addData(0,5.,6.);
-
-        appAxisChart.addData(0,"5.",6.);
+//        appAxisChart.addData(0,5.,6.);
+//
+//        appAxisChart.addData(0,"5.",6.);
 
 //        Stack
 //        String l="as";

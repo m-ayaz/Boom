@@ -29,6 +29,8 @@ module com.boom.Boom {
     exports com.boom.apppaints;
     opens com.boom.apppaints to javafx.fxml;
     exports com.boom.panels.paint;
+    opens com.boom.appcharts to javafx.fxml;
+    exports com.boom.appcharts;
     opens com.boom.panels.paint to javafx.fxml;
     exports com.boom.structures.abstracts;
     opens com.boom.structures.abstracts to javafx.fxml;

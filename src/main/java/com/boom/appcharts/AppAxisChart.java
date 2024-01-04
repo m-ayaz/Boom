@@ -1,8 +1,8 @@
 package com.boom.appcharts;
 
 
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import com.boom.test.DataComparator;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -11,156 +11,207 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Polyline;
 import javafx.scene.text.Text;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+// todo: disallow addition of duplicate series or data
+
 public class AppAxisChart extends Pane {
 
-//    ObservableList<Serializable> xData= FXCollections.observableList(new ArrayList<>());
-//    ObservableList<Serializable> yData= FXCollections.observableList(new ArrayList<>());
-
-    Pane legendsContainer=new Pane();
-    ObservableList<Text> seriesLegendList =FXCollections.observableList(new ArrayList<>());
-    ObservableList<Polygon> seriesPlotAreaList = FXCollections.observableList(new ArrayList<>());
-    ObservableList<Polyline> seriesPlotLineList = FXCollections.observableList(new ArrayList<>());
+    public ObservableList<ObservableList<AppData>> seriesList = FXCollections.observableList(new ArrayList<>());
+    Pane legendsContainer = new Pane();
+    ObservableList<Text> seriesLegendList = FXCollections.observableList(new ArrayList<>());
+    public ObservableList<Polygon> seriesPlotAreaList = FXCollections.observableList(new ArrayList<>());
+    public ObservableList<Polyline> seriesPlotLineList = FXCollections.observableList(new ArrayList<>());
     ObservableList<Group> seriesMarkersList = FXCollections.observableList(new ArrayList<>());
     Group xGridLines = new Group();
     Group yGridLines = new Group();
     Pane plotRegion = new Pane();
+    DataComparator dataComparator = new DataComparator();
 
-    ObservableList<Series> seriesList = FXCollections.observableList(new ArrayList<>());
+    public SimpleDoubleProperty plotRegionWidth = new SimpleDoubleProperty();
+    public SimpleDoubleProperty plotRegionHeight = new SimpleDoubleProperty();
 
-    SimpleIntegerProperty numberOfUnNumerableXData = new SimpleIntegerProperty(0);
-    SimpleIntegerProperty numberOfUnNumerableYData = new SimpleIntegerProperty(0);
 
-    SimpleBooleanProperty isXDataNumerable = new SimpleBooleanProperty();
-    SimpleBooleanProperty isYDataNumerable = new SimpleBooleanProperty();
+    boolean isAutoSetXTicks = true, isAutoSetYTicks = true, isXNumeric, isYNumeric;
 
-    List<Serializable> xData=new ArrayList<>();
-    List<Serializable> yData=new ArrayList<>();
+    public SimpleDoubleProperty leftPlotMargin = new SimpleDoubleProperty(0.1);
+    public SimpleDoubleProperty rightPlotMargin = new SimpleDoubleProperty(0.1);
+    public SimpleDoubleProperty topPlotMargin = new SimpleDoubleProperty(0.1);
+    public SimpleDoubleProperty bottomPlotMargin = new SimpleDoubleProperty(0.1);
+//    double plotWidth, plotHeight;
+//    double minXData = Double.POSITIVE_INFINITY, maxXData = Double.NEGATIVE_INFINITY,
+//            minYData = Double.POSITIVE_INFINITY, maxYData = Double.NEGATIVE_INFINITY;
 
     public AppAxisChart() {
 
-//        XYChart.Data<Number,Number> x;
-//        x.
+        setStyle("-fx-background-color: transparent;-fx-border-color: transparent;-fx-border-width: 0px");
 
-//        isXDataNumerable.bi
-        isXDataNumerable.bind(numberOfUnNumerableXData.isEqualTo(0));
-        isYDataNumerable.bind(numberOfUnNumerableYData.isEqualTo(0));
+        plotRegion.setStyle("-fx-border-width: 1;-fx-border-color: black");
+
+//        plotRegion.setBackground(Background.EMPTY);
+
+        getChildren().add(plotRegion);
+
+        bindPlotRegionSize();
     }
+
+    /**
+     * Binds plot region width and height to plotRegionWidth and plotRegionHeight. When plot region
+     * width and height change, the location of all series data are updated.
+     */
+    void bindPlotRegionSize() {
+
+        plotRegion.prefWidthProperty().bindBidirectional(plotRegionWidth);
+        plotRegion.minWidthProperty().bindBidirectional(plotRegionWidth);
+        plotRegion.maxWidthProperty().bindBidirectional(plotRegionWidth);
+
+        plotRegion.prefHeightProperty().bindBidirectional(plotRegionHeight);
+        plotRegion.minHeightProperty().bindBidirectional(plotRegionHeight);
+        plotRegion.maxHeightProperty().bindBidirectional(plotRegionHeight);
+
+        plotRegionWidth.addListener((a, b, c) -> {
+            for (int i = 0; i < seriesList.size(); i++) {
+                updateSeriesPreviewAtChart(i);
+            }
+        });
+        plotRegionHeight.addListener((a, b, c) -> {
+            for (int i = 0; i < seriesList.size(); i++) {
+                updateSeriesPreviewAtChart(i);
+            }
+        });
+        rightPlotMargin.addListener((a, b, c) -> {
+            for (int i = 0; i < seriesList.size(); i++) {
+                updateSeriesPreviewAtChart(i);
+            }
+        });
+        leftPlotMargin.addListener((a, b, c) -> {
+            for (int i = 0; i < seriesList.size(); i++) {
+                updateSeriesPreviewAtChart(i);
+            }
+        });
+        topPlotMargin.addListener((a, b, c) -> {
+            for (int i = 0; i < seriesList.size(); i++) {
+                updateSeriesPreviewAtChart(i);
+            }
+        });
+        bottomPlotMargin.addListener((a, b, c) -> {
+            for (int i = 0; i < seriesList.size(); i++) {
+                updateSeriesPreviewAtChart(i);
+            }
+        });
+    }
+
+    public void addData(int seriesIndex, int dataIndex, AppData appData) {
+        seriesList.get(seriesIndex).add(dataIndex, appData);
+        updateSeriesPreviewAtChart(seriesIndex);
+    }
+
+    public void addManyData(int seriesIndex, int dataIndex, List<AppData> appDataList) {
+        for (int i = 0; i < appDataList.size(); i++) {
+            seriesList.get(seriesIndex).add(dataIndex + i, appDataList.get(i));
+        }
+        updateSeriesPreviewAtChart(seriesIndex);
+    }
+
+    public void addManyData(int seriesIndex, int dataIndex, AppData... appDataList) {
+        for (int i = 0; i < appDataList.length; i++) {
+            seriesList.get(seriesIndex).add(dataIndex + i, appDataList[i]);
+        }
+        updateSeriesPreviewAtChart(seriesIndex);
+    }
+
+    public void removeData(int seriesIndex, int dataIndex) {
+        seriesList.get(seriesIndex).remove(dataIndex);
+        updateSeriesPreviewAtChart(seriesIndex);
+    }
+
+    public void removeData(int seriesIndex, AppData appData) {
+        seriesList.get(seriesIndex).remove(appData);
+        updateSeriesPreviewAtChart(seriesIndex);
+    }
+
+    public void updateData(int seriesIndex, int dataIndex, String x, String y) {
+        seriesList.get(seriesIndex).get(dataIndex).setX(x);
+        seriesList.get(seriesIndex).get(dataIndex).setY(y);
+        updateSeriesPreviewAtChart(seriesIndex);
+    }
+
+    public void removeSeries(int seriesIndex) {
+        seriesList.remove(seriesIndex);
+        seriesPlotAreaList.remove(seriesIndex);
+        seriesPlotLineList.remove(seriesIndex);
+        seriesMarkersList.remove(seriesIndex);
+        seriesLegendList.remove(seriesIndex);
+        plotRegion.getChildren().remove(3 * seriesIndex);
+        plotRegion.getChildren().remove(3 * seriesIndex + 1);
+        plotRegion.getChildren().remove(3 * seriesIndex + 2);
+    }
+
 
     public void addSeries() {
-        seriesList.add(new Series());
-        Polygon seriesPlotArea=new Polygon();
-        Polyline seriesPlotLine=new Polyline();
-        Group seriesMarkers=new Group();
-        seriesPlotAreaList.add(seriesPlotArea);
-        seriesPlotLineList.add(seriesPlotLine);
-        seriesMarkersList.add(seriesMarkers);
-        seriesLegendList.add(new Text());
-        plotRegion.getChildren().addAll(seriesPlotArea,seriesPlotLine,seriesMarkers);
+        addSeries(seriesList.size());
     }
 
-//    public void removeSeries(int seriesIndex){
-//        seriesList.remove(seriesIndex);
-//    }
-//
-//    public void removeSeries(Series series){
-//        seriesList.remove(series);
-//    }
+    public void addSeries(int seriesIndex) {
 
+        seriesList.add(seriesIndex, FXCollections.observableList(new ArrayList<>()));
 
-//    public void addSeries(int index){
-//
-//    }
+        Polygon newSeriesPlotArea = new Polygon();
+        Polyline newSeriesPlotLine = new Polyline();
+        Group seriesMarkers = new Group();
 
-//    public void addData(int seriesIndex, String x, String y) {
-//        seriesList.get(seriesIndex).addData(new Data(x, y));
-//        try{
-//            Double.parseDouble(x);
-//        }catch (Exception e){
-//            numberOfUnNumerableXData.set(numberOfUnNumerableXData.get() + 1);
-//        }
-//        try{
-//            Double.parseDouble(y);
-//        }catch (Exception e){
-//            numberOfUnNumerableYData.set(numberOfUnNumerableYData.get() + 1);
-//        }
-////        switch (x.getClass().getSimpleName()) {
-////            case "Double" -> {
-////            }
-////            case "String" -> numberOfUnNumerableXData.set(numberOfUnNumerableXData.get() + 1);
-////            default -> throw new AppException(AppExceptionEnum.UnexpectedError);
-////        }
-////        switch (y.getClass().getSimpleName()) {
-////            case "Double" -> {
-////            }
-////            case "String" -> numberOfUnNumerableYData.set(numberOfUnNumerableYData.get() + 1);
-////            default -> throw new AppException(AppExceptionEnum.UnexpectedError);
-////        }
-//
-//    }
-
-    public void addData(int seriesIndex, int dataIndex, String x, String y) {
-        seriesList.get(seriesIndex).addData(dataIndex, new Data(x, y));
-        try{
-            Double.parseDouble(x);
-        }catch (Exception e){
-            numberOfUnNumerableXData.set(numberOfUnNumerableXData.get() + 1);
-        }
-        try{
-            Double.parseDouble(y);
-        }catch (Exception e){
-            numberOfUnNumerableYData.set(numberOfUnNumerableYData.get() + 1);
-        }
+        seriesPlotAreaList.add(seriesIndex, newSeriesPlotArea);
+        seriesPlotLineList.add(seriesIndex, newSeriesPlotLine);
+        seriesMarkersList.add(seriesIndex, seriesMarkers);
+        seriesLegendList.add(seriesIndex, new Text());
+        plotRegion.getChildren().add(3 * seriesIndex, newSeriesPlotArea);
+        plotRegion.getChildren().add(3 * seriesIndex + 1, newSeriesPlotLine);
+        plotRegion.getChildren().add(3 * seriesIndex + 2, seriesMarkers);
 
     }
 
-    //    short XDecimalPoint=1,YDecimalPoint=1;
-//
-//    public void setXDecimalPoint(short decimalPoint){
-//
-//    }
-//
-//    public void setYDecimalPoint(short decimalPoint){
-//
-//    }
-    boolean isAutoSetXTicks = true, isAutoSetYTicks = true,isXNumeric,isYNumeric;
 
-    public void setAutoSetXTicks(boolean isAutoSetXTicks) {
+    List<Double> temp = new ArrayList<>();
 
+    void updateSeriesPreviewAtChart(int seriesIndex) {
+
+        ObservableList<AppData> series = seriesList.get(seriesIndex);
+        Polyline seriesPlotLine = seriesPlotLineList.get(seriesIndex);
+        Polygon seriesPlotArea = seriesPlotAreaList.get(seriesIndex);
+        temp.clear();
+        series.sort(dataComparator);
+
+        double minX = series.stream().mapToDouble(data -> Double.parseDouble(data.getX())).min().orElse(Double.POSITIVE_INFINITY);
+        double maxX = series.stream().mapToDouble(data -> Double.parseDouble(data.getX())).max().orElse(Double.NEGATIVE_INFINITY);
+        double minY = series.stream().mapToDouble(data -> Double.parseDouble(data.getY())).min().orElse(Double.POSITIVE_INFINITY);
+        double maxY = series.stream().mapToDouble(data -> Double.parseDouble(data.getY())).max().orElse(Double.NEGATIVE_INFINITY);
+
+        series.forEach(data -> {
+            if (maxX == minX) {
+                temp.add(plotRegionWidth.get() / 2);
+            } else {
+                temp.add((Double.parseDouble(data.getX()) - minX) / (maxX - minX) * plotRegionWidth.get() * (1 - leftPlotMargin.get() - rightPlotMargin.get()) + leftPlotMargin.get() * plotRegionWidth.get());
+            }
+            if (maxY == minY) {
+                temp.add(plotRegionHeight.get() / 2);
+            } else {
+                temp.add((maxY - Double.parseDouble(data.getY())) / (maxY - minY) * plotRegionHeight.get() * (1 - topPlotMargin.get() - bottomPlotMargin.get()) + plotRegionHeight.get() * topPlotMargin.get());
+            }
+        });
+
+        seriesPlotLine.getPoints().setAll(temp);
+        seriesPlotArea.getPoints().setAll(plotRegionWidth.get() * (1 - rightPlotMargin.get()), plotRegionHeight.get() * (1 - bottomPlotMargin.get()), plotRegionWidth.get() * leftPlotMargin.get(), plotRegionHeight.get() * (1 - bottomPlotMargin.get()));
+        seriesPlotArea.getPoints().addAll(temp);
     }
-
-    public void setAutoSetYTicks(boolean isAutoSetYTicks) {
-
-    }
-
-    public void setXNumeric(boolean isXNumeric) {
-        if (isXDataNumerable.get()) {
-
-        }
-    }
-
-    public void setYNumeric(boolean isYNumeric) {
-
-    }
-
-    void updatePlot() {
-        xData.clear();
-        yData.clear();
-        if(isXNumeric){
-//            xData.
-        }
-    }
-
-    double plotWidth, plotHeight;
-
-    double minXData=Double.POSITIVE_INFINITY,
-            maxXData=Double.NEGATIVE_INFINITY,
-            minYData=Double.POSITIVE_INFINITY,
-            maxYData=Double.NEGATIVE_INFINITY;
-
 
 }
+
+
+
+
+
+
+
+
 
