@@ -5,7 +5,7 @@ import com.boom.icons.MinusSignIcon;
 import com.boom.icons.PlusSignIcon;
 import com.boom.structures.enums.AppExceptionEnum;
 import com.boom.structures.abstracts.AppXYChart;
-import com.boom.structures.enums.NodeTypeEnum;
+import com.boom.structures.enums.AppNodeTypeEnum;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
@@ -46,11 +46,11 @@ public final class ChartManagementPanel_StringNumber extends VBox {
             int seriesIndex = ((XYChart<String, Number>) appXYChart.getStyleableNode()).getData().indexOf(newSeries);
             Tab newTab = new Tab();
             SeriesManagementPanel_StringNumber newDataPane;
-            if (appXYChart.getType().equals(NodeTypeEnum.AreaChart_SN.getNodeType())) {
+            if (appXYChart.getType().equals(AppNodeTypeEnum.AreaChart_SN.getNodeType())) {
                 newDataPane = new SeriesManagementPanel_StringNumber(appXYChart, newSeries, appXYChart.getSeriesLineStyles().get(seriesIndex), appXYChart.getSeriesAreaStyles().get(seriesIndex));
-            } else if (appXYChart.getType().equals(NodeTypeEnum.LineChart_SN.getNodeType())) {
+            } else if (appXYChart.getType().equals(AppNodeTypeEnum.LineChart_SN.getNodeType())) {
                 newDataPane = new SeriesManagementPanel_StringNumber(appXYChart, newSeries, appXYChart.getSeriesLineStyles().get(seriesIndex), null);
-            } else if (appXYChart.getType().equals(NodeTypeEnum.ScatterChart_SN.getNodeType())) {
+            } else if (appXYChart.getType().equals(AppNodeTypeEnum.ScatterChart_SN.getNodeType())) {
                 newDataPane = new SeriesManagementPanel_StringNumber(appXYChart, newSeries, null, null);
             } else {
                 throw new AppException(AppExceptionEnum.ChartTypeNotRegistered);

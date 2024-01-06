@@ -6,7 +6,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
 
-public enum NodeTypeEnum {
+public enum AppNodeTypeEnum {
 
     LineChart_NN(LineChart.class.getName()+"_NN"),
     LineChart_NS(LineChart.class.getName()+"_NS"),
@@ -30,7 +30,7 @@ public enum NodeTypeEnum {
 //    CubicCurve(javafx.scene.shape.CubicCurve.class.getName());
     private final String nodeType;
 
-    NodeTypeEnum(String nodeType) {
+    AppNodeTypeEnum(String nodeType) {
         this.nodeType = nodeType;
     }
 

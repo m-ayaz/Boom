@@ -5,10 +5,7 @@ import com.boom.icons.MinusSignIcon;
 import com.boom.icons.PlusSignIcon;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.structures.enums.AppExceptionEnum;
-import com.boom.structures.enums.NodeTypeEnum;
-import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.ScatterChart;
+import com.boom.structures.enums.AppNodeTypeEnum;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -50,11 +47,11 @@ public final class ChartManagementPanel_NumberNumber extends VBox {
             int seriesIndex = ((XYChart<Number,Number>) appXYChart.getStyleableNode()).getData().indexOf(newSeries);
             Tab newTab = new Tab();
             SeriesManagementPanel_NumberNumber newDataPane;
-            if (appXYChart.getType().equals(NodeTypeEnum.AreaChart_NN.getNodeType())) {
+            if (appXYChart.getType().equals(AppNodeTypeEnum.AreaChart_NN.getNodeType())) {
                 newDataPane = new SeriesManagementPanel_NumberNumber(appXYChart, newSeries, appXYChart.getSeriesLineStyles().get(seriesIndex), appXYChart.getSeriesAreaStyles().get(seriesIndex));
-            } else if (appXYChart.getType().equals(NodeTypeEnum.LineChart_NN.getNodeType())) {
+            } else if (appXYChart.getType().equals(AppNodeTypeEnum.LineChart_NN.getNodeType())) {
                 newDataPane = new SeriesManagementPanel_NumberNumber(appXYChart, newSeries, appXYChart.getSeriesLineStyles().get(seriesIndex), null);
-            } else if (appXYChart.getType().equals(NodeTypeEnum.ScatterChart_NN.getNodeType())) {
+            } else if (appXYChart.getType().equals(AppNodeTypeEnum.ScatterChart_NN.getNodeType())) {
                 newDataPane = new SeriesManagementPanel_NumberNumber(appXYChart, newSeries, null, null);
             } else {
                 throw new AppException(AppExceptionEnum.ChartTypeNotRegistered);
@@ -90,18 +87,18 @@ public final class ChartManagementPanel_NumberNumber extends VBox {
             XYChart.Series<Number, Number> series = ((XYChart<Number, Number>) appXYChart.getStyleableNode()).getData().get(i);
             Tab tab = new Tab();
             SeriesManagementPanel_NumberNumber dataPane;
-            if (appXYChart.getType().equals(NodeTypeEnum.AreaChart_NN.getNodeType())||
-                    appXYChart.getType().equals(NodeTypeEnum.AreaChart_NS.getNodeType())||
-                    appXYChart.getType().equals(NodeTypeEnum.AreaChart_SN.getNodeType())) {
+            if (appXYChart.getType().equals(AppNodeTypeEnum.AreaChart_NN.getNodeType())||
+                    appXYChart.getType().equals(AppNodeTypeEnum.AreaChart_NS.getNodeType())||
+                    appXYChart.getType().equals(AppNodeTypeEnum.AreaChart_SN.getNodeType())) {
                 dataPane = new SeriesManagementPanel_NumberNumber(appXYChart, series, appXYChart.getSeriesLineStyles().get(i), appXYChart.getSeriesAreaStyles().get(i));
-            } else if (appXYChart.getType().equals(NodeTypeEnum.LineChart_NN.getNodeType())||
-                    appXYChart.getType().equals(NodeTypeEnum.LineChart_NS.getNodeType())||
-                    appXYChart.getType().equals(NodeTypeEnum.LineChart_SN.getNodeType())) {
+            } else if (appXYChart.getType().equals(AppNodeTypeEnum.LineChart_NN.getNodeType())||
+                    appXYChart.getType().equals(AppNodeTypeEnum.LineChart_NS.getNodeType())||
+                    appXYChart.getType().equals(AppNodeTypeEnum.LineChart_SN.getNodeType())) {
                 print("ccccccccc");
                 dataPane = new SeriesManagementPanel_NumberNumber(appXYChart, series, appXYChart.getSeriesLineStyles().get(i), null);
-            } else if (appXYChart.getType().equals(NodeTypeEnum.ScatterChart_NN.getNodeType())||
-                    appXYChart.getType().equals(NodeTypeEnum.ScatterChart_NS.getNodeType())||
-                    appXYChart.getType().equals(NodeTypeEnum.ScatterChart_SN.getNodeType())) {
+            } else if (appXYChart.getType().equals(AppNodeTypeEnum.ScatterChart_NN.getNodeType())||
+                    appXYChart.getType().equals(AppNodeTypeEnum.ScatterChart_NS.getNodeType())||
+                    appXYChart.getType().equals(AppNodeTypeEnum.ScatterChart_SN.getNodeType())) {
                 dataPane = new SeriesManagementPanel_NumberNumber(appXYChart, series, null, null);
             } else {
                 throw new AppException(AppExceptionEnum.ChartTypeNotRegistered);

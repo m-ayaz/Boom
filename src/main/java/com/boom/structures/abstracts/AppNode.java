@@ -34,8 +34,17 @@ public abstract class AppNode {
         styleableNode.getTransforms().add(affineTransform);
         styleableNode.styleProperty().bind(backgroundStyle);
 
+//        LineChart l;
+//        l.getXAxis().set;
+
 
     }
+
+
+//    public AppNode clone() throws CloneNotSupportedException {
+//        AppNode clone = (AppNode) super.clone();
+//        return null;
+//    }
 
     protected int configStep = 0;
 

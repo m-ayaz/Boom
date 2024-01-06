@@ -9,7 +9,6 @@ import com.boom.appcharts.number_string.AppScatterChart_NumberString;
 import com.boom.appcharts.string_number.AppAreaChart_StringNumber;
 import com.boom.appcharts.string_number.AppLineChart_StringNumber;
 import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
-import com.boom.apppaints.AppColor;
 import com.boom.appshapes.*;
 import com.boom.exceptions.AppException;
 import com.boom.icons.RotationIcon;
@@ -17,11 +16,8 @@ import com.boom.icons.ScalingIcon;
 import com.boom.indicators.*;
 import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.enums.AppExceptionEnum;
-import com.boom.structures.enums.NodeTypeEnum;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.input.Clipboard;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
@@ -29,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.boom.tools.Tools.print;
-import static com.boom.tools.Tools.uuid;
 
 public class MainCanvasItemsHandler {
 

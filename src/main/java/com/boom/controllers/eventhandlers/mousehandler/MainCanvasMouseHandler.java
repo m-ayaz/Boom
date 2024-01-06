@@ -19,7 +19,7 @@ import com.boom.icons.ScalingIcon;
 import com.boom.indicators.*;
 import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.enums.AppExceptionEnum;
-import com.boom.structures.enums.NodeTypeEnum;
+import com.boom.structures.enums.AppNodeTypeEnum;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -225,7 +225,7 @@ public class MainCanvasMouseHandler extends AppMouseEventHandler {
 
         if (mouseEvent.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
 
-            if (tempObjectName.get().equals(NodeTypeEnum.DynamicDragRectangle.getNodeType()) &&
+            if (tempObjectName.get().equals(AppNodeTypeEnum.DynamicDragRectangle.getNodeType()) &&
                     !rotationIcon.contains(pressX, pressY) &&
                     !scalingIcons.get(0).contains(pressX, pressY) &&
                     !scalingIcons.get(1).contains(pressX, pressY) &&
@@ -278,33 +278,33 @@ public class MainCanvasMouseHandler extends AppMouseEventHandler {
 
         cursorPositionLabel.setText(x + "," + y);
 
-        if (tempObjectName.get().equals(NodeTypeEnum.DynamicDragRectangle.getNodeType())) {
+        if (tempObjectName.get().equals(AppNodeTypeEnum.DynamicDragRectangle.getNodeType())) {
             dynamicDragRectangle.reset();
-        } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_NN.getNodeType())) {
+        } else if (tempObjectName.get().equals(AppNodeTypeEnum.LineChart_NN.getNodeType())) {
             littleLineChartOnCursor.show(x, y);
             tempLineChart_NN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_NS.getNodeType())) {
+        } else if (tempObjectName.get().equals(AppNodeTypeEnum.LineChart_NS.getNodeType())) {
             littleLineChartOnCursor.show(x, y);
             tempLineChart_NS.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.LineChart_SN.getNodeType())) {
+        } else if (tempObjectName.get().equals(AppNodeTypeEnum.LineChart_SN.getNodeType())) {
             littleLineChartOnCursor.show(x, y);
             tempLineChart_SN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.ScatterChart_NN.getNodeType())) {
+        } else if (tempObjectName.get().equals(AppNodeTypeEnum.ScatterChart_NN.getNodeType())) {
             littleScatterChartOnCursor.show(x, y);
             tempScatterChart_NN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.ScatterChart_NS.getNodeType())) {
+        } else if (tempObjectName.get().equals(AppNodeTypeEnum.ScatterChart_NS.getNodeType())) {
             littleScatterChartOnCursor.show(x, y);
             tempScatterChart_NS.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.ScatterChart_SN.getNodeType())) {
+        } else if (tempObjectName.get().equals(AppNodeTypeEnum.ScatterChart_SN.getNodeType())) {
             littleScatterChartOnCursor.show(x, y);
             tempScatterChart_SN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.AreaChart_NN.getNodeType())) {
+        } else if (tempObjectName.get().equals(AppNodeTypeEnum.AreaChart_NN.getNodeType())) {
             littleAreaChartOnCursor.show(x, y);
             tempAreaChart_NN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.AreaChart_NS.getNodeType())) {
+        } else if (tempObjectName.get().equals(AppNodeTypeEnum.AreaChart_NS.getNodeType())) {
             littleAreaChartOnCursor.show(x, y);
             tempAreaChart_NS.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(NodeTypeEnum.AreaChart_SN.getNodeType())) {
+        } else if (tempObjectName.get().equals(AppNodeTypeEnum.AreaChart_SN.getNodeType())) {
             littleAreaChartOnCursor.show(x, y);
             tempAreaChart_SN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
         } else {

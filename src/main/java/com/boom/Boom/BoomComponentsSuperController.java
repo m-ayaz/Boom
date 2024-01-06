@@ -26,7 +26,7 @@ import com.boom.panels.paint.PaintManagementPanel;
 import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.structures.enums.AppExceptionEnum;
-import com.boom.structures.enums.NodeTypeEnum;
+import com.boom.structures.enums.AppNodeTypeEnum;
 import javafx.beans.property.*;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -241,9 +241,9 @@ public class BoomComponentsSuperController {
     @FXML
     void areaChartButtonOnAction(ActionEvent event) throws AppException {
         switch (xAxisType.getValue() + yAxisType.getValue()) {
-            case "NumberNumber" -> tempObjectName.set(NodeTypeEnum.AreaChart_NN.getNodeType());
-            case "NumberString" -> tempObjectName.set(NodeTypeEnum.AreaChart_NS.getNodeType());
-            case "StringNumber" -> tempObjectName.set(NodeTypeEnum.AreaChart_SN.getNodeType());
+            case "NumberNumber" -> tempObjectName.set(AppNodeTypeEnum.AreaChart_NN.getNodeType());
+            case "NumberString" -> tempObjectName.set(AppNodeTypeEnum.AreaChart_NS.getNodeType());
+            case "StringNumber" -> tempObjectName.set(AppNodeTypeEnum.AreaChart_SN.getNodeType());
             case "StringString" -> throw new AppException(AppExceptionEnum.InvalidXYAxisType);
             default -> throw new AppException(AppExceptionEnum.UnexpectedError);
         }
@@ -254,8 +254,8 @@ public class BoomComponentsSuperController {
         print(uuid(1000));
         switch (xAxisType.getValue() + yAxisType.getValue()) {
             case "NumberNumber", "StringString" -> throw new AppException(AppExceptionEnum.InvalidXYAxisType);
-            case "NumberString" -> tempObjectName.set(NodeTypeEnum.BarChart_NS.getNodeType());
-            case "StringNumber" -> tempObjectName.set(NodeTypeEnum.BarChart_SN.getNodeType());
+            case "NumberString" -> tempObjectName.set(AppNodeTypeEnum.BarChart_NS.getNodeType());
+            case "StringNumber" -> tempObjectName.set(AppNodeTypeEnum.BarChart_SN.getNodeType());
             default -> throw new AppException(AppExceptionEnum.UnexpectedError);
         }
     }
@@ -333,7 +333,7 @@ public class BoomComponentsSuperController {
                 littleEllipseOnCursor,littlePolylineOnCursor, littleCubicCurveOnCursor, littleQuadCurveOnCursor, littlePolygonOnCursor, littleArcOnCursor, littleRectangleOnCursor,
                 littleLineOnCursor, selectedObjectsController);
 
-        tempObjectName.set(NodeTypeEnum.DynamicDragRectangle.getNodeType());
+        tempObjectName.set(AppNodeTypeEnum.DynamicDragRectangle.getNodeType());
 
         bindVisibilities();
 
@@ -572,9 +572,9 @@ public class BoomComponentsSuperController {
     @FXML
     void lineChartButtonOnAction(ActionEvent event) throws AppException {
         switch (xAxisType.getValue() + yAxisType.getValue()) {
-            case "NumberNumber" -> tempObjectName.set(NodeTypeEnum.LineChart_NN.getNodeType());
-            case "NumberString" -> tempObjectName.set(NodeTypeEnum.LineChart_NS.getNodeType());
-            case "StringNumber" -> tempObjectName.set(NodeTypeEnum.LineChart_SN.getNodeType());
+            case "NumberNumber" -> tempObjectName.set(AppNodeTypeEnum.LineChart_NN.getNodeType());
+            case "NumberString" -> tempObjectName.set(AppNodeTypeEnum.LineChart_NS.getNodeType());
+            case "StringNumber" -> tempObjectName.set(AppNodeTypeEnum.LineChart_SN.getNodeType());
             case "StringString" -> throw new AppException(AppExceptionEnum.InvalidXYAxisType);
             default -> throw new AppException(AppExceptionEnum.UnexpectedError);
         }
@@ -794,9 +794,9 @@ public class BoomComponentsSuperController {
     @FXML
     void scatterChartButtonOnAction(ActionEvent event) throws AppException {
         switch (xAxisType.getValue() + yAxisType.getValue()) {
-            case "NumberNumber" -> tempObjectName.set(NodeTypeEnum.ScatterChart_NN.getNodeType());
-            case "NumberString" -> tempObjectName.set(NodeTypeEnum.ScatterChart_NS.getNodeType());
-            case "StringNumber" -> tempObjectName.set(NodeTypeEnum.ScatterChart_SN.getNodeType());
+            case "NumberNumber" -> tempObjectName.set(AppNodeTypeEnum.ScatterChart_NN.getNodeType());
+            case "NumberString" -> tempObjectName.set(AppNodeTypeEnum.ScatterChart_NS.getNodeType());
+            case "StringNumber" -> tempObjectName.set(AppNodeTypeEnum.ScatterChart_SN.getNodeType());
             case "StringString" -> throw new AppException(AppExceptionEnum.InvalidXYAxisType);
             default -> throw new AppException(AppExceptionEnum.UnexpectedError);
         }
@@ -827,7 +827,7 @@ public class BoomComponentsSuperController {
 
     @FXML
     void selectorButtonOnAction(ActionEvent event) {
-        tempObjectName.set(NodeTypeEnum.DynamicDragRectangle.getNodeType());
+        tempObjectName.set(AppNodeTypeEnum.DynamicDragRectangle.getNodeType());
         mainCanvasItemsHandler.getSelectedObjectsController().unselectAll();
         littleEllipseOnCursor.hide();
         littleRectangleOnCursor.hide();
@@ -905,9 +905,9 @@ public class BoomComponentsSuperController {
 //                    objectProp2Label.setText("Start (Y)");
 //                    objectProp1Input.setText("" + ((AppLine)selectedShape).startX.get());
 //                    objectProp2Input.setText("" + ((AppLine)selectedShape).startY.get());
-                } else if (selectedShape.getType().equals(NodeTypeEnum.LineChart_NN.getNodeType()) ||
-                        selectedShape.getType().equals(NodeTypeEnum.AreaChart_NN.getNodeType()) ||
-                        selectedShape.getType().equals(NodeTypeEnum.ScatterChart_NN.getNodeType())) {
+                } else if (selectedShape.getType().equals(AppNodeTypeEnum.LineChart_NN.getNodeType()) ||
+                        selectedShape.getType().equals(AppNodeTypeEnum.AreaChart_NN.getNodeType()) ||
+                        selectedShape.getType().equals(AppNodeTypeEnum.ScatterChart_NN.getNodeType())) {
                     objectProp1Label.setText("Start (X)");
                     objectProp2Label.setText("Start (Y)");
                     print(uuid(100));
@@ -924,10 +924,10 @@ public class BoomComponentsSuperController {
                     chartTabContainer.setVisible(true);
 //                    objectProp1Input.setText("" + ((AppLineChart_NumberNumber) selectedShape).getStartX());
 //                    objectProp2Input.setText("" + ((AppLine) selectedShape).getStartY());
-                } else if (selectedShape.getType().equals(NodeTypeEnum.LineChart_NS.getNodeType()) ||
-                        selectedShape.getType().equals(NodeTypeEnum.AreaChart_NS.getNodeType()) ||
-                        selectedShape.getType().equals(NodeTypeEnum.ScatterChart_NS.getNodeType()) ||
-                        selectedShape.getType().equals(NodeTypeEnum.BarChart_NS.getNodeType())) {
+                } else if (selectedShape.getType().equals(AppNodeTypeEnum.LineChart_NS.getNodeType()) ||
+                        selectedShape.getType().equals(AppNodeTypeEnum.AreaChart_NS.getNodeType()) ||
+                        selectedShape.getType().equals(AppNodeTypeEnum.ScatterChart_NS.getNodeType()) ||
+                        selectedShape.getType().equals(AppNodeTypeEnum.BarChart_NS.getNodeType())) {
                     objectProp1Label.setText("Start (X)");
                     objectProp2Label.setText("Start (Y)");
                     try {
@@ -943,10 +943,10 @@ public class BoomComponentsSuperController {
                     chartTabContainer.setVisible(true);
 //                    objectProp1Input.setText("" + ((AppLineChart_NumberNumber) selectedShape).getStartX());
 //                    objectProp2Input.setText("" + ((AppLine) selectedShape).getStartY());
-                } else if (selectedShape.getType().equals(NodeTypeEnum.LineChart_SN.getNodeType()) ||
-                        selectedShape.getType().equals(NodeTypeEnum.AreaChart_SN.getNodeType()) ||
-                        selectedShape.getType().equals(NodeTypeEnum.ScatterChart_SN.getNodeType()) ||
-                        selectedShape.getType().equals(NodeTypeEnum.BarChart_SN.getNodeType())) {
+                } else if (selectedShape.getType().equals(AppNodeTypeEnum.LineChart_SN.getNodeType()) ||
+                        selectedShape.getType().equals(AppNodeTypeEnum.AreaChart_SN.getNodeType()) ||
+                        selectedShape.getType().equals(AppNodeTypeEnum.ScatterChart_SN.getNodeType()) ||
+                        selectedShape.getType().equals(AppNodeTypeEnum.BarChart_SN.getNodeType())) {
                     objectProp1Label.setText("Start (X)");
                     objectProp2Label.setText("Start (Y)");
                     try {
