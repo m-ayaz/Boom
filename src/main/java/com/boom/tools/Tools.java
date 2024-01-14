@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import static java.lang.Math.*;
+
 public class Tools {
     public static void print(Object obj) {
         System.out.println(obj);
@@ -41,8 +43,8 @@ public class Tools {
         affineTo.setTz(affineFrom.getTz());
     }
 
-    public static Affine parseAffine(JSONArray jsonArray){
-        Affine affine=new Affine();
+    public static Affine parseAffine(JSONArray jsonArray) {
+        Affine affine = new Affine();
         affine.setMxx(jsonArray.getDouble(0));
         affine.setMxy(jsonArray.getDouble(1));
         affine.setTx(jsonArray.getDouble(2));
@@ -63,18 +65,18 @@ public class Tools {
 //        return affine;
 //    }
 
-    public static List<Double> arrayToList(Object[] array){
-        List<Double> list=new ArrayList<>();
+    public static List<Double> arrayToList(Object[] array) {
+        List<Double> list = new ArrayList<>();
         for (Object v : array) {
             list.add(Double.valueOf(v.toString()));
         }
         return list;
     }
 
-    public static double[] arrayToArray(JSONArray jsonArray){
-        double[] array=new double[jsonArray.length()];
-        for(int i=0;i<array.length;i++){
-            array[i]=jsonArray.getDouble(i);
+    public static double[] arrayToArray(JSONArray jsonArray) {
+        double[] array = new double[jsonArray.length()];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = jsonArray.getDouble(i);
         }
         return array;
 //        List<Double> list=new ArrayList<>();
@@ -82,8 +84,8 @@ public class Tools {
 //        return list;
     }
 
-    public static List<Double> arrayToList(double[] array){
-        List<Double> list=new ArrayList<>();
+    public static List<Double> arrayToList(double[] array) {
+        List<Double> list = new ArrayList<>();
         for (double v : array) {
             list.add(v);
         }
@@ -369,7 +371,6 @@ public class Tools {
         double b = affine.getMxy();
         double c = affine.getMyx();
         double d = affine.getMyy();
-        double sx, sy, th1, th2;
 
         double N2 = a * a + b * b + c * c + d * d;
         double D = affine.determinant();
@@ -377,26 +378,66 @@ public class Tools {
             throw new AppException(AppExceptionEnum.UnexpectedError);
         }
 
-        sx = Math.sqrt((N2 + Math.sqrt(N2 * N2 - 4 * D * D)) / 2);
-        if (D > 0) {
-            sy = Math.sqrt((N2 - Math.sqrt(N2 * N2 - 4 * D * D)) / 2);
+        double delta = sqrt(N2 * N2 - 4 * D * D);
+
+        double sx = sqrt((N2 + delta) / 2);
+        double sy = D > 0 ? sqrt((N2 - delta) / 2) : -sqrt((N2 - delta) / 2);
+
+        double th1 = sx == sy ? 0 : atan2(c - b, a + d) / 2 + atan2(c + b, a - d) / 2;
+        double th2 = th1 - atan2(c + b, a - d);
+
+        return new double[]{th1 * 180 / PI, sx, sy, th2 * 180 / PI};
+    }
+
+    public static double[] getScientificRepresentation1(double x, int truncatedDigits) {
+        if (x == 0) {
+            return new double[]{0, 0};
         } else {
-            sy = -Math.sqrt((N2 - Math.sqrt(N2 * N2 - 4 * D * D)) / 2);
+            double sciExp = floor(log10(abs(x)));
+            double temp = pow(10, -sciExp) * x;
+            return new double[]{temp, sciExp};
         }
+    }
 
-//        th1=Math.atan2(d*sx-a*sy,b*sx+c*sy);
-//        th2=Math.atan2(d*sx-a*sy,-c*sx-b*sy);
+    public static double[] getTickBounds(double _min_, double _max_) {
+        double[] lowerTemp = getScientificRepresentation1(_min_, 0);
+        double[] upperTemp = getScientificRepresentation1(_max_, 0);
+        return new double[]{
+                ((int) floor(lowerTemp[0])) * pow(10, lowerTemp[1]),
+                ((int) floor(upperTemp[0])) * pow(10, upperTemp[1])
+        };
+    }
 
-//        if()
-        if (sx == sy) {
-            th1 = 0;
+    public static String[] getStringTicks(double lowerBound, double upperBound, int n) {
+        if (n == 0) {
+            throw new AppException(AppExceptionEnum.UnexpectedError);
+        }
+        String[] strings = new String[n];
+        if (n <= 1) {
+            strings[0] = getScientificRepresentation(lowerBound / 2 + upperBound / 2, 0);
         } else {
-//            th1=Math.acos(Math.sqrt((a*a+b*b-sy*sy)/(sx*sx-sy*sy)));
-            th1 = Math.atan2(c - b, a + d) / 2 + Math.atan2(c + b, a - d) / 2;
+            for (int i = 0; i < n; i++) {
+                strings[i] = getScientificRepresentation(lowerBound + (upperBound - lowerBound) * i / (n - 1), 0);
+            }
         }
-        th2 = th1 - Math.atan2(c + b, a - d);
+        return strings;
+    }
 
-        return new double[]{th1 * 180 / Math.PI, sx, sy, th2 * 180 / Math.PI};
+    public static String getScientificRepresentation(double x, int truncatedDigits) {
+        int sciExp = (int) floor(log10(x));
+//        print(sciExp);
+        double temp = pow(10, -sciExp) * x;
+//        print(pow(10, truncatedDigits - sciExp) * x);
+//        print(temp);
+        return "%se%d".formatted(temp, sciExp);
+    }
+
+    public static void _TEMP1_(double _min_, double _max_) {
+        double[] lowerBoundSciRep = getScientificRepresentation1(_min_, 0);
+        double[] upperBoundSciRep = getScientificRepresentation1(_max_, 0);
+        int lowerTick = (int) floor(lowerBoundSciRep[0]);
+        int upperTick = (int) ceil(upperBoundSciRep[0] * pow(10, upperBoundSciRep[1] - lowerBoundSciRep[1]));
+        print(lowerTick + " %%% " + upperTick);
     }
 
 }

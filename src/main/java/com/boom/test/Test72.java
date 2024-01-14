@@ -5,7 +5,6 @@ import com.boom.appcharts.AppData;
 import com.boom.structures.enums.AppAxisSortingPolicy;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;

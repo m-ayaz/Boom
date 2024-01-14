@@ -50,7 +50,7 @@ public class AppAxisChart extends BorderPane {
     List<Double> seriesMarkersStrokeWidthList = new ArrayList<>();
 
 
-//    boolean isAutoSetXTicks = true, isAutoSetYTicks = true;
+    //    boolean isAutoSetXTicks = true, isAutoSetYTicks = true;
     Group xGridLines = new Group();
     Group yGridLines = new Group();
     Pane plotRegion = new Pane();
@@ -59,15 +59,15 @@ public class AppAxisChart extends BorderPane {
     boolean isYNumeric;
     Pane xAxisRegion = new Pane();
     Pane yAxisRegion = new Pane();
-//    double plotWidth, plotHeight;
+    //    double plotWidth, plotHeight;
 //    double minXData = Double.POSITIVE_INFINITY, maxXData = Double.NEGATIVE_INFINITY,
 //            minYData = Double.POSITIVE_INFINITY, maxYData = Double.NEGATIVE_INFINITY;
     AppAxisSortingPolicy appAxisSortingPolicy;
     List<Double> temp = new ArrayList<>();
     Supplier<DoubleStream> tempDataXListSupplier, tempDataYListSupplier;
 
-    SimpleIntegerProperty numberOfXTicks=new SimpleIntegerProperty(10);
-    SimpleIntegerProperty numberOfYTicks=new SimpleIntegerProperty(10);
+    SimpleIntegerProperty numberOfXTicks = new SimpleIntegerProperty(10);
+    SimpleIntegerProperty numberOfYTicks = new SimpleIntegerProperty(10);
 
     public AppAxisChart() {
 
@@ -98,7 +98,6 @@ public class AppAxisChart extends BorderPane {
         setYNumeric(false);
 
         setAxisSortingPolicy(AppAxisSortingPolicy.SortByDefault);
-
 
 
 //        plotRegion.setBorder(Border.stroke(Color.BLACK));
@@ -234,8 +233,15 @@ public class AppAxisChart extends BorderPane {
         }
     }
 
-    List<String> customXTicks=new ArrayList<>();
-    List<String> customYTicks=new ArrayList<>();
+    List<String> customXTicks = new ArrayList<>();
+    List<String> customYTicks = new ArrayList<>();
+
+    double xTicksWidth=20;
+    double xTicksHeight=20;
+    double yTicksWidth=20;
+    double yTicksHeight=20;
+
+
 
     void updateSeriesPreviewAtChart(int seriesIndex) {
 
@@ -268,13 +274,6 @@ public class AppAxisChart extends BorderPane {
         double minY = tempDataYListSupplier.get().min().orElse(Double.POSITIVE_INFINITY);
         double maxY = tempDataYListSupplier.get().max().orElse(Double.NEGATIVE_INFINITY);
 
-//        print("_______________________________");
-//        print(appAxisSortingPolicy);
-//        print(series);
-//        print(tempDataXListSupplier.get().boxed());
-//        tempDataXListSupplier.get().forEach(x->print("interp x = "+x));
-//        tempDataYListSupplier.get().forEach(x->print("interp y = "+x));
-
         series.forEach(data -> {
             double x, y;
             if (maxX == minX) {
@@ -298,12 +297,7 @@ public class AppAxisChart extends BorderPane {
             c.setTranslateY(y);
             seriesMarkerSet.getChildren().add(c);
 
-//            print(x+","+y);
-
-
         });
-
-//        print(temp);
 
         seriesPlotLine.getPoints().setAll(temp);
         if (appAxisSortingPolicy.equals(AppAxisSortingPolicy.SortByY)) {

@@ -33,6 +33,8 @@ public final class AppAreaChart_StringNumber extends AppXYChart<String,Number> {
         seriesAreaStyles = new ArrayList<>();
     }
 
+
+
     @Override
     public XYChart.Data<String,Number> addData(String x, Number y, int seriesIndex, int dataIndex) {
         XYChart.Data<String,Number> newData = new XYChart.Data<>(x, y);
