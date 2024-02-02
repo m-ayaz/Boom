@@ -13,13 +13,6 @@ import javafx.scene.Node;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.boom.tools.Tools.print;
-import static com.boom.tools.Tools.uuid;
-
-/**
- * For now, the yData is drawn w.r.t. the xData. In later development, we will provide
- */
-
 public class AppSeries {
 
     public AppPolygon plotArea = new AppPolygon();
@@ -35,8 +28,8 @@ public class AppSeries {
     SimpleDoubleProperty globalMinY = new SimpleDoubleProperty();
     SimpleDoubleProperty globalMaxY = new SimpleDoubleProperty();
     AppDataComparator appDataComparator = new AppDataComparator();
-    public   List<double[]> appDataList = new ArrayList<>();
-    public   List<double[]> previewCoordinatesList = new ArrayList<>();
+    public List<double[]> appDataList = new ArrayList<>();
+    public List<double[]> previewCoordinatesList = new ArrayList<>();
     private DoubleBinding minXVisualLocation;
     private DoubleBinding minYVisualLocation;
     private DoubleBinding maxXVisualLocation;
@@ -45,7 +38,7 @@ public class AppSeries {
     public AppSeries() {
 
         markerShape.addListener((a, b, c) -> renderedMarkers.getChildren().replaceAll(node -> {
-            Node newRenderedMarkerShape=markerShape.get().copy().getStyleableNode();
+            Node newRenderedMarkerShape = markerShape.get().copy().getStyleableNode();
             newRenderedMarkerShape.setTranslateX(node.getTranslateX());
             newRenderedMarkerShape.setTranslateY(node.getTranslateY());
             return newRenderedMarkerShape;
@@ -55,18 +48,18 @@ public class AppSeries {
         plotLine.backgroundStyle.setStrokeWidth(1);
     }
 
-    public void addData(int dataIndex, double x,double y) {
-        appDataList.add(dataIndex, new double[]{x,y});
+    public void addData(int dataIndex, double x, double y) {
+        appDataList.add(dataIndex, new double[]{x, y});
         updateLocalMaxX();
         updateLocalMinX();
         updateLocalMaxY();
         updateLocalMinY();
-        renderedMarkers.getChildren().add(dataIndex,markerShape.get().copy().getStyleableNode());
+        renderedMarkers.getChildren().add(dataIndex, markerShape.get().copy().getStyleableNode());
         updatePreviewAtChart();
     }
 
-    public void addData(double x,double y) {
-        addData(appDataList.size(),x,y);
+    public void addData(double x, double y) {
+        addData(appDataList.size(), x, y);
     }
 
     public void addManyData(int dataIndex, List<double[]> newAppDataList) {
@@ -112,7 +105,7 @@ public class AppSeries {
     }
 
     public void updateData(int dataIndex, double x, double y) {
-        appDataList.set(dataIndex, new double[]{x,y}) ;
+        appDataList.set(dataIndex, new double[]{x, y});
         updateLocalMaxX();
         updateLocalMinX();
         updateLocalMaxY();
@@ -140,10 +133,10 @@ public class AppSeries {
                 (localMinX.get() - globalMinX.get()) / (globalMaxX.get() - globalMinX.get()) * (maxXVisualLocation.get() - minXVisualLocation.get()) + minXVisualLocation.get(),
                 minYVisualLocation.get()
         );
-        previewCoordinatesList.forEach(doubles -> plotArea.points.addAll(doubles[0],doubles[1]));
+        previewCoordinatesList.forEach(doubles -> plotArea.points.addAll(doubles[0], doubles[1]));
 
         plotLine.points.clear();
-        previewCoordinatesList.forEach(doubles -> plotLine.points.addAll(doubles[0],doubles[1]));
+        previewCoordinatesList.forEach(doubles -> plotLine.points.addAll(doubles[0], doubles[1]));
 
         if (markerShape.get() != null) {
             for (int i = 0; i < previewCoordinatesList.size(); i++) {
@@ -165,7 +158,6 @@ public class AppSeries {
     }
 
     void updateLocalMaxY() {
-//        print(uuid(20));
         localMaxY.set(appDataList.stream().mapToDouble(doubles -> doubles[1]).max().orElse(Double.NEGATIVE_INFINITY));
     }
 
@@ -174,7 +166,6 @@ public class AppSeries {
     }
 
     void updateLocalMinY() {
-//        print(uuid(20));
         localMinY.set(appDataList.stream().mapToDouble(doubles -> doubles[1]).min().orElse(Double.POSITIVE_INFINITY));
     }
 
