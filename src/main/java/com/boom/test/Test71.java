@@ -1,16 +1,10 @@
 package com.boom.test;
 
-import com.boom.appcharts.AppData;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -26,7 +20,7 @@ public class Test71 extends Application {
         launch();
     }
     Random rnd=new Random();
-    DataComparator dataComparator=new DataComparator();
+//    DataComparator dataComparator=new DataComparator();
 
     @Override
     public void start(Stage stage) throws Exception {

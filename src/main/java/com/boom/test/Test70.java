@@ -2,14 +2,10 @@ package com.boom.test;
 
 import com.boom.appcharts.AppData;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polyline;
-import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -28,7 +24,7 @@ public class Test70 extends Application {
         launch();
     }
     Random rnd=new Random();
-    DataComparator dataComparator=new DataComparator();
+//    DataComparator dataComparator=new DataComparator();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -42,7 +38,7 @@ public class Test70 extends Application {
         List<AppData> appDataList=new ArrayList<>();
 
         for(int i=0;i<10;i++){
-            appDataList.add(new AppData(uuid(10),uuid(10)));
+            appDataList.add(new AppData(Math.random(),Math.random()));
         }
 
         Comp comp1=new Comp(0);
@@ -166,7 +162,7 @@ class Comp implements Comparator<AppData>{
         if(i==0) {
             return 0;
         }else{
-            return o1.getX().compareTo(o2.getX());
+            return o1.x.compareTo(o2.x);
         }
     }
 }

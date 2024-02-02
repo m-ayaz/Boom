@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 @SuppressWarnings("unchecked")
-public final class SeriesManagementPanel_StringNumber extends SeriesManagementPaneBase {
+public  class SeriesManagementPanel_StringNumber extends SeriesManagementPaneBase {
 
     XYChart.Series<String, Number> series;
 

@@ -5,6 +5,7 @@ Innovative Graphics Software for Professionals
 <h3> Known Bugs </h3>
 
 - load project has problems
+- When the ticks length or height is too large, rendering ticks faces problems.
 
 <h3> Features</h3>
 

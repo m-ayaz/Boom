@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.boom.tools.Tools.print;
 
-public final class AppText extends Text {
+public  class AppText extends Text {
 
 //    public TextArea tempText =new TextArea();
 

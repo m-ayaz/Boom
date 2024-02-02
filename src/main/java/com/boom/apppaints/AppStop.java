@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Stop;
 
-public final class AppStop extends SimpleObjectProperty<Stop> {
+public  class AppStop extends SimpleObjectProperty<Stop> {
 
     public AppColor appColor;
     public SimpleDoubleProperty offset=new SimpleDoubleProperty();

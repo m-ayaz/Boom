@@ -4,7 +4,7 @@ import com.boom.structures.interfaces.LittleIndicatorStructure;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 
-public final class LittleScatterChartOnCursor extends ScatterChart<Number,Number> implements LittleIndicatorStructure {
+public  class LittleScatterChartOnCursor extends ScatterChart<Number,Number> implements LittleIndicatorStructure {
 
     //todo set up background color to white later.
     public LittleScatterChartOnCursor() {

@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineJoin;
 
-public final class LittlePolygonOnCursor extends Polygon implements LittleIndicatorStructure {
+public  class LittlePolygonOnCursor extends Polygon implements LittleIndicatorStructure {
     public LittlePolygonOnCursor() {
         double width=20,height=20,strokeWidth=0;
         Color fillColor=new Color(1,1,0,1),strokeColor=Color.BLACK;

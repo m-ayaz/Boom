@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.StrokeLineJoin;
 
-public final class LittlePolylineOnCursor extends Polyline implements LittleIndicatorStructure {
+public  class LittlePolylineOnCursor extends Polyline implements LittleIndicatorStructure {
 
     public LittlePolylineOnCursor() {
         double width=20,height=20,strokeWidth=2;

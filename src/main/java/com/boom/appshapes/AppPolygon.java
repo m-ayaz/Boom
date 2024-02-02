@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static com.boom.tools.Tools.*;
 
-public final class AppPolygon extends AppAreaShape {
+public  class AppPolygon extends AppAreaShape {
 
     public ObservableList<Double> points;
 

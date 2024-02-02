@@ -4,7 +4,7 @@ import com.boom.structures.interfaces.LittleIndicatorStructure;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
 
-public final class LittleCubicCurveOnCursor extends CubicCurve implements LittleIndicatorStructure {
+public  class LittleCubicCurveOnCursor extends CubicCurve implements LittleIndicatorStructure {
 
     public LittleCubicCurveOnCursor() {
         setStrokeWidth(5);

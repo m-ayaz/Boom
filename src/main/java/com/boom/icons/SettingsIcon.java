@@ -11,7 +11,7 @@ import javafx.scene.transform.Rotate;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class SettingsIcon extends Group {
+public  class SettingsIcon extends Group {
 
     public SettingsIcon(int cogsNumber,double offset,double radius,double thickness, double L,double scale,Color color){
 

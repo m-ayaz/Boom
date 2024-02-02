@@ -1,27 +1,15 @@
 package com.boom.test;
 
-import com.boom.appcharts.AppAxisChart;
-import com.boom.appcharts.AppData;
-import com.boom.structures.enums.AppAxisSortingPolicy;
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import static com.boom.tools.Tools.*;
@@ -33,7 +21,7 @@ public class Test73 extends Application {
         launch();
     }
     Random rnd=new Random();
-    DataComparator dataComparator=new DataComparator();
+//    DataComparator dataComparator=new DataComparator();
 
     @Override
     public void start(Stage stage) throws Exception {

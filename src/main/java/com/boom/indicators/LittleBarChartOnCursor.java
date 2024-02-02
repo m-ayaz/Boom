@@ -5,7 +5,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 
-public final class LittleBarChartOnCursor extends BarChart<String,Number> implements LittleIndicatorStructure {
+public  class LittleBarChartOnCursor extends BarChart<String,Number> implements LittleIndicatorStructure {
 
     //todo set up background color to white later.
     public LittleBarChartOnCursor() {

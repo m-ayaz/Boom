@@ -20,7 +20,7 @@ import static com.boom.configuration.Configs.*;
 import static com.boom.tools.Tools.setCustomSize;
 
 
-public final class PaintManagementPanel extends VBox {
+public  class PaintManagementPanel extends VBox {
 
     CSSProperty backgroundsProperty;
 

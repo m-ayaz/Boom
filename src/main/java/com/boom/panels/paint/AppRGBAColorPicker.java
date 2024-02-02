@@ -17,7 +17,7 @@ import static com.boom.configuration.Configs.*;
 import static com.boom.tools.Tools.print;
 import static com.boom.tools.Tools.setCustomSize;
 
-public final class AppRGBAColorPicker extends Pane {
+public  class AppRGBAColorPicker extends Pane {
 
 
     AppRectangle redChanger, greenChanger, blueChanger, alphaChanger;

@@ -13,7 +13,7 @@ import org.json.JSONObject;
 
 import static com.boom.tools.Tools.*;
 
-public final class AppEllipse extends AppAreaShape {
+public  class AppEllipse extends AppAreaShape {
     
     public DoubleProperty radiusX,radiusY;
 

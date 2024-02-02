@@ -4,21 +4,9 @@ package com.boom.appcharts;
 import com.boom.controllers.MainCanvasItemsHandler;
 import com.boom.controllers.SelectedObjectsController;
 import com.boom.structures.abstracts.AppNode;
-import com.boom.test.DataComparator;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Polyline;
-import javafx.scene.text.Text;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 // todo: disallow addition of duplicate series or data
 

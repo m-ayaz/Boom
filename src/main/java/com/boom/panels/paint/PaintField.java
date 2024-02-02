@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import static com.boom.configuration.Configs.*;
 import static com.boom.tools.Tools.*;
 
-public final class PaintField extends GridPane {
+public  class PaintField extends GridPane {
 
     Button addColorButton = new Button();
     Button addLinearGradientButton = new Button();

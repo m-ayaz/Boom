@@ -1,58 +1,24 @@
 package com.boom.appcharts;
 
-public final class AppData {
+public class AppData {
 
-    String x = null;
-    String y = null;
-    boolean isXDataNumerable = false;
-    boolean isYDataNumerable = false;
+    public Double x = null;
+    public Double y = null;
 
-    public AppData(String x, String y) {
-        setX(x);
-        setY(y);
-    }
-
-    public AppData() {
-    }
-
-    public String getX() {
-        return x;
-    }
-
-    public void setX(String x) {
+    public AppData(Double x, Double y) {
         this.x = x;
-        try {
-            Double.parseDouble(x);
-            isXDataNumerable = true;
-        } catch (Exception e) {
-            isXDataNumerable = false;
-        }
-    }
-
-    public String getY() {
-        return y;
-    }
-
-    public void setY(String y) {
         this.y = y;
-        try {
-            Double.parseDouble(y);
-            isYDataNumerable = true;
-        } catch (Exception e) {
-            isYDataNumerable = false;
-        }
     }
 
-    public boolean isXDataNumerable() {
-        return isXDataNumerable;
+    private AppData() {
     }
 
-    public boolean isYDataNumerable() {
-        return isYDataNumerable;
-    }
 
     public String toString() {
         return "(%s,%s)".formatted(x, y);
     }
 
+    public AppData copy() {
+        return new AppData(x, y);
+    }
 }

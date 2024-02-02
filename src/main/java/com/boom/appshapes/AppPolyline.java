@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static com.boom.tools.Tools.*;
 
-public final class AppPolyline extends AppLineShape {
+public  class AppPolyline extends AppLineShape {
     public ObservableList<Double> points;
 
     public AppPolyline(double... points){

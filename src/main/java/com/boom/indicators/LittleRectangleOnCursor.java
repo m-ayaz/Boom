@@ -4,7 +4,7 @@ import com.boom.structures.interfaces.LittleIndicatorStructure;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public final class LittleRectangleOnCursor extends Rectangle implements LittleIndicatorStructure {
+public  class LittleRectangleOnCursor extends Rectangle implements LittleIndicatorStructure {
 
     public LittleRectangleOnCursor() {
         setWidth(20);

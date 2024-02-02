@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 import static com.boom.tools.Tools.*;
 
-public final class AppArc extends AppAreaShape {
+public  class AppArc extends AppAreaShape {
 
     public DoubleProperty radiusX, radiusY, startAngle, length;
     public ObjectProperty<ArcType> arcType;

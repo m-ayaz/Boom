@@ -3,7 +3,7 @@ package com.boom.icons;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public final class RotationIcon extends Circle {
+public  class RotationIcon extends Circle {
 
     public RotationIcon(){
 

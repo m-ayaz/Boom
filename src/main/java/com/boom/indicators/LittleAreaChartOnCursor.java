@@ -4,7 +4,7 @@ import com.boom.structures.interfaces.LittleIndicatorStructure;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.NumberAxis;
 
-public final class LittleAreaChartOnCursor extends AreaChart<Number,Number> implements LittleIndicatorStructure {
+public  class LittleAreaChartOnCursor extends AreaChart<Number,Number> implements LittleIndicatorStructure {
 
     //todo set up background color to white later.
     public LittleAreaChartOnCursor() {

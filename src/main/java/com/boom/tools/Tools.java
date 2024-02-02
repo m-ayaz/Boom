@@ -20,6 +20,15 @@ import java.util.stream.Collectors;
 import static java.lang.Math.*;
 
 public class Tools {
+
+//    public static double getMin(List<Double> list){
+//        if(list.size()==0){
+//            return Double.POSITIVE_INFINITY;
+//        }else{
+//            list.stream().mapToDouble(x->x).min().orElse()
+//        }
+//    }
+
     public static void print(Object obj) {
         System.out.println(obj);
     }
@@ -424,9 +433,12 @@ public class Tools {
     }
 
     public static String getScientificRepresentation(double x, int truncatedDigits) {
+        if(x==0){
+            return "0.0";
+        }
         int sciExp = (int) floor(log10(x));
 //        print(sciExp);
-        double temp = pow(10, -sciExp) * x;
+        double temp = Math.round(pow(10, -sciExp+truncatedDigits) * x)/pow(10,truncatedDigits);
 //        print(pow(10, truncatedDigits - sciExp) * x);
 //        print(temp);
         return "%se%d".formatted(temp, sciExp);

@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import java.util.stream.Collectors;
 
-public final class AppImagePattern extends AppPaint {
+public  class AppImagePattern extends AppPaint {
 
 
     public DoubleProperty x = new SimpleDoubleProperty(0);

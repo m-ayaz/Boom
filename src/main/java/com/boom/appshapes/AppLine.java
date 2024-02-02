@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import static com.boom.tools.Tools.*;
 
-public final class AppLine extends AppLineShape {
+public  class AppLine extends AppLineShape {
 
     public DoubleProperty startX, startY, endX, endY;
 

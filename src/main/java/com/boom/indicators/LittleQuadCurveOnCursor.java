@@ -4,7 +4,7 @@ import com.boom.structures.interfaces.LittleIndicatorStructure;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.QuadCurve;
 
-public final class LittleQuadCurveOnCursor extends QuadCurve implements LittleIndicatorStructure {
+public  class LittleQuadCurveOnCursor extends QuadCurve implements LittleIndicatorStructure {
 
     public LittleQuadCurveOnCursor() {
         setStrokeWidth(5);

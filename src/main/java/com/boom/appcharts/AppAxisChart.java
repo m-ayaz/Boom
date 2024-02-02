@@ -1,194 +1,170 @@
 package com.boom.appcharts;
 
 
-import com.boom.structures.enums.AppAxisSortingPolicy;
-import com.boom.test.DataComparator;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Group;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.chart.LineChart;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Polyline;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import javax.swing.border.Border;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.DoubleStream;
+
+import static com.boom.tools.Tools.*;
 
 // todo: disallow addition of duplicate series or data
 
-public class AppAxisChart extends BorderPane {
+/**
+ * All data across all series are double Strings. They can be converted into doubles if interpretable as such.
+ */
 
-    public List<ObservableList<AppData>> seriesList = FXCollections.observableList(new ArrayList<>());
-    public List<Polygon> seriesPlotAreaList = new ArrayList<>();
-    public List<Polyline> seriesPlotLineList = new ArrayList<>();
+public class AppAxisChart extends GridPane {
+
+//    List<List<AppData>> seriesList = new ArrayList<>();
+
+
+    private final List<AppSeries> seriesList = new ArrayList<>();
+
     public SimpleDoubleProperty plotRegionWidth = new SimpleDoubleProperty();
     public SimpleDoubleProperty plotRegionHeight = new SimpleDoubleProperty();
     public SimpleDoubleProperty xAxisRegionHeight = new SimpleDoubleProperty();
 
-    // todo: shape, fill, stroke and stroke width should change into AppNode and BackgroundStyle
+    //todo: shape, fill, stroke and stroke width should change into AppNode and BackgroundStyle
     public SimpleDoubleProperty yAxisRegionWidth = new SimpleDoubleProperty();
     public SimpleDoubleProperty leftPlotMargin = new SimpleDoubleProperty(0.1);
     public SimpleDoubleProperty rightPlotMargin = new SimpleDoubleProperty(0.1);
     public SimpleDoubleProperty topPlotMargin = new SimpleDoubleProperty(0.1);
     public SimpleDoubleProperty bottomPlotMargin = new SimpleDoubleProperty(0.1);
     Pane legendsContainer = new Pane();
-    List<Text> seriesLegendList = new ArrayList<>();
-    List<Group> seriesMarkerSetList = new ArrayList<>();
-    List<Shape> seriesMarkersList = new ArrayList<>();
-    List<Paint> seriesMarkersFillPaintList = new ArrayList<>();
-    List<Paint> seriesMarkersStrokePaintList = new ArrayList<>();
-    List<Double> seriesMarkersStrokeWidthList = new ArrayList<>();
+
+    public SimpleDoubleProperty globalMinX = new SimpleDoubleProperty();
+    public SimpleDoubleProperty globalMaxX = new SimpleDoubleProperty();
+    public SimpleDoubleProperty globalMinY = new SimpleDoubleProperty();
+    public SimpleDoubleProperty globalMaxY = new SimpleDoubleProperty();
 
 
     //    boolean isAutoSetXTicks = true, isAutoSetYTicks = true;
-    Group xGridLines = new Group();
-    Group yGridLines = new Group();
+    private Group xGridLines = new Group();
+    private Group yGridLines = new Group();
     Pane plotRegion = new Pane();
-    DataComparator dataComparator = new DataComparator();
-    boolean isXNumeric;
-    boolean isYNumeric;
+    //    AppDataComparator appDataComparator = new AppDataComparator();
     Pane xAxisRegion = new Pane();
     Pane yAxisRegion = new Pane();
     //    double plotWidth, plotHeight;
 //    double minXData = Double.POSITIVE_INFINITY, maxXData = Double.NEGATIVE_INFINITY,
 //            minYData = Double.POSITIVE_INFINITY, maxYData = Double.NEGATIVE_INFINITY;
-    AppAxisSortingPolicy appAxisSortingPolicy;
-    List<Double> temp = new ArrayList<>();
-    Supplier<DoubleStream> tempDataXListSupplier, tempDataYListSupplier;
+//    AppDataSortingPolicy appDataSortingPolicy= AppDataSortingPolicy.NoSort;
 
-    SimpleIntegerProperty numberOfXTicks = new SimpleIntegerProperty(10);
-    SimpleIntegerProperty numberOfYTicks = new SimpleIntegerProperty(10);
+//    List<Double> temp = new ArrayList<>();
+//    Supplier<DoubleStream> tempSeriesXListSupplier, tempSeriesYListSupplier;
+
+//    SimpleIntegerProperty numberOfXTicks = new SimpleIntegerProperty(10);
+//    SimpleIntegerProperty numberOfYTicks = new SimpleIntegerProperty(10);
+    List<String> customXTicks = new ArrayList<>();
+    List<String> customYTicks = new ArrayList<>();
+    double xTicksWidth = 30;
+//    double xTicksHeight = 20;
+//    double yTicksWidth = 20;
+    double yTicksHeight = 20;
+
+
+//    List<Line> yTicksVisuals=new ArrayList<>();
+
+//    SimpleIntegerProperty numberOfUnNumerableXData = new SimpleIntegerProperty(0);
+//    SimpleIntegerProperty numberOfUnNumerableYData = new SimpleIntegerProperty(0);
+
+//    double minX = previewCoordinatesList.stream().mapToDouble(doubles -> doubles[0]).min().orElse(Double.POSITIVE_INFINITY);
+//    double maxX = previewCoordinatesList.stream().mapToDouble(doubles -> doubles[0]).max().orElse(Double.NEGATIVE_INFINITY);
+//    double minY = previewCoordinatesList.stream().mapToDouble(doubles -> doubles[1]).min().orElse(Double.POSITIVE_INFINITY);
+//    double maxY = previewCoordinatesList.stream().mapToDouble(doubles -> doubles[1]).max().orElse(Double.NEGATIVE_INFINITY);
+
+//    Rectangle emptySpace=new Rectangle();
 
     public AppAxisChart() {
 
+
         setStyle("-fx-background-color: transparent;-fx-border-color: transparent;-fx-border-width: 0px");
 
+        //todo need to assign backgroundStyle to plotRegion...
         plotRegion.setStyle("-fx-border-width: 1;-fx-border-color: black");
 
-//        plotRegion.setBackground(Background.EMPTY);
-
-//        getChildren().add(plotRegion);
-
-        setCenter(plotRegion);
-        setLeft(yAxisRegion);
-        setBottom(xAxisRegion);
+        addRow(0,new HBox(),new HBox());
+        addRow(1,yAxisRegion,plotRegion);
+        addRow(2,new HBox(),xAxisRegion);
+//        setCenter(plotRegion);
+//        setLeft(yAxisRegion);
+//        setBottom(new HBox(emptySpace,xAxisRegion));
 
         xAxisRegion.setBackground(Background.fill(new Color(1, 0, 1, 0.2)));
         yAxisRegion.setBackground(Background.fill(new Color(0, 1, 1, 0.2)));
-//        Rectangle rectangle=new Rectangle(50,50);
-//        setLeft(rectangle);
-//        rectangle.setFill(new Color(1,0,0,0.2));
-
 
         bindPlotRegionSize();
 
         bindAxesRegionsSize();
 
-        setXNumeric(false);
-        setYNumeric(false);
+        bindYTicksVisuals();
 
-        setAxisSortingPolicy(AppAxisSortingPolicy.SortByDefault);
+        bindXTicksVisuals();
 
 
-//        plotRegion.setBorder(Border.stroke(Color.BLACK));
+
+
+
+
+//        xAxisRegion.setBackground(Background.fill(Color.valueOf("ff000022")));
+//        plotRegionHeight.addListener((a,b,c)->{
+//            print(c);
+//        });
+
     }
 
-    public void addData(int seriesIndex, int dataIndex, AppData appData) {
-        seriesList.get(seriesIndex).add(dataIndex, appData);
-        updateSeriesPreviewAtChart(seriesIndex);
+    public void addSeries(AppSeries appSeries) {
+        addSeries(seriesList.size(), appSeries);
     }
 
-    public void addManyData(int seriesIndex, int dataIndex, List<AppData> appDataList) {
-        for (int i = 0; i < appDataList.size(); i++) {
-            seriesList.get(seriesIndex).add(dataIndex + i, appDataList.get(i));
+    public void addSeries(int seriesIndex, AppSeries appSeries) {
+        appSeries.bindDataBounds(globalMinX, globalMaxX, globalMinY, globalMaxY);
+        appSeries.bindVisualBounds(
+                plotRegionWidth.multiply(leftPlotMargin),
+                plotRegionHeight.multiply(bottomPlotMargin.multiply(-1).add(1)),
+                plotRegionWidth.multiply(rightPlotMargin.multiply(-1).add(1)),
+                plotRegionHeight.multiply(topPlotMargin)
+        );
+        seriesList.add(seriesIndex, appSeries);
+        appSeries.localMinX.addListener((a, b, c) -> globalMinX.set(seriesList.stream().mapToDouble(appSeries1 -> appSeries1.localMinX.get()).min().orElse(Double.POSITIVE_INFINITY)));
+        appSeries.localMaxX.addListener((a, b, c) -> globalMaxX.set(seriesList.stream().mapToDouble(appSeries1 -> appSeries1.localMaxX.get()).max().orElse(Double.NEGATIVE_INFINITY)));
+        appSeries.localMinY.addListener((a, b, c) -> globalMinY.set(seriesList.stream().mapToDouble(appSeries1 -> appSeries1.localMinY.get()).min().orElse(Double.POSITIVE_INFINITY)));
+        appSeries.localMaxY.addListener((a, b, c) -> globalMaxY.set(seriesList.stream().mapToDouble(appSeries1 -> appSeries1.localMaxY.get()).max().orElse(Double.NEGATIVE_INFINITY)));
+        plotRegion.getChildren().add(3 * seriesIndex, appSeries.plotArea.getStyleableNode());
+        plotRegion.getChildren().add(3 * seriesIndex + 1, appSeries.plotLine.getStyleableNode());
+        plotRegion.getChildren().add(3 * seriesIndex + 2, appSeries.renderedMarkers);
+    }
+
+    public void removeAllSeries() {
+        while(seriesList.size()!=0) {
+            removeSeries(0);
         }
-        updateSeriesPreviewAtChart(seriesIndex);
-    }
-
-    public void addManyData(int seriesIndex, int dataIndex, AppData... appDataList) {
-        for (int i = 0; i < appDataList.length; i++) {
-            seriesList.get(seriesIndex).add(dataIndex + i, appDataList[i]);
-        }
-        updateSeriesPreviewAtChart(seriesIndex);
-    }
-
-    public void addSeries() {
-        addSeries(seriesList.size());
-    }
-
-    public void addSeries(int seriesIndex) {
-
-        seriesList.add(seriesIndex, FXCollections.observableList(new ArrayList<>()));
-
-        Polygon newSeriesPlotArea = new Polygon();
-        Polyline newSeriesPlotLine = new Polyline();
-        Group seriesMarkerSet = new Group();
-
-        seriesPlotAreaList.add(seriesIndex, newSeriesPlotArea);
-        seriesPlotLineList.add(seriesIndex, newSeriesPlotLine);
-        seriesMarkerSetList.add(seriesIndex, seriesMarkerSet);
-        seriesLegendList.add(seriesIndex, new Text());
-        plotRegion.getChildren().add(3 * seriesIndex, newSeriesPlotArea);
-        plotRegion.getChildren().add(3 * seriesIndex + 1, newSeriesPlotLine);
-        plotRegion.getChildren().add(3 * seriesIndex + 2, seriesMarkerSet);
-
-    }
-
-    public void removeData(int seriesIndex, int dataIndex) {
-        seriesList.get(seriesIndex).remove(dataIndex);
-        updateSeriesPreviewAtChart(seriesIndex);
-    }
-
-    public void removeData(int seriesIndex, AppData appData) {
-        seriesList.get(seriesIndex).remove(appData);
-        updateSeriesPreviewAtChart(seriesIndex);
     }
 
     public void removeSeries(int seriesIndex) {
         seriesList.remove(seriesIndex);
-        seriesPlotAreaList.remove(seriesIndex);
-        seriesPlotLineList.remove(seriesIndex);
-        seriesMarkersList.remove(seriesIndex);
-        seriesLegendList.remove(seriesIndex);
-        plotRegion.getChildren().remove(3 * seriesIndex);
-        plotRegion.getChildren().remove(3 * seriesIndex + 1);
         plotRegion.getChildren().remove(3 * seriesIndex + 2);
+        plotRegion.getChildren().remove(3 * seriesIndex + 1);
+        plotRegion.getChildren().remove(3 * seriesIndex);
+
     }
 
-    public void setAxisSortingPolicy(AppAxisSortingPolicy appAxisSortingPolicy) {
-        this.appAxisSortingPolicy = appAxisSortingPolicy;
-        dataComparator.setAppAxisSortingPolicy(appAxisSortingPolicy);
-        updateAllSeriesPreviewsAtChart();
-    }
-
-    public void setXNumeric(boolean XNumeric) {
-        isXNumeric = XNumeric;
-    }
-
-    public void setYNumeric(boolean YNumeric) {
-        isYNumeric = YNumeric;
-    }
-
-    public void updateData(int seriesIndex, int dataIndex, String x, String y) {
-        seriesList.get(seriesIndex).get(dataIndex).setX(x);
-        seriesList.get(seriesIndex).get(dataIndex).setY(y);
-        updateSeriesPreviewAtChart(seriesIndex);
-    }
 
     void bindAxesRegionsSize() {
-        xAxisRegion.minWidthProperty().bindBidirectional(plotRegionWidth);
-        xAxisRegion.maxWidthProperty().bindBidirectional(plotRegionWidth);
-        xAxisRegion.prefWidthProperty().bindBidirectional(plotRegionWidth);
+//        xAxisRegion.minWidthProperty().bindBidirectional(plotRegionWidth);
+//        xAxisRegion.maxWidthProperty().bindBidirectional(plotRegionWidth);
+//        xAxisRegion.prefWidthProperty().bindBidirectional(plotRegionWidth);
 
         xAxisRegion.minHeightProperty().bindBidirectional(xAxisRegionHeight);
         xAxisRegion.maxHeightProperty().bindBidirectional(xAxisRegionHeight);
@@ -198,11 +174,15 @@ public class AppAxisChart extends BorderPane {
         yAxisRegion.maxWidthProperty().bindBidirectional(yAxisRegionWidth);
         yAxisRegion.prefWidthProperty().bindBidirectional(yAxisRegionWidth);
 
-        yAxisRegion.minHeightProperty().bindBidirectional(plotRegionHeight);
-        yAxisRegion.maxHeightProperty().bindBidirectional(plotRegionHeight);
-        yAxisRegion.prefHeightProperty().bindBidirectional(plotRegionHeight);
+//        yAxisRegion.minHeightProperty().bindBidirectional(plotRegionHeight);
+//        yAxisRegion.maxHeightProperty().bindBidirectional(plotRegionHeight);
+//        yAxisRegion.prefHeightProperty().bindBidirectional(plotRegionHeight);
 
-        xAxisRegion.translateXProperty().bindBidirectional(yAxisRegionWidth);
+//        emptySpace.widthProperty().bindBidirectional(yAxisRegionWidth);
+//        emptySpace.heightProperty().bindBidirectional(xAxisRegionHeight);
+
+//        xAxisRegion.translateXProperty().bindBidirectional(yAxisRegionWidth);
+//        xAxisRegion.translateYProperty().bind(yAxisRegionWidth.add(100));
     }
 
     /**
@@ -219,93 +199,279 @@ public class AppAxisChart extends BorderPane {
         plotRegion.minHeightProperty().bindBidirectional(plotRegionHeight);
         plotRegion.maxHeightProperty().bindBidirectional(plotRegionHeight);
 
-        plotRegionWidth.addListener((a, b, c) -> updateAllSeriesPreviewsAtChart());
-        plotRegionHeight.addListener((a, b, c) -> updateAllSeriesPreviewsAtChart());
-        rightPlotMargin.addListener((a, b, c) -> updateAllSeriesPreviewsAtChart());
-        leftPlotMargin.addListener((a, b, c) -> updateAllSeriesPreviewsAtChart());
-        topPlotMargin.addListener((a, b, c) -> updateAllSeriesPreviewsAtChart());
-        bottomPlotMargin.addListener((a, b, c) -> updateAllSeriesPreviewsAtChart());
     }
 
-    void updateAllSeriesPreviewsAtChart() {
-        for (int i = 0; i < seriesList.size(); i++) {
-            updateSeriesPreviewAtChart(i);
+    public List<Double> yTicksPositions=new ArrayList<>();
+    public List<Double> xTicksPositions=new ArrayList<>();
+
+    void bindYTicksVisuals(){
+        topPlotMargin.addListener((a,b,c)->updateYTicks());
+        bottomPlotMargin.addListener((a,b,c)->updateYTicks());
+        plotRegionHeight.addListener((a,b,c)->updateYTicks());
+        globalMinY.addListener((a,b,c)->updateYTicks());
+        globalMaxY.addListener((a,b,c)->updateYTicks());
+    }
+
+
+
+    public void updateYTicks(){
+
+        if(seriesList.size()==0){
+//            print("globalMinY = "+globalMinY.get());
+//            print("globalMaxY = "+globalMaxY.get());
+            return;
         }
-    }
 
-    List<String> customXTicks = new ArrayList<>();
-    List<String> customYTicks = new ArrayList<>();
+        yTicksPositions.clear();
+        yAxisRegion.getChildren().clear();
 
-    double xTicksWidth=20;
-    double xTicksHeight=20;
-    double yTicksWidth=20;
-    double yTicksHeight=20;
+        if(globalMinY.get()==globalMaxY.get()){
+//            print(uuid(400));
+            double temp=globalMaxY.get();
+            double temp1= (plotRegionHeight.multiply(topPlotMargin).get() - plotRegionHeight.multiply(bottomPlotMargin.multiply(-1).add(1)).get()) + plotRegionHeight.multiply(bottomPlotMargin.multiply(-1).add(1)).get();
+            yTicksPositions.add(temp);
+            yAxisRegion.getChildren().add(new Line(0,temp1,40,temp1));
+            yAxisRegion.getChildren().add(new Text(-40,temp1,temp+""));
+        }else {
+
+            int numberOfTicks = (int) Math.floor((1 - topPlotMargin.get() - bottomPlotMargin.get()) * plotRegionHeight.get() / yTicksHeight);
+
+//            print("numberOfTicks = " + numberOfTicks);
+
+            int l1, l2;
+
+            double tickMarginDistance = Double.MAX_VALUE;
+            int bestK = Integer.MAX_VALUE;
+            int bestP = Integer.MAX_VALUE;
+            int bestL1 = Integer.MAX_VALUE;
+            int bestL2 = Integer.MAX_VALUE;
+            int bestNumberOfTicks = -1;
+
+            double maxTick, minTick;
+            for (int k : new int[]{1, 2, 4, 5}) {
+//                int pNess;
 
 
+                maxTick = globalMaxY.get();
+                minTick = globalMinY.get();
 
-    void updateSeriesPreviewAtChart(int seriesIndex) {
+                int pNess = (int) Math.ceil(Math.log10(1.0 * (numberOfTicks - 1) / k / (maxTick - minTick)));
+                for (int p = pNess; ; p--) {
 
-        ObservableList<AppData> series = seriesList.get(seriesIndex);
-        Polyline seriesPlotLine = seriesPlotLineList.get(seriesIndex);
-        Polygon seriesPlotArea = seriesPlotAreaList.get(seriesIndex);
-        Group seriesMarkerSet = seriesMarkerSetList.get(seriesIndex);
-        temp.clear();
-        seriesMarkerSet.getChildren().clear();
+                    l1 = (int) Math.floor(minTick * k * Math.pow(10, p));
+                    l2 = (int) Math.ceil(maxTick * k * Math.pow(10, p));
+//                print(l2+" , "+l1);
+////                print(globalMinY.get()+" ,,,,,,,,,,,,,,,,,,,,,,, "+globalMaxY.get());
+//                print(maxTick+"------------------"+minTick);
+//                print(k);
+//                print(p);
 
-        series.sort(dataComparator);
+//                print(seriesList.get(0).localMinY.get()+" ,,,,,,,,,,,,,,,,,,,,, "+seriesList.get(0).localMaxY.get());
 
-        tempDataXListSupplier = () -> series.stream().mapToDouble(appData -> {
-            if (isXNumeric) {
-                return Double.parseDouble(appData.getX());
-            } else {
-                return series.indexOf(appData);
+//                print(seriesList.get(0).appDataList.stream().map(doubles->doubles[0]+" , "+doubles[1]+"\n").toList());
+//                print("globalMinY = "+globalMinY.get());
+//                print("globalMaxY = "+globalMaxY.get());
+//                    print("appSeries1.appDataList = " + seriesList.get(0).appDataList.stream().map(doubles -> "(" + doubles[0] + " , " + doubles[1] + ")").toList());
+//                print(seriesList.size());
+
+                    if (l2 - l1 == 1) {
+                        break;
+                    }
+//                if(l2-l1==0){
+//                    break;
+//                }
+//                actualNumberOfTicks=l2-l1+1;
+                    if (l2 - l1 + 1 <= numberOfTicks && l2 - l1 + 1 > bestNumberOfTicks) {
+//                    print("______________________");
+//                    print("L1 , L2 = " + l1 + " , " + l2);
+//                    print(l2 - l1 + 1 <= n);
+//                    for (int j = l1; j <= l2; j++) {
+//                        print(1.0 * j / k / Math.pow(10, p));
+//                    }
+                        if (minTick - maxTick + 1.0 * (l2 - l1) / k / Math.pow(10, p) <= tickMarginDistance) {
+                            tickMarginDistance = minTick - maxTick + 1.0 * (l2 - l1) / k / Math.pow(10, p);
+                            bestK = k;
+                            bestP = p;
+                            bestL1 = l1;
+                            bestL2 = l2;
+                            bestNumberOfTicks = l2 - l1 + 1;
+                        }
+                        break;
+                    }
+                }
             }
-        });
-        tempDataYListSupplier = () -> series.stream().mapToDouble(appData -> {
-            if (isYNumeric) {
-                return Double.parseDouble(appData.getY());
-            } else {
-                return series.indexOf(appData);
+
+//            print(uuid(20));
+
+
+            for (int j = bestL1; j <= bestL2; j++) {
+                double temp = 1.0 * j / bestK / Math.pow(10, bestP);
+                double temp1 = (temp - globalMinY.get()) / (globalMaxY.get() - globalMinY.get()) * plotRegionHeight.get()*(topPlotMargin.get() + bottomPlotMargin.get()-1) + plotRegionHeight.get()*(1-bottomPlotMargin.get());
+                yTicksPositions.add(temp);
+                yAxisRegion.getChildren().add(new Line(0, temp1, 40, temp1));
+                yAxisRegion.getChildren().add(new Text(-40, temp1, getScientificRepresentation(temp,3)));
             }
-        });
-
-        double minX = tempDataXListSupplier.get().min().orElse(Double.POSITIVE_INFINITY);
-        double maxX = tempDataXListSupplier.get().max().orElse(Double.NEGATIVE_INFINITY);
-        double minY = tempDataYListSupplier.get().min().orElse(Double.POSITIVE_INFINITY);
-        double maxY = tempDataYListSupplier.get().max().orElse(Double.NEGATIVE_INFINITY);
-
-        series.forEach(data -> {
-            double x, y;
-            if (maxX == minX) {
-                x = plotRegionWidth.get() / 2;
-            } else if (appAxisSortingPolicy.equals(AppAxisSortingPolicy.SortByY)) {
-                x = (tempDataYListSupplier.get().toArray()[series.indexOf(data)] - minY) / (maxY - minY) * plotRegionWidth.get() * (1 - leftPlotMargin.get() - rightPlotMargin.get()) + leftPlotMargin.get() * plotRegionWidth.get();
-            } else {
-                x = (tempDataXListSupplier.get().toArray()[series.indexOf(data)] - minX) / (maxX - minX) * plotRegionWidth.get() * (1 - leftPlotMargin.get() - rightPlotMargin.get()) + leftPlotMargin.get() * plotRegionWidth.get();
-            }
-            if (maxY == minY) {
-                y = plotRegionHeight.get() / 2;
-            } else if (appAxisSortingPolicy.equals(AppAxisSortingPolicy.SortByY)) {
-                y = (tempDataXListSupplier.get().toArray()[series.indexOf(data)] - minX) / (maxX - minX) * plotRegionHeight.get() * (1 - topPlotMargin.get() - bottomPlotMargin.get()) + plotRegionHeight.get() * topPlotMargin.get();
-            } else {
-                y = (maxY - tempDataYListSupplier.get().toArray()[series.indexOf(data)]) / (maxY - minY) * plotRegionHeight.get() * (1 - topPlotMargin.get() - bottomPlotMargin.get()) + plotRegionHeight.get() * topPlotMargin.get();
-            }
-            temp.add(x);
-            temp.add(y);
-            Circle c = new Circle(2, Color.RED);
-            c.setTranslateX(x);
-            c.setTranslateY(y);
-            seriesMarkerSet.getChildren().add(c);
-
-        });
-
-        seriesPlotLine.getPoints().setAll(temp);
-        if (appAxisSortingPolicy.equals(AppAxisSortingPolicy.SortByY)) {
-            seriesPlotArea.getPoints().setAll(plotRegionWidth.get() * leftPlotMargin.get(), plotRegionHeight.get() * (1 - bottomPlotMargin.get()), plotRegionWidth.get() * leftPlotMargin.get(), plotRegionHeight.get() * topPlotMargin.get());
-        } else {
-            seriesPlotArea.getPoints().setAll(plotRegionWidth.get() * (1 - rightPlotMargin.get()), plotRegionHeight.get() * (1 - bottomPlotMargin.get()), plotRegionWidth.get() * leftPlotMargin.get(), plotRegionHeight.get() * (1 - bottomPlotMargin.get()));
         }
-        seriesPlotArea.getPoints().addAll(temp);
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+    void bindXTicksVisuals(){
+        leftPlotMargin.addListener((a,b,c)->updateXTicks());
+        rightPlotMargin.addListener((a,b,c)->updateXTicks());
+        plotRegionWidth.addListener((a,b,c)->updateXTicks());
+        globalMinX.addListener((a,b,c)->updateXTicks());
+        globalMaxX.addListener((a,b,c)->updateXTicks());
+    }
+
+    void renderTicks(double minTick,double maxTick,int numberOfTicks){
+
+    }
+
+    public void updateXTicks(){
+
+        if(seriesList.size()==0){
+//            print("globalMinX = "+globalMinX.get());
+//            print("globalMaxX = "+globalMaxX.get());
+            return;
+        }
+
+        xTicksPositions.clear();
+        xAxisRegion.getChildren().clear();
+
+        if(globalMinX.get()==globalMaxX.get()){
+//            print(uuid(400));
+            double temp=globalMaxX.get();
+            //todo change this
+            double temp1=temp;
+//            double temp1= (plotRegionWidth.multiply(topPlotMargin).get() - plotRegionHeight.multiply(bottomPlotMargin.multiply(-1).add(1)).get()) + plotRegionHeight.multiply(bottomPlotMargin.multiply(-1).add(1)).get();
+            xTicksPositions.add(temp);
+            xAxisRegion.getChildren().add(new Line(0,temp1,40,temp1));
+            xAxisRegion.getChildren().add(new Text(-40,temp1,temp+""));
+        }else {
+
+            int numberOfTicks = (int) Math.floor((1 -leftPlotMargin.get() - rightPlotMargin.get()) * plotRegionWidth.get() / xTicksWidth);
+
+//            print(numberOfTicks);
+
+//            print("numberOfTicks = " + numberOfTicks);
+
+            int l1, l2;
+
+            double tickMarginDistance = Double.MAX_VALUE;
+            int bestK = Integer.MAX_VALUE;
+            int bestP = Integer.MAX_VALUE;
+            int bestL1 = Integer.MAX_VALUE;
+            int bestL2 = Integer.MAX_VALUE;
+            int bestNumberOfTicks = -1;
+
+            double maxTick, minTick;
+            for (int k : new int[]{1, 2, 4, 5}) {
+//                int pNess;
+
+
+                maxTick = globalMaxX.get();
+                minTick = globalMinX.get();
+
+                int pNess = (int) Math.ceil(Math.log10(1.0 * (numberOfTicks - 1) / k / (maxTick - minTick)));
+                for (int p = pNess; ; p--) {
+
+                    l1 = (int) Math.floor(minTick * k * Math.pow(10, p));
+                    l2 = (int) Math.ceil(maxTick * k * Math.pow(10, p));
+//                print(l2+" , "+l1);
+////                print(globalMinX.get()+" ,,,,,,,,,,,,,,,,,,,,,,, "+globalMaxX.get());
+//                print(maxTick+"------------------"+minTick);
+//                print(k);
+//                print(p);
+
+//                print(seriesList.get(0).localMinX.get()+" ,,,,,,,,,,,,,,,,,,,,, "+seriesList.get(0).localMaxX.get());
+
+//                print(seriesList.get(0).appDataList.stream().map(doubles->doubles[0]+" , "+doubles[1]+"\n").toList());
+//                print("globalMinX = "+globalMinX.get());
+//                print("globalMaxX = "+globalMaxX.get());
+//                    print("appSeries1.appDataList = " + seriesList.get(0).appDataList.stream().map(doubles -> "(" + doubles[0] + " , " + doubles[1] + ")").toList());
+//                print(seriesList.size());
+
+                    if (l2 - l1 == 1) {
+                        break;
+                    }
+//                if(l2-l1==0){
+//                    break;
+//                }
+//                actualNumberOfTicks=l2-l1+1;
+                    if (l2 - l1 + 1 <= numberOfTicks && l2 - l1 + 1 > bestNumberOfTicks) {
+//                    print("______________________");
+//                    print("L1 , L2 = " + l1 + " , " + l2);
+//                    print(l2 - l1 + 1 <= n);
+//                    for (int j = l1; j <= l2; j++) {
+//                        print(1.0 * j / k / Math.pow(10, p));
+//                    }
+                        if (minTick - maxTick + 1.0 * (l2 - l1) / k / Math.pow(10, p) <= tickMarginDistance) {
+                            tickMarginDistance = minTick - maxTick + 1.0 * (l2 - l1) / k / Math.pow(10, p);
+                            bestK = k;
+                            bestP = p;
+                            bestL1 = l1;
+                            bestL2 = l2;
+                            bestNumberOfTicks = l2 - l1 + 1;
+                        }
+                        break;
+                    }
+                }
+            }
+
+//            print(uuid(20));
+
+//            xAxisRegion.getChildren().clear();
+            for (int j = bestL1; j <= bestL2; j++) {
+                double temp = 1.0 * j / bestK / Math.pow(10, bestP);
+                //todo investigate this. xTicks are not rendered at correct position.
+//                plotRegionWidth.multiply(leftPlotMargin),
+//                        plotRegionWidth.multiply(rightPlotMargin.multiply(-1).add(1)),
+                double temp1 = (temp - globalMinX.get()) / (globalMaxX.get() - globalMinX.get()) * (plotRegionWidth.multiply(rightPlotMargin.multiply(-1).add(1)).get() - plotRegionWidth.multiply(leftPlotMargin).get()) + plotRegionWidth.multiply(leftPlotMargin).get();
+                xTicksPositions.add(temp);
+                xAxisRegion.getChildren().add(new Line( temp1,0,  temp1,40));
+                xAxisRegion.getChildren().add(new Text( temp1,40, getScientificRepresentation(temp,3)));
+
+            }
+        }
+
+
+//        print(emptySpace.getWidth());
+//        print(emptySpace.getHeight());
+
+    }
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
 
 }

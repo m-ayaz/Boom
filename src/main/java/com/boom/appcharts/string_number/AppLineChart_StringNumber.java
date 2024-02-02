@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 import static com.boom.tools.Tools.deepCopy;
 
 @SuppressWarnings("unchecked")
-public final class AppLineChart_StringNumber extends AppXYChart<String,Number> {
+public  class AppLineChart_StringNumber extends AppXYChart<String,Number> {
     public AppLineChart_StringNumber(double width, double height) {
         super(new LineChart<>(new CategoryAxis(), new NumberAxis()),width,height);
         modifyType(getType() +"_NN");

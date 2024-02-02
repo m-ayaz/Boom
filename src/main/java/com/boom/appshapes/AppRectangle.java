@@ -13,7 +13,7 @@ import org.json.JSONObject;
 
 import static com.boom.tools.Tools.*;
 
-public final class AppRectangle extends AppAreaShape {
+public  class AppRectangle extends AppAreaShape {
 
     public DoubleProperty width, height, arcWidth, arcHeight;
 

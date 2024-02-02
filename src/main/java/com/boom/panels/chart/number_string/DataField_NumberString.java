@@ -9,7 +9,7 @@ import javafx.scene.chart.XYChart;
 import static com.boom.tools.Tools.print;
 
 @SuppressWarnings("unchecked")
-public final class DataField_NumberString extends DataFieldBase<Number,String> {
+public  class DataField_NumberString extends DataFieldBase<Number,String> {
 
     DataField_NumberString(ObservableList<Node> children, AppXYChart<Number, String> appXYChart, XYChart.Series<Number, String> series, XYChart.Data<Number, String> data) {
         super(children, appXYChart, series, data);

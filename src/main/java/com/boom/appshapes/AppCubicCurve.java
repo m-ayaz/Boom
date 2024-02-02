@@ -13,7 +13,7 @@ import org.json.JSONObject;
 
 import static com.boom.tools.Tools.*;
 
-public final class AppCubicCurve extends AppLineShape {
+public  class AppCubicCurve extends AppLineShape {
 
     public DoubleProperty startX, startY, controlX1, controlY1, controlX2, controlY2, endX, endY;
 

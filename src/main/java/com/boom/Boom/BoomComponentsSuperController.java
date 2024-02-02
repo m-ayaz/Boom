@@ -10,6 +10,7 @@ import com.boom.appcharts.string_number.AppAreaChart_StringNumber;
 import com.boom.appcharts.string_number.AppLineChart_StringNumber;
 import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
 import com.boom.apppaints.AppLinearGradient;
+import com.boom.apppaints.AppRadialGradient;
 import com.boom.appshapes.*;
 import com.boom.configuration.Configs;
 import com.boom.controllers.DynamicDragRectangle;
@@ -71,8 +72,6 @@ import static com.boom.tools.Tools.uuid;
 
 public class BoomComponentsSuperController {
 
-    DoubleProperty currentPosX = new SimpleDoubleProperty();
-    DoubleProperty currentPosY = new SimpleDoubleProperty();
     StringProperty tempObjectName = new SimpleStringProperty();
     List<Double> parsedStrokeDashArray = new ArrayList<>();
 
@@ -462,13 +461,13 @@ public class BoomComponentsSuperController {
 //        tempMenuBar.getMenus().forEach(m);
 
         AppLinearGradient appLinearGradient=new AppLinearGradient(new LinearGradient(0,0,1,1,true, CycleMethod.NO_CYCLE,
-                new Stop(0,new Color(1,0,0,0.5)),new Stop(1,new Color(0,0,1,0.5))));
+                new Stop(0,new Color(1,0,0,1)),new Stop(1,new Color(0,0,1,1))));
 
         AppRectangle appRectangle=new AppRectangle(200,200,0,0);
         appRectangle.backgroundStyle.addFill(appLinearGradient);
         AppEllipse appEllipse=new AppEllipse(200,200);
-        appEllipse.backgroundStyle.addFill(new AppLinearGradient(new LinearGradient(0,0,1,1,true, CycleMethod.NO_CYCLE,
-                new Stop(0,new Color(0,1,0,0.5)),new Stop(1,new Color(1,1,0,0.5)))));
+        appEllipse.backgroundStyle.addFill(new AppRadialGradient(new RadialGradient(0,1,0.5,0.5,0.5,true, CycleMethod.NO_CYCLE,
+                new Stop(1,new Color(0,1,0,1)),new Stop(0,new Color(1,1,0,1)))));
 
 
         appRectangle.affineTransform.prependTranslation(400,200);
@@ -880,6 +879,8 @@ public class BoomComponentsSuperController {
         mainCanvasItemsHandler.getSelectedObjectsController().getBuffer().addListener((ListChangeListener<AppNode>) change -> {
 
 
+            chartTabContainer.setVisible(false);
+
 //            print(change);
             if (change.getList().size() == 1) {
                 AppNode selectedShape = change.getList().get(0);
@@ -973,6 +974,7 @@ public class BoomComponentsSuperController {
 
 
             } else {
+                print("akslaksl");
                 chartTabContainer.setVisible(false);
 //                chartManagementPanel_NN.setVisible(false);
 //                chartManagementPanel_NS.setVisible(false);

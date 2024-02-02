@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 import static com.boom.tools.Tools.arrayToList;
 
-public final class AppLinearGradient extends AppGradient {
+public  class AppLinearGradient extends AppGradient {
 
 
     public DoubleProperty startX = new SimpleDoubleProperty(0);

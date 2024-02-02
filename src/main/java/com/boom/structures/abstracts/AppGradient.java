@@ -49,10 +49,6 @@ public abstract class AppGradient extends AppPaint {
         return appStops.get(index);
     }
 
-    public void removeAppStop(int index){
-        appStops.remove(index);
-    }
-
     public void removeAppStop(AppStop appStop){
         appStops.remove(appStop);
     }

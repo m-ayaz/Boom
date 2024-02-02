@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import static com.boom.tools.Tools.print;
 import static com.boom.tools.Tools.setCustomSize;
 
-public final class StopField extends GridPane {
+public  class StopField extends GridPane {
 
     Button addButton = new Button();
     Button removeButton = new Button();

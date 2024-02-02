@@ -3,7 +3,7 @@ package com.boom.icons;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.CubicCurve;
 
-public final class CubicCurveIcon extends CubicCurve {
+public  class CubicCurveIcon extends CubicCurve {
 
     public CubicCurveIcon(double startX, double startY, double controlX1, double controlY1, double controlX2, double controlY2, double endX, double endY, Paint fillColor, Paint strokeColor, double strokeWidth){
         setStartX(startX);

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import static com.boom.tools.Tools.arrayToList;
 import static java.lang.Math.*;
 
-public final class AppRadialGradient extends AppGradient {
+public  class AppRadialGradient extends AppGradient {
 
 
     public DoubleProperty focusAngle = new SimpleDoubleProperty(0);

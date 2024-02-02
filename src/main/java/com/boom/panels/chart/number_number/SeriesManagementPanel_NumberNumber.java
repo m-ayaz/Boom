@@ -16,7 +16,7 @@ import java.io.FileReader;
 import static com.boom.tools.Tools.print;
 
 @SuppressWarnings("unchecked")
-public final class SeriesManagementPanel_NumberNumber extends SeriesManagementPaneBase {
+public  class SeriesManagementPanel_NumberNumber extends SeriesManagementPaneBase {
 
     XYChart.Series<Number, Number> series;
 

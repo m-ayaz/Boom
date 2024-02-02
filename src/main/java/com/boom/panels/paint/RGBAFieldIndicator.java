@@ -3,7 +3,7 @@ package com.boom.panels.paint;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
-public final class RGBAFieldIndicator extends Polygon {
+public  class RGBAFieldIndicator extends Polygon {
 
     public RGBAFieldIndicator(){
 

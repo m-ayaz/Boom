@@ -4,7 +4,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public final class Chessboard extends GridPane {
+public  class Chessboard extends GridPane {
 
     double bitLength;
     int m,n;

@@ -15,6 +15,7 @@ public class AppException extends RuntimeException{
 //            print("____________________________________________________________________");
             print("code = "+AppExceptionEnum.getEnum(code.toString()));
             print(getStackTrace()[i].toString());
+//            printStackTrace();
 //            MimeType mimeType=new MimeType();
 //            mimeType.set
         }

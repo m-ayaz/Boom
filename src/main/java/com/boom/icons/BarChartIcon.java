@@ -6,7 +6,7 @@ import javafx.scene.chart.NumberAxis;
 
 import static com.boom.tools.Tools.setCustomSize;
 
-public final class BarChartIcon extends BarChart<String,Number> {
+public  class BarChartIcon extends BarChart<String,Number> {
     public BarChartIcon(double width,double height) {
 
         super(new CategoryAxis(),new NumberAxis());

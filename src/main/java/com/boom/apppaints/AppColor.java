@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import java.util.stream.Collectors;
 
 
-public final class AppColor extends AppPaint {
+public  class AppColor extends AppPaint {
 
 //    DoubleProperty red=new SimpleDoubleProperty();
 //    DoubleProperty green=new SimpleDoubleProperty();

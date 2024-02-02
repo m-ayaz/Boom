@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 
-public final class LittleArcOnCursor extends Arc implements LittleIndicatorStructure {
+public  class LittleArcOnCursor extends Arc implements LittleIndicatorStructure {
     public LittleArcOnCursor() {
         setRadiusX(10);
         setRadiusY(5);

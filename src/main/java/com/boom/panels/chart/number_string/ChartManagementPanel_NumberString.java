@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 @SuppressWarnings("unchecked")
-public final class ChartManagementPanel_NumberString extends VBox {
+public  class ChartManagementPanel_NumberString extends VBox {
 
     TabPane seriesList = new TabPane();
     AppXYChart<Number, String> appXYChart;

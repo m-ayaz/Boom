@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 import static com.boom.tools.Tools.deepCopy;
 
 @SuppressWarnings("unchecked")
-public final class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
+public  class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
 
     public AppAreaChart_NumberNumber(double width, double height) {
         super(new AreaChart<>(new NumberAxis(), new NumberAxis()), width, height);
