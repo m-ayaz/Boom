@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import static com.boom.tools.Tools.print;
+import static com.boom.tools.Tools.uuid;
 
 
 public class AppAxisChartTest extends Application {
@@ -27,10 +28,8 @@ public class AppAxisChartTest extends Application {
         stage.setScene(scene);
         stage.show();
 
-        AppAxisChart appAxisChart=new AppAxisChart();
+        AppAxisChart appAxisChart=new AppAxisChart(400,400);
 
-        appAxisChart.plotRegionWidth.set(400);
-        appAxisChart.plotRegionHeight.set(400);
 
         appAxisChart.setTranslateX(100);
         appAxisChart.setTranslateY(100);
@@ -57,6 +56,8 @@ public class AppAxisChartTest extends Application {
             appSeries2.plotArea.backgroundStyle.addFill(new AppColor(Color.valueOf("00ff0022")));
 
 
+
+
             appSeries1.setMarkerShape(marker1);
             appSeries2.setMarkerShape(marker2);
 
@@ -64,15 +65,30 @@ public class AppAxisChartTest extends Application {
             appAxisChart.addSeries(appSeries2);
 
             for (int i = 0; i < 11; i++) {
-                appSeries1.addData(Math.random(), Math.random() );
-                appSeries2.addData(Math.random(), Math.random() );
+                appSeries1.addData(Math.random()*0+i, Math.random()*0+i );
+                appSeries2.addData(Math.random()*0+i, Math.random() *0+i);
 //                appSeries1.addData(i,i);
 //                appSeries2.addData(Math.random(), Math.random() * 30);
             }
 
             container.setOnMouseDragged(mouseEvent -> {
-                appAxisChart.plotRegionWidth.set(Math.random() * 50 + 300);
-                appAxisChart.plotRegionHeight.set(Math.random() * 150 + 300);
+
+                double w=Math.floor(Math.random()*50)+300;
+                double h=Math.floor(Math.random()*150)+300;
+
+
+
+                appAxisChart.plotRegionWidth.set(w);
+                appAxisChart.plotRegionHeight.set(h);
+
+                appSeries1.title.setText(uuid(10));
+                appSeries2.title.setText(uuid(10));
+
+                appAxisChart.title.setText(uuid(20));
+
+                appAxisChart.legendTitleVisualMargin.set(20*Math.random());
+
+                print("width , height = "+w+" , "+h);
             });
 
         }

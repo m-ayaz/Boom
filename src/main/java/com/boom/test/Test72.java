@@ -3,16 +3,20 @@ package com.boom.test;
 import com.boom.appcharts.AppAxisChart;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static com.boom.tools.Tools.print;
 
 
 public class Test72 extends Application {
@@ -26,10 +30,26 @@ public class Test72 extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-//        Pane container = new Pane();
-//        Scene scene = new Scene(container);
-//        stage.setScene(scene);
-//        stage.show();
+        Pane container = new Pane();
+        Scene scene = new Scene(container);
+        stage.setScene(scene);
+        stage.show();
+
+        Label label=new Label("This is a test text!");
+
+        print(Font.getFontNames());
+
+        label.setFont(Font.font("Copperplate Gothic Light",50));
+
+        label.setTextFill(new LinearGradient(0,0,1,0,true,CycleMethod.NO_CYCLE,
+                new Stop(0,Color.BLUE),
+                new Stop(1,Color.RED)
+        ));
+
+
+
+        container.getChildren().add(label);
+
 //
 //        AppAxisChart appAxisChart=new AppAxisChart();
 //        AppAxisChart appAxisChart1=new AppAxisChart();

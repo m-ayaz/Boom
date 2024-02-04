@@ -13,11 +13,11 @@ import org.json.JSONObject;
 
 import static com.boom.tools.Tools.*;
 
-public  class AppRectangle extends AppAreaShape {
+public class AppRectangle extends AppAreaShape {
 
     public DoubleProperty width, height, arcWidth, arcHeight;
 
-    public AppRectangle(double width, double height,double arcWidth,double arcHeight) {
+    public AppRectangle(double width, double height, double arcWidth, double arcHeight) {
         super(new Rectangle(width, height));
         ((Rectangle) shape).setArcWidth(arcWidth);
         ((Rectangle) shape).setArcHeight(arcHeight);
@@ -32,7 +32,7 @@ public  class AppRectangle extends AppAreaShape {
     public AppRectangle copy() {
         if (width.get() == 0 || height.get() == 0)
             return null;
-        AppRectangle newAppRectangle = new AppRectangle(width.get(), height.get(),arcWidth.get(),arcHeight.get());
+        AppRectangle newAppRectangle = new AppRectangle(width.get(), height.get(), arcWidth.get(), arcHeight.get());
         deepCopy(affineTransform, newAppRectangle.affineTransform);
         deepCopy(backgroundStyle, newAppRectangle.backgroundStyle);
         return newAppRectangle;
@@ -75,9 +75,8 @@ public  class AppRectangle extends AppAreaShape {
     }
 
 
-
     @Override
-    public void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY , double pressX , double pressY , double releaseX , double releaseY , double clickX , double clickY , double x , double y)    {
+    public void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY, double pressX, double pressY, double releaseX, double releaseY, double clickX, double clickY, double x, double y) {
         if (configStep == 0 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
             configStep++;
         } else if (configStep == 1 && mouseEvent.getEventType().equals(MouseEvent.MOUSE_MOVED)) {

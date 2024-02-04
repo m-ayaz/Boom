@@ -3,7 +3,6 @@ package com.boom.structures.abstracts;
 import com.boom.apppaints.AppColor;
 import com.boom.apppaints.AppLinearGradient;
 import com.boom.apppaints.AppRadialGradient;
-import com.boom.configuration.Configs;
 import com.boom.exceptions.AppException;
 import com.boom.structures.enums.AppExceptionEnum;
 import javafx.beans.property.SimpleObjectProperty;
@@ -11,13 +10,14 @@ import javafx.scene.paint.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import static com.boom.configuration.Configs.ID_LENGTH;
 import static com.boom.tools.Tools.uuid;
 
 
 public abstract class AppPaint extends  SimpleObjectProperty<Paint> {
 
     public final String type;
-    public final String id = uuid(Configs.ID_LENGTH);
+    public final String id = uuid(ID_LENGTH);
 
     protected AppPaint(Paint paint) {
         set(paint);

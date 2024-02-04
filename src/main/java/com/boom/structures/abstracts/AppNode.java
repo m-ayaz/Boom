@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
 import org.json.JSONObject;
 
+import static com.boom.configuration.Configs.ID_LENGTH;
 import static com.boom.tools.Tools.*;
 
 
@@ -25,7 +26,7 @@ public abstract class AppNode {
     public CSSProperty backgroundStyle;
     protected Node styleableNode;
     protected String type;
-    public final String id = uuid(Configs.ID_LENGTH);
+    public final String id = uuid(ID_LENGTH);
 
     public AppNode(Node styleableNode, String fillColorFX, String strokeColorFX, String strokeWidthFX) {
         this.styleableNode = styleableNode;

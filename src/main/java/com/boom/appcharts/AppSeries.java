@@ -1,14 +1,24 @@
 package com.boom.appcharts;
 
+import com.boom.apppaints.AppLinearGradient;
 import com.boom.appshapes.AppPolygon;
 import com.boom.appshapes.AppPolyline;
+import com.boom.appshapes.AppRectangle;
 import com.boom.structures.abstracts.AppNode;
 import com.boom.test.AppDataComparator;
 import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +44,27 @@ public class AppSeries {
     private DoubleBinding minYVisualLocation;
     private DoubleBinding maxXVisualLocation;
     private DoubleBinding maxYVisualLocation;
+
+//    public Label getTitle() {
+//        return title;
+//    }
+//
+//    public AppNode getTitlePreview() {
+//        return titlePreview;
+//    }
+
+    public final Label title=new Label();
+
+//    public void setTitle(String title){
+//        this.title.setText(title);
+//    }
+//
+//    public void setTitlePreview(AppNode titlePreview) {
+//        this.titlePreview = titlePreview;
+//    }
+
+    public AppNode titlePreview;
+
 
     public AppSeries() {
 
@@ -168,5 +199,48 @@ public class AppSeries {
     void updateLocalMinY() {
         localMinY.set(appDataList.stream().mapToDouble(doubles -> doubles[1]).min().orElse(Double.POSITIVE_INFINITY));
     }
+
+    public Group getVisualLegend() {
+        setVisualLegend();
+        return visualLegend;
+    }
+
+    private final Group visualLegend=new Group();
+
+    private void setVisualLegend() {
+        visualLegend.getChildren().clear();
+        visualLegend.getChildren().add(markerShape.get().getStyleableNode());
+    }
+
+
+
+//    public Group getVisualLegend(){
+////        Label label=new Label();
+////        label.textProperty().bindBidirectional(title);
+//
+////        //todo settle when titlePreview is null..
+////        AppNode temp1;
+////        titlePreview.addListener((a,b,c)->temp1=c);
+//        if(titlePreview==null) {
+//            titlePreview = new AppRectangle(50, 50, 0, 0);
+//            titlePreview.backgroundStyle.addFill(new AppLinearGradient(new LinearGradient(
+//                    0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
+//                    new Stop(0, new Color(Math.random(), Math.random(), Math.random(), 1)),
+//                    new Stop(0.5, new Color(Math.random(), Math.random(), Math.random(), 1)),
+//                    new Stop(1, new Color(Math.random(), Math.random(), Math.random(), 1))
+//            )));
+//        }
+//
+//
+//
+//        visualLegend.getChildren().add(titlePreview.getStyleableNode());
+//        Rectangle emptySpace=new Rectangle();
+//        emptySpace.setWidth(gap);
+//
+//        HBox hBox=new HBox(titlePreview.getStyleableNode(),emptySpace,title);
+//        hBox.setAlignment(Pos.CENTER);
+
+//        return visualLegend;
+//    }
 
 }

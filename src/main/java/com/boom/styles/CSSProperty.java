@@ -1,6 +1,5 @@
 package com.boom.styles;
 
-import com.boom.configuration.Configs;
 import com.boom.structures.abstracts.AppPaint;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -11,19 +10,19 @@ import javafx.collections.ObservableList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.swing.text.html.CSS;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import static com.boom.configuration.Configs.ID_LENGTH;
 import static com.boom.tools.Tools.uuid;
 
 public class CSSProperty extends SimpleStringProperty {
 
-    public final String id = uuid(Configs.ID_LENGTH);
+    public final String id = uuid(ID_LENGTH);
 
-    ObservableList<AppPaint> fillArray = FXCollections.observableList(new ArrayList<>());
-    ObservableList<AppPaint> strokeArray = FXCollections.observableList(new ArrayList<>());
-    DoubleProperty strokeWidth = new SimpleDoubleProperty();
+    private final ObservableList<AppPaint> fillArray = FXCollections.observableList(new ArrayList<>());
+    private final ObservableList<AppPaint> strokeArray = FXCollections.observableList(new ArrayList<>());
+    private final DoubleProperty strokeWidth = new SimpleDoubleProperty();
 //    ObjectProperty<StrokeLineCap> strokeLineCap=new SimpleObjectProperty<>();
 //    ObjectProperty<StrokeLineJoin> strokeLineJoin=new SimpleObjectProperty<>();
 //    DoubleProperty strokeMiterLimit=new SimpleDoubleProperty();
@@ -124,7 +123,7 @@ public class CSSProperty extends SimpleStringProperty {
     void update() {
         String fills = fillArray.size() == 0 ? "rgba(0,0,0,0)" : fillArray.stream().map(AppPaint::getFormatted).collect(Collectors.joining(","));
         String strokes = strokeArray.size() == 0 ? "rgba(0,0,0,0)" : strokeArray.stream().map(AppPaint::getFormatted).collect(Collectors.joining(","));
-        double width = strokeWidth == null ? 0 : strokeWidth.get();
+        double width = strokeWidth.get();
         set("%s: %s; %s: %s; %s: %s;".formatted(fillColorFX, fills, strokeColorFX, strokes, strokeWidthFX, width));
     }
 

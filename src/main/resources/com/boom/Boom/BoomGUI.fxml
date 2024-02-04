@@ -96,6 +96,7 @@
                               <ComboBox fx:id="yAxisType" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
+                        <Button fx:id="appAxisChartButton" layoutX="669.0" mnemonicParsing="false" onAction="#appAxisChartButtonOnAction" prefHeight="80.0" prefWidth="80.0" />
                             </children>
                         </AnchorPane>
                     </content>

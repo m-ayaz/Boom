@@ -1,5 +1,7 @@
 package com.boom.tools;
 
+import com.boom.appcharts.AppAxisChart;
+import com.boom.appcharts.AppSeries;
 import com.boom.appshapes.AppText;
 import com.boom.exceptions.AppException;
 import com.boom.structures.abstracts.AppXYChart;
@@ -341,6 +343,15 @@ public class Tools {
 //        propertyTo.getStrokeArray().addAll(propertyFrom.getStrokeArray());
 //        propertyTo.setStrokeWidth(propertyFrom.getStrokeArray().get());
 //    }
+
+    public static void dataCopy(AppSeries seriesFrom, AppSeries seriesTo){
+
+//        chartFrom.getS
+    }
+
+    public static void dataCopy(AppAxisChart chartFrom,AppAxisChart chartTo){
+//        chartFrom.getS
+    }
 
     public static <T1, T2> void deepCopy(AppXYChart<T1, T2> chartFrom, AppXYChart<T1, T2> chartTo) {
 //        try {
