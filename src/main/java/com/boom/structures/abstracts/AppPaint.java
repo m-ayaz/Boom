@@ -5,6 +5,9 @@ import com.boom.apppaints.AppLinearGradient;
 import com.boom.apppaints.AppRadialGradient;
 import com.boom.exceptions.AppException;
 import com.boom.structures.enums.AppExceptionEnum;
+import com.boom.structures.interfaces.JSONSerializable;
+import com.boom.structures.interfaces.SVGSerializable;
+import com.boom.structures.interfaces.TeXSerializable;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.*;
 import org.json.JSONArray;
@@ -14,7 +17,7 @@ import static com.boom.configuration.Configs.ID_LENGTH;
 import static com.boom.tools.Tools.uuid;
 
 
-public abstract class AppPaint extends  SimpleObjectProperty<Paint> {
+public abstract class AppPaint extends  SimpleObjectProperty<Paint> implements JSONSerializable, SVGSerializable, TeXSerializable {
 
     public final String type;
     public final String id = uuid(ID_LENGTH);
@@ -28,15 +31,15 @@ public abstract class AppPaint extends  SimpleObjectProperty<Paint> {
         return get().toString().replaceAll("0x", "#");
     }
 
-    public abstract String toTeX();
+//    public abstract String toTeX();
 
-    public abstract JSONObject toJSON();
+//    public abstract JSONObject toJSON();
 
 //    public static AppPaint parseFromJSON(JSONObject jsonObject) {
 //        return null;
 //    }
 
-    public abstract String toSVG(int tabIndent);
+//    public abstract String toSVG(int tabIndent);
 
     public abstract AppPaint copy();
 

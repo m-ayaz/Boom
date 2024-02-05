@@ -1,7 +1,6 @@
 package com.boom.appcharts.string_number;
 
 
-import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.abstracts.AppXYChart;
 import com.boom.styles.SeriesMarkersStyleProperty;
 import com.boom.tools.TeXConversion;
@@ -13,7 +12,6 @@ import javafx.scene.transform.Affine;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
-
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -40,7 +38,7 @@ public  class AppScatterChart_StringNumber extends AppXYChart<String,Number> {
     }
 
     @Override
-    public String getSVGClones(int tabIndent) {
+    public String toSVG(int tabIndent) {
         return null;
     }
 

@@ -65,8 +65,13 @@ public class AppAxisChartTest extends Application {
             appAxisChart.addSeries(appSeries2);
 
             for (int i = 0; i < 11; i++) {
-                appSeries1.addData(Math.random()*0+i, Math.random()*0+i );
-                appSeries2.addData(Math.random()*0+i, Math.random() *0+i);
+                appSeries1.addData(Math.random(),Math.random());
+                appSeries2.addData(Math.random(),Math.random());
+
+//                appSeries1.addData(i,i);
+//                appSeries2.addData(i,i);
+
+
 //                appSeries1.addData(i,i);
 //                appSeries2.addData(Math.random(), Math.random() * 30);
             }
@@ -78,17 +83,33 @@ public class AppAxisChartTest extends Application {
 
 
 
-                appAxisChart.plotRegionWidth.set(w);
-                appAxisChart.plotRegionHeight.set(h);
+                appAxisChart.width.set(w);
+                appAxisChart.height.set(h);
 
                 appSeries1.title.setText(uuid(10));
                 appSeries2.title.setText(uuid(10));
 
-                appAxisChart.title.setText(uuid(20));
+                appAxisChart.titleRegion.title.setText(uuid(20));
 
-                appAxisChart.legendTitleVisualMargin.set(20*Math.random());
+                appAxisChart.getAppLegendTitleVisualMarginProperty().set(20*Math.random());
+
+//                appAxisChart.xAx
+
+//                appSeries1.dataList.set(0,new double[]{Math.random(),1+Math.random()});
+
+
 
                 print("width , height = "+w+" , "+h);
+
+//                print(appAxisChart.appLegend.widthProperty().get());
+
+//                print(appAxisChart.appLegend.bottomMargin.get());
+//                print(appAxisChart.appLegend.container.widthProperty().get());
+
+//                print(appAxisChart.appLegend.nw.widthProperty().get());
+//                print(appAxisChart.appLegend.se.widthProperty().get());
+
+//                print(appAxisChart.appLegend.width.get());
             });
 
         }

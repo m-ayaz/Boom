@@ -1,11 +1,13 @@
 package com.boom.structures.abstracts;
 
 import com.boom.appshapes.*;
-import com.boom.configuration.Configs;
 import com.boom.controllers.MainCanvasItemsHandler;
 import com.boom.controllers.SelectedObjectsController;
 import com.boom.exceptions.AppException;
 import com.boom.structures.enums.AppExceptionEnum;
+import com.boom.structures.interfaces.JSONSerializable;
+import com.boom.structures.interfaces.SVGSerializable;
+import com.boom.structures.interfaces.TeXSerializable;
 import com.boom.styles.CSSProperty;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -19,14 +21,21 @@ import static com.boom.configuration.Configs.ID_LENGTH;
 import static com.boom.tools.Tools.*;
 
 
-public abstract class AppNode {
+public abstract class AppNode implements JSONSerializable, SVGSerializable , TeXSerializable {
 
+    public final String id = uuid(ID_LENGTH);
     public Affine affineTransform = new Affine();
-    public Rectangle border = new Rectangle();
     public CSSProperty backgroundStyle;
+    public Rectangle border = new Rectangle();
     protected Node styleableNode;
     protected String type;
-    public final String id = uuid(ID_LENGTH);
+    protected int configStep = 0;
+
+
+//    public AppNode clone() throws CloneNotSupportedException {
+//        AppNode clone = (AppNode) super.clone();
+//        return null;
+//    }
 
     public AppNode(Node styleableNode, String fillColorFX, String strokeColorFX, String strokeWidthFX) {
         this.styleableNode = styleableNode;
@@ -41,22 +50,39 @@ public abstract class AppNode {
 
     }
 
+    public static AppNode parseJSON(JSONObject jsonObject) {
+        AppNode appNode;
+        switch (jsonObject.getString("type")) {
+            case "Rectangle" ->
+                    appNode = new AppRectangle(jsonObject.getDouble("width"), jsonObject.getDouble("height"), jsonObject.getDouble("arcWidth"), jsonObject.getDouble("arcHeight"));
+            case "Ellipse" ->
+                    appNode = new AppEllipse(jsonObject.getDouble("radiusX"), jsonObject.getDouble("radiusY"));
+            case "Arc" ->
+                    appNode = new AppArc(jsonObject.getDouble("radiusX"), jsonObject.getDouble("radiusY"), jsonObject.getDouble("startAngle"), jsonObject.getDouble("length"), ArcType.valueOf(jsonObject.getString("arcType")));
+            case "CubicCurve" ->
+                    appNode = new AppCubicCurve(jsonObject.getDouble("startX"), jsonObject.getDouble("startY"), jsonObject.getDouble("controlX1"), jsonObject.getDouble("controlY1"), jsonObject.getDouble("controlX2"), jsonObject.getDouble("controlY2"), jsonObject.getDouble("endX"), jsonObject.getDouble("endY"));
+            case "QuadCurve" ->
+                    appNode = new AppQuadCurve(jsonObject.getDouble("startX"), jsonObject.getDouble("startY"), jsonObject.getDouble("controlX"), jsonObject.getDouble("controlY"), jsonObject.getDouble("endX"), jsonObject.getDouble("endY"));
+            case "Line" ->
+                    appNode = new AppLine(jsonObject.getDouble("startX"), jsonObject.getDouble("startY"), jsonObject.getDouble("endX"), jsonObject.getDouble("endY"));
+            case "Polygon" -> appNode = new AppPolygon(arrayToArray(jsonObject.getJSONArray("points")));
+            case "Polyline" -> appNode = new AppPolyline(arrayToArray(jsonObject.getJSONArray("points")));
+            default -> throw new AppException(AppExceptionEnum.AppNodeNotRegistered);
+        }
+        appNode.affineTransform.append(parseAffine(jsonObject.getJSONArray("affine")));
+        appNode.backgroundStyle.setFromJSON(jsonObject.getJSONObject("backgroundStyle"));
 
-//    public AppNode clone() throws CloneNotSupportedException {
-//        AppNode clone = (AppNode) super.clone();
-//        return null;
-//    }
+        return appNode;
 
-    protected int configStep = 0;
+    }
 
     public abstract void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY, double pressX, double pressY, double releaseX, double releaseY, double clickX, double clickY, double x, double y);
 
+    public abstract boolean contains(double x, double y);
 
     public abstract AppNode copy();
 
     public abstract void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY);
-
-    public abstract String getSVGClones(int tabIndent);
 
     public Node getStyleableNode() {
         return styleableNode;
@@ -69,8 +95,6 @@ public abstract class AppNode {
     public void hide() {
         styleableNode.setVisible(false);
     }
-
-    public abstract JSONObject toJSON();
 
     protected void bindBorder(Node binder) {
         border.setFill(Color.TRANSPARENT);
@@ -91,31 +115,8 @@ public abstract class AppNode {
         });
     }
 
-
     protected void modifyType(String newType) {
         this.type = newType;
-    }
-
-    public abstract boolean contains(double x, double y);
-
-    public static AppNode parseJSON(JSONObject jsonObject) {
-        AppNode appNode;
-        switch (jsonObject.getString("type")) {
-            case "Rectangle" -> appNode = new AppRectangle(jsonObject.getDouble("width"), jsonObject.getDouble("height"), jsonObject.getDouble("arcWidth"), jsonObject.getDouble("arcHeight"));
-            case "Ellipse" -> appNode = new AppEllipse(jsonObject.getDouble("radiusX"), jsonObject.getDouble("radiusY"));
-            case "Arc" -> appNode = new AppArc(jsonObject.getDouble("radiusX"), jsonObject.getDouble("radiusY"), jsonObject.getDouble("startAngle"), jsonObject.getDouble("length"), ArcType.valueOf(jsonObject.getString("arcType")));
-            case "CubicCurve" -> appNode = new AppCubicCurve(jsonObject.getDouble("startX"), jsonObject.getDouble("startY"), jsonObject.getDouble("controlX1"), jsonObject.getDouble("controlY1"), jsonObject.getDouble("controlX2"), jsonObject.getDouble("controlY2"), jsonObject.getDouble("endX"), jsonObject.getDouble("endY"));
-            case "QuadCurve" -> appNode = new AppQuadCurve(jsonObject.getDouble("startX"), jsonObject.getDouble("startY"), jsonObject.getDouble("controlX"), jsonObject.getDouble("controlY"), jsonObject.getDouble("endX"), jsonObject.getDouble("endY"));
-            case "Line" -> appNode = new AppLine(jsonObject.getDouble("startX"), jsonObject.getDouble("startY"), jsonObject.getDouble("endX"), jsonObject.getDouble("endY"));
-            case "Polygon" -> appNode = new AppPolygon(arrayToArray(jsonObject.getJSONArray("points")));
-            case "Polyline" -> appNode = new AppPolyline(arrayToArray(jsonObject.getJSONArray("points")));
-            default -> throw new AppException(AppExceptionEnum.AppNodeNotRegistered);
-        }
-        appNode.affineTransform.append(parseAffine(jsonObject.getJSONArray("affine")));
-        appNode.backgroundStyle.setFromJSON(jsonObject.getJSONObject("backgroundStyle"));
-
-        return appNode;
-
     }
 
 

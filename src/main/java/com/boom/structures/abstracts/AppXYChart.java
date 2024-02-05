@@ -121,7 +121,7 @@ public  abstract   class AppXYChart<T1, T2> extends AppNode {
 //    }
 
     @Override
-    public String getSVGClones(int tabIndent) {
+    public String toSVG(int tabIndent) {
         return null;
     }
 

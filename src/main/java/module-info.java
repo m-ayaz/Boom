@@ -4,6 +4,8 @@ module com.boom.Boom {
     requires org.json;
     requires javafx.swing;
 
+    opens com.boom.test.chartcomponentstests to javafx.fxml;
+    exports com.boom.test.chartcomponentstests;
     opens com.boom.indicators to javafx.fxml;
     exports com.boom.indicators;
     opens com.boom.Boom to javafx.fxml;

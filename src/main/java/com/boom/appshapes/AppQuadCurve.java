@@ -68,7 +68,7 @@ public  class AppQuadCurve extends AppLineShape {
     }
 
     @Override
-    public String getSVGClones(int tabIndent) {
+    public String toSVG(int tabIndent) {
         double[] dissectedTransform = dissectAffineTransform(affineTransform);
         StringBuilder stringBuilder = new StringBuilder();
         for (AppPaint appPaint : backgroundStyle.getStrokeArray()) {
@@ -91,5 +91,10 @@ public  class AppQuadCurve extends AppLineShape {
         jsonObject.put("endX", endX.get());
         jsonObject.put("endY", endY.get());
         return jsonObject;
+    }
+
+    @Override
+    public String toTeX() {
+        return null;
     }
 }

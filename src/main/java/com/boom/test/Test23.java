@@ -148,10 +148,10 @@ public class Test23 extends Application {
                 String.join("", appLine.backgroundStyle.fillsToSVG(2)) +
                 String.join("", appLine.backgroundStyle.strokesToSVG(2)) +
                 "\t\n</defs>" +
-                appRectangle.getSVGClones(2) +
-                appRectangle1.getSVGClones(2) +
-                appEllipse.getSVGClones(2) +
-                appLine.getSVGClones(2));
+                appRectangle.toSVG(2) +
+                appRectangle1.toSVG(2) +
+                appEllipse.toSVG(2) +
+                appLine.toSVG(2));
 
 //        for(int i=0;appRectangle.backgroundStyle.getFillArray().size())
 

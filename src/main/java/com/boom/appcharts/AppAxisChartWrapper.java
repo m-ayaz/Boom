@@ -1,7 +1,6 @@
 package com.boom.appcharts;
 
 
-import com.boom.appshapes.AppRectangle;
 import com.boom.controllers.MainCanvasItemsHandler;
 import com.boom.controllers.SelectedObjectsController;
 import com.boom.structures.abstracts.AppNode;
@@ -23,9 +22,9 @@ public class AppAxisChartWrapper extends AppNode {
 
     public AppAxisChartWrapper(double width, double height) {
         super(new AppAxisChart(width, height), "-fx-background-color", "-fx-border-color", "-fx-border-width");
-        ((AppAxisChart) styleableNode).legendsContainerCSS.bind(legendsContainerBackgroundStyle);
-        this.width = ((AppAxisChart) styleableNode).plotRegionWidth;
-        this.height = ((AppAxisChart) styleableNode).plotRegionHeight;
+        ((AppAxisChart) styleableNode).getAppLegendStyleProperty().bind(legendsContainerBackgroundStyle);
+        this.width = ((AppAxisChart) styleableNode).width;
+        this.height = ((AppAxisChart) styleableNode).height;
         this.type = AppAxisChartWrapper.class.getName();
     }
 
@@ -65,7 +64,7 @@ public class AppAxisChartWrapper extends AppNode {
     }
 
     @Override
-    public String getSVGClones(int tabIndent) {
+    public String toSVG(int tabIndent) {
         return null;
     }
 
@@ -77,5 +76,10 @@ public class AppAxisChartWrapper extends AppNode {
     @Override
     public boolean contains(double x, double y) {
         return styleableNode.contains(styleableNode.parentToLocal(x, y));
+    }
+
+    @Override
+    public String toTeX() {
+        return null;
     }
 }

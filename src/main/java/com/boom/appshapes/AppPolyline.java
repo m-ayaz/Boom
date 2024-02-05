@@ -65,7 +65,7 @@ public  class AppPolyline extends AppLineShape {
     }
 
     @Override
-    public String getSVGClones(int tabIndent) {
+    public String toSVG(int tabIndent) {
         double[] dissectedTransform = dissectAffineTransform(affineTransform);
         StringBuilder stringBuilder = new StringBuilder();
         for (AppPaint appPaint : backgroundStyle.getFillArray()) {
@@ -86,5 +86,10 @@ public  class AppPolyline extends AppLineShape {
         jsonObject.put("backgroundStyle",backgroundStyle.toJSON());
         jsonObject.put("points", points);
         return jsonObject;
+    }
+
+    @Override
+    public String toTeX() {
+        return null;
     }
 }

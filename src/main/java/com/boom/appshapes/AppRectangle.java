@@ -47,7 +47,8 @@ public class AppRectangle extends AppAreaShape {
     }
 
 
-    public String getSVGClones(int tabIndent) {
+    @Override
+    public String toSVG(int tabIndent) {
         double[] dissectedTransform = dissectAffineTransform(affineTransform);
         StringBuilder stringBuilder = new StringBuilder();
         for (AppPaint appPaint : backgroundStyle.getFillArray()) {
@@ -88,6 +89,7 @@ public class AppRectangle extends AppAreaShape {
         }
     }
 
+    @Override
     public String toTeX() {
 //        Color fillColor = (Color) getRegion().getBackground().getFills().get(0).getFill();
 //        Color strokeColor = (Color) getRegion().getBorder().getStrokes().get(0).getTopStroke();

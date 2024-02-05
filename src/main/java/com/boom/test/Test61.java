@@ -130,12 +130,12 @@ public class Test61 extends Application {
                 ellipse2.backgroundStyle.strokesToSVG(2) +
                 "\n\t</defs>" +
                 p.toSVG(1) +
-                rectangle.getSVGClones(1) +
-                rectangle1.getSVGClones(1) +
-                rectangle2.getSVGClones(1) +
-                ellipse.getSVGClones(1) +
-                ellipse1.getSVGClones(1) +
-                ellipse2.getSVGClones(1));
+                rectangle.toSVG(1) +
+                rectangle1.toSVG(1) +
+                rectangle2.toSVG(1) +
+                ellipse.toSVG(1) +
+                ellipse1.toSVG(1) +
+                ellipse2.toSVG(1));
 
         Polygon polygon=new Polygon(0,1,2,4,10,20);
 

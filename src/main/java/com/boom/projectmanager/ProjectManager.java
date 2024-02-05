@@ -1,6 +1,5 @@
 package com.boom.projectmanager;
 
-import com.boom.controllers.SelectedObjectsController;
 import com.boom.structures.abstracts.AppNode;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -48,7 +47,7 @@ public class ProjectManager {
         validObjects.forEach(appNode -> svgScript.append(appNode.backgroundStyle.fillsToSVG(2)));
         validObjects.forEach(appNode -> svgScript.append(appNode.backgroundStyle.strokesToSVG(2)));
         svgScript.append("\n\t</defs>");
-        validObjects.forEach(appNode -> svgScript.append(appNode.getSVGClones(1)));
+        validObjects.forEach(appNode -> svgScript.append(appNode.toSVG(1)));
         svgScript.append("\n</svg>");
         return svgScript;
     }

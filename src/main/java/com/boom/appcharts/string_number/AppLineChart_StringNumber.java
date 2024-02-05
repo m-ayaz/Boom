@@ -43,7 +43,7 @@ public  class AppLineChart_StringNumber extends AppXYChart<String,Number> {
     }
 
     @Override
-    public String getSVGClones(int tabIndent) {
+    public String toSVG(int tabIndent) {
         return null;
     }
 

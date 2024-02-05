@@ -68,7 +68,7 @@ public  class AppScatterChart_NumberString extends AppXYChart<Number,String> {
     }
 
     @Override
-    public String getSVGClones(int tabIndent) {
+    public String toSVG(int tabIndent) {
         return null;
     }
 

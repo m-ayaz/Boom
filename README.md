@@ -7,10 +7,13 @@ Innovative Graphics Software for Professionals
 - load project has problems
 - When the ticks length or height is too large, rendering ticks faces problems.
 
+
 <h3> Features</h3>
 
 - TeX export
-- exact stroke  export
+- exact stroke export
+- Currently, legend size changes dynamically. Add custom legend resizing feature later.
+
   
 
 Backlog
@@ -28,5 +31,4 @@ Backlog
 - connectors between shapes
 - add arc to mindmap connection 
 - dracula theme (and other themes)
-- 
-- 
+- change series visual legend

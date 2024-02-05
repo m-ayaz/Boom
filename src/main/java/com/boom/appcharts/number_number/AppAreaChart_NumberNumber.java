@@ -85,7 +85,7 @@ public  class AppAreaChart_NumberNumber extends AppXYChart<Number,Number> {
     }
 
     @Override
-    public String getSVGClones(int tabIndent) {
+    public String toSVG(int tabIndent) {
         return null;
     }
 

@@ -1,24 +1,18 @@
 package com.boom.appcharts;
 
-import com.boom.apppaints.AppLinearGradient;
 import com.boom.appshapes.AppPolygon;
 import com.boom.appshapes.AppPolyline;
-import com.boom.appshapes.AppRectangle;
 import com.boom.structures.abstracts.AppNode;
 import com.boom.test.AppDataComparator;
 import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.*;
-import javafx.geometry.Pos;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,21 +23,21 @@ public class AppSeries {
     public AppPolyline plotLine = new AppPolyline();
     public Group renderedMarkers = new Group();
     public SimpleObjectProperty<AppNode> markerShape = new SimpleObjectProperty<>();
-    SimpleDoubleProperty localMinX = new SimpleDoubleProperty();
-    SimpleDoubleProperty localMaxX = new SimpleDoubleProperty();
-    SimpleDoubleProperty localMinY = new SimpleDoubleProperty();
-    SimpleDoubleProperty localMaxY = new SimpleDoubleProperty();
-    SimpleDoubleProperty globalMinX = new SimpleDoubleProperty();
-    SimpleDoubleProperty globalMaxX = new SimpleDoubleProperty();
-    SimpleDoubleProperty globalMinY = new SimpleDoubleProperty();
-    SimpleDoubleProperty globalMaxY = new SimpleDoubleProperty();
-    AppDataComparator appDataComparator = new AppDataComparator();
-    public List<double[]> appDataList = new ArrayList<>();
-    public List<double[]> previewCoordinatesList = new ArrayList<>();
-    private DoubleBinding minXVisualLocation;
-    private DoubleBinding minYVisualLocation;
-    private DoubleBinding maxXVisualLocation;
-    private DoubleBinding maxYVisualLocation;
+    SimpleDoubleProperty minX = new SimpleDoubleProperty();
+    SimpleDoubleProperty maxX = new SimpleDoubleProperty();
+    SimpleDoubleProperty minY = new SimpleDoubleProperty();
+    SimpleDoubleProperty maxY = new SimpleDoubleProperty();
+//    SimpleDoubleProperty globalMinX = new SimpleDoubleProperty();
+//    SimpleDoubleProperty globalMaxX = new SimpleDoubleProperty();
+//    SimpleDoubleProperty globalMinY = new SimpleDoubleProperty();
+//    SimpleDoubleProperty globalMaxY = new SimpleDoubleProperty();
+//    AppDataComparator appDataComparator = new AppDataComparator();
+    public ObservableList<double[]> dataList = FXCollections.observableList(new ArrayList<>());
+//    public List<double[]> previewCoordinatesList = new ArrayList<>();
+//    private DoubleBinding minXVisualLocation;
+//    private DoubleBinding minYVisualLocation;
+//    private DoubleBinding maxXVisualLocation;
+//    private DoubleBinding maxYVisualLocation;
 
 //    public Label getTitle() {
 //        return title;
@@ -77,127 +71,141 @@ public class AppSeries {
 
         plotArea.backgroundStyle.setStrokeWidth(0);
         plotLine.backgroundStyle.setStrokeWidth(1);
+
+        dataList.addListener((ListChangeListener< double[]>) change -> {
+            updateMaxX();
+            updateMinX();
+            updateMaxY();
+            updateMinY();
+//            updatePreviewAtChart();
+//            change.getTo()
+//            change.
+        });
     }
 
     public void addData(int dataIndex, double x, double y) {
-        appDataList.add(dataIndex, new double[]{x, y});
-        updateLocalMaxX();
-        updateLocalMinX();
-        updateLocalMaxY();
-        updateLocalMinY();
         renderedMarkers.getChildren().add(dataIndex, markerShape.get().copy().getStyleableNode());
-        updatePreviewAtChart();
+        dataList.add(dataIndex, new double[]{x, y});
+//        updateMaxX();
+//        updateMinX();
+//        updateMaxY();
+//        updateMinY();
+
+
+//        updatePreviewAtChart();
     }
 
     public void addData(double x, double y) {
-        addData(appDataList.size(), x, y);
+        addData(dataList.size(), x, y);
     }
 
     public void addManyData(int dataIndex, List<double[]> newAppDataList) {
-        appDataList.addAll(dataIndex, newAppDataList);
-        updateLocalMaxX();
-        updateLocalMinX();
-        updateLocalMaxY();
-        updateLocalMinY();
-        updatePreviewAtChart();
+        newAppDataList.forEach(doubles -> renderedMarkers.getChildren().add(dataIndex+newAppDataList.indexOf(doubles), markerShape.get().copy().getStyleableNode()));
+        dataList.addAll(dataIndex, newAppDataList);
+//        updateMaxX();
+//        updateMinX();
+//        updateMaxY();
+//        updateMinY();
+//        updatePreviewAtChart();
 
     }
 
-    public void bindDataBounds(SimpleDoubleProperty globalMinX, SimpleDoubleProperty globalMaxX, SimpleDoubleProperty globalMinY, SimpleDoubleProperty globalMaxY) {
-        this.globalMinX.bindBidirectional(globalMinX);
-        this.globalMaxX.bindBidirectional(globalMaxX);
-        this.globalMinY.bindBidirectional(globalMinY);
-        this.globalMaxY.bindBidirectional(globalMaxY);
-    }
+//    public void bindDataBounds(SimpleDoubleProperty globalMinX, SimpleDoubleProperty globalMaxX, SimpleDoubleProperty globalMinY, SimpleDoubleProperty globalMaxY) {
+//        this.globalMinX.bindBidirectional(globalMinX);
+//        this.globalMaxX.bindBidirectional(globalMaxX);
+//        this.globalMinY.bindBidirectional(globalMinY);
+//        this.globalMaxY.bindBidirectional(globalMaxY);
+//    }
 
-    public void bindVisualBounds(DoubleBinding minXVisualLocation, DoubleBinding minYVisualLocation, DoubleBinding maxXVisualLocation, DoubleBinding maxYVisualLocation) {
-        this.minXVisualLocation = minXVisualLocation;
-        this.minYVisualLocation = minYVisualLocation;
-        this.maxXVisualLocation = maxXVisualLocation;
-        this.maxYVisualLocation = maxYVisualLocation;
-        this.minXVisualLocation.addListener((a, b, c) -> updatePreviewAtChart());
-        this.maxXVisualLocation.addListener((a, b, c) -> updatePreviewAtChart());
-        this.minYVisualLocation.addListener((a, b, c) -> updatePreviewAtChart());
-        this.maxYVisualLocation.addListener((a, b, c) -> updatePreviewAtChart());
-    }
+//    public void bindVisualBounds(DoubleBinding minXVisualLocation, DoubleBinding minYVisualLocation, DoubleBinding maxXVisualLocation, DoubleBinding maxYVisualLocation) {
+//        this.minXVisualLocation = minXVisualLocation;
+//        this.minYVisualLocation = minYVisualLocation;
+//        this.maxXVisualLocation = maxXVisualLocation;
+//        this.maxYVisualLocation = maxYVisualLocation;
+//        this.minXVisualLocation.addListener((a, b, c) -> updatePreviewAtChart());
+//        this.maxXVisualLocation.addListener((a, b, c) -> updatePreviewAtChart());
+//        this.minYVisualLocation.addListener((a, b, c) -> updatePreviewAtChart());
+//        this.maxYVisualLocation.addListener((a, b, c) -> updatePreviewAtChart());
+//    }
 
     public void removeData(int dataIndex) {
-        appDataList.remove(dataIndex);
-        updateLocalMaxX();
-        updateLocalMinX();
-        updateLocalMaxY();
-        updateLocalMinY();
         renderedMarkers.getChildren().remove(dataIndex);
-        updatePreviewAtChart();
+        dataList.remove(dataIndex);
+//        updateMaxX();
+//        updateMinX();
+//        updateMaxY();
+//        updateMinY();
+
+//        updatePreviewAtChart();
     }
 
     public void setMarkerShape(AppNode markerShape) {
         this.markerShape.set(markerShape);
     }
 
-    public void updateData(int dataIndex, double x, double y) {
-        appDataList.set(dataIndex, new double[]{x, y});
-        updateLocalMaxX();
-        updateLocalMinX();
-        updateLocalMaxY();
-        updateLocalMinY();
-        updatePreviewAtChart();
+//    public void updateData(int dataIndex, double x, double y) {
+//        dataList.set(dataIndex, new double[]{x, y});
+////        updateMaxX();
+////        updateMinX();
+////        updateMaxY();
+////        updateMinY();
+////        updatePreviewAtChart();
+//    }
+
+//    public void updatePreviewAtChart() {
+//
+//        previewCoordinatesList.clear();
+//        if (dataList.size() == 1) {
+//            previewCoordinatesList.add(new double[]{minXVisualLocation.get() / 2 + maxXVisualLocation.get() / 2, minYVisualLocation.get() / 2 + maxYVisualLocation.get() / 2});
+//        } else {
+//            dataList.forEach(doubles -> previewCoordinatesList.add(new double[]{
+//                    (doubles[0] - globalMinX.get()) / (globalMaxX.get() - globalMinX.get()) * (maxXVisualLocation.get() - minXVisualLocation.get()) + minXVisualLocation.get(),
+//                    (doubles[1] - globalMinY.get()) / (globalMaxY.get() - globalMinY.get()) * (maxYVisualLocation.get() - minYVisualLocation.get()) + minYVisualLocation.get()
+//            }));
+//            previewCoordinatesList.sort(appDataComparator);
+//        }
+//
+//
+//        plotArea.points.setAll(
+//                (maxX.get() - globalMinX.get()) / (globalMaxX.get() - globalMinX.get()) * (maxXVisualLocation.get() - minXVisualLocation.get()) + minXVisualLocation.get(),
+//                minYVisualLocation.get(),
+//                (minX.get() - globalMinX.get()) / (globalMaxX.get() - globalMinX.get()) * (maxXVisualLocation.get() - minXVisualLocation.get()) + minXVisualLocation.get(),
+//                minYVisualLocation.get()
+//        );
+//        previewCoordinatesList.forEach(doubles -> plotArea.points.addAll(doubles[0], doubles[1]));
+//
+//        plotLine.points.clear();
+//        previewCoordinatesList.forEach(doubles -> plotLine.points.addAll(doubles[0], doubles[1]));
+//
+//        if (markerShape.get() != null) {
+//            for (int i = 0; i < previewCoordinatesList.size(); i++) {
+//                renderedMarkers.getChildren().get(i).setTranslateX(previewCoordinatesList.get(i)[0]);
+//                renderedMarkers.getChildren().get(i).setTranslateY(previewCoordinatesList.get(i)[1]);
+//            }
+////            .forEach(doubles -> {
+//////                Node newMarker = markerShape.get().copy().getStyleableNode();
+//////                renderedMarkers.getChildren().add(newMarker);
+////                newMarker.setTranslateX(doubles[0]);
+////                newMarker.setTranslateY(doubles[1]);
+////            });
+//        }
+//
+//    }
+
+    void updateMaxX() {
+        maxX.set(dataList.stream().mapToDouble(doubles -> doubles[0]).max().orElse(Double.NEGATIVE_INFINITY));
     }
 
-    public void updatePreviewAtChart() {
-
-        previewCoordinatesList.clear();
-        if (appDataList.size() == 1) {
-            previewCoordinatesList.add(new double[]{minXVisualLocation.get() / 2 + maxXVisualLocation.get() / 2, minYVisualLocation.get() / 2 + maxYVisualLocation.get() / 2});
-        } else {
-            appDataList.forEach(doubles -> previewCoordinatesList.add(new double[]{
-                    (doubles[0] - globalMinX.get()) / (globalMaxX.get() - globalMinX.get()) * (maxXVisualLocation.get() - minXVisualLocation.get()) + minXVisualLocation.get(),
-                    (doubles[1] - globalMinY.get()) / (globalMaxY.get() - globalMinY.get()) * (maxYVisualLocation.get() - minYVisualLocation.get()) + minYVisualLocation.get()
-            }));
-            previewCoordinatesList.sort(appDataComparator);
-        }
-
-
-        plotArea.points.setAll(
-                (localMaxX.get() - globalMinX.get()) / (globalMaxX.get() - globalMinX.get()) * (maxXVisualLocation.get() - minXVisualLocation.get()) + minXVisualLocation.get(),
-                minYVisualLocation.get(),
-                (localMinX.get() - globalMinX.get()) / (globalMaxX.get() - globalMinX.get()) * (maxXVisualLocation.get() - minXVisualLocation.get()) + minXVisualLocation.get(),
-                minYVisualLocation.get()
-        );
-        previewCoordinatesList.forEach(doubles -> plotArea.points.addAll(doubles[0], doubles[1]));
-
-        plotLine.points.clear();
-        previewCoordinatesList.forEach(doubles -> plotLine.points.addAll(doubles[0], doubles[1]));
-
-        if (markerShape.get() != null) {
-            for (int i = 0; i < previewCoordinatesList.size(); i++) {
-                renderedMarkers.getChildren().get(i).setTranslateX(previewCoordinatesList.get(i)[0]);
-                renderedMarkers.getChildren().get(i).setTranslateY(previewCoordinatesList.get(i)[1]);
-            }
-//            .forEach(doubles -> {
-////                Node newMarker = markerShape.get().copy().getStyleableNode();
-////                renderedMarkers.getChildren().add(newMarker);
-//                newMarker.setTranslateX(doubles[0]);
-//                newMarker.setTranslateY(doubles[1]);
-//            });
-        }
-
+    void updateMaxY() {
+        maxY.set(dataList.stream().mapToDouble(doubles -> doubles[1]).max().orElse(Double.NEGATIVE_INFINITY));
     }
 
-    void updateLocalMaxX() {
-        localMaxX.set(appDataList.stream().mapToDouble(doubles -> doubles[0]).max().orElse(Double.NEGATIVE_INFINITY));
+    void updateMinX() {
+        minX.set(dataList.stream().mapToDouble(doubles -> doubles[0]).min().orElse(Double.POSITIVE_INFINITY));
     }
 
-    void updateLocalMaxY() {
-        localMaxY.set(appDataList.stream().mapToDouble(doubles -> doubles[1]).max().orElse(Double.NEGATIVE_INFINITY));
-    }
-
-    void updateLocalMinX() {
-        localMinX.set(appDataList.stream().mapToDouble(doubles -> doubles[0]).min().orElse(Double.POSITIVE_INFINITY));
-    }
-
-    void updateLocalMinY() {
-        localMinY.set(appDataList.stream().mapToDouble(doubles -> doubles[1]).min().orElse(Double.POSITIVE_INFINITY));
+    void updateMinY() {
+        minY.set(dataList.stream().mapToDouble(doubles -> doubles[1]).min().orElse(Double.POSITIVE_INFINITY));
     }
 
     public Group getVisualLegend() {
