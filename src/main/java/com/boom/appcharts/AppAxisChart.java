@@ -43,10 +43,9 @@ public class AppAxisChart extends GridPane {
     public final SimpleDoubleProperty rightPlotMargin = new SimpleDoubleProperty(0.05);
     public final SimpleIntegerProperty appLegendAnchorX = new SimpleIntegerProperty(0);
     public final SimpleIntegerProperty appLegendAnchorY = new SimpleIntegerProperty(1);
-//    public final Label title = new Label();
     public final SimpleDoubleProperty topPlotMargin = new SimpleDoubleProperty(0.1);
     public final SimpleDoubleProperty bottomPlotMargin = new SimpleDoubleProperty(0.1);
-    public final AppLegend appLegend = new AppLegend();
+    public final AppLegendRegion legendRegion = new AppLegendRegion();
     private final List<AppSeries> seriesList = new ArrayList<>();
     private final SimpleDoubleProperty globalMinX = new SimpleDoubleProperty();
     private final SimpleDoubleProperty globalMaxX = new SimpleDoubleProperty();
@@ -76,7 +75,6 @@ public class AppAxisChart extends GridPane {
 
         bindPlotRegionSize();
 
-//        bindAxesRegionsSize();
 
         bindYTicksVisuals();
 
@@ -84,7 +82,6 @@ public class AppAxisChart extends GridPane {
 
         bindAppLegendLocation();
 
-//        bindXLabelLocation();
 
         minXVisualLocation.addListener((a, b, c) -> updateAllSeriesPreviewsAtChart());
         minYVisualLocation.addListener((a, b, c) -> updateAllSeriesPreviewsAtChart());
@@ -98,7 +95,7 @@ public class AppAxisChart extends GridPane {
         yAxisRegion.setBackground(Background.fill(new Color(0, 1, 1, 0.2)));
 
 
-        appLegend.setStyle("-fx-background-color: white;-fx-border-color: black");
+        legendRegion.setStyle("-fx-background-color: white;-fx-border-color: black");
 
 
         setStyle("-fx-background-color: transparent;-fx-border-color: transparent;-fx-border-width: 0px");
@@ -135,15 +132,15 @@ public class AppAxisChart extends GridPane {
         plotRegion.getChildren().add(3 * seriesIndex, appSeries.plotArea.getStyleableNode());
         plotRegion.getChildren().add(3 * seriesIndex + 1, appSeries.plotLine.getStyleableNode());
         plotRegion.getChildren().add(3 * seriesIndex + 2, appSeries.renderedMarkers);
-        appLegend.addSeries(seriesIndex, appSeries.getVisualLegend(), appSeries.title);
+        legendRegion.addSeries(seriesIndex, appSeries.getVisualLegend(), appSeries.title);
     }
 
     public StringProperty getAppLegendStyleProperty() {
-        return appLegend.styleProperty();
+        return legendRegion.styleProperty();
     }
 
     public SimpleDoubleProperty getAppLegendTitleVisualMarginProperty() {
-        return appLegend.titleVisualMargin;
+        return legendRegion.titleVisualMargin;
     }
 
     public void removeAllSeries() {
@@ -157,7 +154,7 @@ public class AppAxisChart extends GridPane {
         plotRegion.getChildren().remove(3 * seriesIndex + 2);
         plotRegion.getChildren().remove(3 * seriesIndex + 1);
         plotRegion.getChildren().remove(3 * seriesIndex);
-        appLegend.removeSeries(seriesIndex);
+        legendRegion.removeSeries(seriesIndex);
     }
 
     public void updateAllSeriesPreviewsAtChart() {
@@ -165,8 +162,6 @@ public class AppAxisChart extends GridPane {
     }
 
     public void updateSeriesPreviewAtChart(AppSeries appSeries) {
-
-//        AppSeries appSeries = seriesList.get(seriesIndex);
 
         List<double[]> dataListCopy = appSeries.dataList.stream().map(doubles -> new double[]{doubles[0], doubles[1]}).sorted(appDataComparator).toList();
 
@@ -194,8 +189,8 @@ public class AppAxisChart extends GridPane {
     }
 
     private void bindAppLegendLocation() {
-        appLegend.translateXProperty().bind(appLegendRelativeX.multiply(width).subtract(appLegend.widthProperty().multiply(appLegendAnchorX)));
-        appLegend.translateYProperty().bind(appLegendRelativeY.multiply(-1).add(1).multiply(width).subtract(appLegend.heightProperty().multiply(appLegendAnchorY.multiply(-1).add(1))));
+        legendRegion.translateXProperty().bind(appLegendRelativeX.multiply(width).subtract(legendRegion.widthProperty().multiply(appLegendAnchorX)));
+        legendRegion.translateYProperty().bind(appLegendRelativeY.multiply(-1).add(1).multiply(width).subtract(legendRegion.heightProperty().multiply(appLegendAnchorY.multiply(-1).add(1))));
     }
 
     /**
@@ -244,7 +239,7 @@ public class AppAxisChart extends GridPane {
 
         plotRegion.getChildren().add(appGridLines);
 
-        plotRegion.getChildren().add(appLegend);
+        plotRegion.getChildren().add(legendRegion);
 
     }
 
@@ -384,6 +379,10 @@ public class AppAxisChart extends GridPane {
         }
 
 
+    }
+
+    private int[] updateTicks(){
+        return new int[]{};
     }
 
 

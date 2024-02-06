@@ -30,6 +30,7 @@ public abstract   class AppAreaShape extends AppNode {
             offset.setY(c.getMinY());
         });
 
+        //todo remove this and replace with proper modifications elsewhere in the code.
         backgroundStyle.addFill(0, new AppColor(Color.TRANSPARENT));
         backgroundStyle.addStroke(0, new AppColor(Color.BLACK));
         backgroundStyle.setStrokeWidth(1);

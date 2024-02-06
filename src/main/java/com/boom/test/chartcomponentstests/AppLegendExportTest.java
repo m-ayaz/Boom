@@ -1,11 +1,12 @@
 package com.boom.test.chartcomponentstests;
 
-import com.boom.appcharts.AppLegend;
+import com.boom.appcharts.AppLegendRegion;
 import com.boom.appcharts.AppSeries;
 import com.boom.apppaints.AppLinearGradient;
 import com.boom.appshapes.AppRectangle;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -85,18 +86,31 @@ public class AppLegendExportTest extends Application {
 //        AppRectangle
 //        appSeries1.setMarkerShape();
 
-        AppLegend appLegend=new AppLegend();
+        AppLegendRegion appLegendRegion =new AppLegendRegion();
 
-        appLegend.addSeries(0,appSeries1.getVisualLegend(),appSeries1.title);
-        appLegend.addSeries(1,appSeries2.getVisualLegend(),appSeries2.title);
-        appLegend.addSeries(2,appSeries3.getVisualLegend(),appSeries3.title);
-        appLegend.addSeries(3,appSeries4.getVisualLegend(),appSeries4.title);
+        appLegendRegion.addSeries(0,appSeries1.getVisualLegend(),appSeries1.title);
+        appLegendRegion.addSeries(1,appSeries2.getVisualLegend(),appSeries2.title);
+        appLegendRegion.addSeries(2,appSeries3.getVisualLegend(),appSeries3.title);
+        appLegendRegion.addSeries(3,appSeries4.getVisualLegend(),appSeries4.title);
 
-        container.getChildren().add(appLegend);
+        container.getChildren().add(appLegendRegion);
 
-        print(appLegend.toJSON());
+        container.setOnMouseDragged(mouseEvent -> {
+            appLegendRegion.topMargin.set(Math.random()/10+0.1);
+            appLegendRegion.bottomMargin.set(Math.random()/10+0.1);
+            appLegendRegion.leftMargin.set(Math.random()/10+0.1);
+            appLegendRegion.rightMargin.set(Math.random()/10+0.1);
 
-        print(appLegend.toSVG(0));
+            print(appLegendRegion.toJSON());
+            print(appLegendRegion.toSVG(0));
+        });
+
+
+//        GridPane
+
+//        print(appLegendRegion.toJSON());
+
+//        print(appLegendRegion.toSVG(0));
 //        appLegend.topMargin.set(20);
     }
 }

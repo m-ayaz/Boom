@@ -44,6 +44,8 @@ public class Test76 extends Application {
         x.set(1,new double[]{1,1});
         print(x.size());
 
+
+
 //        JSONSerializable.g("asasas");
 
 //        Comparator<Double> comparator = Comparator.naturalOrder();

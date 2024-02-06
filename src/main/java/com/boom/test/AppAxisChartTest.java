@@ -4,6 +4,8 @@ import com.boom.appcharts.AppAxisChart;
 import com.boom.appcharts.AppSeries;
 import com.boom.apppaints.AppColor;
 import com.boom.appshapes.AppEllipse;
+import com.boom.appshapes.AppRectangle;
+import com.boom.structures.abstracts.AppNode;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -65,8 +67,8 @@ public class AppAxisChartTest extends Application {
             appAxisChart.addSeries(appSeries2);
 
             for (int i = 0; i < 11; i++) {
-                appSeries1.addData(Math.random(),Math.random());
-                appSeries2.addData(Math.random(),Math.random());
+                appSeries1.addData(Math.random()*0+i,Math.random());
+                appSeries2.addData(Math.random()*0+i,Math.random());
 
 //                appSeries1.addData(i,i);
 //                appSeries2.addData(i,i);
@@ -75,6 +77,8 @@ public class AppAxisChartTest extends Application {
 //                appSeries1.addData(i,i);
 //                appSeries2.addData(Math.random(), Math.random() * 30);
             }
+
+            print(marker1.backgroundStyle);
 
             container.setOnMouseDragged(mouseEvent -> {
 
@@ -101,6 +105,19 @@ public class AppAxisChartTest extends Application {
 
                 print("width , height = "+w+" , "+h);
 
+//                print(appAxisChart.legendRegion.widthProperty().get()+" , "+appAxisChart.legendRegion.heightProperty().get());
+
+//                marker1.backgroundStyle.setFill(1,new AppColor(new Color(Math.random(),Math.random(),Math.random(),1)));
+
+//                print(marker1.backgroundStyle);
+                AppNode appNode=new AppRectangle(20,20,0,0);
+                appNode.backgroundStyle.addFill(new AppColor(new Color(Math.random(),Math.random(),Math.random(),1)));
+                appNode.affineTransform.prependTranslation(-10,-10);
+
+                appSeries1.setMarkerShape(appNode);
+
+
+
 //                print(appAxisChart.appLegend.widthProperty().get());
 
 //                print(appAxisChart.appLegend.bottomMargin.get());
@@ -113,7 +130,12 @@ public class AppAxisChartTest extends Application {
             });
 
         }
+
+
+//        print(appAxisChart.legendRegion.getPrefWidth()+" , "+appAxisChart.legendRegion.getPrefHeight());
+
     }
+
 
 
 }

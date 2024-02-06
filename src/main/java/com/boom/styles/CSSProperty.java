@@ -56,6 +56,16 @@ public class CSSProperty extends SimpleStringProperty {
         strokeWidth.addListener((a, b, c) -> update());
     }
 
+    public void setFill(int index, AppPaint appPaint) {
+        fillArray.set(index, appPaint);
+        appPaint.addListener((a, b, c) -> update());
+    }
+
+    public void setStroke(int index, AppPaint appPaint) {
+        strokeArray.set(index, appPaint);
+        appPaint.addListener((a, b, c) -> update());
+    }
+
     public void addFill(int index, AppPaint appPaint) {
         fillArray.add(index, appPaint);
         appPaint.addListener((a, b, c) -> update());
