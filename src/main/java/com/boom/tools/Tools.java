@@ -361,8 +361,8 @@ public class Tools {
 //        }
         deepCopy(chartFrom.getBackgroundStyle(), chartTo.getBackgroundStyle());
         deepCopy(chartFrom.affineTransform, chartTo.affineTransform);
-        for (int i = 0; i < ((XYChart<T1, T2>) chartFrom.getStyleableNode()).getData().size(); i++) {
-            XYChart.Series<T1, T2> series = ((XYChart<T1, T2>) chartFrom.getStyleableNode()).getData().get(i);
+        for (int i = 0; i < ((XYChart<T1, T2>) chartFrom.styleableNode).getData().size(); i++) {
+            XYChart.Series<T1, T2> series = ((XYChart<T1, T2>) chartFrom.styleableNode).getData().get(i);
             chartTo.addSeries(i);
             for (int j = 0; j < series.getData().size(); j++) {
                 XYChart.Data<T1, T2> data = series.getData().get(j);
@@ -372,13 +372,13 @@ public class Tools {
                     deepCopy(chartFrom.getSeriesAreaStyles().get(i), chartTo.getSeriesAreaStyles().get(i));
                 } catch (Exception e) {
                     print(e);
-                    print("%s does not have AREA".formatted(chartFrom.getStyleableNode().getClass().getSimpleName()));
+                    print("%s does not have AREA".formatted(chartFrom.styleableNode.getClass().getSimpleName()));
                 }
                 try {
                     deepCopy(chartFrom.getSeriesLineStyles().get(i), chartTo.getSeriesLineStyles().get(i));
                 } catch (Exception e) {
                     print(e);
-                    print("%s does not have LINE".formatted(chartFrom.getStyleableNode().getClass().getSimpleName()));
+                    print("%s does not have LINE".formatted(chartFrom.styleableNode.getClass().getSimpleName()));
                 }
             }
         }

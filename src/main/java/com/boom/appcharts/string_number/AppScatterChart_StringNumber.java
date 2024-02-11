@@ -45,21 +45,21 @@ public  class AppScatterChart_StringNumber extends AppXYChart<String,Number> {
     @Override
     public XYChart.Series<String, Number> addSeries(int index) {
         XYChart.Series<String, Number> newSeries = new XYChart.Series<>();
-        ((XYChart<String, Number>) getStyleableNode()).getData().add(index, newSeries);
+        ((XYChart<String, Number>) styleableNode).getData().add(index, newSeries);
         seriesMarkersStyles.add(index, new SeriesMarkersStyleProperty());
         return newSeries;
     }
 
     @Override
     public void removeSeries(int index) {
-        ((XYChart<String, Number>) getStyleableNode()).getData().remove(index);
+        ((XYChart<String, Number>) styleableNode).getData().remove(index);
         seriesMarkersStyles.remove(index);
     }
 
     @Override
     public XYChart.Data<String, Number> addData(String x, Number y, int seriesIndex, int dataIndex) {
         XYChart.Data<String, Number> newData = new XYChart.Data<>(x, y);
-        ((XYChart<String, Number>) getStyleableNode()).getData().get(seriesIndex).getData().add(dataIndex, newData);
+        ((XYChart<String, Number>) styleableNode).getData().get(seriesIndex).getData().add(dataIndex, newData);
         newData.getNode().styleProperty().bind(seriesMarkersStyles.get(seriesIndex));
         return newData;
     }
@@ -76,7 +76,7 @@ public  class AppScatterChart_StringNumber extends AppXYChart<String,Number> {
         plotAreaTransform.prepend(new Scale(1, -1, plotAreaBounds.get().getCenterX(), plotAreaBounds.get().getCenterY()));
         plotAreaTransform.prepend(affineTransform);
         StringBuilder dataString = new StringBuilder();
-        for (XYChart.Series<?, ?> series : ((XYChart<?, ?>) getStyleableNode()).getData()) {
+        for (XYChart.Series<?, ?> series : ((XYChart<?, ?>) styleableNode).getData()) {
             dataString.append("\n\t\\addplot[");
             dataString.append("\n\t\tonly marks");
             dataString.append("\n\t]");

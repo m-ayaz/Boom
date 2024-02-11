@@ -123,25 +123,25 @@ public class MainCanvasItemsHandler {
 
 //        print(mainCanvasChildren);
         mainCanvasChildren.addAll(
-                tempRectangle.getStyleableNode(),
-                tempEllipse.getStyleableNode(),
-                tempPolyline.getStyleableNode(),
-                tempPolygon.getStyleableNode(),
-                tempArc.getStyleableNode(),
-                tempLine.getStyleableNode(),
-                tempQuadCurve.getStyleableNode(),
-                tempCubicCurve.getStyleableNode(),
-                tempLineChart_NN.getStyleableNode(),
-                tempLineChart_SN.getStyleableNode(),
-                tempLineChart_NS.getStyleableNode(),
-                tempScatterChart_NN.getStyleableNode(),
-                tempScatterChart_SN.getStyleableNode(),
-                tempScatterChart_NS.getStyleableNode(),
+                tempRectangle.styleableNode,
+                tempEllipse.styleableNode,
+                tempPolyline.styleableNode,
+                tempPolygon.styleableNode,
+                tempArc.styleableNode,
+                tempLine.styleableNode,
+                tempQuadCurve.styleableNode,
+                tempCubicCurve.styleableNode,
+                tempLineChart_NN.styleableNode,
+                tempLineChart_SN.styleableNode,
+                tempLineChart_NS.styleableNode,
+                tempScatterChart_NN.styleableNode,
+                tempScatterChart_SN.styleableNode,
+                tempScatterChart_NS.styleableNode,
 //                tempBarChart_SN.node,
 //                tempBarChart_NS.node,
-                tempAreaChart_NN.getStyleableNode(),
-                tempAreaChart_SN.getStyleableNode(),
-                tempAreaChart_NS.getStyleableNode(),
+                tempAreaChart_NN.styleableNode,
+                tempAreaChart_SN.styleableNode,
+                tempAreaChart_NS.styleableNode,
                 littleEllipseOnCursor,
                 littlePolylineOnCursor,
                 littleCubicCurveOnCursor,
@@ -181,7 +181,7 @@ public class MainCanvasItemsHandler {
 //    }
 
     public void addToMainCanvas(AppNode appNode) {
-        mainCanvasChildren.add(validObjects.size(), appNode.getStyleableNode());
+        mainCanvasChildren.add(validObjects.size(), appNode.styleableNode);
         mainCanvasChildren.add(validObjects.size() * 2 + 1, appNode.border);
         validObjects.add(appNode);
     }
@@ -221,7 +221,7 @@ public class MainCanvasItemsHandler {
     }
 
     public void removeSelectedObjectsFromMainCanvas() {
-        selectedObjectsController.getBuffer().forEach(obj -> mainCanvasChildren.remove(obj.getStyleableNode()));
+        selectedObjectsController.getBuffer().forEach(obj -> mainCanvasChildren.remove(obj.styleableNode));
         selectedObjectsController.getBuffer().forEach(obj -> mainCanvasChildren.remove(obj.border));
         selectedObjectsController.getBuffer().forEach(obj -> validObjects.remove(obj));
         selectedObjectsController.unselectAll();

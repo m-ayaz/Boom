@@ -759,7 +759,7 @@ public class BoomComponentsSuperController {
                 printWriter.println(exportProjectAsSVG(validObjectsCopy,selectedObjectsController.getMaxX()-selectedObjectsController.getMinX(),selectedObjectsController.getMaxY()-selectedObjectsController.getMinY()));
                 selectedObjectsController.unselectAll();
             } else if (fileChooser.getSelectedExtensionFilter().equals(pngExtension)) {
-                rasterCanvas.getChildren().setAll(validObjects.stream().map(appNode -> appNode.copy().getStyleableNode()).collect(Collectors.toList()));
+                rasterCanvas.getChildren().setAll(validObjects.stream().map(appNode -> appNode.copy().styleableNode).collect(Collectors.toList()));
 //                SnapshotParameters snapshotParameters = new SnapshotParameters();
 //                snapshotParameters.setFill(new Color(0, 0, 0, 0));
 //                mainCanvas.snapshot(snapshotParameters, new WritableImage((int) mainCanvas.getWidth(), (int) mainCanvas.getHeight()));
@@ -769,7 +769,7 @@ public class BoomComponentsSuperController {
                 print(image);
                 ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", saveFile);
             } else if (fileChooser.getSelectedExtensionFilter().equals(bmpExtension)) {
-                rasterCanvas.getChildren().setAll(validObjects.stream().map(appNode -> appNode.copy().getStyleableNode()).collect(Collectors.toList()));
+                rasterCanvas.getChildren().setAll(validObjects.stream().map(appNode -> appNode.copy().styleableNode).collect(Collectors.toList()));
 //                SnapshotParameters snapshotParameters = new SnapshotParameters();
 //                snapshotParameters.setFill(new Color(0, 0, 0, 0));
 //                mainCanvas.snapshot(snapshotParameters, new WritableImage((int) mainCanvas.getWidth(), (int) mainCanvas.getHeight()));

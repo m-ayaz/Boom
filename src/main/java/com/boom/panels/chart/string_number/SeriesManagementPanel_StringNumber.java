@@ -81,7 +81,7 @@ public  class SeriesManagementPanel_StringNumber extends SeriesManagementPaneBas
         primaryAddButton.setOnMouseExited(mouseEvent -> primaryEmptySpace.setVisible(false));
         primaryAddButton.setOnAction(event -> {
             XYChart.Data<String, Number> newData;
-            int seriesIndex = ((XYChart<String, Number>) appXYChart.getStyleableNode()).getData().indexOf(series);
+            int seriesIndex = ((XYChart<String, Number>) appXYChart.styleableNode).getData().indexOf(series);
             if (dataSetPaneChildren.size() == 1) {
                 newData = appXYChart.addData("", 0, seriesIndex, 0);
             } else {

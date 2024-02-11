@@ -38,7 +38,7 @@ public  class AppAreaChart_StringNumber extends AppXYChart<String,Number> {
     @Override
     public XYChart.Data<String,Number> addData(String x, Number y, int seriesIndex, int dataIndex) {
         XYChart.Data<String,Number> newData = new XYChart.Data<>(x, y);
-        ((XYChart<String,Number>) getStyleableNode()).getData().get(seriesIndex).getData().add(dataIndex, newData);
+        ((XYChart<String,Number>) styleableNode).getData().get(seriesIndex).getData().add(dataIndex, newData);
         newData.getNode().styleProperty().bind(seriesMarkersStyles.get(seriesIndex));
         return newData;
     }
@@ -46,7 +46,7 @@ public  class AppAreaChart_StringNumber extends AppXYChart<String,Number> {
     @Override
     public XYChart.Series<String,Number> addSeries(int index) {
         XYChart.Series<String, Number> newSeries = new XYChart.Series<>();
-        ((XYChart<String, Number>) getStyleableNode()).getData().add(index, newSeries);
+        ((XYChart<String, Number>) styleableNode).getData().add(index, newSeries);
         SeriesLineStyleProperty seriesLineStyle = new SeriesLineStyleProperty();
         CSSProperty seriesAreaStyle = new CSSProperty("-fx-fill", "-fx-stroke", "-fx-stroke-width");
         newSeries.getNode().lookup(".chart-series-area-fill").styleProperty().bind(seriesAreaStyle);
@@ -78,7 +78,7 @@ public  class AppAreaChart_StringNumber extends AppXYChart<String,Number> {
 
     @Override
     public void removeSeries(int index) {
-        ((XYChart<String,Number>) getStyleableNode()).getData().remove(index);
+        ((XYChart<String,Number>) styleableNode).getData().remove(index);
         seriesAreaStyles.remove(index);
         seriesLineStyles.remove(index);
         seriesMarkersStyles.remove(index);
@@ -96,8 +96,8 @@ public  class AppAreaChart_StringNumber extends AppXYChart<String,Number> {
         plotAreaTransform.prepend(new Scale(1, -1, plotAreaBounds.get().getCenterX(), plotAreaBounds.get().getCenterY()));
         plotAreaTransform.prepend(affineTransform);
         StringBuilder dataString = new StringBuilder();
-        for (XYChart.Series<?, ?> series : ((XYChart<?, ?>) getStyleableNode()).getData()) {
-            int seriesIndex = ((XYChart<?, ?>) getStyleableNode()).getData().indexOf(series);
+        for (XYChart.Series<?, ?> series : ((XYChart<?, ?>) styleableNode).getData()) {
+            int seriesIndex = ((XYChart<?, ?>) styleableNode).getData().indexOf(series);
             dataString.append("\n\t\\addplot[");
 //            dataString.append(TeXConversion.colorAsFill(seriesAreaStyles.get(seriesIndex).fill.get(),2)).append(",");
             dataString.append(TeXConversion.colorAsStroke(seriesLineStyles.get(seriesIndex).color.get(), 2)).append(",");

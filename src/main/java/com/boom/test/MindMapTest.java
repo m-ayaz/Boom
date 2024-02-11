@@ -105,7 +105,7 @@ public class MindMapTest extends Application {
 //
 ////        AppMouseEventHandler1 appMouseEventHandler1 =new AppMouseEventHandler1(appRectangle,appEllipse,appLineChart_numberNumber,h,container.getChildren());
 //
-//        container.getChildren().addAll(appRectangle.getStyleableNode(),appEllipse.getStyleableNode(),appLineChart_numberNumber.getStyleableNode());
+//        container.getChildren().addAll(appRectangle.styleableNode,appEllipse.styleableNode,appLineChart_numberNumber.styleableNode);
 //
 ////        EventHandler<MouseEvent> eventHandler= mouseEvent -> {
 ////            mousePositionX=mouseEvent.getX();

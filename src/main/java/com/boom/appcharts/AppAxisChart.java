@@ -1,12 +1,15 @@
 package com.boom.appcharts;
 
 
+import com.boom.appshapes.AppPolygon;
+import com.boom.appshapes.AppPolyline;
 import com.boom.test.AppDataComparator;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ListChangeListener;
+import javafx.scene.Group;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -32,55 +35,49 @@ import static com.boom.tools.Tools.uuid;
  * }
  */
 
-public class AppAxisChart extends GridPane {
+public class AppAxisChart extends App2DChart {
 
-    public final SimpleDoubleProperty appLegendRelativeX = new SimpleDoubleProperty(1);
-    public final SimpleDoubleProperty appLegendRelativeY = new SimpleDoubleProperty(1);
-    public final SimpleDoubleProperty width = new SimpleDoubleProperty();
-    public final SimpleDoubleProperty height = new SimpleDoubleProperty();
     //todo: shape, fill, stroke and stroke width should change into AppNode and BackgroundStyle
     public final SimpleDoubleProperty leftPlotMargin = new SimpleDoubleProperty(0.05);
     public final SimpleDoubleProperty rightPlotMargin = new SimpleDoubleProperty(0.05);
-    public final SimpleIntegerProperty appLegendAnchorX = new SimpleIntegerProperty(0);
-    public final SimpleIntegerProperty appLegendAnchorY = new SimpleIntegerProperty(1);
     public final SimpleDoubleProperty topPlotMargin = new SimpleDoubleProperty(0.1);
     public final SimpleDoubleProperty bottomPlotMargin = new SimpleDoubleProperty(0.1);
-    public final AppLegendRegion legendRegion = new AppLegendRegion();
-    private final List<AppSeries> seriesList = new ArrayList<>();
     private final SimpleDoubleProperty globalMinX = new SimpleDoubleProperty();
     private final SimpleDoubleProperty globalMaxX = new SimpleDoubleProperty();
     private final SimpleDoubleProperty globalMinY = new SimpleDoubleProperty();
     private final SimpleDoubleProperty globalMaxY = new SimpleDoubleProperty();
-    private final Pane plotRegion = new Pane();
     private final AppXAxisRegion xAxisRegion = new AppXAxisRegion(width);
-    public final AppTitleRegion titleRegion = new AppTitleRegion(width);
     private final AppYAxisRegion yAxisRegion = new AppYAxisRegion(height);
     private final AppGridLines appGridLines = new AppGridLines(width, height, xAxisRegion.ticks, yAxisRegion.ticks);
     private final DoubleBinding minXVisualLocation = width.multiply(leftPlotMargin);
     private final DoubleBinding minYVisualLocation = height.multiply(bottomPlotMargin.multiply(-1).add(1));
     private final DoubleBinding maxXVisualLocation = width.multiply(rightPlotMargin.multiply(-1).add(1));
     private final DoubleBinding maxYVisualLocation = height.multiply(topPlotMargin);
-    AppDataComparator appDataComparator = new AppDataComparator();
     double xTickLabelsWidth = 30;
     double yTickLabelsHeight = 20;
+
+    public List<AppPolygon> seriesAreaList = new ArrayList<>();
+    public List<AppPolyline> seriesLineList = new ArrayList<>();
+    public List<Group> seriesRenderedMarkersList = new ArrayList<>();
 
 
 
     public AppAxisChart(double width, double height) {
+        super(width,height);
 
         this.width.set(width);
         this.height.set(height);
 
         initializeChartPreview();
 
-        bindPlotRegionSize();
+//        bindPlotRegionSize();
 
 
         bindYTicksVisuals();
 
         bindXTicksVisuals();
 
-        bindAppLegendLocation();
+//        bindAppLegendLocation();
 
 
         minXVisualLocation.addListener((a, b, c) -> updateAllSeriesPreviewsAtChart());
@@ -118,10 +115,11 @@ public class AppAxisChart extends GridPane {
 
     }
 
-    public void addSeries(AppSeries appSeries) {
-        addSeries(seriesList.size(), appSeries);
-    }
+//    public void addSeries(AppSeries appSeries) {
+//        addSeries(seriesList.size(), appSeries);
+//    }
 
+    @Override
     public void addSeries(int seriesIndex, AppSeries appSeries) {
         seriesList.add(seriesIndex, appSeries);
         appSeries.dataList.addListener((ListChangeListener<double[]>) change -> updateSeriesPreviewAtChart(appSeries));
@@ -129,26 +127,26 @@ public class AppAxisChart extends GridPane {
         appSeries.maxX.addListener((a, b, c) -> globalMaxX.set(seriesList.stream().mapToDouble(appSeries1 -> appSeries1.maxX.get()).max().orElse(Double.NEGATIVE_INFINITY)));
         appSeries.minY.addListener((a, b, c) -> globalMinY.set(seriesList.stream().mapToDouble(appSeries1 -> appSeries1.minY.get()).min().orElse(Double.POSITIVE_INFINITY)));
         appSeries.maxY.addListener((a, b, c) -> globalMaxY.set(seriesList.stream().mapToDouble(appSeries1 -> appSeries1.maxY.get()).max().orElse(Double.NEGATIVE_INFINITY)));
-        plotRegion.getChildren().add(3 * seriesIndex, appSeries.plotArea.getStyleableNode());
-        plotRegion.getChildren().add(3 * seriesIndex + 1, appSeries.plotLine.getStyleableNode());
+        plotRegion.getChildren().add(3 * seriesIndex, appSeries.plotArea.styleableNode);
+        plotRegion.getChildren().add(3 * seriesIndex + 1, appSeries.plotLine.styleableNode);
         plotRegion.getChildren().add(3 * seriesIndex + 2, appSeries.renderedMarkers);
         legendRegion.addSeries(seriesIndex, appSeries.getVisualLegend(), appSeries.title);
     }
 
-    public StringProperty getAppLegendStyleProperty() {
-        return legendRegion.styleProperty();
-    }
-
-    public SimpleDoubleProperty getAppLegendTitleVisualMarginProperty() {
-        return legendRegion.titleVisualMargin;
-    }
-
-    public void removeAllSeries() {
-        while (seriesList.size() != 0) {
-            removeSeries(0);
-        }
-    }
-
+//    public StringProperty getAppLegendStyleProperty() {
+//        return legendRegion.styleProperty();
+//    }
+//
+//    public SimpleDoubleProperty getAppLegendTitleVisualMarginProperty() {
+//        return legendRegion.titleVisualMargin;
+//    }
+//
+//    public void removeAllSeries() {
+//        while (seriesList.size() != 0) {
+//            removeSeries(0);
+//        }
+//    }
+@Override
     public void removeSeries(int seriesIndex) {
         seriesList.remove(seriesIndex);
         plotRegion.getChildren().remove(3 * seriesIndex + 2);
@@ -157,11 +155,12 @@ public class AppAxisChart extends GridPane {
         legendRegion.removeSeries(seriesIndex);
     }
 
-    public void updateAllSeriesPreviewsAtChart() {
-        seriesList.forEach(this::updateSeriesPreviewAtChart);
-    }
+//    public void updateAllSeriesPreviewsAtChart() {
+//        seriesList.forEach(this::updateSeriesPreviewAtChart);
+//    }
 
-    public void updateSeriesPreviewAtChart(AppSeries appSeries) {
+    @Override
+    protected void updateSeriesPreviewAtChart(AppSeries appSeries) {
 
         List<double[]> dataListCopy = appSeries.dataList.stream().map(doubles -> new double[]{doubles[0], doubles[1]}).sorted(appDataComparator).toList();
 
@@ -188,24 +187,24 @@ public class AppAxisChart extends GridPane {
 
     }
 
-    private void bindAppLegendLocation() {
-        legendRegion.translateXProperty().bind(appLegendRelativeX.multiply(width).subtract(legendRegion.widthProperty().multiply(appLegendAnchorX)));
-        legendRegion.translateYProperty().bind(appLegendRelativeY.multiply(-1).add(1).multiply(width).subtract(legendRegion.heightProperty().multiply(appLegendAnchorY.multiply(-1).add(1))));
-    }
+//    private void bindAppLegendLocation() {
+//        legendRegion.translateXProperty().bind(appLegendRelativeX.multiply(width).subtract(legendRegion.widthProperty().multiply(appLegendAnchorX)));
+//        legendRegion.translateYProperty().bind(appLegendRelativeY.multiply(-1).add(1).multiply(width).subtract(legendRegion.heightProperty().multiply(appLegendAnchorY.multiply(-1).add(1))));
+//    }
 
-    /**
-     * Binds plot region width and height to plotRegionWidth and plotRegionHeight. When plot region
-     * width and height change, the location of all series data are updated.
-     */
-    private void bindPlotRegionSize() {
-        plotRegion.minHeightProperty().bindBidirectional(height);
-        plotRegion.maxHeightProperty().bindBidirectional(height);
-        plotRegion.prefHeightProperty().bindBidirectional(height);
-        plotRegion.prefWidthProperty().bindBidirectional(width);
-        plotRegion.minWidthProperty().bindBidirectional(width);
-        plotRegion.maxWidthProperty().bindBidirectional(width);
-
-    }
+//    /**
+//     * Binds plot region width and height to plotRegionWidth and plotRegionHeight. When plot region
+//     * width and height change, the location of all series data are updated.
+//     */
+//    private void bindPlotRegionSize() {
+//        plotRegion.minHeightProperty().bindBidirectional(height);
+//        plotRegion.maxHeightProperty().bindBidirectional(height);
+//        plotRegion.prefHeightProperty().bindBidirectional(height);
+//        plotRegion.prefWidthProperty().bindBidirectional(width);
+//        plotRegion.minWidthProperty().bindBidirectional(width);
+//        plotRegion.maxWidthProperty().bindBidirectional(width);
+//
+//    }
 
     private void bindXTicksVisuals() {
         leftPlotMargin.addListener((a, b, c) -> updateXTicks());
@@ -229,7 +228,8 @@ public class AppAxisChart extends GridPane {
      * 2- A new layer of grid lines region is added to the children of plotRegion.
      * 3- appLegend is added to the children of plotRegion (up to this step, appLegend always renders on top of all other plotRegion components).
      */
-    private void initializeChartPreview() {
+    @Override
+    protected void initializeChartPreview() {
 
 //        titleRegion.getChildren().add(tit);
 
@@ -259,55 +259,15 @@ public class AppAxisChart extends GridPane {
             return;
         }
 
+        double[] ticksInfo=getUpdatedTicks(globalMinX.get() , globalMaxX.get(), leftPlotMargin.get() * width.get(),(1 -  rightPlotMargin.get()) * width.get(),xTickLabelsWidth);
+
         if (globalMinX.get() == globalMaxX.get()) {
             double temp = globalMaxX.get();
             double temp1 = parseXOnScreen(temp);
             xAxisRegion.ticks.put(temp1, temp + "");
         } else {
-
-            int numberOfTicks = (int) Math.floor((1 - leftPlotMargin.get() - rightPlotMargin.get()) * width.get() / xTickLabelsWidth);
-
-            int l1, l2;
-
-            double tickMarginDistance = Double.MAX_VALUE;
-            int bestK = Integer.MAX_VALUE;
-            int bestP = Integer.MAX_VALUE;
-            int bestL1 = Integer.MAX_VALUE;
-            int bestL2 = Integer.MAX_VALUE;
-            int bestNumberOfTicks = -1;
-
-            double maxTick, minTick;
-            for (int k : new int[]{1, 2, 4, 5}) {
-                maxTick = globalMaxX.get();
-                minTick = globalMinX.get();
-
-                int pNess = (int) Math.ceil(Math.log10(1.0 * (numberOfTicks - 1) / k / (maxTick - minTick)));
-                for (int p = pNess; ; p--) {
-
-                    l1 = (int) Math.floor(minTick * k * Math.pow(10, p));
-                    l2 = (int) Math.ceil(maxTick * k * Math.pow(10, p));
-
-                    if (l2 - l1 == 1) {
-                        break;
-                    }
-                    if (l2 - l1 + 1 <= numberOfTicks && l2 - l1 + 1 > bestNumberOfTicks) {
-                        double v = 1.0 * (l2 - l1) / k / Math.pow(10, p);
-                        if (minTick - maxTick + v <= tickMarginDistance) {
-                            tickMarginDistance = minTick - maxTick + v;
-                            bestK = k;
-                            bestP = p;
-                            bestL1 = l1;
-                            bestL2 = l2;
-                            bestNumberOfTicks = l2 - l1 + 1;
-                        }
-                        break;
-                    }
-                }
-            }
-
-            for (int j = bestL1; j <= bestL2; j++) {
-                double temp = 1.0 * j / bestK / Math.pow(10, bestP);
-                //todo investigate this. xTicks are not rendered at correct position.
+            for (int j = (int) ticksInfo[0]; j <= ticksInfo[1]; j++) {
+                double temp = 1.0 * j / ticksInfo[2] / Math.pow(10, ticksInfo[3]);
                 double temp1 = parseXOnScreen(temp);
                 xAxisRegion.ticks.put(temp1, getScientificRepresentation(temp, 3));
             }
@@ -324,42 +284,53 @@ public class AppAxisChart extends GridPane {
             return;
         }
 
+        double[] ticksInfo=getUpdatedTicks(globalMinY.get() , globalMaxY.get(), (1 -  bottomPlotMargin.get()) * height.get(),topPlotMargin.get() * height.get(),yTickLabelsHeight);
 
         if (globalMinY.get() == globalMaxY.get()) {
             double temp = globalMaxY.get();
             double temp1 = parseYOnScreen(temp);
             yAxisRegion.ticks.put(temp1, temp + "");
         } else {
+            for (int j = (int) ticksInfo[0]; j <= ticksInfo[1]; j++) {
+                double temp = 1.0 * j / ticksInfo[2] / Math.pow(10, ticksInfo[3]);
+                double temp1 = (temp - globalMinY.get()) / (globalMaxY.get() - globalMinY.get()) * height.get() * (topPlotMargin.get() + bottomPlotMargin.get() - 1) + height.get() * (1 - bottomPlotMargin.get());
+                yAxisRegion.ticks.put(temp1, getScientificRepresentation(temp, 3));
+            }
+        }
 
-            int numberOfTicks = (int) Math.floor((1 - topPlotMargin.get() - bottomPlotMargin.get()) * height.get() / yTickLabelsHeight);
+
+    }
+
+    private double[] getUpdatedTicks(double minD,double maxD,double minDVisualLocation,double maxDVisualLocation,double ticksVisualMargin){
+        if (minD==maxD) {
+            return new double[]{0,0,maxD,0};
+        } else {
+
+            int numberOfTicks = (int) Math.floor(Math.abs(maxDVisualLocation-minDVisualLocation)  / ticksVisualMargin);
 
             int l1, l2;
 
             double tickMarginDistance = Double.MAX_VALUE;
-            int bestK = Integer.MAX_VALUE;
-            int bestP = Integer.MAX_VALUE;
-            int bestL1 = Integer.MAX_VALUE;
-            int bestL2 = Integer.MAX_VALUE;
+            double bestK = Double.MAX_VALUE;
+            double bestP = Double.MAX_VALUE;
+            double bestL1 = Double.MAX_VALUE;
+            double bestL2 = Double.MAX_VALUE;
             int bestNumberOfTicks = -1;
 
-            double maxTick, minTick;
             for (int k : new int[]{1, 2, 4, 5}) {
 
-                maxTick = globalMaxY.get();
-                minTick = globalMinY.get();
-
-                int pNess = (int) Math.ceil(Math.log10(1.0 * (numberOfTicks - 1) / k / (maxTick - minTick)));
+                int pNess = (int) Math.ceil(Math.log10(1.0 * (numberOfTicks - 1) / k / (maxD - minD)));
                 for (int p = pNess; ; p--) {
 
-                    l1 = (int) Math.floor(minTick * k * Math.pow(10, p));
-                    l2 = (int) Math.ceil(maxTick * k * Math.pow(10, p));
+                    l1 = (int) Math.floor(minD * k * Math.pow(10, p));
+                    l2 = (int) Math.ceil(maxD * k * Math.pow(10, p));
                     if (l2 - l1 == 1) {
                         break;
                     }
                     if (l2 - l1 + 1 <= numberOfTicks && l2 - l1 + 1 > bestNumberOfTicks) {
                         double v = 1.0 * (l2 - l1) / k / Math.pow(10, p);
-                        if (minTick - maxTick + v <= tickMarginDistance) {
-                            tickMarginDistance = minTick - maxTick + v;
+                        if (minD - maxD + v <= tickMarginDistance) {
+                            tickMarginDistance = minD - maxD + v;
                             bestK = k;
                             bestP = p;
                             bestL1 = l1;
@@ -371,19 +342,23 @@ public class AppAxisChart extends GridPane {
                 }
             }
 
-            for (int j = bestL1; j <= bestL2; j++) {
-                double temp = 1.0 * j / bestK / Math.pow(10, bestP);
-                double temp1 = (temp - globalMinY.get()) / (globalMaxY.get() - globalMinY.get()) * height.get() * (topPlotMargin.get() + bottomPlotMargin.get() - 1) + height.get() * (1 - bottomPlotMargin.get());
-                yAxisRegion.ticks.put(temp1, getScientificRepresentation(temp, 3));
-            }
+            return new double[]{bestL1,bestL2,bestK,bestP};
+
         }
-
-
-    }
-
-    private int[] updateTicks(){
-        return new int[]{};
     }
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

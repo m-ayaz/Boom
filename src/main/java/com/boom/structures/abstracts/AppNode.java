@@ -9,6 +9,7 @@ import com.boom.structures.interfaces.JSONSerializable;
 import com.boom.structures.interfaces.SVGSerializable;
 import com.boom.structures.interfaces.TeXSerializable;
 import com.boom.styles.CSSProperty;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -24,11 +25,12 @@ import static com.boom.tools.Tools.*;
 public abstract class AppNode implements JSONSerializable, SVGSerializable , TeXSerializable {
 
     public final String id = uuid(ID_LENGTH);
-    public Affine affineTransform = new Affine();
+    public final Affine affineTransform = new Affine();
     public CSSProperty backgroundStyle;
     public Rectangle border = new Rectangle();
-    protected Node styleableNode;
+    public Node styleableNode;
     protected String type;
+    public Bounds bounds;
     protected int configStep = 0;
 
 
@@ -43,6 +45,8 @@ public abstract class AppNode implements JSONSerializable, SVGSerializable , TeX
 
         styleableNode.getTransforms().add(affineTransform);
         styleableNode.styleProperty().bind(backgroundStyle);
+
+        bounds=styleableNode.getBoundsInParent();
 
 //        LineChart l;
 //        l.getXAxis().set;
@@ -84,9 +88,9 @@ public abstract class AppNode implements JSONSerializable, SVGSerializable , TeX
 
     public abstract void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY);
 
-    public Node getStyleableNode() {
-        return styleableNode;
-    }
+//    public Node styleableNode {
+//        return styleableNode;
+//    }
 
     public String getType() {
         return type;

@@ -69,8 +69,8 @@ public class AppLegendRegion extends GridPane implements JSONSerializable, SVGSe
         newEmptySpace.widthProperty().bindBidirectional(titleVisualMargin);
         appSeriesVisualLegends.add(seriesIndex,appSeriesVisualLegend);
         appSeriesTitles.add(seriesIndex,appSeriesTitle);
-        container.addRow(seriesIndex, appSeriesVisualLegend.get().getStyleableNode(), newEmptySpace, appSeriesTitle);
-        appSeriesVisualLegend.addListener((a,b,c)-> container.getChildren().set(3*seriesIndex, c.getStyleableNode()));
+        container.addRow(seriesIndex, appSeriesVisualLegend.get().styleableNode, newEmptySpace, appSeriesTitle);
+        appSeriesVisualLegend.addListener((a,b,c)-> container.getChildren().set(3*seriesIndex, c.styleableNode));
     }
 
     public void removeSeries(int seriesIndex) {

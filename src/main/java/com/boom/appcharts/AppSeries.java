@@ -3,23 +3,16 @@ package com.boom.appcharts;
 import com.boom.appshapes.AppPolygon;
 import com.boom.appshapes.AppPolyline;
 import com.boom.structures.abstracts.AppNode;
-import com.boom.styles.CSSProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.shape.Rectangle;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.boom.tools.Tools.print;
-import static com.boom.tools.Tools.uuid;
 
 public class AppSeries {
 
@@ -42,23 +35,12 @@ public class AppSeries {
 
         markerShape.addListener((a, b, c) -> {
             buildVisualLegend();
-//            updateRenderedMarkers();
-//            print(uuid(50));
-//            updateRenderedMarkers();
             renderedMarkers.getChildren().replaceAll(node -> {
                 AppNode newRenderedMarkerShape = markerShape.get().copy();
-//                print(node.getTranslateX()+" , "+node.getTranslateY());
                 newRenderedMarkerShape.affineTransform.prependTranslation(node.getTranslateX(), node.getTranslateY());
-                return newRenderedMarkerShape.getStyleableNode();
+                return newRenderedMarkerShape.styleableNode;
             });
         });
-
-//        markerShape.addListener((a, b, c) -> renderedMarkers.getChildren().replaceAll(node -> {
-//            Node newRenderedMarkerShape = markerShape.get().copy().getStyleableNode();
-//            newRenderedMarkerShape.setTranslateX(node.getTranslateX());
-//            newRenderedMarkerShape.setTranslateY(node.getTranslateY());
-//            return newRenderedMarkerShape;
-//        }));
 
         plotArea.backgroundStyle.setStrokeWidth(0);
         plotLine.backgroundStyle.setStrokeWidth(1);
@@ -80,7 +62,7 @@ public class AppSeries {
     public void addData(int dataIndex, double x, double y) {
         AppNode newMarkerShape=markerShape.get().copy();
         newMarkerShape.backgroundStyle.bindBidirectional(markerShape.get().backgroundStyle);
-        renderedMarkers.getChildren().add(dataIndex, newMarkerShape.getStyleableNode());
+        renderedMarkers.getChildren().add(dataIndex, newMarkerShape.styleableNode);
         dataList.add(dataIndex, new double[]{x, y});
     }
 
@@ -89,7 +71,7 @@ public class AppSeries {
     }
 
     public void addManyData(int dataIndex, List<double[]> newAppDataList) {
-        newAppDataList.forEach(doubles -> renderedMarkers.getChildren().add(dataIndex + newAppDataList.indexOf(doubles), markerShape.get().copy().getStyleableNode()));
+        newAppDataList.forEach(doubles -> renderedMarkers.getChildren().add(dataIndex + newAppDataList.indexOf(doubles), markerShape.get().copy().styleableNode));
         dataList.addAll(dataIndex, newAppDataList);
     }
 
@@ -105,11 +87,6 @@ public class AppSeries {
 
     public void setMarkerShape(AppNode markerShape) {
         this.markerShape.set(markerShape);
-//        markerShape.backgroundStyle.bindBidirectional(markerShape.backgroundStyle);
-//        markerShape.backgroundStyle.addListener((a, b, c) -> {
-//            buildVisualLegend();
-//            updateRenderedMarkers();
-//        });
     }
 
     private void updateMaxX() {
@@ -132,11 +109,4 @@ public class AppSeries {
         visualLegend.set(markerShape.get());
     }
 
-//    private void updateRenderedMarkers() {
-//        renderedMarkers.getChildren().replaceAll(node -> {
-//            AppNode newRenderedMarkerShape = markerShape.get().copy();
-//            newRenderedMarkerShape.affineTransform.prependTranslation(node.getTranslateX(), node.getTranslateY());
-//            return newRenderedMarkerShape.getStyleableNode();
-//        });
-//    }
 }

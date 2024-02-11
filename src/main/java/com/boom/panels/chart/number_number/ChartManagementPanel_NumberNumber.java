@@ -44,7 +44,7 @@ public  class ChartManagementPanel_NumberNumber extends VBox {
 
         addSeriesButton.setOnAction(event -> {
             XYChart.Series<Number, Number> newSeries = appXYChart.addSeries();
-            int seriesIndex = ((XYChart<Number,Number>) appXYChart.getStyleableNode()).getData().indexOf(newSeries);
+            int seriesIndex = ((XYChart<Number,Number>) appXYChart.styleableNode).getData().indexOf(newSeries);
             Tab newTab = new Tab();
             SeriesManagementPanel_NumberNumber newDataPane;
             if (appXYChart.getType().equals(AppNodeTypeEnum.AreaChart_NN.getNodeType())) {
@@ -68,7 +68,7 @@ public  class ChartManagementPanel_NumberNumber extends VBox {
         removeSeriesButton.setOnAction(event -> {
             Tab tab = seriesList.getSelectionModel().getSelectedItem();
             if (tab != null) {
-                appXYChart.removeSeries(((XYChart<Number, Number>) appXYChart.getStyleableNode()).getData().indexOf(((SeriesManagementPanel_NumberNumber) ((ScrollPane) tab.getContent()).getContent()).series));
+                appXYChart.removeSeries(((XYChart<Number, Number>) appXYChart.styleableNode).getData().indexOf(((SeriesManagementPanel_NumberNumber) ((ScrollPane) tab.getContent()).getContent()).series));
                 seriesList.getTabs().remove(tab);
                 renameTabs();
             }
@@ -83,8 +83,8 @@ public  class ChartManagementPanel_NumberNumber extends VBox {
 //        print(appXYChart.getType().equals(NodeTypeEnum.LineChart_NN.getNodeType()));
         this.appXYChart = appXYChart;
         seriesList.getTabs().clear();
-        for (int i = 0; i < ((XYChart<Number, Number>) appXYChart.getStyleableNode()).getData().size(); i++) {
-            XYChart.Series<Number, Number> series = ((XYChart<Number, Number>) appXYChart.getStyleableNode()).getData().get(i);
+        for (int i = 0; i < ((XYChart<Number, Number>) appXYChart.styleableNode).getData().size(); i++) {
+            XYChart.Series<Number, Number> series = ((XYChart<Number, Number>) appXYChart.styleableNode).getData().get(i);
             Tab tab = new Tab();
             SeriesManagementPanel_NumberNumber dataPane;
             if (appXYChart.getType().equals(AppNodeTypeEnum.AreaChart_NN.getNodeType())||

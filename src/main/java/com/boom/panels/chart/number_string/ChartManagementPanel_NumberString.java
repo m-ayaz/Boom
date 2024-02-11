@@ -43,7 +43,7 @@ public  class ChartManagementPanel_NumberString extends VBox {
 
         addSeriesButton.setOnAction(event -> {
             XYChart.Series<Number, String> newSeries = appXYChart.addSeries();
-            int seriesIndex = ((XYChart<Number, String>) appXYChart.getStyleableNode()).getData().indexOf(newSeries);
+            int seriesIndex = ((XYChart<Number, String>) appXYChart.styleableNode).getData().indexOf(newSeries);
             Tab newTab = new Tab();
             SeriesManagementPanel_NumberString newDataPane;
             if (appXYChart.getType().equals(AppNodeTypeEnum.AreaChart_NS.getNodeType())) {
@@ -67,7 +67,7 @@ public  class ChartManagementPanel_NumberString extends VBox {
         removeSeriesButton.setOnAction(event -> {
             Tab tab = seriesList.getSelectionModel().getSelectedItem();
             if (tab != null) {
-                appXYChart.removeSeries(((XYChart<Number, String>) appXYChart.getStyleableNode()).getData().indexOf(((SeriesManagementPanel_NumberString) ((ScrollPane) tab.getContent()).getContent()).series));
+                appXYChart.removeSeries(((XYChart<Number, String>) appXYChart.styleableNode).getData().indexOf(((SeriesManagementPanel_NumberString) ((ScrollPane) tab.getContent()).getContent()).series));
                 seriesList.getTabs().remove(tab);
                 renameTabs();
             }
@@ -78,15 +78,15 @@ public  class ChartManagementPanel_NumberString extends VBox {
     public void registerChart(AppXYChart<Number, String> appXYChart) {
         this.appXYChart = appXYChart;
         seriesList.getTabs().clear();
-        for (int i = 0; i < ((XYChart<Number, String>) appXYChart.getStyleableNode()).getData().size(); i++) {
-            XYChart.Series<Number, String> series = ((XYChart<Number, String>) appXYChart.getStyleableNode()).getData().get(i);
+        for (int i = 0; i < ((XYChart<Number, String>) appXYChart.styleableNode).getData().size(); i++) {
+            XYChart.Series<Number, String> series = ((XYChart<Number, String>) appXYChart.styleableNode).getData().get(i);
             Tab tab = new Tab();
             SeriesManagementPanel_NumberString dataPane;
-            if (appXYChart.getStyleableNode().getClass().getName().equals(AreaChart.class.getName())) {
+            if (appXYChart.styleableNode.getClass().getName().equals(AreaChart.class.getName())) {
                 dataPane = new SeriesManagementPanel_NumberString(appXYChart, series, appXYChart.getSeriesLineStyles().get(i), appXYChart.getSeriesAreaStyles().get(i));
-            } else if (appXYChart.getStyleableNode().getClass().getName().equals(LineChart.class.getName())) {
+            } else if (appXYChart.styleableNode.getClass().getName().equals(LineChart.class.getName())) {
                 dataPane = new SeriesManagementPanel_NumberString(appXYChart, series, appXYChart.getSeriesLineStyles().get(i), null);
-            } else if (appXYChart.getStyleableNode().getClass().getName().equals(ScatterChart.class.getName())) {
+            } else if (appXYChart.styleableNode.getClass().getName().equals(ScatterChart.class.getName())) {
                 dataPane = new SeriesManagementPanel_NumberString(appXYChart, series, null, null);
             } else {
                 throw new AppException(AppExceptionEnum.ChartTypeNotRegistered);
