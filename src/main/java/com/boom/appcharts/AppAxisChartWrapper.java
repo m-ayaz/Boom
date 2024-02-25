@@ -1,12 +1,15 @@
 package com.boom.appcharts;
 
 
+import com.boom.appcharts.baseclasses.AppAxisChart;
+import com.boom.apppaints.AppColor;
 import com.boom.controllers.MainCanvasItemsHandler;
 import com.boom.controllers.SelectedObjectsController;
 import com.boom.structures.abstracts.AppNode;
 import com.boom.styles.CSSProperty;
-import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
@@ -16,16 +19,21 @@ import static com.boom.tools.Tools.deepCopy;
 
 public class AppAxisChartWrapper extends AppNode {
 
-    public DoubleProperty width, height;
+    public SimpleDoubleProperty width, height;
 
-    public CSSProperty legendsContainerBackgroundStyle=new CSSProperty("-fx-background-color", "-fx-border-color", "-fx-border-width");
+    public CSSProperty legendsContainerBackgroundStyle = new CSSProperty("-fx-background-color", "-fx-border-color", "-fx-border-width");
 
     public AppAxisChartWrapper(double width, double height) {
         super(new AppAxisChart(width, height), "-fx-background-color", "-fx-border-color", "-fx-border-width");
         ((AppAxisChart) styleableNode).getAppLegendStyleProperty().bind(legendsContainerBackgroundStyle);
         this.width = ((AppAxisChart) styleableNode).width;
         this.height = ((AppAxisChart) styleableNode).height;
-        this.type = AppAxisChartWrapper.class.getName();
+        this.type = AppAxisChartWrapper.class.getSimpleName();
+
+        bindBorder(styleableNode);
+
+        backgroundStyle.addStroke(new AppColor(Color.BLACK));
+        backgroundStyle.setStrokeWidth(1);
     }
 
     @Override
@@ -44,15 +52,19 @@ public class AppAxisChartWrapper extends AppNode {
     @Override
     public AppAxisChartWrapper copy() {
 
-        if (width.get() == 0 || height.get() == 0)
+        if (width.get() == 0 || height.get() == 0) {
             return null;
+        }
+
+//        print("width = %f , height = %f".formatted(width.get(),height.get()));
+
         AppAxisChartWrapper newAppAxisChartWrapper = new AppAxisChartWrapper(width.get(), height.get());
         deepCopy(affineTransform, newAppAxisChartWrapper.affineTransform);
         deepCopy(backgroundStyle, newAppAxisChartWrapper.backgroundStyle);
-        deepCopy(legendsContainerBackgroundStyle,newAppAxisChartWrapper.legendsContainerBackgroundStyle);
+        deepCopy(legendsContainerBackgroundStyle, newAppAxisChartWrapper.legendsContainerBackgroundStyle);
 //        return newAppRectangle;
 
-        return null;
+        return newAppAxisChartWrapper;
     }
 
     @Override

@@ -14,7 +14,7 @@ public abstract  class AppLineShape extends AppNode {
 
     public AppLineShape(Shape shape) {
         super(shape, "-fx-fill", "-fx-stroke", "-fx-stroke-width");
-        this.type = shape.getClass().getName();
+        this.type = shape.getClass().getSimpleName();
 
         bindBorder(shape);
 

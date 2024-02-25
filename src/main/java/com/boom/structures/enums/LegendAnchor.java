@@ -19,8 +19,6 @@ public enum LegendAnchor {
     }
 
     private final int y;
-//    private final int id;
-
 
     LegendAnchor(int x,int y) {
         this.x=x;

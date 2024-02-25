@@ -2,12 +2,10 @@ package com.boom.test;
 
 import com.boom.appshapes.AppRectangle;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
@@ -34,7 +32,7 @@ public class Test78 extends Application {
         stage.setScene(scene);
         stage.show();
 
-        double a=80;
+        double a=100;
         AppRectangle appRectangle1=new AppRectangle(200,200,a,a);
         AppRectangle appRectangle2=new AppRectangle(200,200,a,a);
         AppRectangle appRectangle3=new AppRectangle(200,200,a,a);
@@ -43,13 +41,27 @@ public class Test78 extends Application {
 //        Pane pane=new Pane(),pane1=new Pane();
 //        pane.getChildren().add(appRectangle4.styleableNode);
 //        pane1.getChildren().add(pane);
+        BorderPane borderPane=new BorderPane();
+        borderPane.setCenter(appRectangle4.styleableNode);
 
 
 
         container.addRow(0,appRectangle1.styleableNode,appRectangle2.styleableNode);
-        container.addRow(1,appRectangle3.styleableNode,appRectangle4.styleableNode);
+        container.addRow(1,appRectangle3.styleableNode,borderPane);
+
+
+//        BorderPane
+
+
+//        container.setAlignment(Pos.CENTER);
+
+//        GridPane gridPane=new GridPane();
+//        container.s
 
 //        appRectangle4.affineTransform.prependRotation(45);
+
+//        appRectangle4.affineTransform.prependTranslation(-appRectangle4.border.getX(),-appRectangle4.border.getY());
+//        appRectangle4.styleableNode.setTranslateY(-appRectangle4.border.getY());
 
 //        Group group=new Group();
 //        group.getChildren().add(new Pane());

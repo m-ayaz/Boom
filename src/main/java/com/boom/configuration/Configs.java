@@ -40,7 +40,7 @@ public  final class Configs {
     public static double RGBA_COLOR_PICKER_BIT_LENGTH_TOP_MARGIN = 30;
     public static double SHAPE_BUTTON_ICON_HEIGHT = 40;
     public static double SHAPE_BUTTON_ICON_WIDTH = 50;
-    public static int ID_LENGTH = 100;
+    public static int ID_LENGTH = 25;
     public static int NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X = 20;
     public static int NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_Y = 4;
 

@@ -1,23 +1,17 @@
-package com.boom.appcharts;
+package com.boom.structures.abstracts;
 
 
+import com.boom.appcharts.baseclasses.AppLegendRegion;
+import com.boom.appcharts.baseclasses.AppSeries;
+import com.boom.appcharts.baseclasses.AppTitleRegion;
 import com.boom.test.AppDataComparator;
-import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.ListChangeListener;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.boom.tools.Tools.getScientificRepresentation;
-import static com.boom.tools.Tools.uuid;
 
 // todo: disallow addition of duplicate series or data
 
@@ -36,7 +30,7 @@ import static com.boom.tools.Tools.uuid;
  * 2- width and height
  */
 
-public abstract class App2DChart extends GridPane {
+public abstract class App2DChart extends Pane {
 
     public final SimpleDoubleProperty width = new SimpleDoubleProperty();
     public final SimpleDoubleProperty height = new SimpleDoubleProperty();
@@ -46,7 +40,6 @@ public abstract class App2DChart extends GridPane {
     public final SimpleIntegerProperty appLegendAnchorY = new SimpleIntegerProperty(1);
     public final AppLegendRegion legendRegion = new AppLegendRegion();
     protected final List<AppSeries> seriesList = new ArrayList<>();
-    protected final Pane plotRegion = new Pane();
     public final AppTitleRegion titleRegion = new AppTitleRegion(width);
     protected final AppDataComparator appDataComparator = new AppDataComparator();
 
@@ -101,12 +94,12 @@ public abstract class App2DChart extends GridPane {
      * width and height change, the location of all series data are updated.
      */
     private void bindPlotRegionSize() {
-        plotRegion.minHeightProperty().bindBidirectional(height);
-        plotRegion.maxHeightProperty().bindBidirectional(height);
-        plotRegion.prefHeightProperty().bindBidirectional(height);
-        plotRegion.prefWidthProperty().bindBidirectional(width);
-        plotRegion.minWidthProperty().bindBidirectional(width);
-        plotRegion.maxWidthProperty().bindBidirectional(width);
+        minHeightProperty().bind(height);
+        maxHeightProperty().bind(height);
+        prefHeightProperty().bind(height);
+        prefWidthProperty().bind(width);
+        minWidthProperty().bind(width);
+        maxWidthProperty().bind(width);
 
     }
 

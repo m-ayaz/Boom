@@ -1,7 +1,6 @@
-package com.boom.appcharts;
+package com.boom.appcharts.baseclasses;
 
 import com.boom.structures.abstracts.AppNode;
-import com.boom.structures.abstracts.AppPaint;
 import com.boom.structures.interfaces.JSONSerializable;
 import com.boom.structures.interfaces.SVGSerializable;
 import com.boom.structures.interfaces.TeXSerializable;
@@ -9,12 +8,13 @@ import com.boom.styles.CSSProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextBoundsType;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.MatrixType;
 import javafx.scene.transform.Translate;
@@ -38,20 +38,24 @@ public class AppLegendRegion extends GridPane implements JSONSerializable, SVGSe
     public final SimpleDoubleProperty leftMargin = new SimpleDoubleProperty(0.25);
     public final SimpleDoubleProperty rightMargin = new SimpleDoubleProperty(0.25);
     public final SimpleDoubleProperty titleVisualMargin = new SimpleDoubleProperty(0);
+//    public final SimpleDoubleProperty legendsMargin = new SimpleDoubleProperty(0);
     public final SimpleDoubleProperty fontSize = new SimpleDoubleProperty(10);
     public final SimpleObjectProperty<Font> font = new SimpleObjectProperty<>(Font.getDefault());
     public final String id = uuid(ID_LENGTH);
-    private final GridPane container = new GridPane();
+    public final GridPane container = new GridPane();
     //    public final CSSProperty backgroundStyle=new CSSProperty();
     public Affine affineTransform = new Affine();
     public CSSProperty backgroundStyle = new CSSProperty("-fx-background-color", "-fx-border-color", "-fx-border-width");
     protected Translate offset = new Translate(0, 0);
-    Rectangle nw = new Rectangle();
-    Rectangle se = new Rectangle();
+    public Rectangle nw = new Rectangle();
+    public Rectangle se = new Rectangle();
 
     public AppLegendRegion() {
 
-        setAlignment(Pos.CENTER);
+//        setAlignment(Pos.CENTER);
+
+        styleProperty().bindBidirectional(backgroundStyle);
+        getTransforms().add(affineTransform);
 
         initializeVisuals();
 
@@ -61,14 +65,16 @@ public class AppLegendRegion extends GridPane implements JSONSerializable, SVGSe
 //
 //    }
 
-    private final List<SimpleObjectProperty<AppNode>> appSeriesVisualLegends=new ArrayList<>();
-    private final List<Label> appSeriesTitles=new ArrayList<>();
+    public final List<SimpleObjectProperty<AppNode>> appSeriesVisualLegends=new ArrayList<>();
+    public final List<Text> appSeriesTitles=new ArrayList<>();
 
-    public void addSeries(int seriesIndex, SimpleObjectProperty<AppNode> appSeriesVisualLegend, Label appSeriesTitle) {
+    public void addSeries(int seriesIndex, SimpleObjectProperty<AppNode> appSeriesVisualLegend, Text appSeriesTitle) {
         Rectangle newEmptySpace = new Rectangle();
         newEmptySpace.widthProperty().bindBidirectional(titleVisualMargin);
+//        print("vis = "+appSeriesVisualLegend.get());
         appSeriesVisualLegends.add(seriesIndex,appSeriesVisualLegend);
         appSeriesTitles.add(seriesIndex,appSeriesTitle);
+        print("al;sla;sla;sl;als;als;als;as");
         container.addRow(seriesIndex, appSeriesVisualLegend.get().styleableNode, newEmptySpace, appSeriesTitle);
         appSeriesVisualLegend.addListener((a,b,c)-> container.getChildren().set(3*seriesIndex, c.styleableNode));
     }
@@ -103,33 +109,89 @@ public class AppLegendRegion extends GridPane implements JSONSerializable, SVGSe
     @Override
     public String toSVG(int tabIndent) {
 
-//        GridPane gridPane=new GridPane();
-//        gridPane.get
-//        RowConstraints rowConstraints=new RowConstraints();
-//        Colum
-//        rowConstraints.set
-//        gridPane.getRowConstraints().add(new RowConstraints());
-        return null;
-//        double[] dissectedTransform = dissectAffineTransform(affineTransform);
-//        StringBuilder stringBuilder = new StringBuilder();
-//        for (AppPaint appPaint : backgroundStyle.getFillArray()) {
-//            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<rect x=\"0\" y=\"0\" rx=\"0\" ry=\"0\" width=\"%f\" height=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth(),getHeight(), appPaint.id, affineTransform.getTx() + offset.getX(), affineTransform.getTy() + offset.getY(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+        StringBuilder stringBuilder = new StringBuilder();
+
+        List<AppNode> appSeriesVisualLegendsCopy = new ArrayList<>();
+        appSeriesVisualLegends.forEach(appSeriesVisualLegend -> {
+            AppNode appNodeCopy = appSeriesVisualLegend.get().copy();
+            appNodeCopy.backgroundStyle = appSeriesVisualLegend.get().backgroundStyle;
+            appSeriesVisualLegendsCopy.add(appNodeCopy);
+        });
+
+        print("<!-- Marker Bounds -->");
+
+        for (int i = 0; i < appSeriesVisualLegendsCopy.size(); i++) {
+            AppNode appNode = appSeriesVisualLegends.get(i).get();
+            AppNode appNodeCopy = appSeriesVisualLegendsCopy.get(i);
+            appNodeCopy.affineTransform.prependTranslation(
+                    nw.getWidth() + appNode.styleableNode.getBoundsInParent().getMinX(),
+                    nw.getHeight() + appNode.styleableNode.getBoundsInParent().getMinY()
+            );
+            appNodeCopy.affineTransform.prepend(affineTransform);
+            stringBuilder.append(appNodeCopy.toSVG(tabIndent));
+
+            print("<!-- "+appNodeCopy.styleableNode.getBoundsInParent()+" -->");
+
+        }
+
+//        print("");
+        print("<!-- Text Bounds -->");
+
+        for (int i = 0; i < appSeriesTitles.size(); i++) {
+            Text text = appSeriesTitles.get(i);
+            Text textCopy = new Text(appSeriesTitles.get(i).getText());
+            Affine affine = new Affine();
+            textCopy.getTransforms().add(affine);
+            affine.prepend(affineTransform);
+
+
+
+//            Rectangle rectangle=new Rectangle(
+//                    text.getBoundsInParent().getMinX(),
+//                    text.getBoundsInParent().getMinY(),
+//                    text.getBoundsInParent().getWidth(),
+//                    text.getBoundsInParent().getHeight()
+//            );
+//
+//            getChildren().add(rectangle);
+//            rectangle.setFill(new Color(1,1,0,0.3));
+
+//            text.setFont(Font.font(30));
+
+//            text.setBoundsType(TextBoundsType.LOGICAL_VERTICAL_CENTER);
+
+
+//            AppNode appNode=appSeriesVisualLegends.get(i).get();
+//            AppNode appNodeCopy=appSeriesVisualLegendsCopy.get(i);
+            affine.prependTranslation(
+                    nw.getWidth() + text.getBoundsInParent().getMinX(),
+                    nw.getHeight() + text.getBoundsInParent().getMinY()
+            );
+
+            print("<!-- "+text.getBoundsInParent()+" -->");
+
+//            print(text.getBoundsInParent());
+//            print();
+
+
+//            print(affine);
+
+            double[] dissectedTransform = dissectAffineTransform(affine);
+//        print("Hey there");
+//        print(affineTransform);
+//        for (double v : dissectedTransform) {
+//            print(v);
 //        }
-//        for (AppPaint appPaint : backgroundStyle.getStrokeArray()) {
-//            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<rect x=\"0\" y=\"0\" rx=\"0\" ry=\"0\" width=\"%f\" height=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth(),getHeight(), appPaint.id, backgroundStyle.getStrokeWidth(), affineTransform.getTx() + offset.getX(), affineTransform.getTy() + offset.getY(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
-//        }
-//        double cursorX=nw.getWidth();
-//        double cursorY=nw.getHeight();
-////        print("as");
-//        for (int i = 0; i <appSeriesVisualLegends.size(); i++) {
-////            print(cursorY);
-////            print(container.getChildren().size());
-//            print(appSeriesVisualLegends.get(i).toSVG(0));
-////            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<rect x=\"0\" y=\"0\" rx=\"0\" ry=\"0\" width=\"%f\" height=\"%f\" fill=\"transparent\" stroke=\"url(#%s)\" stroke-width=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(getWidth(),getHeight(), appPaint.id, backgroundStyle.getStrokeWidth(), affineTransform.getTx() + offset.getX(), affineTransform.getTy() + offset.getY(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
-//            cursorY+=container.getChildren().get(i).getBoundsInParent().getHeight();
-//        }
-////        print("aslaslak = "+stringBuilder);
-//        return stringBuilder.toString();
+//            print("<text x=\"0\" y=\"0\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(  affine.getTx()+offset.getX()*0, affine.getTy()+0*offset.getY(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
+            stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<text x=\"0\" y=\"0\" font-size=\"%f\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\">%s</text>".formatted(text.getFont().getSize(),affine.getTx() + offset.getX() * 0, affine.getTy() + 0 * offset.getY(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3], textCopy.getText()));
+
+//            appNodeCopy.affineTransform.prepend(affineTransform);
+//            stringBuilder.append(la.toSVG(tabIndent));
+        }
+
+//            //todo: also register labels.
+
+        return stringBuilder.toString();
     }
 
     @Override

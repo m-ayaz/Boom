@@ -1,11 +1,10 @@
 package com.boom.test;
 
-import com.boom.appcharts.AppAxisChart;
-import com.boom.appcharts.AppSeries;
+import com.boom.appcharts.baseclasses.AppAxisChart;
+import com.boom.appcharts.baseclasses.AppSeries;
 import com.boom.apppaints.AppColor;
 import com.boom.appshapes.AppEllipse;
 import com.boom.appshapes.AppRectangle;
-import com.boom.structures.abstracts.AppNode;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -39,11 +38,14 @@ public class AppAxisChartTest extends Application {
         container.getChildren().add(appAxisChart);
 
 
-        double a = 7, b = 14;
+        double a = 14, b = 14;
         AppEllipse marker1 = new AppEllipse(a, b);
         AppEllipse marker2 = new AppEllipse(b, a);
         marker1.backgroundStyle.addFill(new AppColor(Color.ORANGE));
         marker2.backgroundStyle.addFill(new AppColor(Color.PINK));
+
+//        marker1.affineTransform.prependTranslation(a,b);
+//        marker2.affineTransform.prependTranslation(a,b);
 
 
         for(int hhh=1;hhh<2;hhh++) {
@@ -64,19 +66,28 @@ public class AppAxisChartTest extends Application {
             appSeries2.setMarkerShape(marker2);
 
             appAxisChart.addSeries(appSeries1);
-            appAxisChart.addSeries(appSeries2);
+//            appAxisChart.addSeries(appSeries2);
 
-            for (int i = 0; i < 11; i++) {
+//            print(appSeries2.minX+" , "+appSeries2.maxX);
+
+            for (int i = 0; i < 1; i++) {
+                print("___________");
                 appSeries1.addData(Math.random()*0+i,Math.random());
-                appSeries2.addData(Math.random()*0+i,Math.random());
-
-//                appSeries1.addData(i,i);
-//                appSeries2.addData(i,i);
-
-
-//                appSeries1.addData(i,i);
-//                appSeries2.addData(Math.random(), Math.random() * 30);
+//                appSeries2.addData(Math.random()*0+i,Math.random());
             }
+
+            print("__________________________________________________________");
+
+            for (int i = 0; i < 1; i++) {
+                print("___________");
+                appSeries1.removeData(0);
+//                appSeries1.addData(Math.random()*0+i,Math.random());
+//                appSeries2.addData(Math.random()*0+i,Math.random());
+            }
+
+//            appSeries
+
+
 
             print(marker1.backgroundStyle);
 
@@ -110,11 +121,22 @@ public class AppAxisChartTest extends Application {
 //                marker1.backgroundStyle.setFill(1,new AppColor(new Color(Math.random(),Math.random(),Math.random(),1)));
 
 //                print(marker1.backgroundStyle);
-                AppNode appNode=new AppRectangle(20,20,0,0);
+
+                AppRectangle appNode=new AppRectangle(28,28,0,0);
                 appNode.backgroundStyle.addFill(new AppColor(new Color(Math.random(),Math.random(),Math.random(),1)));
-                appNode.affineTransform.prependTranslation(-10,-10);
+                appNode.affineTransform.prependTranslation(-14,-14);
 
                 appSeries1.setMarkerShape(appNode);
+
+
+//                print(appAxisChart.appGridLines.getChildren());
+
+//                print(appAxisChart.appGridLines.toSVG(0));
+
+
+//                print(appAxisChart.xAxisRegion.getChildren());
+
+//                marker1.backgroundStyle.setFill(1,new AppColor(new Color(Math.random(),Math.random(),Math.random(),1)));
 
 
 

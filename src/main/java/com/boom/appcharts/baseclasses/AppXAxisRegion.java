@@ -1,4 +1,4 @@
-package com.boom.appcharts;
+package com.boom.appcharts.baseclasses;
 
 import com.boom.structures.interfaces.JSONSerializable;
 import com.boom.structures.interfaces.SVGSerializable;

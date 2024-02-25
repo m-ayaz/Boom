@@ -1,5 +1,6 @@
 package com.boom.structures.abstracts;
 
+import com.boom.appcharts.AppAxisChartWrapper;
 import com.boom.icons.MinusSignIcon;
 import com.boom.icons.PlusSignIcon;
 import javafx.collections.ObservableList;
@@ -25,13 +26,13 @@ public abstract class DataFieldBase<T1,T2> extends GridPane {
 
     protected XYChart.Data<T1,T2> data;
 
-    protected AppXYChart<T1,T2> appXYChart;
+    protected AppAxisChartWrapper appAxisChartWrapper;
 
-    public DataFieldBase(ObservableList<Node> children, AppXYChart<T1,T2> appXYChart, XYChart.Series<T1,T2> series, XYChart.Data<T1,T2> data){
+    public DataFieldBase(ObservableList<Node> children, AppAxisChartWrapper appAxisChartWrapper, XYChart.Series<T1,T2> series, XYChart.Data<T1,T2> data){
 
         this.data = data;
 
-        this.appXYChart = appXYChart;
+        this.appAxisChartWrapper = appAxisChartWrapper;
 
         setGraphics();
 

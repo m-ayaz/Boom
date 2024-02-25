@@ -20,7 +20,7 @@ import static com.boom.tools.Tools.uuid;
 public abstract class AppPaint extends  SimpleObjectProperty<Paint> implements JSONSerializable, SVGSerializable, TeXSerializable {
 
     public final String type;
-    public final String id = uuid(ID_LENGTH);
+    public final String id = getClass().getSimpleName()+"_"+uuid(ID_LENGTH);
 
     protected AppPaint(Paint paint) {
         set(paint);

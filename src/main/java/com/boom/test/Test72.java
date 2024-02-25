@@ -1,6 +1,5 @@
 package com.boom.test;
 
-import com.boom.appcharts.AppAxisChart;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -12,8 +11,6 @@ import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import static com.boom.tools.Tools.print;

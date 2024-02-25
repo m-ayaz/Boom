@@ -24,7 +24,7 @@ import static com.boom.tools.Tools.*;
 
 public abstract class AppNode implements JSONSerializable, SVGSerializable , TeXSerializable {
 
-    public final String id = uuid(ID_LENGTH);
+    public final String id = getClass().getSimpleName() + "_" + uuid(ID_LENGTH);
     public final Affine affineTransform = new Affine();
     public CSSProperty backgroundStyle;
     public Rectangle border = new Rectangle();
@@ -46,7 +46,7 @@ public abstract class AppNode implements JSONSerializable, SVGSerializable , TeX
         styleableNode.getTransforms().add(affineTransform);
         styleableNode.styleProperty().bind(backgroundStyle);
 
-        bounds=styleableNode.getBoundsInParent();
+        bounds = styleableNode.getBoundsInParent();
 
 //        LineChart l;
 //        l.getXAxis().set;
@@ -57,18 +57,12 @@ public abstract class AppNode implements JSONSerializable, SVGSerializable , TeX
     public static AppNode parseJSON(JSONObject jsonObject) {
         AppNode appNode;
         switch (jsonObject.getString("type")) {
-            case "Rectangle" ->
-                    appNode = new AppRectangle(jsonObject.getDouble("width"), jsonObject.getDouble("height"), jsonObject.getDouble("arcWidth"), jsonObject.getDouble("arcHeight"));
-            case "Ellipse" ->
-                    appNode = new AppEllipse(jsonObject.getDouble("radiusX"), jsonObject.getDouble("radiusY"));
-            case "Arc" ->
-                    appNode = new AppArc(jsonObject.getDouble("radiusX"), jsonObject.getDouble("radiusY"), jsonObject.getDouble("startAngle"), jsonObject.getDouble("length"), ArcType.valueOf(jsonObject.getString("arcType")));
-            case "CubicCurve" ->
-                    appNode = new AppCubicCurve(jsonObject.getDouble("startX"), jsonObject.getDouble("startY"), jsonObject.getDouble("controlX1"), jsonObject.getDouble("controlY1"), jsonObject.getDouble("controlX2"), jsonObject.getDouble("controlY2"), jsonObject.getDouble("endX"), jsonObject.getDouble("endY"));
-            case "QuadCurve" ->
-                    appNode = new AppQuadCurve(jsonObject.getDouble("startX"), jsonObject.getDouble("startY"), jsonObject.getDouble("controlX"), jsonObject.getDouble("controlY"), jsonObject.getDouble("endX"), jsonObject.getDouble("endY"));
-            case "Line" ->
-                    appNode = new AppLine(jsonObject.getDouble("startX"), jsonObject.getDouble("startY"), jsonObject.getDouble("endX"), jsonObject.getDouble("endY"));
+            case "Rectangle" -> appNode = new AppRectangle(jsonObject.getDouble("width"), jsonObject.getDouble("height"), jsonObject.getDouble("arcWidth"), jsonObject.getDouble("arcHeight"));
+            case "Ellipse" -> appNode = new AppEllipse(jsonObject.getDouble("radiusX"), jsonObject.getDouble("radiusY"));
+            case "Arc" -> appNode = new AppArc(jsonObject.getDouble("radiusX"), jsonObject.getDouble("radiusY"), jsonObject.getDouble("startAngle"), jsonObject.getDouble("length"), ArcType.valueOf(jsonObject.getString("arcType")));
+            case "CubicCurve" -> appNode = new AppCubicCurve(jsonObject.getDouble("startX"), jsonObject.getDouble("startY"), jsonObject.getDouble("controlX1"), jsonObject.getDouble("controlY1"), jsonObject.getDouble("controlX2"), jsonObject.getDouble("controlY2"), jsonObject.getDouble("endX"), jsonObject.getDouble("endY"));
+            case "QuadCurve" -> appNode = new AppQuadCurve(jsonObject.getDouble("startX"), jsonObject.getDouble("startY"), jsonObject.getDouble("controlX"), jsonObject.getDouble("controlY"), jsonObject.getDouble("endX"), jsonObject.getDouble("endY"));
+            case "Line" -> appNode = new AppLine(jsonObject.getDouble("startX"), jsonObject.getDouble("startY"), jsonObject.getDouble("endX"), jsonObject.getDouble("endY"));
             case "Polygon" -> appNode = new AppPolygon(arrayToArray(jsonObject.getJSONArray("points")));
             case "Polyline" -> appNode = new AppPolyline(arrayToArray(jsonObject.getJSONArray("points")));
             default -> throw new AppException(AppExceptionEnum.AppNodeNotRegistered);
@@ -119,9 +113,9 @@ public abstract class AppNode implements JSONSerializable, SVGSerializable , TeX
         });
     }
 
-    protected void modifyType(String newType) {
-        this.type = newType;
-    }
+//    protected void modifyType(String newType) {
+//        this.type = newType;
+//    }
 
 
 }

@@ -1,0 +1,17 @@
+<svg width="1100" height="1100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+	<!-- X grid lines -->
+	<line x1="0.000000" y1="0.000000" x2="0.000000" y2="233.403672" stroke="#000000ff" stroke-width="1.000000" stroke-dasharray="10.0 5.0" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(-0.000000)"/>
+	<line x1="75.851961" y1="0.000000" x2="75.851961" y2="233.403672" stroke="#000000ff" stroke-width="1.000000" stroke-dasharray="10.0 5.0" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(-0.000000)"/>
+	<line x1="151.703922" y1="0.000000" x2="151.703922" y2="233.403672" stroke="#000000ff" stroke-width="1.000000" stroke-dasharray="10.0 5.0" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(-0.000000)"/>
+	<line x1="227.555883" y1="0.000000" x2="227.555883" y2="233.403672" stroke="#000000ff" stroke-width="1.000000" stroke-dasharray="10.0 5.0" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(-0.000000)"/>
+	<!-- Y grid lines -->
+	<line x1="0.000000" y1="0.000000" x2="227.555883" y2="0.000000" stroke="#000000ff" stroke-width="1.000000" stroke-dasharray="10.0 5.0" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(-0.000000)"/>
+	<line x1="0.000000" y1="100.030145" x2="227.555883" y2="100.030145"  stroke="#000000ff" stroke-width="1.000000" stroke-dasharray="10.0 5.0" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(-0.000000)"/>
+	<line x1="0.000000" y1="200.060290" x2="227.555883" y2="200.060290" stroke="#000000ff" stroke-width="1.000000" stroke-dasharray="10.0 5.0" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(-0.000000)"/>
+	<line x1="0.000000" y1="33.343382" x2="227.555883" y2="33.343382" stroke="#000000ff" stroke-width="1.000000" stroke-dasharray="10.0 5.0" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(-0.000000)"/>
+	<line x1="0.000000" y1="66.686763" x2="227.555883" y2="66.686763" stroke="#000000ff" stroke-width="1.000000" stroke-dasharray="10.0 5.0" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(-0.000000)"/>
+	<line x1="0.000000" y1="133.373527" x2="227.555883" y2="133.373527" stroke="#000000ff" stroke-width="1.000000" stroke-dasharray="10.0 5.0" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(-0.000000)"/>
+	<line x1="0.000000" y1="233.403672" x2="227.555883" y2="233.403672" stroke="#000000ff" stroke-width="1.000000" stroke-dasharray="10.0 5.0" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(-0.000000)"/>
+	<line x1="0.000000" y1="166.716909" x2="227.555883" y2="166.716909" stroke="#000000ff" stroke-width="1.000000" stroke-dasharray="10.0 5.0" transform="translate(0.000000,0.000000) rotate(0.000000) scale(1.000000,1.000000) rotate(-0.000000)"/>
+</svg>

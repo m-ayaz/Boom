@@ -1,14 +1,15 @@
 package com.boom.controllers.eventhandlers.mousehandler;
 
-import com.boom.appcharts.number_number.AppAreaChart_NumberNumber;
-import com.boom.appcharts.number_number.AppLineChart_NumberNumber;
-import com.boom.appcharts.number_number.AppScatterChart_NumberNumber;
-import com.boom.appcharts.number_string.AppAreaChart_NumberString;
-import com.boom.appcharts.number_string.AppLineChart_NumberString;
-import com.boom.appcharts.number_string.AppScatterChart_NumberString;
-import com.boom.appcharts.string_number.AppAreaChart_StringNumber;
-import com.boom.appcharts.string_number.AppLineChart_StringNumber;
-import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
+//import com.boom.appcharts.number_number.AppAreaChart_NumberNumber;
+//import com.boom.appcharts.number_number.AppLineChart_NumberNumber;
+//import com.boom.appcharts.number_number.AppScatterChart_NumberNumber;
+//import com.boom.appcharts.number_string.AppAreaChart_NumberString;
+//import com.boom.appcharts.number_string.AppLineChart_NumberString;
+//import com.boom.appcharts.number_string.AppScatterChart_NumberString;
+//import com.boom.appcharts.string_number.AppAreaChart_StringNumber;
+//import com.boom.appcharts.string_number.AppLineChart_StringNumber;
+//import com.boom.appcharts.string_number.AppScatterChart_StringNumber;
+import com.boom.appcharts.AppAxisChartWrapper;
 import com.boom.appshapes.*;
 import com.boom.controllers.DynamicDragRectangle;
 import com.boom.controllers.MainCanvasItemsHandler;
@@ -73,21 +74,23 @@ public class MainCanvasMouseHandler extends AppMouseEventHandler {
     AppPolygon tempPolygon;
     AppLine tempLine;
     AppQuadCurve tempQuadCurve;
-    AppLineChart_NumberNumber tempLineChart_NN;
-    AppLineChart_NumberString tempLineChart_NS;
-    AppLineChart_StringNumber tempLineChart_SN;
-    AppAreaChart_NumberNumber tempAreaChart_NN;
-    AppAreaChart_NumberString tempAreaChart_NS;
-    AppAreaChart_StringNumber tempAreaChart_SN;
-    ////    AppBarChart_NumberString tempBarChart_NS = new AppBarChart_NumberString(0,0);
-////    AppBarChart_StringNumber tempBarChart_SN = new AppBarChart_StringNumber(0,0);
-    AppScatterChart_NumberNumber tempScatterChart_NN;
-    AppScatterChart_NumberString tempScatterChart_NS;
-    AppScatterChart_StringNumber tempScatterChart_SN;
-    LittleLineChartOnCursor littleLineChartOnCursor;
-    LittleBarChartOnCursor littleBarChartOnCursor;
-    LittleScatterChartOnCursor littleScatterChartOnCursor;
-    LittleAreaChartOnCursor littleAreaChartOnCursor;
+    AppAxisChartWrapper tempAppAxisChartWrapper;
+//    AppLineChart_NumberNumber tempLineChart_NN;
+//    AppLineChart_NumberString tempLineChart_NS;
+//    AppLineChart_StringNumber tempLineChart_SN;
+//    AppAreaChart_NumberNumber tempAreaChart_NN;
+//    AppAreaChart_NumberString tempAreaChart_NS;
+//    AppAreaChart_StringNumber tempAreaChart_SN;
+//    ////    AppBarChart_NumberString tempBarChart_NS = new AppBarChart_NumberString(0,0);
+//////    AppBarChart_StringNumber tempBarChart_SN = new AppBarChart_StringNumber(0,0);
+//    AppScatterChart_NumberNumber tempScatterChart_NN;
+//    AppScatterChart_NumberString tempScatterChart_NS;
+//    AppScatterChart_StringNumber tempScatterChart_SN;
+LittleAppAxisChartWrapperOnCursor littleAppAxisChartWrapperOnCursor;
+//    LittleLineChartOnCursor littleLineChartOnCursor;
+//    LittleBarChartOnCursor littleBarChartOnCursor;
+//    LittleScatterChartOnCursor littleScatterChartOnCursor;
+//    LittleAreaChartOnCursor littleAreaChartOnCursor;
     LittleEllipseOnCursor littleEllipseOnCursor;
     LittleCubicCurveOnCursor littleCubicCurveOnCursor;
     LittleArcOnCursor littleArcOnCursor;
@@ -120,21 +123,23 @@ public class MainCanvasMouseHandler extends AppMouseEventHandler {
             AppArc tempArc,
             AppRectangle tempRectangle,
             AppLine tempLine,
-            AppLineChart_NumberNumber tempLineChart_NN,
-            AppLineChart_NumberString tempLineChart_NS,
-            AppLineChart_StringNumber tempLineChart_SN,
-            AppAreaChart_NumberNumber tempAreaChart_NN,
-            AppAreaChart_NumberString tempAreaChart_NS,
-            AppAreaChart_StringNumber tempAreaChart_SN,
-////    AppBarChart_NumberString tempBarChart_NS ,
-////    AppBarChart_StringNumber tempBarChart_SN ,
-            AppScatterChart_NumberNumber tempScatterChart_NN,
-            AppScatterChart_NumberString tempScatterChart_NS,
-            AppScatterChart_StringNumber tempScatterChart_SN,
-            LittleLineChartOnCursor littleLineChartOnCursor,
-            LittleBarChartOnCursor littleBarChartOnCursor,
-            LittleScatterChartOnCursor littleScatterChartOnCursor,
-            LittleAreaChartOnCursor littleAreaChartOnCursor,
+AppAxisChartWrapper tempAppAxisChartWrapper,
+//            AppLineChart_NumberNumber tempLineChart_NN,
+//            AppLineChart_NumberString tempLineChart_NS,
+//            AppLineChart_StringNumber tempLineChart_SN,
+//            AppAreaChart_NumberNumber tempAreaChart_NN,
+//            AppAreaChart_NumberString tempAreaChart_NS,
+//            AppAreaChart_StringNumber tempAreaChart_SN,
+//////    AppBarChart_NumberString tempBarChart_NS ,
+//////    AppBarChart_StringNumber tempBarChart_SN ,
+//            AppScatterChart_NumberNumber tempScatterChart_NN,
+//            AppScatterChart_NumberString tempScatterChart_NS,
+//            AppScatterChart_StringNumber tempScatterChart_SN,
+//            LittleLineChartOnCursor littleLineChartOnCursor,
+//            LittleBarChartOnCursor littleBarChartOnCursor,
+//            LittleScatterChartOnCursor littleScatterChartOnCursor,
+//            LittleAreaChartOnCursor littleAreaChartOnCursor,
+            LittleAppAxisChartWrapperOnCursor littleAppAxisChartWrapperOnCursor,
             LittleEllipseOnCursor littleEllipseOnCursor,
             LittlePolylineOnCursor littlePolylineOnCursor,
             LittleCubicCurveOnCursor littleCubicCurveOnCursor,
@@ -171,19 +176,21 @@ public class MainCanvasMouseHandler extends AppMouseEventHandler {
         this.tempArc = tempArc;
         this.tempRectangle = tempRectangle;
         this.tempLine = tempLine;
-        this.tempLineChart_NN = tempLineChart_NN;
-        this.tempLineChart_NS = tempLineChart_NS;
-        this.tempLineChart_SN = tempLineChart_SN;
-        this.tempAreaChart_NN = tempAreaChart_NN;
-        this.tempAreaChart_NS = tempAreaChart_NS;
-        this.tempAreaChart_SN = tempAreaChart_SN;
-        this.tempScatterChart_NN = tempScatterChart_NN;
-        this.tempScatterChart_NS = tempScatterChart_NS;
-        this.tempScatterChart_SN = tempScatterChart_SN;
-        this.littleLineChartOnCursor = littleLineChartOnCursor;
-        this.littleBarChartOnCursor = littleBarChartOnCursor;
-        this.littleScatterChartOnCursor = littleScatterChartOnCursor;
-        this.littleAreaChartOnCursor = littleAreaChartOnCursor;
+        this.tempAppAxisChartWrapper=tempAppAxisChartWrapper;
+//        this.tempLineChart_NN = tempLineChart_NN;
+//        this.tempLineChart_NS = tempLineChart_NS;
+//        this.tempLineChart_SN = tempLineChart_SN;
+//        this.tempAreaChart_NN = tempAreaChart_NN;
+//        this.tempAreaChart_NS = tempAreaChart_NS;
+//        this.tempAreaChart_SN = tempAreaChart_SN;
+//        this.tempScatterChart_NN = tempScatterChart_NN;
+//        this.tempScatterChart_NS = tempScatterChart_NS;
+//        this.tempScatterChart_SN = tempScatterChart_SN;
+//        this.littleLineChartOnCursor = littleLineChartOnCursor;
+//        this.littleBarChartOnCursor = littleBarChartOnCursor;
+//        this.littleScatterChartOnCursor = littleScatterChartOnCursor;
+//        this.littleAreaChartOnCursor = littleAreaChartOnCursor;
+        this.littleAppAxisChartWrapperOnCursor=littleAppAxisChartWrapperOnCursor;
         this.littleEllipseOnCursor = littleEllipseOnCursor;
         this.littlePolylineOnCursor = littlePolylineOnCursor;
         this.littleCubicCurveOnCursor = littleCubicCurveOnCursor;
@@ -212,10 +219,10 @@ public class MainCanvasMouseHandler extends AppMouseEventHandler {
             littleArcOnCursor.hide();
             littleRectangleOnCursor.hide();
             littleLineOnCursor.hide();
-            littleLineChartOnCursor.hide();
-            littleBarChartOnCursor.hide();
-            littleScatterChartOnCursor.hide();
-            littleAreaChartOnCursor.hide();
+//            littleLineChartOnCursor.hide();
+//            littleBarChartOnCursor.hide();
+//            littleScatterChartOnCursor.hide();
+//            littleAreaChartOnCursor.hide();
             cursorPositionLabel.setText("Cursor out!");
         }
 
@@ -280,34 +287,40 @@ public class MainCanvasMouseHandler extends AppMouseEventHandler {
 
         if (tempObjectName.get().equals(AppNodeTypeEnum.DynamicDragRectangle.getNodeType())) {
             dynamicDragRectangle.reset();
-        } else if (tempObjectName.get().equals(AppNodeTypeEnum.LineChart_NN.getNodeType())) {
-            littleLineChartOnCursor.show(x, y);
-            tempLineChart_NN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(AppNodeTypeEnum.LineChart_NS.getNodeType())) {
-            littleLineChartOnCursor.show(x, y);
-            tempLineChart_NS.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(AppNodeTypeEnum.LineChart_SN.getNodeType())) {
-            littleLineChartOnCursor.show(x, y);
-            tempLineChart_SN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(AppNodeTypeEnum.ScatterChart_NN.getNodeType())) {
-            littleScatterChartOnCursor.show(x, y);
-            tempScatterChart_NN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(AppNodeTypeEnum.ScatterChart_NS.getNodeType())) {
-            littleScatterChartOnCursor.show(x, y);
-            tempScatterChart_NS.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(AppNodeTypeEnum.ScatterChart_SN.getNodeType())) {
-            littleScatterChartOnCursor.show(x, y);
-            tempScatterChart_SN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(AppNodeTypeEnum.AreaChart_NN.getNodeType())) {
-            littleAreaChartOnCursor.show(x, y);
-            tempAreaChart_NN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(AppNodeTypeEnum.AreaChart_NS.getNodeType())) {
-            littleAreaChartOnCursor.show(x, y);
-            tempAreaChart_NS.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else if (tempObjectName.get().equals(AppNodeTypeEnum.AreaChart_SN.getNodeType())) {
-            littleAreaChartOnCursor.show(x, y);
-            tempAreaChart_SN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
-        } else {
+        } else if (tempObjectName.get().equals(AppNodeTypeEnum.AppAxisChartWrapper.getNodeType())) {
+            littleAppAxisChartWrapperOnCursor.show(x,y);
+            tempAppAxisChartWrapper.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+        }
+//        else if (tempObjectName.get().equals(AppNodeTypeEnum.LineChart_NN.getNodeType())) {
+//
+//            littleLineChartOnCursor.show(x, y);
+//            tempLineChart_NN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+//        } else if (tempObjectName.get().equals(AppNodeTypeEnum.LineChart_NS.getNodeType())) {
+//            littleLineChartOnCursor.show(x, y);
+//            tempLineChart_NS.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+//        } else if (tempObjectName.get().equals(AppNodeTypeEnum.LineChart_SN.getNodeType())) {
+//            littleLineChartOnCursor.show(x, y);
+//            tempLineChart_SN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+//        } else if (tempObjectName.get().equals(AppNodeTypeEnum.ScatterChart_NN.getNodeType())) {
+//            littleScatterChartOnCursor.show(x, y);
+//            tempScatterChart_NN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+//        } else if (tempObjectName.get().equals(AppNodeTypeEnum.ScatterChart_NS.getNodeType())) {
+//            littleScatterChartOnCursor.show(x, y);
+//            tempScatterChart_NS.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+//        } else if (tempObjectName.get().equals(AppNodeTypeEnum.ScatterChart_SN.getNodeType())) {
+//            littleScatterChartOnCursor.show(x, y);
+//            tempScatterChart_SN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+//        } else if (tempObjectName.get().equals(AppNodeTypeEnum.AreaChart_NN.getNodeType())) {
+//            littleAreaChartOnCursor.show(x, y);
+//            tempAreaChart_NN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+//        } else if (tempObjectName.get().equals(AppNodeTypeEnum.AreaChart_NS.getNodeType())) {
+//            littleAreaChartOnCursor.show(x, y);
+//            tempAreaChart_NS.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+//        } else if (tempObjectName.get().equals(AppNodeTypeEnum.AreaChart_SN.getNodeType())) {
+//            littleAreaChartOnCursor.show(x, y);
+//            tempAreaChart_SN.configureOnMouseEvent(mouseEvent, mainCanvasItemsHandler, selectedObjectsController, moveX, moveY, dragX, dragY, pressX, pressY, releaseX, releaseY, clickX, clickY, x, y);
+//        }
+        else {
             switch (tempObjectName.get()) {
                 case "Rectangle" -> {
                     littleRectangleOnCursor.show(x, y);

@@ -1,14 +1,14 @@
 package com.boom.tools;
 
-import com.boom.appcharts.AppAxisChart;
-import com.boom.appcharts.AppSeries;
+import com.boom.appcharts.baseclasses.AppAxisChart;
+import com.boom.appcharts.AppAxisChartWrapper;
+import com.boom.appcharts.baseclasses.AppSeries;
 import com.boom.appshapes.AppText;
 import com.boom.exceptions.AppException;
-import com.boom.structures.abstracts.AppXYChart;
+//import com.boom.structures.abstracts.AppXYChart;
 import com.boom.structures.enums.AppExceptionEnum;
 import com.boom.styles.CSSProperty;
 import com.boom.styles.SeriesLineStyleProperty;
-import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import javafx.scene.transform.Affine;
 import org.json.JSONArray;
@@ -353,36 +353,40 @@ public class Tools {
 //        chartFrom.getS
     }
 
-    public static <T1, T2> void deepCopy(AppXYChart<T1, T2> chartFrom, AppXYChart<T1, T2> chartTo) {
-//        try {
-//            throw new RuntimeException("sdasd");
-//        }catch (Exception e){
-//            print(e);
-//        }
-        deepCopy(chartFrom.getBackgroundStyle(), chartTo.getBackgroundStyle());
-        deepCopy(chartFrom.affineTransform, chartTo.affineTransform);
-        for (int i = 0; i < ((XYChart<T1, T2>) chartFrom.styleableNode).getData().size(); i++) {
-            XYChart.Series<T1, T2> series = ((XYChart<T1, T2>) chartFrom.styleableNode).getData().get(i);
-            chartTo.addSeries(i);
-            for (int j = 0; j < series.getData().size(); j++) {
-                XYChart.Data<T1, T2> data = series.getData().get(j);
-                chartTo.addData(data.getXValue(), data.getYValue(), i, j);
-                try {
-//                    throw new Exception("Fix here");
-                    deepCopy(chartFrom.getSeriesAreaStyles().get(i), chartTo.getSeriesAreaStyles().get(i));
-                } catch (Exception e) {
-                    print(e);
-                    print("%s does not have AREA".formatted(chartFrom.styleableNode.getClass().getSimpleName()));
-                }
-                try {
-                    deepCopy(chartFrom.getSeriesLineStyles().get(i), chartTo.getSeriesLineStyles().get(i));
-                } catch (Exception e) {
-                    print(e);
-                    print("%s does not have LINE".formatted(chartFrom.styleableNode.getClass().getSimpleName()));
-                }
-            }
-        }
+    public static void deepCopy(AppAxisChartWrapper chartFrom, AppAxisChartWrapper chartTo) {
+
     }
+
+//    public static <T1, T2> void deepCopy(AppXYChart<T1, T2> chartFrom, AppXYChart<T1, T2> chartTo) {
+////        try {
+////            throw new RuntimeException("sdasd");
+////        }catch (Exception e){
+////            print(e);
+////        }
+//        deepCopy(chartFrom.getBackgroundStyle(), chartTo.getBackgroundStyle());
+//        deepCopy(chartFrom.affineTransform, chartTo.affineTransform);
+//        for (int i = 0; i < ((XYChart<T1, T2>) chartFrom.styleableNode).getData().size(); i++) {
+//            XYChart.Series<T1, T2> series = ((XYChart<T1, T2>) chartFrom.styleableNode).getData().get(i);
+//            chartTo.addSeries(i);
+//            for (int j = 0; j < series.getData().size(); j++) {
+//                XYChart.Data<T1, T2> data = series.getData().get(j);
+//                chartTo.addData(data.getXValue(), data.getYValue(), i, j);
+//                try {
+////                    throw new Exception("Fix here");
+//                    deepCopy(chartFrom.getSeriesAreaStyles().get(i), chartTo.getSeriesAreaStyles().get(i));
+//                } catch (Exception e) {
+//                    print(e);
+//                    print("%s does not have AREA".formatted(chartFrom.styleableNode.getClass().getSimpleName()));
+//                }
+//                try {
+//                    deepCopy(chartFrom.getSeriesLineStyles().get(i), chartTo.getSeriesLineStyles().get(i));
+//                } catch (Exception e) {
+//                    print(e);
+//                    print("%s does not have LINE".formatted(chartFrom.styleableNode.getClass().getSimpleName()));
+//                }
+//            }
+//        }
+//    }
 
 
     public static double[] dissectAffineTransform(Affine affine) {
@@ -399,12 +403,15 @@ public class Tools {
         }
 
         double delta = sqrt(N2 * N2 - 4 * D * D);
+        if(Double.isNaN(delta)){
+            delta=0;
+        }
 
         double sx = sqrt((N2 + delta) / 2);
         double sy = D > 0 ? sqrt((N2 - delta) / 2) : -sqrt((N2 - delta) / 2);
 
         double th1 = sx == sy ? 0 : atan2(c - b, a + d) / 2 + atan2(c + b, a - d) / 2;
-        double th2 = th1 - atan2(c + b, a - d);
+        double th2 = sx==sy?atan2(-b,a):th1 - atan2(c + b, a - d);
 
         return new double[]{th1 * 180 / PI, sx, sy, th2 * 180 / PI};
     }

@@ -11,6 +11,8 @@ import javafx.scene.transform.MatrixType;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
+import java.util.List;
+
 import static com.boom.tools.Tools.*;
 
 public  class AppEllipse extends AppAreaShape {
@@ -81,6 +83,11 @@ public  class AppEllipse extends AppAreaShape {
     @Override
     public String toSVG(int tabIndent) {
         double[] dissectedTransform = dissectAffineTransform(affineTransform);
+//        print("Hey there");
+//        print(affineTransform);
+//        for (double v : dissectedTransform) {
+//            print(v);
+//        }
         StringBuilder stringBuilder = new StringBuilder();
         for (AppPaint appPaint : backgroundStyle.getFillArray()) {
             stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<ellipse cx=\"0\" cy=\"0\" rx=\"%f\" ry=\"%f\" fill=\"url(#%s)\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted( radiusX.get(), radiusY.get(), appPaint.id, affineTransform.getTx()+offset.getX()*0, affineTransform.getTy()+0*offset.getY(), dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]));
