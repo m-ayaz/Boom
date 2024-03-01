@@ -4,6 +4,9 @@ import com.boom.apppaints.AppLinearGradient;
 import com.boom.appshapes.AppRectangle;
 import com.boom.structures.abstracts.AppPaint;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -16,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static com.boom.tools.Tools.print;
@@ -39,12 +43,30 @@ public class Test81 extends Application {
         stage.show();
 
 
-        AppRectangle appRectangle=new AppRectangle(0,0,0,0);
-        print(appRectangle.id);
+        ObservableList<double[]> x= FXCollections.observableList(new ArrayList<>());
 
-        AppPaint appPaint=new AppLinearGradient(new LinearGradient(0,0,1,1,true, CycleMethod.NO_CYCLE,
-                new Stop(0,Color.TRANSPARENT),new Stop(1,Color.TRANSPARENT)));
-        print(appPaint.id);
+        x.addListener((ListChangeListener<? super double[]>) change -> {
+            print("change = "+change);
+        });
+
+        double[] y=new double[]{Math.random(),Math.random()};
+        for(int i=0;i<10;i++){
+//            y=new double[]{Math.random(),Math.random()};
+            x.add(y);
+        }
+
+        y[0]=6;
+
+
+
+
+
+//        AppRectangle appRectangle=new AppRectangle(0,0,0,0);
+//        print(appRectangle.id);
+//
+//        AppPaint appPaint=new AppLinearGradient(new LinearGradient(0,0,1,1,true, CycleMethod.NO_CYCLE,
+//                new Stop(0,Color.TRANSPARENT),new Stop(1,Color.TRANSPARENT)));
+//        print(appPaint.id);
 
 //        Rectangle rectangle=new Rectangle(100,100,100,100);
 //

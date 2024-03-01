@@ -19,12 +19,12 @@ public  class AppQuadCurve extends AppLineShape {
 
     public AppQuadCurve(double startX,double startY,double controlX,double controlY,double endX,double endY) {
         super(new QuadCurve(startX, startY, controlX, controlY, endX, endY));
-        this.startX=((QuadCurve) styleableNode).startXProperty();
-        this.startY=((QuadCurve) styleableNode).startYProperty();
-        this.controlX=((QuadCurve) styleableNode).controlXProperty();
-        this.controlY=((QuadCurve) styleableNode).controlYProperty();
-        this.endX=((QuadCurve) styleableNode).endXProperty();
-        this.endY=((QuadCurve) styleableNode).endYProperty();
+        this.startX=((QuadCurve) wrappedNode).startXProperty();
+        this.startY=((QuadCurve) wrappedNode).startYProperty();
+        this.controlX=((QuadCurve) wrappedNode).controlXProperty();
+        this.controlY=((QuadCurve) wrappedNode).controlYProperty();
+        this.endX=((QuadCurve) wrappedNode).endXProperty();
+        this.endY=((QuadCurve) wrappedNode).endYProperty();
     }
 
     @Override
@@ -58,7 +58,7 @@ public  class AppQuadCurve extends AppLineShape {
 
     @Override
     public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
-        styleableNode.setVisible(true);
+        wrappedNode.setVisible(true);
         startX.set(dragStartX);
         startY.set(dragStartY);
         controlX.set(dragStartX/2+currentDragPosX/2);

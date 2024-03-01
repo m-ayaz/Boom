@@ -18,10 +18,10 @@ public  class AppLine extends AppLineShape {
 
     public AppLine(double startX, double startY, double endX, double endY) {
         super(new Line(startX, startY, endX, endY));
-        this.startX = ((Line) styleableNode).startXProperty();
-        this.startY = ((Line) styleableNode).startYProperty();
-        this.endX = ((Line) styleableNode).endXProperty();
-        this.endY = ((Line) styleableNode).endYProperty();
+        this.startX = ((Line) wrappedNode).startXProperty();
+        this.startY = ((Line) wrappedNode).startYProperty();
+        this.endX = ((Line) wrappedNode).endXProperty();
+        this.endY = ((Line) wrappedNode).endYProperty();
     }
 
     public String toTeX() {
@@ -88,7 +88,7 @@ public  class AppLine extends AppLineShape {
 
     @Override
     public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
-        styleableNode.setVisible(true);
+        wrappedNode.setVisible(true);
         startX.set(dragStartX);
         startY.set(dragStartY);
         endX.set(currentDragPosX);

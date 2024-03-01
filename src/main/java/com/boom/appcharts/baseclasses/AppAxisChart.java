@@ -2,19 +2,15 @@ package com.boom.appcharts.baseclasses;
 
 
 import com.boom.structures.abstracts.App2DChart;
-import com.boom.appshapes.AppPolygon;
-import com.boom.appshapes.AppPolyline;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.collections.ListChangeListener;
-import javafx.scene.Group;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.boom.tools.Tools.*;
+import static com.boom.tools.Tools.getScientificRepresentation;
 
 // todo: disallow addition of duplicate series or data
 
@@ -31,19 +27,19 @@ import static com.boom.tools.Tools.*;
 
 public class AppAxisChart extends App2DChart {
 
+    public int getSeriesIndex(AppSeries appSeries){
+        return seriesList.indexOf(appSeries);
+    }
+
     //todo: shape, fill, stroke and stroke width should change into AppNode and BackgroundStyle
     public final SimpleDoubleProperty leftPlotMargin = new SimpleDoubleProperty(0.05);
     public final SimpleDoubleProperty rightPlotMargin = new SimpleDoubleProperty(0.05);
     public final SimpleDoubleProperty topPlotMargin = new SimpleDoubleProperty(0.1);
     public final SimpleDoubleProperty bottomPlotMargin = new SimpleDoubleProperty(0.1);
-    public final SimpleDoubleProperty globalMinX = new SimpleDoubleProperty(0);
-    public final SimpleDoubleProperty globalMaxX = new SimpleDoubleProperty(1);
-    public final SimpleDoubleProperty globalMinY = new SimpleDoubleProperty(0);
-    public final SimpleDoubleProperty globalMaxY = new SimpleDoubleProperty(1);
-    //    public final SimpleDoubleProperty globalMinX = new SimpleDoubleProperty(Double.POSITIVE_INFINITY);
-//    public final SimpleDoubleProperty globalMaxX = new SimpleDoubleProperty(Double.NEGATIVE_INFINITY);
-//    public final SimpleDoubleProperty globalMinY = new SimpleDoubleProperty(Double.POSITIVE_INFINITY);
-//    public final SimpleDoubleProperty globalMaxY = new SimpleDoubleProperty(Double.NEGATIVE_INFINITY);
+    private final SimpleDoubleProperty globalMinX = new SimpleDoubleProperty(0);
+    private final SimpleDoubleProperty globalMaxX = new SimpleDoubleProperty(1);
+    private final SimpleDoubleProperty globalMinY = new SimpleDoubleProperty(0);
+    private final SimpleDoubleProperty globalMaxY = new SimpleDoubleProperty(1);
     public final AppXAxisRegion xAxisRegion = new AppXAxisRegion(width);
     public final AppYAxisRegion yAxisRegion = new AppYAxisRegion(height);
     public final AppGridLines appGridLines = new AppGridLines(width, height, xAxisRegion.ticks, yAxisRegion.ticks);
@@ -139,133 +135,26 @@ public class AppAxisChart extends App2DChart {
     @Override
     public void addSeries(int seriesIndex, AppSeries appSeries) {
         seriesList.add(seriesIndex, appSeries);
-        appSeries.dataList.addListener((ListChangeListener<double[]>) change -> updateSeriesPreviewAtChart(appSeries));
-        appSeries.minX.addListener((a, b, c) -> globalMinX.set(seriesList.stream().filter(appSeries1 -> appSeries1.dataList.size() != 0).mapToDouble(appSeries1 -> appSeries1.minX.get()).min().orElse(0)));
-        appSeries.maxX.addListener((a, b, c) -> globalMaxX.set(seriesList.stream().filter(appSeries1 -> appSeries1.dataList.size() != 0).mapToDouble(appSeries1 -> appSeries1.maxX.get()).max().orElse(1)));
-        appSeries.minY.addListener((a, b, c) -> globalMinY.set(seriesList.stream().filter(appSeries1 -> appSeries1.dataList.size() != 0).mapToDouble(appSeries1 -> appSeries1.minY.get()).min().orElse(0)));
-        appSeries.maxY.addListener((a, b, c) -> globalMaxY.set(seriesList.stream().filter(appSeries1 -> appSeries1.dataList.size() != 0).mapToDouble(appSeries1 -> appSeries1.maxY.get()).max().orElse(1)));
-        getChildren().add(3 * seriesIndex, appSeries.plotArea.styleableNode);
-        getChildren().add(3 * seriesIndex + 1, appSeries.plotLine.styleableNode);
+//        appSeries.addListenerToDataList(change -> updateSeriesPreviewAtChart(appSeries));
+        appSeries.changeIndicator.addListener((a, b, c) -> {
+            globalMinX.set(seriesList.stream().filter(AppSeries::isNotEmpty).mapToDouble(AppSeries::getMinX).min().orElse(0));
+            globalMinY.set(seriesList.stream().filter(AppSeries::isNotEmpty).mapToDouble(AppSeries::getMinY).min().orElse(0));
+            globalMaxX.set(seriesList.stream().filter(AppSeries::isNotEmpty).mapToDouble(AppSeries::getMaxX).max().orElse(1));
+            globalMaxY.set(seriesList.stream().filter(AppSeries::isNotEmpty).mapToDouble(AppSeries::getMaxY).max().orElse(1));
+            updateSeriesPreviewAtChart(appSeries);
+        });
+//        appSeries.addListenerToMaxX((a, b, c) -> globalMaxX.set(seriesList.stream().filter(AppSeries::isNotEmpty).mapToDouble(AppSeries::getMaxX).max().orElse(1)));
+//        appSeries.addListenerToMinY((a, b, c) -> globalMinY.set(seriesList.stream().filter(AppSeries::isNotEmpty).mapToDouble(AppSeries::getMinY).min().orElse(0)));
+//        appSeries.addListenerToMaxY((a, b, c) -> globalMaxY.set(seriesList.stream().filter(AppSeries::isNotEmpty).mapToDouble(AppSeries::getMaxY).max().orElse(1)));
+        getChildren().add(3 * seriesIndex, appSeries.plotArea.wrappedNode);
+        getChildren().add(3 * seriesIndex + 1, appSeries.plotLine.wrappedNode);
         getChildren().add(3 * seriesIndex + 2, appSeries.renderedMarkers);
         legendRegion.addSeries(seriesIndex, appSeries.getVisualLegend(), appSeries.title);
     }
 
     @Override
-    public void removeSeries(int seriesIndex) {
-        seriesList.remove(seriesIndex);
-        getChildren().remove(3 * seriesIndex + 2);
-        getChildren().remove(3 * seriesIndex + 1);
-        getChildren().remove(3 * seriesIndex);
-        legendRegion.removeSeries(seriesIndex);
-    }
-
-    @Override
-    protected void updateSeriesPreviewAtChart(AppSeries appSeries) {
-
-        List<double[]> dataListCopy = appSeries.dataList.stream().map(doubles -> new double[]{doubles[0], doubles[1]}).sorted(appDataComparator).toList();
-
-        if (dataListCopy.size() == 0) {
-            return;
-        }
-
-        List<double[]> previewCoordinatesList = new ArrayList<>();
-
-        if (dataListCopy.size() == 1) {
-            previewCoordinatesList.add(new double[]{minXVisualLocation.get() / 2 + maxXVisualLocation.get() / 2, minYVisualLocation.get() / 2 + maxYVisualLocation.get() / 2});
-        } else {
-            dataListCopy.forEach(doubles -> previewCoordinatesList.add(new double[]{parseXOnScreen(doubles[0]), parseYOnScreen(doubles[1])}));
-        }
-
-        appSeries.plotArea.points.setAll(parseXOnScreen(dataListCopy.get(dataListCopy.size() - 1)[0]), height.get(), parseXOnScreen(dataListCopy.get(0)[0]), height.get());
-        previewCoordinatesList.forEach(doubles -> appSeries.plotArea.points.addAll(doubles[0], doubles[1]));
-
-        appSeries.plotLine.points.clear();
-        previewCoordinatesList.forEach(doubles -> appSeries.plotLine.points.addAll(doubles[0], doubles[1]));
-
-        if (appSeries.markerShape.get() != null) {
-            for (int i = 0; i < previewCoordinatesList.size(); i++) {
-                appSeries.renderedMarkers.getChildren().get(i).setTranslateX(previewCoordinatesList.get(i)[0]);
-                appSeries.renderedMarkers.getChildren().get(i).setTranslateY(previewCoordinatesList.get(i)[1]);
-            }
-        }
-
-    }
-
-    private void bindXTicksVisuals() {
-        leftPlotMargin.addListener((a, b, c) -> updateXTicks());
-        rightPlotMargin.addListener((a, b, c) -> updateXTicks());
-        width.addListener((a, b, c) -> updateXTicks());
-        globalMinX.addListener((a, b, c) -> updateXTicks());
-        globalMaxX.addListener((a, b, c) -> updateXTicks());
-    }
-
-    private void bindYTicksVisuals() {
-        topPlotMargin.addListener((a, b, c) -> updateYTicks());
-        bottomPlotMargin.addListener((a, b, c) -> updateYTicks());
-        height.addListener((a, b, c) -> updateYTicks());
-        globalMinY.addListener((a, b, c) -> updateYTicks());
-        globalMaxY.addListener((a, b, c) -> updateYTicks());
-    }
-
-    /**
-     * The following actions are executed during chart preview initialization:
-     * 1-titleRegion, axes regions and plotRegion are added to chart preview.
-     * 2- A new layer of grid lines region is added to the children of plotRegion.
-     * 3- appLegend is added to the children of plotRegion (up to this step, appLegend always renders on top of all other plotRegion components).
-     */
-    @Override
-    protected void initializeChartPreview() {
-        getChildren().addAll(titleRegion, xAxisRegion, yAxisRegion, appGridLines, legendRegion);
-    }
-
-    private double parseXOnScreen(double x) {
-        return (x - globalMinX.get()) / (globalMaxX.get() - globalMinX.get()) * (maxXVisualLocation.get() - minXVisualLocation.get()) + minXVisualLocation.get();
-    }
-
-    private double parseYOnScreen(double y) {
-        return (y - globalMinY.get()) / (globalMaxY.get() - globalMinY.get()) * (maxYVisualLocation.get() - minYVisualLocation.get()) + minYVisualLocation.get();
-    }
-
-    private void updateXTicks() {
-
-        xAxisRegion.ticks.clear();
-
-        double[] ticksInfo = getUpdatedTicks(globalMinX.get(), globalMaxX.get(), leftPlotMargin.get() * width.get(), (1 - rightPlotMargin.get()) * width.get(), xTickLabelsWidth);
-
-        if (globalMinX.get() == globalMaxX.get()) {
-            double temp = globalMaxX.get();
-            double temp1 = parseXOnScreen(temp);
-            xAxisRegion.ticks.put(temp1, temp + "");
-        } else {
-            for (int j = (int) ticksInfo[0]; j <= ticksInfo[1]; j++) {
-                double temp = 1.0 * j / ticksInfo[2] / Math.pow(10, ticksInfo[3]);
-                double temp1 = parseXOnScreen(temp);
-                xAxisRegion.ticks.put(temp1, getScientificRepresentation(temp, 3));
-            }
-        }
-
-
-    }
-
-    private void updateYTicks() {
-
-        yAxisRegion.ticks.clear();
-
-        double[] ticksInfo = getUpdatedTicks(globalMinY.get(), globalMaxY.get(), (1 - bottomPlotMargin.get()) * height.get(), topPlotMargin.get() * height.get(), yTickLabelsHeight);
-
-        if (globalMinY.get() == globalMaxY.get()) {
-            double temp = globalMaxY.get();
-            double temp1 = parseYOnScreen(temp);
-            yAxisRegion.ticks.put(temp1, temp + "");
-        } else {
-            for (int j = (int) ticksInfo[0]; j <= ticksInfo[1]; j++) {
-                double temp = 1.0 * j / ticksInfo[2] / Math.pow(10, ticksInfo[3]);
-                double temp1 = (temp - globalMinY.get()) / (globalMaxY.get() - globalMinY.get()) * height.get() * (topPlotMargin.get() + bottomPlotMargin.get() - 1) + height.get() * (1 - bottomPlotMargin.get());
-                yAxisRegion.ticks.put(temp1, getScientificRepresentation(temp, 3));
-            }
-        }
-
-
+    public void addData(int seriesIndex, int dataIndex, double[] data) {
+        seriesList.get(seriesIndex).addData(data[0],data[1]);
     }
 
     public double[] getUpdatedTicks(double minD, double maxD, double minDVisualLocation, double maxDVisualLocation, double ticksVisualMargin) {
@@ -319,5 +208,137 @@ public class AppAxisChart extends App2DChart {
         }
     }
 
+    @Override
+    public void removeSeries(int seriesIndex) {
+        seriesList.remove(seriesIndex);
+        getChildren().remove(3 * seriesIndex + 2);
+        getChildren().remove(3 * seriesIndex + 1);
+        getChildren().remove(3 * seriesIndex);
+        legendRegion.removeSeries(seriesIndex);
+    }
+
+    @Override
+    public void removeData(int seriesIndex, int dataIndex) {
+        seriesList.get(seriesIndex).removeData(dataIndex);
+    }
+
+    /**
+     * The following actions are executed during chart preview initialization:
+     * 1-titleRegion, axes regions and plotRegion are added to chart preview.
+     * 2- A new layer of grid lines region is added to the children of plotRegion.
+     * 3- appLegend is added to the children of plotRegion (up to this step, appLegend always renders on top of all other plotRegion components).
+     */
+    @Override
+    protected void initializeChartPreview() {
+        getChildren().addAll(titleRegion, xAxisRegion, yAxisRegion, appGridLines, legendRegion);
+    }
+
+
+
+    @Override
+    protected void updateSeriesPreviewAtChart(AppSeries appSeries) {
+
+        List<double[]> dataListCopy = appSeries.getSortedCopyOfDataList(appDataComparator);
+
+        if (dataListCopy.size() == 0) {
+            return;
+        }
+
+        List<double[]> previewCoordinatesList = new ArrayList<>();
+
+        if (dataListCopy.size() == 1) {
+            previewCoordinatesList.add(new double[]{minXVisualLocation.get() / 2 + maxXVisualLocation.get() / 2, minYVisualLocation.get() / 2 + maxYVisualLocation.get() / 2});
+        } else {
+            dataListCopy.forEach(doubles -> previewCoordinatesList.add(new double[]{parseXOnScreen(doubles[0]), parseYOnScreen(doubles[1])}));
+        }
+
+        appSeries.plotArea.points.setAll(parseXOnScreen(dataListCopy.get(dataListCopy.size() - 1)[0]), height.get(), parseXOnScreen(dataListCopy.get(0)[0]), height.get());
+        previewCoordinatesList.forEach(doubles -> appSeries.plotArea.points.addAll(doubles[0], doubles[1]));
+
+        appSeries.plotLine.points.clear();
+        previewCoordinatesList.forEach(doubles -> appSeries.plotLine.points.addAll(doubles[0], doubles[1]));
+
+        if (!appSeries.isMarkerShapeNull()) {
+            for (int i = 0; i < previewCoordinatesList.size(); i++) {
+                appSeries.renderedMarkers.getChildren().get(i).setTranslateX(previewCoordinatesList.get(i)[0]);
+                appSeries.renderedMarkers.getChildren().get(i).setTranslateY(previewCoordinatesList.get(i)[1]);
+            }
+        }
+
+    }
+
+    private void bindXTicksVisuals() {
+        leftPlotMargin.addListener((a, b, c) -> updateXTicks());
+        rightPlotMargin.addListener((a, b, c) -> updateXTicks());
+        width.addListener((a, b, c) -> updateXTicks());
+        globalMinX.addListener((a, b, c) -> updateXTicks());
+        globalMaxX.addListener((a, b, c) -> updateXTicks());
+    }
+
+    private void bindYTicksVisuals() {
+        topPlotMargin.addListener((a, b, c) -> updateYTicks());
+        bottomPlotMargin.addListener((a, b, c) -> updateYTicks());
+        height.addListener((a, b, c) -> updateYTicks());
+        globalMinY.addListener((a, b, c) -> updateYTicks());
+        globalMaxY.addListener((a, b, c) -> updateYTicks());
+    }
+
+    private double parseXOnScreen(double x) {
+        return (x - globalMinX.get()) / (globalMaxX.get() - globalMinX.get()) * (maxXVisualLocation.get() - minXVisualLocation.get()) + minXVisualLocation.get();
+    }
+
+    private double parseYOnScreen(double y) {
+        return (y - globalMinY.get()) / (globalMaxY.get() - globalMinY.get()) * (maxYVisualLocation.get() - minYVisualLocation.get()) + minYVisualLocation.get();
+    }
+
+    private void updateXTicks() {
+
+        xAxisRegion.ticks.clear();
+
+        double[] ticksInfo = getUpdatedTicks(globalMinX.get(), globalMaxX.get(), leftPlotMargin.get() * width.get(), (1 - rightPlotMargin.get()) * width.get(), xTickLabelsWidth);
+
+        if (globalMinX.get() == globalMaxX.get()) {
+            double temp = globalMaxX.get();
+            double temp1 = parseXOnScreen(temp);
+            xAxisRegion.ticks.put(temp1, temp + "");
+        } else {
+            for (int j = (int) ticksInfo[0]; j <= ticksInfo[1]; j++) {
+                double temp = 1.0 * j / ticksInfo[2] / Math.pow(10, ticksInfo[3]);
+                double temp1 = parseXOnScreen(temp);
+                xAxisRegion.ticks.put(temp1, getScientificRepresentation(temp, 3));
+            }
+        }
+
+
+    }
+
+    private void updateYTicks() {
+
+        yAxisRegion.ticks.clear();
+
+        double[] ticksInfo = getUpdatedTicks(globalMinY.get(), globalMaxY.get(), (1 - bottomPlotMargin.get()) * height.get(), topPlotMargin.get() * height.get(), yTickLabelsHeight);
+
+        if (globalMinY.get() == globalMaxY.get()) {
+            double temp = globalMaxY.get();
+            double temp1 = parseYOnScreen(temp);
+            yAxisRegion.ticks.put(temp1, temp + "");
+        } else {
+            for (int j = (int) ticksInfo[0]; j <= ticksInfo[1]; j++) {
+                double temp = 1.0 * j / ticksInfo[2] / Math.pow(10, ticksInfo[3]);
+                double temp1 = (temp - globalMinY.get()) / (globalMaxY.get() - globalMinY.get()) * height.get() * (topPlotMargin.get() + bottomPlotMargin.get() - 1) + height.get() * (1 - bottomPlotMargin.get());
+                yAxisRegion.ticks.put(temp1, getScientificRepresentation(temp, 3));
+            }
+        }
+
+
+    }
+
+    public AppSeries getSeries(int seriesIndex){
+        return seriesList.get(seriesIndex);
+    }
+
+    public int getNumberOfSeries(){
+        return seriesList.size();
+    }
 
 }

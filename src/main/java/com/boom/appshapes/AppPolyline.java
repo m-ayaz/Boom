@@ -20,12 +20,12 @@ public  class AppPolyline extends AppLineShape {
 
     public AppPolyline(double... points){
         super(new Polyline(points));
-        this.points=((Polyline) styleableNode).getPoints();
+        this.points=((Polyline) wrappedNode).getPoints();
     }
 
     @Override
     public void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY, double pressX, double pressY, double releaseX, double releaseY, double clickX, double clickY, double x, double y) {
-        styleableNode.setVisible(true);
+        wrappedNode.setVisible(true);
         if (points.size()<=2){
             points.setAll(x,y);
         }
@@ -60,7 +60,7 @@ public  class AppPolyline extends AppLineShape {
 
     @Override
     public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
-        styleableNode.setVisible(true);
+        wrappedNode.setVisible(true);
         points.setAll(dragStartX,dragStartY,  currentDragPosX,  currentDragPosY);
     }
 

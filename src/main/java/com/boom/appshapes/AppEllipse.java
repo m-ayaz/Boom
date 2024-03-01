@@ -11,8 +11,6 @@ import javafx.scene.transform.MatrixType;
 import javafx.scene.transform.Translate;
 import org.json.JSONObject;
 
-import java.util.List;
-
 import static com.boom.tools.Tools.*;
 
 public  class AppEllipse extends AppAreaShape {
@@ -74,7 +72,7 @@ public  class AppEllipse extends AppAreaShape {
 
     @Override
     public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
-        styleableNode.setVisible(true);
+        wrappedNode.setVisible(true);
         affineTransform.setToTransform(new Translate(Math.min(dragStartX, currentDragPosX) + Math.abs(currentDragPosX - dragStartX) / 2, Math.min(dragStartY, currentDragPosY) + Math.abs(currentDragPosY - dragStartY) / 2));
         radiusX.set(Math.abs(currentDragPosX - dragStartX) / 2);
         radiusY.set(Math.abs(currentDragPosY - dragStartY) / 2);

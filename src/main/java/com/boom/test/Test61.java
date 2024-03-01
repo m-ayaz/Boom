@@ -113,7 +113,7 @@ public class Test61 extends Application {
         ellipse2.backgroundStyle.setStrokeWidth(a);
 
 
-        container.getChildren().addAll(rectangle.styleableNode, rectangle1.styleableNode, rectangle2.styleableNode, ellipse.styleableNode, ellipse1.styleableNode, ellipse2.styleableNode);
+        container.getChildren().addAll(rectangle.wrappedNode, rectangle1.wrappedNode, rectangle2.wrappedNode, ellipse.wrappedNode, ellipse1.wrappedNode, ellipse2.wrappedNode);
 
         print("\n\t<defs>" +
                 rectangle.backgroundStyle.fillsToSVG(2) +

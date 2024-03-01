@@ -28,25 +28,19 @@ public abstract class AppNode implements JSONSerializable, SVGSerializable , TeX
     public final Affine affineTransform = new Affine();
     public CSSProperty backgroundStyle;
     public Rectangle border = new Rectangle();
-    public Node styleableNode;
+    public Node wrappedNode;
     protected String type;
     public Bounds bounds;
     protected int configStep = 0;
 
-
-//    public AppNode clone() throws CloneNotSupportedException {
-//        AppNode clone = (AppNode) super.clone();
-//        return null;
-//    }
-
-    public AppNode(Node styleableNode, String fillColorFX, String strokeColorFX, String strokeWidthFX) {
-        this.styleableNode = styleableNode;
+    public AppNode(Node wrappedNode, String fillColorFX, String strokeColorFX, String strokeWidthFX) {
+        this.wrappedNode = wrappedNode;
         backgroundStyle = new CSSProperty(fillColorFX, strokeColorFX, strokeWidthFX);
 
-        styleableNode.getTransforms().add(affineTransform);
-        styleableNode.styleProperty().bind(backgroundStyle);
+        wrappedNode.getTransforms().add(affineTransform);
+        wrappedNode.styleProperty().bind(backgroundStyle);
 
-        bounds = styleableNode.getBoundsInParent();
+        bounds = wrappedNode.getBoundsInParent();
 
 //        LineChart l;
 //        l.getXAxis().set;
@@ -91,7 +85,7 @@ public abstract class AppNode implements JSONSerializable, SVGSerializable , TeX
     }
 
     public void hide() {
-        styleableNode.setVisible(false);
+        wrappedNode.setVisible(false);
     }
 
     protected void bindBorder(Node binder) {
@@ -112,10 +106,6 @@ public abstract class AppNode implements JSONSerializable, SVGSerializable , TeX
             border.setHeight(c.getHeight());
         });
     }
-
-//    protected void modifyType(String newType) {
-//        this.type = newType;
-//    }
 
 
 }

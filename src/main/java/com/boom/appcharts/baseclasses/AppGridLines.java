@@ -56,28 +56,24 @@ public class AppGridLines extends Pane implements JSONSerializable, SVGSerializa
 
         if (xGridLinesVisible.get()) {
             stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<!-- X grid lines -->");
-            xGridLines.getChildren().forEach(line -> {
-                stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke=\"%s\" stroke-width=\"%f\" stroke-dasharray=\"%s\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(
-                        ((Line) line).getStartX(), ((Line) line).getStartY(), ((Line) line).getEndX(), ((Line) line).getEndY(),
-                        color.get().toString().replace("0x", "#"),
-                        ((Line) line).getStrokeWidth(), xGridLinesStrokeDashArray.stream().map(Object::toString).collect(Collectors.joining(" ")),
-                        affineTransform.getTx(), affineTransform.getTy(),
-                        dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]
-                ));
-            });
+            xGridLines.getChildren().forEach(line -> stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke=\"%s\" stroke-width=\"%f\" stroke-dasharray=\"%s\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(
+                    ((Line) line).getStartX(), ((Line) line).getStartY(), ((Line) line).getEndX(), ((Line) line).getEndY(),
+                    color.get().toString().replace("0x", "#"),
+                    ((Line) line).getStrokeWidth(), xGridLinesStrokeDashArray.stream().map(Object::toString).collect(Collectors.joining(" ")),
+                    affineTransform.getTx(), affineTransform.getTy(),
+                    dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]
+            )));
         }
 
         if (yGridLinesVisible.get()) {
             stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<!-- Y grid lines -->");
-            yGridLines.getChildren().forEach(line -> {
-                stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke=\"%s\" stroke-width=\"%f\" stroke-dasharray=\"%s\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(
-                        ((Line) line).getStartX(), ((Line) line).getStartY(), ((Line) line).getEndX(), ((Line) line).getEndY(),
-                        color.get().toString().replace("0x", "#"),
-                        ((Line) line).getStrokeWidth(), yGridLinesStrokeDashArray.stream().map(Object::toString).collect(Collectors.joining(" ")),
-                        affineTransform.getTx(), affineTransform.getTy(),
-                        dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]
-                ));
-            });
+            yGridLines.getChildren().forEach(line -> stringBuilder.append("\n").append("\t".repeat(tabIndent)).append("<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" stroke=\"%s\" stroke-width=\"%f\" stroke-dasharray=\"%s\" transform=\"translate(%f,%f) rotate(%f) scale(%f,%f) rotate(%f)\"/>".formatted(
+                    ((Line) line).getStartX(), ((Line) line).getStartY(), ((Line) line).getEndX(), ((Line) line).getEndY(),
+                    color.get().toString().replace("0x", "#"),
+                    ((Line) line).getStrokeWidth(), yGridLinesStrokeDashArray.stream().map(Object::toString).collect(Collectors.joining(" ")),
+                    affineTransform.getTx(), affineTransform.getTy(),
+                    dissectedTransform[0], dissectedTransform[1], dissectedTransform[2], dissectedTransform[3]
+            )));
         }
 
 

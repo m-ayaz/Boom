@@ -21,12 +21,6 @@ module com.boom.Boom {
     exports com.boom.test;
     exports com.boom.exceptions;
     opens com.boom.exceptions to javafx.fxml;
-//    opens com.boom.appcharts.number_number to javafx.fxml;
-//    exports com.boom.appcharts.number_number;
-//    opens com.boom.appcharts.string_number to javafx.fxml;
-//    exports com.boom.appcharts.string_number;
-//    opens com.boom.appcharts.number_string to javafx.fxml;
-//    exports com.boom.appcharts.number_string;
     opens com.boom.styles to javafx.fxml;
     exports com.boom.styles;
     exports com.boom.apppaints;
@@ -45,6 +39,7 @@ module com.boom.Boom {
     opens com.boom to javafx.fxml;
     exports com.boom.appcharts.baseclasses;
     opens com.boom.appcharts.baseclasses to javafx.fxml;
-
+    opens com.boom.test.panels to javafx.fxml;
+    exports com.boom.test.panels;
 }
  

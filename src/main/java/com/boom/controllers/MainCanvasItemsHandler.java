@@ -131,15 +131,15 @@ this.littleAppAxisChartWrapperOnCursor=littleAppAxisChartWrapperOnCursor;
 
 //        print(mainCanvasChildren);
         mainCanvasChildren.addAll(
-                tempRectangle.styleableNode,
-                tempEllipse.styleableNode,
-                tempPolyline.styleableNode,
-                tempPolygon.styleableNode,
-                tempArc.styleableNode,
-                tempLine.styleableNode,
-                tempQuadCurve.styleableNode,
-                tempCubicCurve.styleableNode,
-                tempAppAxisChartWrapper.styleableNode,
+                tempRectangle.wrappedNode,
+                tempEllipse.wrappedNode,
+                tempPolyline.wrappedNode,
+                tempPolygon.wrappedNode,
+                tempArc.wrappedNode,
+                tempLine.wrappedNode,
+                tempQuadCurve.wrappedNode,
+                tempCubicCurve.wrappedNode,
+                tempAppAxisChartWrapper.wrappedNode,
 //                tempLineChart_NN.styleableNode,
 //                tempLineChart_SN.styleableNode,
 //                tempLineChart_NS.styleableNode,
@@ -191,7 +191,7 @@ this.littleAppAxisChartWrapperOnCursor=littleAppAxisChartWrapperOnCursor;
 //    }
 
     public void addToMainCanvas(AppNode appNode) {
-        mainCanvasChildren.add(validObjects.size(), appNode.styleableNode);
+        mainCanvasChildren.add(validObjects.size(), appNode.wrappedNode);
         mainCanvasChildren.add(validObjects.size() * 2 + 1, appNode.border);
         validObjects.add(appNode);
     }
@@ -231,7 +231,7 @@ this.littleAppAxisChartWrapperOnCursor=littleAppAxisChartWrapperOnCursor;
     }
 
     public void removeSelectedObjectsFromMainCanvas() {
-        selectedObjectsController.getBuffer().forEach(obj -> mainCanvasChildren.remove(obj.styleableNode));
+        selectedObjectsController.getBuffer().forEach(obj -> mainCanvasChildren.remove(obj.wrappedNode));
         selectedObjectsController.getBuffer().forEach(obj -> mainCanvasChildren.remove(obj.border));
         selectedObjectsController.getBuffer().forEach(obj -> validObjects.remove(obj));
         selectedObjectsController.unselectAll();

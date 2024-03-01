@@ -61,6 +61,12 @@ public abstract class App2DChart extends Pane {
 
     public abstract void addSeries(int seriesIndex, AppSeries appSeries);
 
+    public abstract void addData(int seriesIndex,int dataIndex,double[] data);
+
+    public void addData(int seriesIndex,double[] data){
+        addData(seriesIndex,seriesList.get(seriesIndex).getDataListSize(),data);
+    }
+
     public final StringProperty getAppLegendStyleProperty() {
         return legendRegion.styleProperty();
     }
@@ -77,6 +83,8 @@ public abstract class App2DChart extends Pane {
 
 
     public abstract void removeSeries(int seriesIndex);
+
+    public abstract void removeData(int seriesIndex,int dataIndex);
 
     protected final void updateAllSeriesPreviewsAtChart() {
         seriesList.forEach(this::updateSeriesPreviewAtChart);

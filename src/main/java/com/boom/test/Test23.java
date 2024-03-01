@@ -50,8 +50,8 @@ public class Test23 extends Application {
 
 //        Line line=new Line(0,0,200,200);
 
-        container.getChildren().addAll(appRectangle.styleableNode,
-                appRectangle1.styleableNode, appEllipse.styleableNode, appLine.styleableNode);
+        container.getChildren().addAll(appRectangle.wrappedNode,
+                appRectangle1.wrappedNode, appEllipse.wrappedNode, appLine.wrappedNode);
 
         appRectangle.backgroundStyle.removeAllFills();
         appRectangle1.backgroundStyle.removeAllFills();

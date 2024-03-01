@@ -66,8 +66,8 @@ public class Test57 extends Application {
 
 
 
-        container.getChildren().addAll(appRGBAColorPicker,appRectangle.styleableNode);
-        appRectangle.styleableNode.setTranslateX(300);
+        container.getChildren().addAll(appRGBAColorPicker,appRectangle.wrappedNode);
+        appRectangle.wrappedNode.setTranslateX(300);
 
 //        RGBAFieldIndicator rgbaFieldIndicator=new RGBAFieldIndicator(20,100,10);
 //        container.getChildren().addAll(rgbaFieldIndicator);

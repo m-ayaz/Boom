@@ -2,12 +2,8 @@ package com.boom.test;
 
 import com.boom.appshapes.AppRectangle;
 import javafx.application.Application;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 
 import java.util.Random;
@@ -42,12 +38,12 @@ public class Test78 extends Application {
 //        pane.getChildren().add(appRectangle4.styleableNode);
 //        pane1.getChildren().add(pane);
         BorderPane borderPane=new BorderPane();
-        borderPane.setCenter(appRectangle4.styleableNode);
+        borderPane.setCenter(appRectangle4.wrappedNode);
 
 
 
-        container.addRow(0,appRectangle1.styleableNode,appRectangle2.styleableNode);
-        container.addRow(1,appRectangle3.styleableNode,borderPane);
+        container.addRow(0,appRectangle1.wrappedNode,appRectangle2.wrappedNode);
+        container.addRow(1,appRectangle3.wrappedNode,borderPane);
 
 
 //        BorderPane

@@ -111,7 +111,7 @@ public  class AppArc extends AppAreaShape {
 
     @Override
     public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
-        styleableNode.setVisible(true);
+        wrappedNode.setVisible(true);
         affineTransform.setToTransform(new Translate(
                 Math.min(dragStartX, currentDragPosX) + Math.abs(currentDragPosX - dragStartX) / 2,
                 Math.min(dragStartY, currentDragPosY) + Math.abs(currentDragPosY - dragStartY) / 2)

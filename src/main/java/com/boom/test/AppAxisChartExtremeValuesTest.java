@@ -42,22 +42,22 @@ public class AppAxisChartExtremeValuesTest extends Application {
 
         for(int i=0;i<5;i++){
             print("______________________________________ i = "+i);
-            print("MinX = %f , maxX = %f".formatted(appAxisChart.globalMinX.get(),appAxisChart.globalMaxX.get()));
-            print("MinY = %f , maxY = %f".formatted(appAxisChart.globalMinY.get(),appAxisChart.globalMaxY.get()));
-            print(appAxisChart.xAxisRegion.ticks.keySet().stream().sorted().toList());
-            print(appAxisChart.yAxisRegion.ticks.keySet().stream().sorted().toList());
+//            print("MinX = %f , maxX = %f".formatted(appAxisChart.globalMinX.get(),appAxisChart.globalMaxX.get()));
+//            print("MinY = %f , maxY = %f".formatted(appAxisChart.globalMinY.get(),appAxisChart.globalMaxY.get()));
+//            print(appAxisChart.xAxisRegion.ticks.keySet().stream().sorted().toList());
+//            print(appAxisChart.yAxisRegion.ticks.keySet().stream().sorted().toList());
             newX1=Math.random();
             newY1=Math.random();
             newX2=Math.random();
             newY2=Math.random();
             print("(%f,%f) is being added...".formatted(newX1,newY1));
             print("(%f,%f) is being added...".formatted(newX2,newY2));
-            appSeries1.dataList.add(new double[]{newX1,newY1});
-            appSeries2.dataList.add(new double[]{newX2,newY2});
-            print("MinX = %f , maxX = %f".formatted(appAxisChart.globalMinX.get(),appAxisChart.globalMaxX.get()));
-            print("MinY = %f , maxY = %f".formatted(appAxisChart.globalMinY.get(),appAxisChart.globalMaxY.get()));
-            print(appAxisChart.xAxisRegion.ticks.keySet().stream().sorted().toList());
-            print(appAxisChart.yAxisRegion.ticks.keySet().stream().sorted().toList());
+            appSeries1.addData(newX1,newY1);
+            appSeries2.addData(newX2,newY2);
+//            print("MinX = %f , maxX = %f".formatted(appAxisChart.globalMinX.get(),appAxisChart.globalMaxX.get()));
+//            print("MinY = %f , maxY = %f".formatted(appAxisChart.globalMinY.get(),appAxisChart.globalMaxY.get()));
+//            print(appAxisChart.xAxisRegion.ticks.keySet().stream().sorted().toList());
+//            print(appAxisChart.yAxisRegion.ticks.keySet().stream().sorted().toList());
         }
 
 
@@ -65,20 +65,20 @@ public class AppAxisChartExtremeValuesTest extends Application {
 
         for(int i=0;i<3;i++){
             print("______________________________________ i = "+i);
-            print("MinX = %f , maxX = %f".formatted(appAxisChart.globalMinX.get(),appAxisChart.globalMaxX.get()));
-            print("MinY = %f , maxY = %f".formatted(appAxisChart.globalMinY.get(),appAxisChart.globalMaxY.get()));
-            print(appAxisChart.xAxisRegion.ticks.keySet().stream().sorted().toList());
-            print(appAxisChart.yAxisRegion.ticks.keySet().stream().sorted().toList());
+//            print("MinX = %f , maxX = %f".formatted(appAxisChart.globalMinX.get(),appAxisChart.globalMaxX.get()));
+//            print("MinY = %f , maxY = %f".formatted(appAxisChart.globalMinY.get(),appAxisChart.globalMaxY.get()));
+//            print(appAxisChart.xAxisRegion.ticks.keySet().stream().sorted().toList());
+//            print(appAxisChart.yAxisRegion.ticks.keySet().stream().sorted().toList());
 //            print(appAxisChart.appGridLines.xGridLinesStrokeDashArray);
 //            print(appAxisChart.appGridLines.yGridLinesStrokeDashArray);
-            appSeries1.dataList.remove(0);
-            appSeries2.dataList.remove(0);
+            appSeries1.removeData(0);
+            appSeries2.removeData(0);
 //            print(appSeries1.dataList);
 //            print(appSeries2.dataList);
-            print("MinX = %f , maxX = %f".formatted(appAxisChart.globalMinX.get(),appAxisChart.globalMaxX.get()));
-            print("MinY = %f , maxY = %f".formatted(appAxisChart.globalMinY.get(),appAxisChart.globalMaxY.get()));
-            print("X ticks = "+appAxisChart.xAxisRegion.ticks.keySet().stream().sorted().toList());
-            print("Y ticks = "+appAxisChart.yAxisRegion.ticks.keySet().stream().sorted().toList());
+//            print("MinX = %f , maxX = %f".formatted(appAxisChart.globalMinX.get(),appAxisChart.globalMaxX.get()));
+//            print("MinY = %f , maxY = %f".formatted(appAxisChart.globalMinY.get(),appAxisChart.globalMaxY.get()));
+//            print("X ticks = "+appAxisChart.xAxisRegion.ticks.keySet().stream().sorted().toList());
+//            print("Y ticks = "+appAxisChart.yAxisRegion.ticks.keySet().stream().sorted().toList());
 
 //            for (double updatedTick : appAxisChart.getUpdatedTicks(appAxisChart.globalMinX.get(), appAxisChart.globalMaxX.get(), 360, 40, 20)) {
 //                print(updatedTick);

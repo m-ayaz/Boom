@@ -19,14 +19,14 @@ public  class AppCubicCurve extends AppLineShape {
 
     public AppCubicCurve(double startX, double startY, double controlX1, double controlY1, double controlX2, double controlY2, double endX, double endY) {
         super(new CubicCurve(startX, startY, controlX1, controlY1, controlX2, controlY2, endX, endY));
-        this.startX = ((CubicCurve) styleableNode).startXProperty();
-        this.startY = ((CubicCurve) styleableNode).startYProperty();
-        this.controlX1 = ((CubicCurve) styleableNode).controlX1Property();
-        this.controlY1 = ((CubicCurve) styleableNode).controlY1Property();
-        this.controlX2 = ((CubicCurve) styleableNode).controlX2Property();
-        this.controlY2 = ((CubicCurve) styleableNode).controlY2Property();
-        this.endX = ((CubicCurve) styleableNode).endXProperty();
-        this.endY = ((CubicCurve) styleableNode).endYProperty();
+        this.startX = ((CubicCurve) wrappedNode).startXProperty();
+        this.startY = ((CubicCurve) wrappedNode).startYProperty();
+        this.controlX1 = ((CubicCurve) wrappedNode).controlX1Property();
+        this.controlY1 = ((CubicCurve) wrappedNode).controlY1Property();
+        this.controlX2 = ((CubicCurve) wrappedNode).controlX2Property();
+        this.controlY2 = ((CubicCurve) wrappedNode).controlY2Property();
+        this.endX = ((CubicCurve) wrappedNode).endXProperty();
+        this.endY = ((CubicCurve) wrappedNode).endYProperty();
     }
 
     @Override
@@ -68,7 +68,7 @@ public  class AppCubicCurve extends AppLineShape {
 
     @Override
     public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
-        styleableNode.setVisible(true);
+        wrappedNode.setVisible(true);
         startX.set(dragStartX);
         startY.set(dragStartY);
         controlX1.set(dragStartX / 3 * 2 + currentDragPosX / 3);

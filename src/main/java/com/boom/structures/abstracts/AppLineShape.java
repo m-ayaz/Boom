@@ -9,7 +9,7 @@ public abstract  class AppLineShape extends AppNode {
 
     @Override
     public boolean contains(double x,double y){
-        return styleableNode.contains(styleableNode.parentToLocal(x,y));
+        return wrappedNode.contains(wrappedNode.parentToLocal(x,y));
     }
 
     public AppLineShape(Shape shape) {

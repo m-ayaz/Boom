@@ -25,7 +25,7 @@ public abstract   class AppAreaShape extends AppNode {
         shape.getTransforms().add(affineTransform);
 
         shape.boundsInLocalProperty().addListener((a, b, c) -> {
-            setCustomSize((Region) styleableNode, c.getWidth(), c.getHeight());
+            setCustomSize((Region) wrappedNode, c.getWidth(), c.getHeight());
             offset.setX(c.getMinX());
             offset.setY(c.getMinY());
         });
@@ -39,18 +39,18 @@ public abstract   class AppAreaShape extends AppNode {
         shape.setStroke(Color.TRANSPARENT);
         shape.setStrokeWidth(0);
 
-        styleableNode.getTransforms().add(offset);
+        wrappedNode.getTransforms().add(offset);
 
         shape.setMouseTransparent(true);
 
-        ((Region) styleableNode).setShape(shape);
+        ((Region) wrappedNode).setShape(shape);
 
 
     }
 
     @Override
     public boolean contains(double x,double y){
-        return styleableNode.contains(styleableNode.parentToLocal(x,y))&& shape.contains(shape.parentToLocal(x,y));
+        return wrappedNode.contains(wrappedNode.parentToLocal(x,y))&& shape.contains(shape.parentToLocal(x,y));
     }
 
 }

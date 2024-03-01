@@ -4,7 +4,7 @@ public enum AppExceptionEnum {
 
     AppNodeNotRegistered(0),
     UnexpectedError(1),
-    InvalidXYAxisType(2),
+    NotRegisteredYet(2),
     UnknownFileExtension(3),
     ChartTypeNotRegistered(4),
     SoftwareArchNeedsUpdate(5)

@@ -116,19 +116,19 @@ public class SelectedObjectsController {
             minY.set(buffer.stream().mapToDouble(obj1 -> obj1.border.getY()).min().orElse(Double.POSITIVE_INFINITY));
             maxY.set(buffer.stream().mapToDouble(obj1 -> obj1.border.getY() + obj1.border.getHeight()).max().orElse(Double.NEGATIVE_INFINITY));
 
-            buffer.forEach(obj -> obj.styleableNode.boundsInParentProperty().addListener((_1, oldVal, newVal) -> {
+            buffer.forEach(obj -> obj.wrappedNode.boundsInParentProperty().addListener((_1, oldVal, newVal) -> {
                 minX.set(buffer.stream().mapToDouble(obj1 -> obj1.border.getX()).min().orElse(Double.POSITIVE_INFINITY));
                 maxX.set(buffer.stream().mapToDouble(obj1 -> obj1.border.getX() + obj1.border.getWidth()).max().orElse(Double.NEGATIVE_INFINITY));
                 minY.set(buffer.stream().mapToDouble(obj1 -> obj1.border.getY()).min().orElse(Double.POSITIVE_INFINITY));
                 maxY.set(buffer.stream().mapToDouble(obj1 -> obj1.border.getY() + obj1.border.getHeight()).max().orElse(Double.NEGATIVE_INFINITY));
             }));
 
-            buffer.forEach(obj -> obj.styleableNode.setOnMousePressed(mouseEvent -> {
+            buffer.forEach(obj -> obj.wrappedNode.setOnMousePressed(mouseEvent -> {
                 currentPosX = mouseEvent.getSceneX();
                 currentPosY = mouseEvent.getSceneY();
             }));
 
-            buffer.forEach(obj -> obj.styleableNode.setOnMouseDragged(mouseEvent -> {
+            buffer.forEach(obj -> obj.wrappedNode.setOnMouseDragged(mouseEvent -> {
                 previousPosX = currentPosX;
                 previousPosY = currentPosY;
                 currentPosX = mouseEvent.getSceneX();
@@ -142,7 +142,7 @@ public class SelectedObjectsController {
                 updateFixedPointPosition(rotationFixedPoint);
             }));
 
-            buffer.forEach(obj -> obj.styleableNode.setOnMouseReleased(mouseEvent -> {
+            buffer.forEach(obj -> obj.wrappedNode.setOnMouseReleased(mouseEvent -> {
                 rotationIcon.setVisible(true);
                 updateFixedPointPosition(rotationFixedPoint);
             }));

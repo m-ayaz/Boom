@@ -40,7 +40,7 @@ public class AppRectangle extends AppAreaShape {
 
     @Override
     public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
-        styleableNode.setVisible(true);
+        wrappedNode.setVisible(true);
         affineTransform.setToTransform(new Translate(Math.min(dragStartX, currentDragPosX), Math.min(dragStartY, currentDragPosY)));
         width.set(Math.abs(currentDragPosX - dragStartX));
         height.set(Math.abs(currentDragPosY - dragStartY));

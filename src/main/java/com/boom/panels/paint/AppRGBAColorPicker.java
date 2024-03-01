@@ -105,12 +105,12 @@ public  class AppRGBAColorPicker extends Pane {
         alphaIndicator.setTranslateY(RGBA_COLOR_PICKER_BIT_LENGTH_TOP_MARGIN + 7 * RGBA_COLOR_PICKER_BIT_LENGTH * NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_Y / 2 + RGBA_COLOR_PICKER_BIT_LENGTH_MIDDLE_MARGIN * 3);
 
 
-        getChildren().addAll(redChanger.styleableNode, greenChanger.styleableNode, blueChanger.styleableNode, opacityChessboard, alphaChanger.styleableNode, redIndicator, greenIndicator, blueIndicator, alphaIndicator);
+        getChildren().addAll(redChanger.wrappedNode, greenChanger.wrappedNode, blueChanger.wrappedNode, opacityChessboard, alphaChanger.wrappedNode, redIndicator, greenIndicator, blueIndicator, alphaIndicator);
 
-        redChanger.styleableNode.setOnMouseMoved(mouseEvent -> red.set(redChanger.styleableNode.sceneToLocal(mouseEvent.getSceneX(), mouseEvent.getSceneY()).getX() / RGBA_COLOR_PICKER_BIT_LENGTH / NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X));
-        greenChanger.styleableNode.setOnMouseMoved(mouseEvent -> green.set(greenChanger.styleableNode.sceneToLocal(mouseEvent.getSceneX(), mouseEvent.getSceneY()).getX() / RGBA_COLOR_PICKER_BIT_LENGTH / NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X));
-        blueChanger.styleableNode.setOnMouseMoved(mouseEvent -> blue.set(blueChanger.styleableNode.sceneToLocal(mouseEvent.getSceneX(), mouseEvent.getSceneY()).getX() / RGBA_COLOR_PICKER_BIT_LENGTH / NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X));
-        alphaChanger.styleableNode.setOnMouseMoved(mouseEvent -> alpha.set(alphaChanger.styleableNode.sceneToLocal(mouseEvent.getSceneX(), mouseEvent.getSceneY()).getX() / RGBA_COLOR_PICKER_BIT_LENGTH / NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X));
+        redChanger.wrappedNode.setOnMouseMoved(mouseEvent -> red.set(redChanger.wrappedNode.sceneToLocal(mouseEvent.getSceneX(), mouseEvent.getSceneY()).getX() / RGBA_COLOR_PICKER_BIT_LENGTH / NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X));
+        greenChanger.wrappedNode.setOnMouseMoved(mouseEvent -> green.set(greenChanger.wrappedNode.sceneToLocal(mouseEvent.getSceneX(), mouseEvent.getSceneY()).getX() / RGBA_COLOR_PICKER_BIT_LENGTH / NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X));
+        blueChanger.wrappedNode.setOnMouseMoved(mouseEvent -> blue.set(blueChanger.wrappedNode.sceneToLocal(mouseEvent.getSceneX(), mouseEvent.getSceneY()).getX() / RGBA_COLOR_PICKER_BIT_LENGTH / NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X));
+        alphaChanger.wrappedNode.setOnMouseMoved(mouseEvent -> alpha.set(alphaChanger.wrappedNode.sceneToLocal(mouseEvent.getSceneX(), mouseEvent.getSceneY()).getX() / RGBA_COLOR_PICKER_BIT_LENGTH / NUMBER_OF_RGBA_COLOR_PICKER_BITS_PER_X));
 
         initialize(RGBA_COLOR_PICKER_BIT_LENGTH_TOP_MARGIN);
 

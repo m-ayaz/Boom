@@ -26,7 +26,7 @@ public  class AppPolygon extends AppAreaShape {
 
     @Override
     public void configureOnMouseEvent(MouseEvent mouseEvent, MainCanvasItemsHandler mainCanvasItemsHandler, SelectedObjectsController selectedObjectsController, double moveX, double moveY, double dragX, double dragY, double pressX, double pressY, double releaseX, double releaseY, double clickX, double clickY, double x, double y) {
-        styleableNode.setVisible(true);
+        wrappedNode.setVisible(true);
         if (points.size()<=2){
             points.setAll(x,y);
         }
@@ -61,7 +61,7 @@ public  class AppPolygon extends AppAreaShape {
 
     @Override
     public void draw(double dragStartX, double dragStartY, double currentDragPosX, double currentDragPosY) {
-        styleableNode.setVisible(true);
+        wrappedNode.setVisible(true);
         points.setAll(dragStartX,dragStartY,  currentDragPosX,  currentDragPosY);
     }
 

@@ -26,7 +26,10 @@ public  class LittleAppAxisChartWrapperOnCursor extends AppAxisChart implements 
 
 //        print(uuid(50));
 
-        appSeries.dataList.addAll(new double[]{1,4},new double[]{2,1},new double[]{3,3},new double[]{4,2});
+        appSeries.addData(1,4);
+        appSeries.addData(2,1);
+        appSeries.addData(3,3);
+        appSeries.addData(4,2);
 //        add
 //        setRadiusX(10);
 //        setRadiusY(5);

@@ -7,14 +7,12 @@ import com.boom.structures.interfaces.TeXSerializable;
 import com.boom.styles.CSSProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextBoundsType;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.MatrixType;
 import javafx.scene.transform.Translate;
@@ -75,8 +73,8 @@ public class AppLegendRegion extends GridPane implements JSONSerializable, SVGSe
         appSeriesVisualLegends.add(seriesIndex,appSeriesVisualLegend);
         appSeriesTitles.add(seriesIndex,appSeriesTitle);
         print("al;sla;sla;sl;als;als;als;as");
-        container.addRow(seriesIndex, appSeriesVisualLegend.get().styleableNode, newEmptySpace, appSeriesTitle);
-        appSeriesVisualLegend.addListener((a,b,c)-> container.getChildren().set(3*seriesIndex, c.styleableNode));
+        container.addRow(seriesIndex, appSeriesVisualLegend.get().wrappedNode, newEmptySpace, appSeriesTitle);
+        appSeriesVisualLegend.addListener((a,b,c)-> container.getChildren().set(3*seriesIndex, c.wrappedNode));
     }
 
     public void removeSeries(int seriesIndex) {
@@ -124,13 +122,13 @@ public class AppLegendRegion extends GridPane implements JSONSerializable, SVGSe
             AppNode appNode = appSeriesVisualLegends.get(i).get();
             AppNode appNodeCopy = appSeriesVisualLegendsCopy.get(i);
             appNodeCopy.affineTransform.prependTranslation(
-                    nw.getWidth() + appNode.styleableNode.getBoundsInParent().getMinX(),
-                    nw.getHeight() + appNode.styleableNode.getBoundsInParent().getMinY()
+                    nw.getWidth() + appNode.wrappedNode.getBoundsInParent().getMinX(),
+                    nw.getHeight() + appNode.wrappedNode.getBoundsInParent().getMinY()
             );
             appNodeCopy.affineTransform.prepend(affineTransform);
             stringBuilder.append(appNodeCopy.toSVG(tabIndent));
 
-            print("<!-- "+appNodeCopy.styleableNode.getBoundsInParent()+" -->");
+            print("<!-- "+appNodeCopy.wrappedNode.getBoundsInParent()+" -->");
 
         }
 

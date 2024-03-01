@@ -72,7 +72,7 @@ public class AppAxisChartTest extends Application {
 
             for (int i = 0; i < 1; i++) {
                 print("___________");
-                appSeries1.addData(Math.random()*0+i,Math.random());
+                appSeries1.addData(Math.random() * 0 + i, Math.random());
 //                appSeries2.addData(Math.random()*0+i,Math.random());
             }
 
