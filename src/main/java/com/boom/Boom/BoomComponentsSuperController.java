@@ -22,6 +22,7 @@ import com.boom.controllers.eventhandlers.mousehandler.MainCanvasMouseHandler;
 import com.boom.exceptions.AppException;
 import com.boom.icons.*;
 import com.boom.indicators.*;
+import com.boom.panels.chart.ChartManagementPanel;
 import com.boom.panels.paint.PaintManagementPanel;
 import com.boom.structures.abstracts.AppNode;
 import com.boom.structures.enums.AppExceptionEnum;
@@ -282,30 +283,38 @@ public class BoomComponentsSuperController {
 //                ,pngExtension, bmpExtension
         );
 
+        chartTabContainer.setContent(chartManagementPanel);
+
         print("Done initialization!");
 
+        AppAxisChartWrapper appAxisChartWrapper=new AppAxisChartWrapper(200,200);
 
-        AppLinearGradient appLinearGradient = new AppLinearGradient(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
-                new Stop(0, new Color(1, 0, 0, 1)), new Stop(1, new Color(0, 0, 1, 1))));
+        mainCanvasItemsHandler.addToMainCanvas(appAxisChartWrapper);
 
-        AppRectangle appRectangle = new AppRectangle(200, 200, 0, 0);
-        appRectangle.backgroundStyle.addFill(appLinearGradient);
-        AppEllipse appEllipse = new AppEllipse(200, 200);
-        appEllipse.backgroundStyle.addFill(new AppRadialGradient(new RadialGradient(0, 1, 0.5, 0.5, 0.5, true, CycleMethod.NO_CYCLE,
-                new Stop(1, new Color(0, 1, 0, 1)), new Stop(0, new Color(1, 1, 0, 1)))));
+        appAxisChartWrapper.affineTransform.prependTranslation(100,100);
 
 
-        appRectangle.affineTransform.prependTranslation(400, 200);
-        appEllipse.affineTransform.prependTranslation(200, 200);
-
-        Random random = new Random();
-
-        appRectangle.affineTransform.prependScale(random.nextDouble() + 1, random.nextDouble() + 1);
-        appEllipse.affineTransform.prependScale(random.nextDouble() + 1, random.nextDouble() + 1);
-        appEllipse.affineTransform.prependRotation(random.nextDouble() * 45);
-
-        mainCanvasItemsHandler.addToMainCanvas(appRectangle);
-        mainCanvasItemsHandler.addToMainCanvas(appEllipse);
+//        AppLinearGradient appLinearGradient = new AppLinearGradient(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
+//                new Stop(0, new Color(1, 0, 0, 1)), new Stop(1, new Color(0, 0, 1, 1))));
+//
+//        AppRectangle appRectangle = new AppRectangle(200, 200, 0, 0);
+//        appRectangle.backgroundStyle.addFill(appLinearGradient);
+//        AppEllipse appEllipse = new AppEllipse(200, 200);
+//        appEllipse.backgroundStyle.addFill(new AppRadialGradient(new RadialGradient(0, 1, 0.5, 0.5, 0.5, true, CycleMethod.NO_CYCLE,
+//                new Stop(1, new Color(0, 1, 0, 1)), new Stop(0, new Color(1, 1, 0, 1)))));
+//
+//
+//        appRectangle.affineTransform.prependTranslation(400, 200);
+//        appEllipse.affineTransform.prependTranslation(200, 200);
+//
+//        Random random = new Random();
+//
+//        appRectangle.affineTransform.prependScale(random.nextDouble() + 1, random.nextDouble() + 1);
+//        appEllipse.affineTransform.prependScale(random.nextDouble() + 1, random.nextDouble() + 1);
+//        appEllipse.affineTransform.prependRotation(random.nextDouble() * 45);
+//
+//        mainCanvasItemsHandler.addToMainCanvas(appRectangle);
+//        mainCanvasItemsHandler.addToMainCanvas(appEllipse);
 
     }
 
@@ -607,101 +616,22 @@ public class BoomComponentsSuperController {
                     case "AppAxisChartWrapper" -> {
                         objectProp1Label.setText("Start (X)");
                         objectProp2Label.setText("Start (Y)");
-                        print(uuid(100));
                         try {
-//                        chartManagementPanel_NN.registerChart((AppXYChart<Number, Number>) selectedShape);
+                            chartManagementPanel.registerChart((AppAxisChartWrapper) selectedShape);
                         } catch (Exception e) {
                             print(e);
-//                        throw new RuntimeException(e);
                         }
-
-
-//                    chartTabContainer.getContent()..clear();
-//                    chartTabContainer.setContent(chartManagementPanel_NN);
                         chartTabContainer.setVisible(true);
-//                    objectProp1Input.setText("" + ((AppLineChart_NumberNumber) selectedShape).getStartX());
-//                    objectProp2Input.setText("" + ((AppLine) selectedShape).getStartY());
                     }
-//                else if (selectedShape.getType().equals(AppNodeTypeEnum.LineChart_NN.getNodeType()) ||
-//                        selectedShape.getType().equals(AppNodeTypeEnum.AreaChart_NN.getNodeType()) ||
-//                        selectedShape.getType().equals(AppNodeTypeEnum.ScatterChart_NN.getNodeType())) {
-//                    objectProp1Label.setText("Start (X)");
-//                    objectProp2Label.setText("Start (Y)");
-//                    print(uuid(100));
-//                    try {
-//                        chartManagementPanel_NN.registerChart((AppXYChart<Number, Number>) selectedShape);
-//                    } catch (Exception e) {
-//                        print(e);
-////                        throw new RuntimeException(e);
-//                    }
-//
-//
-////                    chartTabContainer.getContent()..clear();
-//                    chartTabContainer.setContent(chartManagementPanel_NN);
-//                    chartTabContainer.setVisible(true);
-////                    objectProp1Input.setText("" + ((AppLineChart_NumberNumber) selectedShape).getStartX());
-////                    objectProp2Input.setText("" + ((AppLine) selectedShape).getStartY());
-//                } else if (selectedShape.getType().equals(AppNodeTypeEnum.LineChart_NS.getNodeType()) ||
-//                        selectedShape.getType().equals(AppNodeTypeEnum.AreaChart_NS.getNodeType()) ||
-//                        selectedShape.getType().equals(AppNodeTypeEnum.ScatterChart_NS.getNodeType()) ||
-//                        selectedShape.getType().equals(AppNodeTypeEnum.BarChart_NS.getNodeType())) {
-//                    objectProp1Label.setText("Start (X)");
-//                    objectProp2Label.setText("Start (Y)");
-//                    try {
-//                        chartManagementPanel_NS.registerChart((AppXYChart<Number, String>) selectedShape);
-//                    } catch (Exception e) {
-//                        print(e);
-////                        throw new RuntimeException(e);
-//                    }
-//
-////                    chartTabContainer.getChildren().clear();
-////                    chartTabContainer.getChildren().add(chartManagementPane);
-//                    chartTabContainer.setContent(chartManagementPanel_NS);
-//                    chartTabContainer.setVisible(true);
-////                    objectProp1Input.setText("" + ((AppLineChart_NumberNumber) selectedShape).getStartX());
-////                    objectProp2Input.setText("" + ((AppLine) selectedShape).getStartY());
-//                } else if (selectedShape.getType().equals(AppNodeTypeEnum.LineChart_SN.getNodeType()) ||
-//                        selectedShape.getType().equals(AppNodeTypeEnum.AreaChart_SN.getNodeType()) ||
-//                        selectedShape.getType().equals(AppNodeTypeEnum.ScatterChart_SN.getNodeType()) ||
-//                        selectedShape.getType().equals(AppNodeTypeEnum.BarChart_SN.getNodeType())) {
-//                    objectProp1Label.setText("Start (X)");
-//                    objectProp2Label.setText("Start (Y)");
-//                    try {
-//                        chartManagementPanel_SN.registerChart((AppXYChart<String, Number>) selectedShape);
-//                    } catch (Exception e) {
-//                        print(e);
-////                        throw new RuntimeException(e);
-//                    }
-//
-////                    chartTabContainer.getChildren().clear();
-////                    chartTabContainer.getChildren().add(chartManagementPane_numberNumber);
-//                    chartTabContainer.setContent(chartManagementPanel_SN);
-//                    chartTabContainer.setVisible(true);
-////                    objectProp1Input.setText("" + ((AppLineChart_NumberNumber) selectedShape).getStartX());
-////                    objectProp2Input.setText("" + ((AppLine) selectedShape).getStartY());
-//                }
-//                else if (selectedShape.getClass().getSimpleName().equals(ElementTypes.AppLineChart.getSimpleName())) {
-//                }else if (selectedShape.getClass().getSimpleName().equals(ElementTypes.AppBarChart.getSimpleName())) {
-//                }else if (selectedShape.getClass().getSimpleName().equals(ElementTypes.AppScatterChart.getSimpleName())) {
-//                }else if (selectedShape.getClass().getSimpleName().equals(ElementTypes.AppAreaChart.getSimpleName())) {
-//                }
-
-//                chartDataPane.
 
 
-                    default -> {
-                        print("akslaksl");
-                        chartTabContainer.setVisible(false);
-
-//                chartManagementPanel_NN.setVisible(false);
-//                chartManagementPanel_NS.setVisible(false);
-//                chartManagementPanel_SN.setVisible(false);
-//                paintManagementPanel.setVisible(false);
-                    }
+                    default -> chartTabContainer.setVisible(false);
                 }
             }
         });
     }
+
+    ChartManagementPanel chartManagementPanel=new ChartManagementPanel();
 
     void settleIcons() {
 //        lineChartButton.setGraphic(new LineChartIcon(CHART_BUTTON_WIDTH,CHART_BUTTON_HEIGHT));

@@ -83,6 +83,8 @@ public class AppSeries {
             updateMinY();
             updateMaxX();
             updateMaxY();
+            print("add 3");
+//            print("");
         });
 
 //        todo temp
@@ -119,11 +121,16 @@ public class AppSeries {
      * @param y the y coordinate of the data to be modified.
      */
     public void addData(double x, double y) {
+        print("hey there");
         dataList.add(new double[]{x, y});
+        print("add 1");
         if(!isMarkerShapeNull()) {
             renderedMarkers.getChildren().add(markerShape.get().copy().wrappedNode);
         }
+        print("add 2");
         changeIndicator.set(!changeIndicator.get());
+        print(this);
+        print("bye here");
     }
 
     public double[] getData(int dataIndex) {
@@ -166,7 +173,7 @@ public class AppSeries {
     }
 
     public boolean isMarkerShapeNull() {
-        return markerShape.get().copy() == null;
+        return markerShape.get()== null||markerShape.get().copy() == null;
     }
 
     public boolean isNotEmpty() {

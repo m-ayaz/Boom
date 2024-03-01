@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.boom.tools.Tools.getScientificRepresentation;
+import static com.boom.tools.Tools.print;
 
 // todo: disallow addition of duplicate series or data
 
@@ -135,17 +136,17 @@ public class AppAxisChart extends App2DChart {
     @Override
     public void addSeries(int seriesIndex, AppSeries appSeries) {
         seriesList.add(seriesIndex, appSeries);
-//        appSeries.addListenerToDataList(change -> updateSeriesPreviewAtChart(appSeries));
         appSeries.changeIndicator.addListener((a, b, c) -> {
             globalMinX.set(seriesList.stream().filter(AppSeries::isNotEmpty).mapToDouble(AppSeries::getMinX).min().orElse(0));
+//            print(seriesList.size());
             globalMinY.set(seriesList.stream().filter(AppSeries::isNotEmpty).mapToDouble(AppSeries::getMinY).min().orElse(0));
+//            print(seriesList.size());
             globalMaxX.set(seriesList.stream().filter(AppSeries::isNotEmpty).mapToDouble(AppSeries::getMaxX).max().orElse(1));
+//            print(seriesList.size());
             globalMaxY.set(seriesList.stream().filter(AppSeries::isNotEmpty).mapToDouble(AppSeries::getMaxY).max().orElse(1));
+//            print(seriesList.size());
             updateSeriesPreviewAtChart(appSeries);
         });
-//        appSeries.addListenerToMaxX((a, b, c) -> globalMaxX.set(seriesList.stream().filter(AppSeries::isNotEmpty).mapToDouble(AppSeries::getMaxX).max().orElse(1)));
-//        appSeries.addListenerToMinY((a, b, c) -> globalMinY.set(seriesList.stream().filter(AppSeries::isNotEmpty).mapToDouble(AppSeries::getMinY).min().orElse(0)));
-//        appSeries.addListenerToMaxY((a, b, c) -> globalMaxY.set(seriesList.stream().filter(AppSeries::isNotEmpty).mapToDouble(AppSeries::getMaxY).max().orElse(1)));
         getChildren().add(3 * seriesIndex, appSeries.plotArea.wrappedNode);
         getChildren().add(3 * seriesIndex + 1, appSeries.plotLine.wrappedNode);
         getChildren().add(3 * seriesIndex + 2, appSeries.renderedMarkers);
@@ -238,6 +239,7 @@ public class AppAxisChart extends App2DChart {
     @Override
     protected void updateSeriesPreviewAtChart(AppSeries appSeries) {
 
+        print("yyyyyyyyyyyyyyyyyyyyyyy");
         List<double[]> dataListCopy = appSeries.getSortedCopyOfDataList(appDataComparator);
 
         if (dataListCopy.size() == 0) {
@@ -264,6 +266,8 @@ public class AppAxisChart extends App2DChart {
                 appSeries.renderedMarkers.getChildren().get(i).setTranslateY(previewCoordinatesList.get(i)[1]);
             }
         }
+
+        print("Gooooool");
 
     }
 

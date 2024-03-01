@@ -15,7 +15,9 @@ import javafx.stage.FileChooser;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Arrays;
 
+import static com.boom.tools.Tools.print;
 import static com.boom.tools.Tools.setCustomSize;
 
 public  class SeriesManagementPanel extends VBox {
@@ -127,18 +129,30 @@ public  class SeriesManagementPanel extends VBox {
         loadDataFromFileButton.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files (*.csv)", "*.csv"));
-            String filePath = fileChooser.showOpenDialog(new ContextMenu()).getAbsolutePath();
+//            print("fileChooser = "+fileChooser);
+            String filePath;
+            try {
+                filePath = fileChooser.showOpenDialog(new ContextMenu()).getAbsolutePath();
+            }catch (Exception e){
+                print(e);
+                return;
+            }
+            print("file loaded");
             try {
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
                 appSeries.removeAllData();
                 bufferedReader.lines().forEach(data -> {
                     try {
-                        appSeries.addData(Double.parseDouble(data.split(",")[0]), Double.parseDouble(data.split(",")[1]));
-                    } catch (Exception ignored) {
 
+                        String[] splitData=data.split(",");
+                        print("splitData = "+ Arrays.toString(splitData));
+                        appSeries.addData(Double.parseDouble(splitData[0]), Double.parseDouble(splitData[1]));
+                    } catch (Exception ignored) {
+                        print("Bad data.");
                     }
                 });
             } catch (FileNotFoundException ignored) {
+                print("FileNotFoundException");
             }
         });
     }
